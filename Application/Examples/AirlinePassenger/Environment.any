@@ -95,7 +95,7 @@ AnyFolder Seg = {
     AnyDrawSTL BackRest = {
       FileName = "BackRest.stl";
       RGB = {0, 0, 1};
-      Transparency = 0.2;
+      Opacity = 0.2;
     };
   }; // BackRest        
   
@@ -118,7 +118,7 @@ AnyFolder Seg = {
       AnyDrawSTL Seat = {
         FileName = "Seat.stl";
         RGB = {0, 0, 1};
-        Transparency = 0.2;
+        Opacity = 0.2;
       };
       
     };
@@ -159,7 +159,7 @@ AnyFolder Seg = {
     AnyDrawSTL HeadRest = {
     FileName = "HeadRest.stl";
     RGB = {0, 0, 1};
-    Transparency = 0.4;      
+    Opacity = 0.4;      
     };
     */
   }; // HeadRest
@@ -187,7 +187,7 @@ AnyFolder Seg = {
     AnyDrawSTL LegRest = {
       FileName = "LegRest.stl";       
       RGB = {0, 0, 1};
-      Transparency = 0.2;
+      Opacity = 0.2;
     };
     
   }; // LegRest 
@@ -220,7 +220,7 @@ AnyFolder Seg = {
     AnyDrawSTL DrwSTL = {
       FileName = "FootRest2.stl";
       RGB = {0,0, 1};
-      Transparency = 0.2;
+      Opacity = 0.2;
     };
     
   }; // FootRest    
@@ -259,7 +259,7 @@ AnyFolder Seg = {
 //        AnyDrawSTL DrwSTL = {
 //          FileName = "ArmRest3.stl";
 //          RGB = {0, 0, 1};
-//          Transparency = 0.2;
+//          Opacity = 0.2;
 //        };
 //      };     
 //    }; // ArmRest    
@@ -296,7 +296,7 @@ AnyFolder Seg = {
 //        AnyDrawSTL DrwSTL = {
 //          FileName = "ArmRest3.stl";
 //          RGB = {0, 0, 1};
-//          Transparency = 0.2;
+//          Opacity = 0.2;
 //        };
 //      };     
 //    }; // ArmRest    

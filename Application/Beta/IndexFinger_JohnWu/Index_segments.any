@@ -52,7 +52,7 @@
           AnyDrawSTL DrwSurf = { 
             FileName = "I1_shifted.stl"; 
             ScaleXYZ = {0.95, 1, 1}/1400;
-            Transparency = 1;
+            Opacity = 1;
             RGB = {0.95, 0.75, 0.35};
           };
           AnyDrawNodes Color = 
@@ -72,7 +72,7 @@
             {
               RGB = {0.8, 0.5, 0.5};
               ScaleXYZ = {1, 1, 1};
-              Transparency = 0.3;
+              Opacity = 0.3;
               Face = 100;
               WireFrameOnOff = Off;
             };
@@ -83,12 +83,12 @@
         {
           RGB = {1.0, 0.0, 0.0};
           ScaleXYZ = {0.001, 0.001, 0.001};
-          Transparency = 0.5;
+          Opacity = 0.5;
         };
         AnyDrawSeg DrwSeg = {
           RGB={0,0.7,0};
           //          InertiaScale=0.2;
-          Transparency=0.0;
+          Opacity=0.0;
         };
       }; // Distal_Phlanx
       
@@ -176,7 +176,7 @@
           AnyDrawSTL DrwSurf = { 
             FileName = "I2_shifted.stl"; 
             ScaleXYZ = {0.9, 1, 1}/1400;
-            Transparency = 1;
+            Opacity = 1;
             RGB = {0.95, 0.75, 0.35};
           };
           AnyDrawNodes Color = 
@@ -193,7 +193,7 @@
           {
             RGB = {0.7, 0.65, 0.35};
             ScaleXYZ = {0.9, 1, 1};
-            Transparency = 0.3;
+            Opacity = 0.3;
             Face = 50;
             WireFrameOnOff = Off;
           };
@@ -208,7 +208,7 @@
             {
               RGB = {0.8, 0.5, 0.5};
               ScaleXYZ = {1, 1, 1};
-              Transparency = 0.3;
+              Opacity = 0.3;
               Face = 100;
               WireFrameOnOff = Off;
             };
@@ -224,7 +224,7 @@
             {
               RGB = {0.8, 0.5, 0.5};
               ScaleXYZ = {1, 1, 1};
-              Transparency = 0.3;
+              Opacity = 0.3;
               Face = 100;
               WireFrameOnOff = Off;
             };
@@ -235,12 +235,12 @@
         {
           RGB = {0.5, 0.5, 0.0};
           ScaleXYZ = {0.001, 0.001, 0.001};
-          Transparency = 0.5;
+          Opacity = 0.5;
         };
         AnyDrawSeg DrwSeg = {
           RGB={0,0.5,0};
           InertiaScale=0.2;
-          Transparency=0.0;
+          Opacity=0.0;
         };
         
       }; // Middle_Phalanx
@@ -375,7 +375,7 @@
           AnyDrawSTL DrwSurf = { 
             FileName = "I3_shifted.stl"; 
             ScaleXYZ = {0.90, 1, 1}/1400;
-            Transparency = 1.0;
+            Opacity = 1.0;
             RGB = {0.95, 0.75, 0.35};
           };
           AnyDrawNodes Color = 
@@ -392,7 +392,7 @@
           {
             RGB = {0.95, 0.65, 0.35};
             ScaleXYZ = {1, 1, 1};
-            Transparency = 0.3;
+            Opacity = 0.3;
             Face = 50;
             WireFrameOnOff = Off;
           };
@@ -407,7 +407,7 @@
             {
               RGB = {0.8, 0.5, 0.5};
               ScaleXYZ = {1, 1, 1};
-              Transparency = 0.3;
+              Opacity = 0.3;
               Face = 100;
               WireFrameOnOff = Off;
             };
@@ -422,7 +422,7 @@
             {
               RGB = {0.8, 0.5, 0.5};
               ScaleXYZ = {1, 1, 1};
-              Transparency = 0.3;
+              Opacity = 0.3;
               Face = 100;
               WireFrameOnOff = Off;
             };
@@ -433,13 +433,13 @@
         {
           RGB = {0.7, 0.1, 0.0};
           ScaleXYZ = {0.001, 0.001, 0.001};
-          Transparency = 0.5;
+          Opacity = 0.5;
         };
         
         AnyDrawSeg DrwSeg = {
           RGB={0.3,0.3,0};
           InertiaScale=0.2;
-          Transparency=0.0;
+          Opacity=0.0;
         };
       }; // Proximal_Phalanx
       
