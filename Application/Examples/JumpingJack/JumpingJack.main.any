@@ -292,28 +292,28 @@ Main = {
     AnyKinPLine RightArmString ={
       AnyRefNode &ref1=.RightArm.StringNode;
       AnyRefNode &ref2=.Body.StringNodeTop;
-      AnySeg &ref3=.Handle;   
+      AnyRefFrame &ref3=.Handle;   
       AnyDrawPLine drw={Thickness=0.0015; RGB={1,0,0};};
     };
     
     AnyKinPLine LeftArmString ={
       AnyRefNode &ref1=.LeftArm.StringNode;
       AnyRefNode &ref2=.Body.StringNodeTop;
-      AnySeg &ref3=.Handle;   
+      AnyRefFrame &ref3=.Handle;   
       AnyDrawPLine drw={Thickness=0.0015; RGB={1,0,0};};
     };    
     
     AnyKinPLine RightLegString ={
       AnyRefNode &ref1=.RightLeg.StringNode;
       AnyRefNode &ref2=.Body.StringNodeBottom;
-      AnySeg &ref3=.Handle;   
+      AnyRefFrame &ref3=.Handle;   
       AnyDrawPLine drw={Thickness=0.0015; RGB={1,0,0};};
     };
     
     AnyKinPLine LeftLegString ={
       AnyRefNode &ref1=.LeftLeg.StringNode;
       AnyRefNode &ref2=.Body.StringNodeBottom;
-      AnySeg &ref3=.Handle;   
+      AnyRefFrame &ref3=.Handle;   
       AnyDrawPLine drw={Thickness=0.0015; RGB={1,0,0};};
     }; 
     
