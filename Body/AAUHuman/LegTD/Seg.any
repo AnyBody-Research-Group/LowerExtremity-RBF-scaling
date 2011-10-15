@@ -28,12 +28,21 @@
 // revised muscle via nodes as commented 27-6-02
 // Mark Thompson
 
+// Changes to allow RBF morphing of the model 
+// Added XXXXJointAxisStandard for all joints
+// Added control points on all joint axis
+// Parameterized all joint to be dependent these control points.
+
+// Morten Enemark LUnd
+AnyFolder LegTDStandardParameters = {
+  #include "KlienHorsmannParam.any"
+};
 // The Talus segment represents the part between the ankle joint and the subtalar joint. 
 
 //AnySeg Talus = {
 //  
 //  JaboutCoMOnOff = On;
-//  AnyVar LengthStandard = vnorm(SubTalarJointStandard-AnkleJointStandard,2);
+//  AnyVar LengthStandard = vnorm(StdPar.SubTalarJoint-StdPar.AnkleJoint,2);
 //  AnyVar MassStandard=0;
 //  AnyVar  MassS=..MassScaling.Talus.MassScale;
 //  
@@ -43,10 +52,10 @@
 //  
 //  
 //  AnyRefNode ScalingNode={
-//    AnyMat33 Rotation=RotMat(.AnkleJointStandard,.SubTalarJointStandard,.MedialMalleousStandard)*RotMat(...Sign*50*pi/180,x);
+//    AnyMat33 Rotation=RotMat(.StdPar.AnkleJoint,.StdPar.SubTalarJoint,.MedialMalleousStandard)*RotMat(...Sign*50*pi/180,x);
 //    
 //    ARel=Rotation;
-//    sRel=.Scale(.SubTalarJointStandard);
+//    sRel=.Scale(.StdPar.SubTalarJoint);
 //  };
 //  
 //  Mass = 0.0*MassS; // kg, no values
@@ -61,15 +70,14 @@
 //    #include "../DrawSettings/BML.any"
 //  };
 //  
-//  AnyVec3 SubTalarJointStandard={  0.070, -0.851, ..Sign*0.015}; //unscaled joint pos
 //  AnyRefNode SubTalarJoint = {
-//    sRel = .Scale(.SubTalarJointStandard);
+//    sRel = .Scale(.StdPar.SubTalarJoint);
 //    ARel = RotMat(...Sign*-105*pi/180,y)* RotMat(...Sign*12.885*pi/180,x); //Rotation corresponds to the helical 'unit' vector of the K-H Data    
 //    #include "../DrawSettings/JointAxesProximal.any"
 //  };
 //  AnyVec3   AnkleJointStandard= {0.072, -0.8275, ..Sign*0.0125};
 //  AnyRefNode AnkleJoint = {
-//    sRel = .Scale(.AnkleJointStandard);
+//    sRel = .Scale(.StdPar.AnkleJoint);
 //    ARel = RotMat(...Sign*-44.31*pi/180,y)*RotMat(...Sign*11.89*pi/180,x)*RotMat(-30*pi/180,z); 
 //    #include "../DrawSettings/JointAxesProximal.any"
 //  };
@@ -92,7 +100,7 @@
 AnySeg Talus = {
   
   JaboutCoMOnOff = On;
-  AnyVar LengthStandard = vnorm(SubTalarJointStandard-AnkleJointStandard,2);
+  AnyVar LengthStandard = vnorm(StdPar.SubTalarJoint-StdPar.AnkleJoint,2);
   AnyVar MassStandard= 1.30*0.2; // kg, 20% of Klein Horsman dataset Mass of Foot (% calculated from bone volume ratio);
   AnyVar  MassS=..MassScaling.Talus.MassScale;
   
@@ -102,10 +110,10 @@ AnySeg Talus = {
   
   
   AnyRefNode ScalingNode={
-    AnyMat33 Rotation=RotMat(.AnkleJointStandard,.SubTalarJointStandard,.MedialMalleousStandard)*RotMat(...Sign*50*pi/180,x);
+    AnyMat33 Rotation=RotMat(.StdPar.AnkleJoint,.StdPar.SubTalarJoint,.StdPar.MedialMalleolus)*RotMat(...Sign*50*pi/180,x);
     
     ARel=Rotation;
-    sRel=.Scale(.SubTalarJointStandard);
+    sRel=.Scale(.StdPar.SubTalarJoint);
   };
   
   sCoM = (AnkleJoint.sRel + SubTalarJoint.sRel)/2;
@@ -115,23 +123,112 @@ AnySeg Talus = {
   AnyVar Izz = Ixx;
   Jii = {Ixx, Iyy, Izz};
   
-  AnyVec3 MedialMalleousStandard={0.1120, -0.7921,..Sign*0.0104};
+  
+  AnyFolder &StdPar = .LegTDStandardParameters;   
+  //AnyVec3 MedialMalleousStandard={0.1120, -0.7921,..Sign*0.0104};
   AnyRefNode MedialMalleolus = {
-    sRel = .Scale(.MedialMalleousStandard);
+    sRel = .Scale(.StdPar.MedialMalleolus);
     #include "../DrawSettings/BML.any"
+    AnyDrawNode drw={RGB={0,0,1};ScaleXYZ={1,1,1}*0.003;}; 
+  };
+  AnyRefNode LateralMalleolus = {
+    sRel = .Scale(.StdPar.LateralMalleolus);
+    #include "../DrawSettings/BML.any"
+    AnyDrawNode drw={RGB={1,0,0};ScaleXYZ={1,1,1}*0.003;};
   };
   
-  AnyVec3 SubTalarJointStandard={  0.070, -0.851, ..Sign*0.015}; //unscaled joint pos
+  
+  // Point to control the Subtalar axis orientation. 
+  // The distance is set to a fixed value of 2 cm.
+  AnyRefNode AnteriorSubTalarAxisControlPoint = {
+    AnyVec3 Standard = .StdPar.SubTalarJoint -0.02*.StdPar.SubTalarJointAxis ;
+    sRel = .Scale( Standard );
+    //AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
+  
+  // Point to control the Subtalar axis orientation.
+  // The distance is set to a fixed value of 2 cm.
+  AnyRefNode PosteriorSubTalarAxisControlPoint = {
+    AnyVec3 Standard = .StdPar.SubTalarJoint +0.02*.StdPar.SubTalarJointAxis ;
+    sRel = .Scale( Standard );
+    //AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };  
+  
   AnyRefNode SubTalarJoint = {
-    sRel = .Scale(.SubTalarJointStandard);
+    //AnyDrawRefFrame Drw = {};
+    sRel = .Scale(.StdPar.SubTalarJoint);
+   #ifndef  EnableJointAxisScaling 
+      #define    EnableJointAxisScaling 0
+   #endif
+    #if EnableJointAxisScaling  
+      ARel = RotMat(sRel,
+                    sRel+( .PosteriorSubTalarAxisControlPoint.sRel - .AnteriorSubTalarAxisControlPoint.sRel ),
+                    ..Shank.KneeJoint.sRel)
+             * RotMat(90*pi/180,y)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+    #else
+      ARel = RotMat(.StdPar.SubTalarJoint,
+                    .StdPar.SubTalarJoint +.StdPar.SubTalarJointAxis ,
+                    ..Shank.StdPar.KneeJoint)
+             *RotMat(...Sign*90*pi/180,y);
+    #endif
+    #include "../DrawSettings/JointAxesDistal.any"
+    
+   };  
+   AnyRefNode SubTalarJointOld = {
+    sRel = .Scale(.StdPar.SubTalarJoint);
     ARel = RotMat(...Sign*-105*pi/180,y)* RotMat(...Sign*12.885*pi/180,x); //Rotation corresponds to the helical 'unit' vector of the K-H Data    
     #include "../DrawSettings/JointAxesProximal.any"
   };
-  AnyVec3   AnkleJointStandard= {0.072, -0.8275, ..Sign*0.0125};
+  
+
+  // Point to control the ankle axis orientation. The point is fixed
+  // 2 cm lateral to the ankle joint
+  AnyRefNode LateralAnkleAxisControlPoint = {
+    AnyVec3 Standard = .StdPar.AnkleJoint +0.02*.StdPar.AnkleJointAxis;
+    //AnyVec3 Standard = .LateralMalleolus.Standard;
+    sRel = .Scale( Standard );
+    //sRel = ..Shank.Scale(Standard);
+    AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
+  
+  // Point to control the ankle axis orientation. The point is fixed
+  // 2 cm medial to the ankle joint
+  AnyRefNode MedialAnkleAxisControlPoint = {
+    AnyVec3 Standard = .StdPar.AnkleJoint - 0.02*.StdPar.AnkleJointAxis;
+    //AnyVec3 Standard = .StdPar.MedialMalleolus;    
+    sRel = .Scale( Standard );
+    //sRel = ..Shank.Scale(Standard);
+     AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
+  
+
   AnyRefNode AnkleJoint = {
-    sRel = .Scale(.AnkleJointStandard);
+    //AnyDrawRefFrame Drw = {};        
+    sRel = .Scale(.StdPar.AnkleJoint);
+    //sRel = ..Shank.Scale(.StdPar.AnkleJoint);
+    #ifndef  EnableJointAxisScaling 
+      #define    EnableJointAxisScaling 0
+    #endif
+    #if EnableJointAxisScaling  
+      ARel = RotMat(sRel,
+                    sRel+(.LateralAnkleAxisControlPoint.sRel-.MedialAnkleAxisControlPoint.sRel),
+                    .Scale(..Shank.StdPar.KneeJoint))
+                    * RotMat(90*pi/180,y)*RotMat(...Sign*-34*pi/180,z)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+    #else
+      ARel = RotMat(.StdPar.AnkleJoint,
+                    .StdPar.AnkleJoint +.StdPar.AnkleJointAxis ,
+                    ..Shank.StdPar.KneeJoint)*
+             RotMat(...Sign*90*pi/180,y)*RotMat(-34*pi/180,z);
+    #endif
+    #include "../DrawSettings/JointAxesDistal.any"
+//    AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};}; 
+  };  
+  
+  AnyRefNode AnkleJointOLD = {
+    sRel = .Scale(.StdPar.AnkleJoint);
     ARel = RotMat(...Sign*-44.31*pi/180,y)*RotMat(...Sign*11.89*pi/180,x)*RotMat(-30*pi/180,z); 
     #include "../DrawSettings/JointAxesProximal.any"
+    AnyVec3 standardaxisold = (ARel*{0,0,1}')';
   };
   
   
@@ -139,12 +236,14 @@ AnySeg Talus = {
   #include "../DrawSettings/SegmentAxes.any"
   
   AnyDrawSurf DrwSurf = {
-    FileName = "talus";
-    ScaleXYZ = {1.0, 1.0, ...Sign*1.0};
+    FileName = iffun(gtfun(...Sign,0),"talus","talusMirrored") ;
     RGB = ...ColorRef.Segments;
     AnyFunTransform3D &Scale =.Scale;  
     Opacity = ...BonesOpacity.Talus; 
   };  
+
+
+
 }; 
 // end of Talus segment
 
@@ -163,7 +262,7 @@ AnySeg Foot = {
   AnyRefNode ScalingNodeOld={
     AnyMat33 Rotation=RotMat(...Sign*-30*pi/180,y)*RotMat(-30*pi/180,z)*RotMat(-0.5*pi,z);
     ARel=Rotation;
-    sRel=.Scale(.SubTalarJointStandard);
+    sRel=.Scale(.StdPar.SubTalarJoint);
   };
   
   AnyRefNode ScalingNode={
@@ -172,7 +271,7 @@ AnySeg Foot = {
     sRel=.HeelNode.sRel;
   };
   
-  AnyVar LengthStandard = vnorm(SubTalarJointStandard-ToeJointStandard,2);
+  AnyVar LengthStandard = vnorm(StdPar.SubTalarJoint-ToeJointStandard,2);
   sCoM = Scale({ 0.1048, -0.8814, ..Sign*0.0114});  // center of mass with respect to the global frame, Klein Horsman
   AnyVar Length = ( (BigToeNode.sRel[0]-HeelNode.sRel[0])^2 + (BigToeNode.sRel[1]-HeelNode.sRel[1])^2 + (BigToeNode.sRel[2]-HeelNode.sRel[2])^2 )^0.5;
   AnyVar Radius = (Mass/(3.1416*Length*..StandardParameters.Foot.Density))^0.5;
@@ -190,11 +289,47 @@ AnySeg Foot = {
   };
   
   AnyRefNode &HeelJoint = HeelContactNodeLow;
+
+  AnyFolder &StdPar = .LegTDStandardParameters;   
+
+  // Point to control the Subtalar axis orientation.
+  // The distance is set to a fixed value 3 cm.
+  // Note. This point is  not used for scaling in the current implementation 
+  AnyRefNode AnteriorSubTalarAxisControlPoint = {
+    AnyVec3 Standard = .StdPar.SubTalarJoint - 0.03*.StdPar.SubTalarJointAxis ;
+    sRel = .Scale( Standard );
+  };
   
-  AnyVec3 SubTalarJointStandard ={0.070, -0.851, ..Sign*0.015};
+  // Point to control the Subtalar axis orientation. 
+  // The distance is set to a fixed value 3 cm.
+  // Note: This point is not used for scaling in the current implementation
+  AnyRefNode PosteriorSubTalarAxisControlPoint = {
+    AnyVec3 Standard = .StdPar.SubTalarJoint +0.03*.StdPar.SubTalarJointAxis ;
+    sRel = .Scale( Standard );
+  };
+    
   AnyRefNode SubTalarJoint = {
-    //sRel = .Scale({0.1087, -0.8061, ...Sign*0.0336};
-    sRel = .Scale(.SubTalarJointStandard );
+   //AnyDrawRefFrame Drw = {};    
+    sRel = .Scale(.StdPar.SubTalarJoint);
+   #ifndef  EnableJointAxisScaling 
+      #define    EnableJointAxisScaling 0
+   #endif
+    #if EnableJointAxisScaling  
+      ARel = RotMat(sRel,
+                    sRel+(.PosteriorSubTalarAxisControlPoint.sRel - .AnteriorSubTalarAxisControlPoint.sRel ),
+                    ..Shank.KneeJoint.sRel)
+             * RotMat(90*pi/180,y)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+    #else
+      ARel = RotMat(.StdPar.SubTalarJoint,
+                    .StdPar.SubTalarJoint +.StdPar.SubTalarJointAxis ,
+                    ..Shank.StdPar.KneeJoint)
+             *RotMat(...Sign*90*pi/180,y);
+    #endif
+    #include "../DrawSettings/JointAxesDistal.any"
+  };
+  
+  AnyRefNode SubTalarJointOLD = {
+    sRel = .Scale(.StdPar.SubTalarJoint );
     ARel = RotMat(...Sign*-105*pi/180,y) * RotMat(...Sign*12.885*pi/180,x);
     #include "../DrawSettings/JointAxesProximal.any"
   };
@@ -370,12 +505,13 @@ AnySeg Foot = {
   
   
   AnyDrawSurf DrwSurf = {
-    FileName = "subtalar";
-    ScaleXYZ = {1.0, 1.0, ...Sign*1.0};
+    FileName = iffun(gtfun(...Sign,0), "subtalar" ,"subtalarMirrored"); //new, higher quality stl file, correct position
     RGB = ...ColorRef.Segments;
     AnyFunTransform3D &Scale =.Scale;  
     Opacity = ...BonesOpacity.Foot;
   };
+
+  
 };// End of foot
 
 AnySeg Shank = {
@@ -393,7 +529,7 @@ AnySeg Shank = {
   AnyVar MassStandard = 4.00 ; // kg, Klein Horsman Dataset
   
   Mass = MassS*MassStandard;
-  AnyVar LengthStandard = vnorm(KneeJointStandard-AnkleJointStandard,2);
+  AnyVar LengthStandard = vnorm(StdPar.KneeJoint-StdPar.AnkleJoint,2);
   sCoM =Scale( { 0.0757, -0.5700, ..Sign*0.0175});  // center of mass with respect to the global frame, Klein Horsman
   
   //This node is placed according to "ISB2002" (se top of the file)
@@ -405,9 +541,9 @@ AnySeg Shank = {
   
   //Scaling node this node is used for the scaling of the segment
   AnyRefNode ScalingNode={
-    AnyMat33 Rotation=RotMat(.AnkleJointStandard,.KneeJointStandard,.MedialTibialEpicondyleStandard)*RotMat(-0.5*pi,z)*RotMat(0.5*pi,y)*RotMat(0.5*(...Sign-1)*pi,y);
+    AnyMat33 Rotation=RotMat(.StdPar.AnkleJoint,.StdPar.KneeJoint,.MedialTibialEpicondyleStandard)*RotMat(-0.5*pi,z)*RotMat(0.5*pi,y)*RotMat(0.5*(...Sign-1)*pi,y);
     ARel=Rotation;
-    sRel=.Scale(.AnkleJointStandard);    
+    sRel=.Scale(.StdPar.AnkleJoint);    
   
     };
   
@@ -422,21 +558,101 @@ AnySeg Shank = {
   Jii = {Ixx, Iyy, Izz};
   
   
-  AnyVec3   AnkleJointStandard= {0.072, -0.8275, ..Sign*0.0125};
+  AnyFolder &StdPar = .LegTDStandardParameters;   
+
+  // Point to control the ankle axis orientation. 0.02647921 cm lateral to ankle center. 
+  // The distance is given by projection of the lateral malleolus (bony landmark) projection to the 
+  // ankle axis.
+  AnyRefNode LateralAnkleAxisControlPoint = {
+    AnyVec3 Standard = .StdPar.AnkleJoint + 0.02647921 *.StdPar.AnkleJointAxis;
+    //AnyVec3 Standard = .LateralMalleolus.Standard;    
+    sRel = .Scale( Standard );
+    //AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
   
-  
+ // Point to control the ankle axis orientation. 0.0488001 cm medial to ankle center. 
+  // The distance is given by projection of the lateral malleolus (bony landmark) projection to the 
+  // ankle axis. 
+  AnyRefNode MedialAnkleAxisControlPoint = {
+    AnyVec3 Standard = .StdPar.AnkleJoint  -0.0488001 *.StdPar.AnkleJointAxis;
+    //AnyVec3 Standard = .StdPar.MedialMalleolus;
+    sRel = .Scale( Standard );
+   // AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
+ 
   
   AnyRefNode AnkleJoint = {
-    sRel = .Scale(.AnkleJointStandard);
+   // AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+   //AnyDrawRefFrame Drw = {};        
+    sRel = .Scale(.StdPar.AnkleJoint);
+   #ifndef  EnableJointAxisScaling 
+      #define    EnableJointAxisScaling 0
+   #endif
+    #if EnableJointAxisScaling  
+      ARel = RotMat(sRel,
+                    sRel+(.LateralAnkleAxisControlPoint.sRel-.MedialAnkleAxisControlPoint.sRel),
+                    .KneeJoint.sRel)
+             * RotMat(90*pi/180,y)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+    #else
+      ARel = RotMat(.StdPar.AnkleJoint,
+                    .StdPar.AnkleJoint +.StdPar.AnkleJointAxis ,
+                    .StdPar.KneeJoint)
+             *RotMat(...Sign*90*pi/180,y);
+    #endif
+    #include "../DrawSettings/JointAxesDistal.any"
+  };
+  AnyRefNode AnkleJointOLD = {
+    sRel = .Scale(.StdPar.AnkleJoint);
     ARel = RotMat(...Sign*-44.31*pi/180,y)*RotMat(...Sign*11.89*pi/180,x)*RotMat(-0*pi/180,z); //Rotation corresponds to the helical 'unit' vector of the K-H Data 
     #include "../DrawSettings/JointAxesDistal.any"   
   };
   
 
-  AnyVec3 KneeJointStandard ={0.0384, -0.4078, ..Sign*0.0138};
+  
+    // Point to control the knee axis orientation. 0.0387731 cm lateral to knee center. 
+  // The distance is given by projection of the lateral epicondyle (bony landmark) projection to the 
+  // knee axis.
+  AnyRefNode LateralKneeAxisControlPoint = {
+    AnyVec3 sRelStandard = .StdPar.KneeJoint + 0.03887656*.StdPar.KneeJointAxis;
+    //AnyVec3 sRelStandard = .StdPar.EpicondylusFemorisLateralis;
+    sRel = .Scale( sRelStandard );
+    AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};RGB={1,0,0};};
+  };
+  
+  // Point to control the knee axis orientation. 0.0387731 cm lateral to knee center. 
+  // The distance is given by projection of the lateral epicondyle (bony landmark) projection to the 
+  // knee axis. 
+  AnyRefNode MedialKneeAxisControlPoint = {
+    AnyVec3 sRelStandard = .StdPar.KneeJoint -0.05864344*.StdPar.KneeJointAxis;
+    //AnyVec3 sRelStandard = .StdPar.EpicondylusFemorisMedialis;
+    sRel = .Scale( sRelStandard );
+    AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};RGB={1,0,0};};
+  };
+  
   AnyRefNode KneeJoint = {
-    sRel = .Scale(.KneeJointStandard);
-    
+    AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};RGB={1,0,0};};    
+    sRel = .Scale(.StdPar.KneeJoint);
+   #ifndef  EnableJointAxisScaling 
+      #define    EnableJointAxisScaling 0
+   #endif
+    #if EnableJointAxisScaling  
+    //EnableJointAxisScaling == 1
+      ARel = RotMat(sRel,
+                    sRel+(.LateralKneeAxisControlPoint.sRel-.MedialKneeAxisControlPoint.sRel),
+                    .AnkleJoint.sRel)
+             * RotMat(90*pi/180,y)*RotMat(pi,z)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+    #else
+      ARel = RotMat(.StdPar.KneeJoint,
+                    .StdPar.KneeJoint +.StdPar.KneeJointAxis ,
+                    .StdPar.AnkleJoint)
+             *RotMat(...Sign*90*pi/180,y)*RotMat(pi,z);
+    #endif
+    #include "../DrawSettings/JointAxesDistal.any"
+  };
+
+
+  AnyRefNode KneeJointOLD = {
+    sRel = .Scale(.StdPar.KneeJoint);
 //        ARel = RotMat(...Sign*AxisRot*pi/180,x)*RotMat(...Sign*-7.46*pi/180,x) * 
         ARel = RotMat(...Sign*7.46*pi/180,x) * RotMat(...Sign*-32.25*pi/180,y);
   };
@@ -465,12 +681,14 @@ AnySeg Shank = {
     #include "../DrawSettings/BML.any"
   };
   AnyRefNode MedialMalleolus = {
-    sRel = .Scale({0.1120, -0.7921,...Sign*0.0104});
+    AnyVec3 Standard = {0.1120, -0.7921,...Sign*0.0104};
+    sRel = .Scale(Standard);
     #include "../DrawSettings/BML.any"
     AnyDrawNode drw={RGB={0,0,1};ScaleXYZ={1,1,1}*0.003;};
   };
   AnyRefNode LateralMalleolus = {
-    sRel = .Scale({0.045, -0.8159,...Sign*0.0455});
+    AnyVec3 Standard = {0.045, -0.8159,...Sign*0.0455};
+    sRel = .Scale(Standard);
     #include "../DrawSettings/BML.any"
     AnyDrawNode drw={RGB={1,0,0};ScaleXYZ={1,1,1}*0.003;};
   };
@@ -661,15 +879,14 @@ AnySeg Shank = {
   AnyRefNode PopliteusViaNode1 = {sRel = .Scale({0.026, -0.448, ...Sign*-0.023});};
   
   
-  
   AnyDrawSurf DrwSurf3 = {
-    FileName = "tibia";
-    ScaleXYZ = {1.0, 1.0, ...Sign*1.0};
+    FileName = iffun(gtfun(...Sign,0), "tibia" ,"tibiaMirrored"); //new, higher quality stl file, correct position
     RGB = ...ColorRef.Segments;
     AnyFunTransform3D &Scale =.Scale; 
     Opacity = ...BonesOpacity.Shank;
     Face=-1;
   };  
+
   
 }; // End of Shank
 
@@ -686,19 +903,19 @@ AnySeg Thigh = {
   
   AnyVar MassStandard =7; //11.54; // kg, Klein Horsman dataset
   Mass = MassS*MassStandard;
-  AnyVar LengthStandard = vnorm(KneeJointStandard-HipJointStandard,2);
+  AnyVar LengthStandard = vnorm(StdPar.KneeJoint-StdPar.HipJoint,2);
   
   //This node is placed according to "ISB2002" (se top of the file)
   AnyRefNode ISBCoordinateSystem={
-    ARel=RotMat(.HipJoint.sRel,.EpicondylusFemorisMidPoint.sRel,.EpicondylusFemorisMedialisStandard)*RotMat(pi*0.5,z);
+    ARel=RotMat(.HipJoint.sRel,.EpicondylusFemorisMidPoint.sRel,.StdPar.EpicondylusFemorisMedialis)*RotMat(pi*0.5,z);
     sRel=.HipJoint.sRel;
   };
   
   //Scaling node this node is used for the scaling of the segment
   AnyRefNode ScalingNode={
-    AnyMat33 Rotation=RotMat(.HipJointStandard,.KneeJointStandard,.EpicondylusFemorisMedialisStandard)*RotMat(pi*0.5,x)*RotMat(pi*0.5,z)*RotMat(0.5*(...Sign-1)*pi,y);
+    AnyMat33 Rotation=RotMat(.StdPar.HipJoint,.StdPar.KneeJoint,.StdPar.EpicondylusFemorisMedialis)*RotMat(pi*0.5,x)*RotMat(pi*0.5,z)*RotMat(0.5*(...Sign-1)*pi,y);
     ARel=Rotation;
-    sRel=.HipJointStandard;
+    sRel=.StdPar.HipJoint;
   };
   
   sCoM = Scale({ 0.0370, -0.1562, ..Sign*-0.0044});  // center of mass with respect to the global frame, Klein Horsman
@@ -712,13 +929,55 @@ AnySeg Thigh = {
   AnyVar Iyy = 0.5*Mass*Radius*Radius;
   AnyVar Izz = Ixx;
   Jii = {Ixx, Iyy, Izz};  
+
   
+  AnyFolder &StdPar = .LegTDStandardParameters;   
   // The KneeJoint and HipJoint coordinates below, refer to the newly defined coordinate system of Klein Horsman which has its origin in the Hip
-  AnyVec3 KneeJointStandard={0.0384, -0.4078, ..Sign*0.0138};
+
+  // Point to control the knee axis orientation. 0.03887656 cm lateral to the knee center. 
+  // The distance is given by projection of the lateral epicondyle (bony landmark) projection to the 
+  // knee axis.
+  AnyRefNode LateralKneeAxisControlPoint = {
+    AnyVec3 sRelStandard = .StdPar.KneeJoint + 0.03887656*.StdPar.KneeJointAxis;
+    // AnyVec3 sRelStandard = .StdPar.EpicondylusFemorisLateralis;
+    sRel = .Scale( sRelStandard );
+    AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
   
+  // Point to control the knee axis orientation. 0.05864344 cm medial to the knee center. 
+  // The distance is given by projection of the medial epicondyle (bony landmark) projection to the 
+  // knee axis. 
+  AnyRefNode MedialKneeAxisControlPoint = {
+    AnyVec3 sRelStandard = .StdPar.KneeJoint -0.05864344*.StdPar.KneeJointAxis;
+    //AnyVec3 sRelStandard = .StdPar.EpicondylusFemorisMedialis;
+    sRel = .Scale( sRelStandard );
+    AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
+    
   AnyRefNode KneeJoint = {
+    AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+
+    sRel = .Scale(.StdPar.KneeJoint);
+   #ifndef  EnableJointAxisScaling 
+      #define    EnableJointAxisScaling 0
+   #endif
+    #if EnableJointAxisScaling  
+      ARel = RotMat(sRel,
+                    sRel+(.LateralKneeAxisControlPoint.sRel-.MedialKneeAxisControlPoint.sRel),
+                    .HipJoint.sRel)* RotMat(90*pi/180,y)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+    #else
+      ARel = RotMat(.StdPar.KneeJoint,
+                    .StdPar.KneeJoint +.StdPar.KneeJointAxis ,
+                    .StdPar.HipJoint)
+             *RotMat(...Sign*90*pi/180,y);
+    #endif
+    #include "../DrawSettings/JointAxesDistal.any"
+//    AnyDrawRefFrame drw2 = {RGB = {0.91796875, 0.76953125, 0.06640625}; ScaleXYZ = {0.1, 0.1, 0.1}; };
+  };
+
+  AnyRefNode KneeJointOLD = {
     AnyVar AxisRot=0;  //this can be used for controlling varus valgus the varible can be linked to a design varible and changed,
-    sRel = .Scale(.KneeJointStandard);
+    sRel = .Scale(.StdPar.KneeJoint);
     ARel = RotMat(...Sign*7.46*pi/180,x) * RotMat(...Sign*-32.25*pi/180,y)*RotMat(...Sign*AxisRot*pi/180,x);
     #include "../DrawSettings/JointAxesDistal.any"
  
@@ -726,24 +985,50 @@ AnySeg Thigh = {
   
   
   
-
-
-  
-  AnyVec3 HipJointStandard=  {0.0, 0.0, ..Sign*0.0};
   AnyRefNode HipJoint = {
-    sRel = .Scale(.HipJointStandard);
+    sRel = .Scale(.StdPar.HipJoint);
     ARel = RotMat(...Sign*-30*pi/180,y) * RotMat(-18*pi/180,z);
   };
   
+  AnyVec3 PatellaFemurJointAxisStandard = {-0.465,0.024,..Sign*0.885}/vnorm({-0.465,0.024,..Sign*0.885});
+
+  AnyRefNode MedialFemurJointAxisControlPoint = {
+    AnyVec3 sRelStandard = .StdPar.PatellaFemurJoint - 0.05864344 * .PatellaFemurJointAxisStandard;
+    sRel = .Scale( sRelStandard);
+    //AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
+  AnyRefNode LateralFemurJointAxisControlPoint = {
+    AnyVec3 sRelStandard = .StdPar.PatellaFemurJoint +0.03887656 * .PatellaFemurJointAxisStandard;
+    sRel = .Scale( sRelStandard);
+    //AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
+  
   AnyRefNode PatellaFemurJoint = {
-    
+   sRel = .Scale( .StdPar.PatellaFemurJoint );
+   #ifndef  EnableJointAxisScaling 
+   #define    EnableJointAxisScaling 0
+   #endif
+   #if EnableJointAxisScaling  
+   ARel = RotMat(sRel, 
+                 sRel + (.LateralFemurJointAxisControlPoint.sRel-.MedialFemurJointAxisControlPoint.sRel) ,
+                 .KneeJoint.sRel )
+				 *RotMat(90*pi/180,y)*RotMat(...Sign*180*pi/180,z)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+   #else
+   ARel = RotMat(.StdPar.PatellaFemurJoint, 
+                 .StdPar.PatellaFemurJoint + .PatellaFemurJointAxisStandard,
+                 .StdPar.KneeJoint)
+				 *RotMat(...Sign*90*pi/180,y)*RotMat(...Sign*180*pi/180,z);;
+   #endif  
+    //AnyDrawRefFrame drw2 = { RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = { 0.1, 0.1, 0.1 }; };
+  };
+
+  AnyRefNode PatellaFemurJointOLD = {
     sRel = .Scale({0.0351, -0.3851, ...Sign*0.0190});
     ARel = RotMat(...Sign*-1.29*pi/180,x)* RotMat(...Sign*-27.84*pi/180,y); 
   };
   
-  AnyVec3  EpicondylusFemorisMedialisStandard={0.0768, -0.4050, ..Sign*-0.0321};
   AnyRefNode EpicondylusFemorisMedialis = {
-    sRel=.Scale(.EpicondylusFemorisMedialisStandard);// Coordinates of the Medial Femur Epicondyle bony landmark, Klein Horsman
+    sRel=.Scale(.StdPar.EpicondylusFemorisMedialis);// Coordinates of the Medial Femur Epicondyle bony landmark, Klein Horsman
     #include "../DrawSettings/BML.any"
   }; 
   AnyRefNode EpicondylusFemorisLateralis = {sRel = .Scale({0.0317, -0.3996, ...Sign*0.0547});// Coordinates of the lateral Femur Epicondyle bony landmark, Klein Horsman
@@ -958,16 +1243,15 @@ AnySeg Thigh = {
 
   
   
-  
-  
   AnyDrawSurf Drw3 = {
-    FileName = "femur"; //new, higher quality stl file, correct position
-    ScaleXYZ = {1.0, 1.0, ...Sign*1.0};
+    FileName = iffun(gtfun(...Sign,0),"femur","femurMirrored"); //new, higher quality stl file, correct position
     RGB = ...ColorRef.Segments;
     Opacity = ...BonesOpacity.Thigh;
     AnyFunTransform3D &Scale =.Scale;  
     Face=-1;
   };
+
+
   
   // This cylinder describes the wrapping surface of the femur 
   // epicondyle for the Gastrocnemius lateralis en medialis. 
@@ -1016,7 +1300,42 @@ AnySeg Patella = {
     sRel={0.035, -0.39, ...Sign*0.019};
   };
   
+  AnyFolder &StdPar = .LegTDStandardParameters;   
+  
+  
+  AnyRefNode MedialFemurJointAxisControlPoint = {
+    AnyVec3 sRelStandard = .StdPar.PatellaFemurJoint - 0.05864344 * .PatellaFemurJointAxisStandard;
+    sRel = .Scale( sRelStandard);
+        //AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };
+  AnyRefNode LateralFemurJointAxisControlPoint = {
+    AnyVec3 sRelStandard = .StdPar.PatellaFemurJoint + 0.03887656 * .PatellaFemurJointAxisStandard;
+    sRel = .Scale( sRelStandard);
+        //AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
+  };  
+  
+  AnyVec3 PatellaFemurJointAxisStandard = {-0.465,0.024,..Sign*0.885}/vnorm({-0.465,0.024,..Sign*0.885});
+  
   AnyRefNode PatellaFemurJoint = {
+    //AnyDrawRefFrame Drw = {};     
+    sRel = .Scale( .StdPar.PatellaFemurJoint );
+   #ifndef  EnableJointAxisScaling 
+   #define    EnableJointAxisScaling 0
+   #endif
+   #if EnableJointAxisScaling  
+   ARel = RotMat(sRel, 
+                 sRel + (.LateralFemurJointAxisControlPoint.sRel-.MedialFemurJointAxisControlPoint.sRel) ,
+                 .KneeJoint.sRel )
+				 *RotMat(90*pi/180,y)*RotMat(...Sign*180*pi/180,z)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+   #else
+   ARel = RotMat(.StdPar.PatellaFemurJoint, 
+                 .StdPar.PatellaFemurJoint + .PatellaFemurJointAxisStandard,
+                 .StdPar.KneeJoint)
+				 *RotMat(...Sign*90*pi/180,y)*RotMat(...Sign*180*pi/180,z);
+   #endif
+  };
+    
+  AnyRefNode PatellaFemurJointOLD = {
     
     sRel = .Scale({0.0351, -0.3851, ...Sign*0.0190});
     ARel = RotMat(...Sign*-1.29*pi/180,x) * RotMat(...Sign*-27.84*pi/180,y); 
@@ -1027,19 +1346,22 @@ AnySeg Patella = {
 //    sRel = .Scale({0.0, 0.0 , ...Sign*0.0});
 //  };
 //  
-////  AnyRefNode KneeJoint = {
-//    sRel = .Scale({0.0384, -0.4078, ...Sign*0.0138});
-//    ARel = RotMat(-7.46*pi/180,x) * RotMat(-32.25*pi/180,y);
-//    #include "../DrawSettings/JointAxesDistal.any"
-//  };
+  AnyRefNode KneeJoint = {
+   sRel = .Scale(.StdPar.KneeJoint);
+   ARel = RotMat(-7.46*pi/180,x) * RotMat(-32.25*pi/180,y);
+   #include "../DrawSettings/JointAxesDistal.any"
+ };
   
-  AnyDrawSurf DrwSurf = {
-    FileName = "patella";
-    ScaleXYZ = {1.0, 1.0, ...Sign*1.0};
+
+ AnyDrawSurf DrwSurf = {
+    FileName = iffun(gtfun(...Sign,0), "patella" ,"patellaMirrored"); //new, higher quality stl file, correct position
     RGB = ...ColorRef.Segments;
     AnyFunTransform3D &Scale =.Scale;  
     Opacity = ...BonesOpacity.Patella;
   };  
+
+
+
   
   // The node below is a reference node for the patella tendon to define the movement of 
   // the patella. The tendon will be regarded as being stiff, so the length will not change. 
