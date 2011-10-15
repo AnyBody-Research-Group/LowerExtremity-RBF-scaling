@@ -1,0 +1,42 @@
+ // This File illustrates how to do a paramter study of the moment arms by varying 
+ // two angles. The example uses a paramters study and the Momentarm template.
+
+
+AnyParamStudy KneeFlexionParamStudy = 
+{
+  //LogFile = "";
+  Analysis = 
+  {
+    AnyOperation &studyRef = ..Knee_MomentArms.Study.InitialConditions;
+    studyRef.Settings.Echo = Off;
+    studyRef.Settings.ModelSceneUpdate = Off;
+    studyRef.PostOperation.Settings.Echo = Off;
+    studyRef.PostOperation.Settings.ModelSceneUpdate = Off;
+    studyRef.PreOperation.Settings.Echo = Off;
+    studyRef.PreOperation.Settings.ModelSceneUpdate = Off;
+  };
+  nStep = {10,10};
+  AnyDesVar HipFlexion = {
+    Val = ..Knee_MomentArms.HipFlexion;
+    Min = -30;
+    Max = 90;
+  };      AnyDesVar KneeFlexion = {
+    Val = ..Knee_MomentArms.RangeOfMotion[0];
+    Min = 0;
+    Max = 90;
+  };
+  AnyDesMeasure RectusKneeMomentArm = {
+    Val = ..Knee_MomentArms.Study.MomentArms.RectusFemoris1;
+  };
+};
+
+// The moment arm template is setup to perform only one step. This overrides 
+// the second parameter in the RangeOfMotion variable. 
+MomentArmStudy Knee_MomentArms (
+HModel = .HumanModel, 
+Measure = .HumanModel.BodyModel.Interface.Right.KneeFlexion,
+Side = Right,
+OutputFile = "",
+SingleStepAnalysis = "Off") = { 
+  RangeOfMotion = {0,0};
+};    

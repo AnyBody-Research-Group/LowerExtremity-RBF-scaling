@@ -1,0 +1,43 @@
+//This file contains the marker toplogy of the data set it links free floating markers with the markers on the human 
+
+AnyFolder ModelSetup ={
+  
+  
+  AnyInputC3D DynamicDataSet = 
+  {
+    FileName = Main.TrialSpecificData.PathName +"Raw Data/"+ Main.TrialSpecificData.FileNameDynamic;
+
+    PointsScaleFactor = 0.001;
+    ConstructModelOnOff = Off;
+    ConstructChartOnOff = Off;
+    MarkerUseAllPointsOnOff = On;
+    MarkerUseCamMaskOnOff = Off;
+    Filter = 
+    {
+    AutomaticInitialConditionOnOff = On;
+    FilterForwardBackwardOnOff = On;
+    N = 2;
+    Fc = {6};
+    Type = LowPass;
+    };
+  };
+  
+  AnyInputC3D StaticData = 
+  {
+    FileName = Main.TrialSpecificData.PathName +"Raw Data/"+ Main.TrialSpecificData.FileNameStatic;
+    PointsScaleFactor = 0.001;
+    ConstructModelOnOff = Off;
+    ConstructChartOnOff = Off;
+    MarkerUseAllPointsOnOff = On;
+    MarkerUseCamMaskOnOff = Off;
+  };
+
+  AnyIntVar nStep = Main.TrialSpecificData.LastFrameNo-Main.TrialSpecificData.StartFrameNo+1;
+
+  AnyFloatVar  tStart = Main.TrialSpecificData.StartFrameNo/Main.TrialSpecificData.FrameRate;
+  AnyFloatVar  tEnd = Main.TrialSpecificData.LastFrameNo/Main.TrialSpecificData.FrameRate; 
+  
+  
+  
+};
+

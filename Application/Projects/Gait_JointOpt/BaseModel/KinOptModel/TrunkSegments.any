@@ -1,0 +1,47 @@
+AnyFolder Seg = {
+  
+  #if IncludeHip == 1 
+  AnySeg Pelvis = 
+  {
+    r0 = ....Mannequin.Posture.Trunk.Pelvis.InitialPos.r0; 
+    Axes0 = ....Mannequin.Posture.Trunk.Pelvis.InitialPos.Axes0;
+    
+    Mass = 10.6;
+    Jii = {0.03, 0.03, 0.02};
+    sCoM = {-0.06,-0.03,0};
+    JaboutCoMOnOff = On;
+        
+    AnyRefNode RHipJoint = {
+      // See Mannequin.any for calculated values
+	#if UseAnatomicalValuesRightHip 
+        sRel = .....Mannequin.Posture.Trunk.RHipJoint.AnatomicalHipPosDavis;    
+      #else 
+        sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
+      #endif
+    };
+    
+    AnyRefNode LHipJoint = {
+	#if UseAnatomicalValuesLeftHip == 1 
+        sRel = .....Mannequin.Posture.Trunk.LHipJoint.AnatomicalHipPosDavis;    
+      #else 
+      sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
+      #endif
+    };
+    
+    
+#if HideStickModelGraphics == 0
+AnyDrawSeg drwSeg = 
+{
+  //Visible = On;
+  //Opacity = 1;
+  RGB = {0, 0.76953125, 0};
+  //Transparency = 1;
+  InertiaScale=0.5;
+};
+#endif
+   
+    
+  };
+  #endif
+  
+};

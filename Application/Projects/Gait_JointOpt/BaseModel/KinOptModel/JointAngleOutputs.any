@@ -1,0 +1,63 @@
+AnyFolder JointAngleOutputs = {
+  
+  #if IncludeHip == 1
+  
+  AnyOutputFile OutputFile1 = {
+    FileName = "../" + Main.TrialSpecificData.PathName + "/Tmp/"+Main.TrialSpecificData.TrialName+"-output-euler-pelvis.txt";
+    
+    SepSign = " ";
+    
+    AnyVector PelvisPosX = ...LegModel.Interface.Trunk.PelvisDriveNodePosX.Pos;
+    AnyVector PelvisPosY = ...LegModel.Interface.Trunk.PelvisDriveNodePosY.Pos;
+    AnyVector PelvisPosZ = ...LegModel.Interface.Trunk.PelvisDriveNodePosZ.Pos;
+    AnyVector PelvisRot0 = ...LegModel.Interface.Trunk.PelvisDriveNodeRot0.Pos;
+    AnyVector PelvisRot1 = ...LegModel.Interface.Trunk.PelvisDriveNodeRot1.Pos;
+    AnyVector PelvisRot2 = ...LegModel.Interface.Trunk.PelvisDriveNodeRot2.Pos;
+  };
+  #endif
+  
+  
+  #if IncludeLeft + IncludeKnee + IncludeAnkle == 3
+  
+  AnyOutputFile OutputFile2 = {
+    FileName = "../"+Main.TrialSpecificData.PathName + "/Tmp/"+Main.TrialSpecificData.TrialName+"-output-euler-leftlegtd.txt";
+    
+    SepSign = " ";
+    
+    AnyVector HipMeasure0 = ...LegModel.Interface.Left.HipJointMeasure0.Pos;
+    AnyVector HipMeasure1 = ...LegModel.Interface.Left.HipJointMeasure1.Pos;
+    AnyVector HipMeasure2 = ...LegModel.Interface.Left.HipJointMeasure2.Pos;
+    AnyVector KneeJointMeasure = ...LegModel.Interface.Left.KneeJointMeasure.Pos;
+    AnyVector AnkleJointMeasure = ...LegModel.Interface.Left.AnkleJointMeasure.Pos;
+  };
+  
+  #endif
+  
+  
+  
+  #if IncludeRight + IncludeKnee + IncludeAnkle == 3
+  
+  
+  AnyOutputFile OutputFile3 = {
+    FileName = "../" + Main.TrialSpecificData.PathName + "/Tmp/"+Main.TrialSpecificData.TrialName+"-output-euler-rightlegtd.txt";
+    SepSign = " ";
+    
+    AnyVector HipMeasure0 = ...LegModel.Interface.Right.HipJointMeasure0.Pos;
+    AnyVector HipMeasure1 = ...LegModel.Interface.Right.HipJointMeasure1.Pos;
+    AnyVector HipMeasure2 = ...LegModel.Interface.Right.HipJointMeasure2.Pos;
+    AnyVector KneeJointMeasure = ...LegModel.Interface.Right.KneeJointMeasure.Pos;
+    AnyVector AnkleJointMeasure = ...LegModel.Interface.Right.AnkleJointMeasure.Pos;
+  };
+  
+  #endif
+  
+  
+  
+  
+  
+  
+}; //JointAngleOutputs
+
+
+
+

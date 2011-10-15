@@ -1,0 +1,73 @@
+
+AnyFolder MomentArmStudies = {
+  
+  
+  
+  AnyOperationSequence Run = 
+  {
+    Settings.Echo = Off;
+    Settings.ModelSceneUpdate = Off;
+    AnyOperation &s1 = .KneeFlexion_MomentArms.Study.Kinematics;
+    AnyOperation &s2 = .HipFlexion_MomentArms.Study.Kinematics;
+    AnyOperation &s3 = .HipAbduction_MomentArms.Study.Kinematics;
+    AnyOperation &s4 = .HipExternalRotation_MomentArms.Study.Kinematics;
+    AnyOperation &s5 = .AnklePlantarFlexion_MomentArms.Study.Kinematics;
+    AnyOperation &s6 = .SubTalarEversion_MomentArms.Study.Kinematics;
+  };
+  
+  MomentArmStudy KneeFlexion_MomentArms (
+  HModel = ..HumanModel, 
+  Measure = ..HumanModel.BodyModel.Interface.Right.KneeFlexion,
+  Side = "Right",
+  OutputFile = "KneeFlexMA.csv",
+  SingleStepAnalysis = "Off") = { 
+    RangeOfMotion = {0,90};
+  };
+  
+  MomentArmStudy HipFlexion_MomentArms (
+  HModel = ..HumanModel, 
+  Measure = ..HumanModel.BodyModel.Interface.Right.HipFlexion,
+  Side = "Right",
+  OutputFile = "HipFlexMA.csv",
+  SingleStepAnalysis = "Off") = { 
+    RangeOfMotion = {-10,90};
+  };   
+  
+  MomentArmStudy HipAbduction_MomentArms (
+  HModel = ..HumanModel, 
+  Measure = ..HumanModel.BodyModel.Interface.Right.HipAbduction,
+  Side = "Right",
+  OutputFile = "HipAbMA.csv",
+  SingleStepAnalysis = "Off") = { 
+    RangeOfMotion = {-10,30};
+  };    
+  
+  MomentArmStudy HipExternalRotation_MomentArms (
+  HModel = ..HumanModel, 
+  Measure = ..HumanModel.BodyModel.Interface.Right.HipExternalRotation,
+  Side = "Right",
+  OutputFile = "HipExRotMA.csv",
+  SingleStepAnalysis = "Off") = { 
+    RangeOfMotion = {-15,15};
+  };  
+  
+  MomentArmStudy AnklePlantarFlexion_MomentArms (
+  HModel = ..HumanModel, 
+  Measure = ..HumanModel.BodyModel.Interface.Right.AnklePlantarFlexion,
+  Side = "Right",
+  OutputFile = "AnklePlanFlexMA.csv",
+  SingleStepAnalysis = "Off") = { 
+    RangeOfMotion = {-15,90};
+  };  
+  
+  MomentArmStudy SubTalarEversion_MomentArms (
+  HModel = ..HumanModel, 
+  Measure = ..HumanModel.BodyModel.Interface.Right.SubTalarEversion,
+  Side = "Right",
+  OutputFile = "SubTalarEversionMA.csv",
+  SingleStepAnalysis = "Off") = { 
+    RangeOfMotion = {-15,15};
+  };     
+};
+
+

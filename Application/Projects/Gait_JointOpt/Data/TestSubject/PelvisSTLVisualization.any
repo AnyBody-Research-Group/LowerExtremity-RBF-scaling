@@ -1,0 +1,191 @@
+AnyFolder PelvisStlVisualization ={
+  
+  AnySeg PelvisStlSeg = 
+  {
+    //r0 = {0, 0, 0};
+    //rDot0 = {0, 0, 0};
+    //Axes0 = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    //omega0 = {0, 0, 0};
+    Mass = 0;
+    Jii = {0.01, 0.01, 0.01};
+    //Jij = {0, 0, 0};
+    //sCoM = {0, 0, 0};
+    //JaboutCoMOnOff = Off;
+ 
+    AnyRefNode RASIS = {
+
+      sRel={-0.114,-0.175,-0.075};  
+      AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+      AnyDrawRefFrame drw2 ={};
+    };
+    
+    AnyRefNode LASIS = {
+
+      sRel={0.125,-0.184,-0.094};  
+      AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+      AnyDrawRefFrame drw2 ={};
+    };
+    
+    AnyRefNode LPSI = {
+
+      sRel={0.038,-0.02,-0.033};  
+      AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+      //AnyDrawRefFrame drw2 ={};
+    };
+    
+    AnyRefNode Sacrum2 = {
+
+      sRel={0.004,-0.022,-0.035};  
+      AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+      //AnyDrawRefFrame drw2 ={};
+    };
+    
+    AnyRefNode RPSI = {
+
+      sRel={-0.032,-0.02,-0.033};  
+      AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+      //AnyDrawRefFrame drw2 ={};
+    };
+    
+    AnyRefNode BonyLandmarks = {
+      sRel = .CTNode.sRel;
+      ARel = .CTNode.ARel;
+
+      AnyRefNode RASIS = {       
+        sRel={0.027,-0.04,0.11};  
+        AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+        AnyDrawRefFrame drw2 ={};
+      };
+      AnyRefNode LASIS = {       
+        sRel={0.013,-0.03,-0.107};  
+        AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+        AnyDrawRefFrame drw2 ={};
+      };
+      
+      AnyRefNode LPSI = {
+        
+        sRel={-0.143,-0.043,-0.043};  
+        AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+        AnyDrawRefFrame drw2 ={};
+      };
+            
+      AnyRefNode RPSI = {
+        
+        sRel={-0.133,-0.052,0.065};  
+        AnyDrawNode drw = {RGB={1,0,0};ScaleXYZ={1,1,1}*0.01;Opacity=0.2;};
+        AnyDrawRefFrame drw2 ={};
+      };
+      
+    };
+    
+    #include "../../BaseModel/DefineCTPelvisReferenceFrame.any"    
+    
+
+ AnyDrawSurf DrwSurf = {
+    FileName = "AHFLBHR46.stl";
+    //FileName = "HC_assem_ASC";
+    ScaleXYZ = 1e-3*{1.0, 1.0, 1.0};
+  };
+    
+};
+
+#if DriveUsingMarkers == 1
+
+AnyKinEq RASISDriver = {
+  AnyKinLinear lin = {
+    AnyRefNode &ref1 = ..PelvisStlSeg.RASIS;
+    AnyRefNode &ref2 = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.RASIS;
+  };
+  CType={Soft,Soft,Soft};
+  AnyVar dist = vnorm(lin.Pos);  
+};
+
+AnyKinEq LASISDriver = {
+  AnyKinLinear lin = {
+    AnyRefNode &ref1 = ..PelvisStlSeg.LASIS;
+    AnyRefNode &ref2 = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.LASIS;
+  };
+  CType={Soft,Soft,Soft};
+  
+  AnyVar dist = vnorm(lin.Pos);
+  
+};
+
+AnyKinEq LPSIDriver = {
+  AnyKinLinear lin = {
+    AnyRefNode &ref1 = ..PelvisStlSeg.LPSI;
+    AnyRefNode &ref2 = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.LPSI;
+  };
+  CType={Soft,Soft,Soft};
+};
+
+AnyKinEq RPSIDriver = {
+  AnyKinLinear lin = {
+    AnyRefNode &ref1 = ..PelvisStlSeg.RPSI;
+    AnyRefNode &ref2 = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.RPSI;
+  };
+  CType={Soft,Soft,Soft};
+};
+
+AnyOutputFile PelvisStlSegOutput = 
+{
+  FileName = "PelvisSTLSegOutput.txt";
+  /*NumberFormat = 
+  {
+  Digits = 15;
+  Width = 22;
+  Style = ScientificNumber;
+  FormatStr = "";
+  };*/
+  //Search = ;
+  SepSign = " ";
+  //LineSepSign = "";
+  /*Header = 
+  {
+  TitleSectionOnOff = On;
+  ConstSectionOnOff = On;
+  VarSectionOnOff = On;
+  ColumnNamesOnOff = On;
+  LinePrefix = "";
+  };*/
+  
+  AnyFloat PelvisLin = .PelvisStlSegLin.Pos;
+  AnyFloat PelvisRot = .PelvisStlSegRot.Pos;
+
+};
+
+// Compute the offsets between CT and skin markers
+//AnyVec3 rRel = ;
+
+#else
+AnyKinEqInterPolDriver PelvisSTLDriver = 
+{
+  //MeasureOrganizer = {};
+  //CType = ;
+  //WeightFun = {};
+  Type = Bspline;
+  BsplineOrder = 4;
+  //T = {};
+  //Data = {};
+  FileName = "PelvisSTLSegOutput.txt";
+  //FileErrorContinueOnOff = Off;
+  AnyKinLinear &reflin = .PelvisStlSegLin;
+  AnyKinRotational &refrot = .PelvisStlSegRot;
+
+};
+
+
+#endif
+
+
+AnyKinLinear PelvisStlSegLin = {
+  AnyRefFrame &pelvis = .PelvisStlSeg;
+};
+
+AnyKinRotational PelvisStlSegRot = {
+  Type = RotAxesAngles;
+  AnyRefFrame &pelvis = .PelvisStlSeg;
+};
+
+  
+};
