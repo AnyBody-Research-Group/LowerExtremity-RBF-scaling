@@ -105,9 +105,13 @@ AnyFolder KinematicMeasures = {
   AnyKinEqSimpleDriver PatellaMovement = {
     AnyKinPLine &Jnt = .KinematicMeasures.Patella;
     
-    AnyFloat gscale = vnorm(..GeoScaling.Shank.ScaleFunction.ScaleMat);
+    // Scale patella tendon length based on the over all leg length
+    AnyVar lengthScale = vnorm(..Seg.Thigh.HipJoint.sRel- ..Seg.Shank.AnkleJoint.sRel)
+                / vnorm(..Seg.LegTDStandardParameters.HipJoint - ..Seg.LegTDStandardParameters.AnkleJoint);
+    AnyVar TendonLength =  lengthScale *0.06047313; 
+
     
-    DriverPos = gscale[1]*{0.0605};
+    DriverPos = {TendonLength};
     DriverVel = {0.0};
     Reaction.Type = {On};  // The muscles must do the work
   };
