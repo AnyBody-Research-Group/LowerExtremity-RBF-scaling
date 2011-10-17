@@ -131,7 +131,7 @@ AnyFolder Scaling = {
          
       AnyFolder Foot  = {
         AnySwitch ShowNodes = Off;
-        #include "MorphNodesFootAlternativeRight.any"
+        #include "MorphNodesFootLinear.any"
         AnyVar LengthScale = ...AnthroSegmentLengths.Right.FootLength / ...StandardParameters.Right.Foot.Length;    
         AnyVar MassScale = ...MassScaling.Right.Foot.MassScale;
         #if !UseRbfScaling
@@ -311,7 +311,7 @@ AnyFolder Scaling = {
       
       AnyFolder Foot  = {
         AnySwitch ShowNodes = Off;
-        #include "MorphNodesFootAlternativeRight.any"
+        #include "MorphNodesFootLinear.any"
         AnyVar LengthScale = ...AnthroSegmentLengths.Left.FootLength / ...StandardParameters.Left.Foot.Length;    
         AnyVar MassScale = ...MassScaling.Left.Foot.MassScale;
 	  
