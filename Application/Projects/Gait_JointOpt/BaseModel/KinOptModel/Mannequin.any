@@ -55,8 +55,8 @@ AnyFolder Mannequin = {
     // selecting the middle point between the lateral and medial malleous makes sense anatomically. 
     // However, to correspond with the LegTD model the ankle center is chosen 
     // to be a little closer to the lateral side.
-    AnyVec3 sRAnkleCenter = (0.6482538*sRAnkleLateral + 0.3517462*sRAnkleMedial);                         
-    //AnyVec3 sRAnkleCenter = (sRAnkleLateral + sRAnkleMedial)/2;                         
+    //AnyVec3 sRAnkleCenter = (0.6482538*sRAnkleLateral + 0.3517462*sRAnkleMedial);                         
+    AnyVec3 sRAnkleCenter = (sRAnkleLateral + sRAnkleMedial)/2;                         
                               
                             
     // In principle the knee center can be any point along the revolute knee joint axis, thus
@@ -64,7 +64,6 @@ AnyFolder Mannequin = {
     // However, to correspond with the LegTD model the knee center is chosen 
     // to be a little closer to the lateral side.
     //AnyVec3 sRKneeCenter = (0.60135*sRKneeLateral + 0.39865*sRKneeMedial);
-
     AnyVec3 sRKneeCenter = (sRKneeLateral + sRKneeMedial)/2;
     
     

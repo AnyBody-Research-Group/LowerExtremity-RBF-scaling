@@ -1,9 +1,9 @@
   /* Rotations Centers  */
   AnyVec3 SubTalarJoint ={  0.070, -0.851, ..Sign*0.015}; //Not correct according to Klein horsman article
-  AnyVec3 AnkleJoint = {0.072, -0.8275, ..Sign*0.0125};
-  //AnyVec3 AnkleJoint = 0.5*(MedialMalleolus.Standard+LateralMalleolus.Standard);
-  AnyVec3 KneeJoint ={0.0384, -0.4078, ..Sign*0.0138};
-  // AnyVec3 KneeJoint=0.5*(EpicondylusFemorisMedialisStandard+EpicondylusFemorisLateralisStandard);
+  //AnyVec3 AnkleJoint = {0.072, -0.8275, ..Sign*0.0125};
+  AnyVec3 AnkleJoint = 0.5*(MedialMalleolus+LateralMalleolus);
+  //AnyVec3 KneeJoint ={0.0384, -0.4078, ..Sign*0.0138};
+  AnyVec3 KneeJoint=0.5*(EpicondylusFemorisMedialis+EpicondylusFemorisLateralis);
   AnyVec3 HipJoint =  {0.0, 0.0, ..Sign*0.0};
   AnyVec3 PatellaFemurJoint = {0.0351, -0.3851, ..Sign*0.0190};
   AnyVec3 ToeJoint = {0.18, -0.94, ..Sign*0.05};
