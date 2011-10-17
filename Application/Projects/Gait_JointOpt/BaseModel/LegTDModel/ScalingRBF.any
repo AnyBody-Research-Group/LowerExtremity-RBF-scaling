@@ -117,8 +117,6 @@ AnyFolder Scaling = {
     
     AnyFolder Right ={
       AnyVar Sign = 1;
-	AnyFolder &LegTDRef = ...BodyModel.Right.Leg.Seg;
-      AnyFolder &KinOptRef = Main.JntParameterOptModel.LegModel.Right.Seg;
 
 		AnyFolder Talus  = {
         AnySwitch ShowNodes = Off;
@@ -220,7 +218,7 @@ AnyFolder Scaling = {
       };   
       
       AnyFolder Thigh = {
-        AnySwitch ShowNodes = On;
+        AnySwitch ShowNodes = Off;
         #include "MorphNodesThigh.any"
         AnyVar MassScale = ...MassScaling.Right.Thigh.MassScale;
 		
@@ -297,8 +295,6 @@ AnyFolder Scaling = {
     
     AnyFolder Left ={
       AnyVar Sign = -1;
-	  AnyFolder &LegTDRef = ...BodyModel.Left.Leg.Seg;
-	  AnyFolder &KinOptRef = Main.JntParameterOptModel.LegModel.Left.Seg;
       
       AnyFolder Talus  = {
         AnySwitch ShowNodes = Off;
@@ -404,7 +400,7 @@ AnyFolder Scaling = {
       };
       
       AnyFolder Thigh = {
-        AnySwitch ShowNodes = On;
+        AnySwitch ShowNodes = Off;
         #include "MorphNodesThigh.any"
         AnyVar MassScale = ...MassScaling.Right.Thigh.MassScale;
 		
@@ -534,7 +530,7 @@ AnyFolder Scaling = {
     };
     
 //    AnyFolder Pelvis = {
-//      AnySwitch ShowNodes = On;
+//      AnySwitch ShowNodes = Off;
 //      #include "MorphNodesPelvis.any"
 //      #if !UseRbfScaling    
 //      AnyFunTransform3DLin ScaleFunction = { ScaleMat = {{1, 0, 0},{0, 1, 0},{0, 0, 1}}; Offset = {0,0,0};};      
