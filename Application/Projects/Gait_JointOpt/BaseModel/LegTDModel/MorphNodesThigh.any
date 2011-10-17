@@ -1,104 +1,96 @@
 
-AnyVar ThighLength = vnorm(  Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.HipJoint.sRel 
-- Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.KneeJoint.sRel);
-AnyVar ThighLengthStandard = vnorm(MorphSourcePoints.KneeJointStandard - MorphSourcePoints.HipJointStandard );
+AnyVar ThighLength = vnorm(  .KinOptRef.Thigh.HipJoint.sRel - .KinOptRef.Thigh.KneeJoint.sRel);
+AnyVar ThighLengthStandard = vnorm(StdPar.HipJoint-StdPar.KneeJoint);
 
-AnyVar LengthScale  = ThighLength / ThighLengthStandard;
-AnyVar ms = ...MassScaling.Right.Thigh.MassScale;
+AnyVar LengthScale = ThighLength/ThighLengthStandard;
+
+AnyVar ms = MassScale;
 AnyVar ls = LengthScale;
 
 AnyVar BoxSize=0.07;
 AnyVar BoxSizeKnee=0.07;
 
+AnyFolder StdPar = {
+  #include "..\..\..\..\..\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
+};
+
 AnyFolder MorphSourcePoints = {
-// All values must be hardcoded here to avoid circular references.
-// this is because the Shank segments is dependent on the scale function to be 
-// initialized. Thus, we can not reference the standard values from the seg.any file.
-  AnyVec3 HipJointStandard = {0.0, 0.0, ..Sign*0.0};
-  //AnyVec3 KneeJointStandard = {0.0384, -0.4078, ..Sign* 0.0138};
-  AnyVec3 KneeJointStandard = 0.5*(EpicondylusFemorisLateralStandard+EpicondylusFemorisMedialisStandard);
 
-  //AnyVec3 KneeJointAxisStandard = { -0.528, 0.107, ..Sign*0.843}/vnorm({ -0.528, 0.107, ..Sign*0.843});
-  AnyVec3 KneeJointAxisStandard = (EpicondylusFemorisLateralStandard-EpicondylusFemorisMedialisStandard)/vnorm(EpicondylusFemorisLateralStandard-EpicondylusFemorisMedialisStandard);
-  
-  AnyVec3 PatellaTendonOriginStandard = {0.102, 0.397, ..Sign*0.036};
-  AnyVec3 EpicondylusFemorisLateralStandard= { 0.0317, -0.3996, ..Sign*0.0547 };                             
-  AnyVec3 EpicondylusFemorisMedialisStandard={0.0768, -0.4050, ..Sign*-0.0321};
-
-  
   // Contruct rotation matrix based on the unscaled knee axis 
-  AnyMat33 ARelKnee = RotMat(KneeJointStandard,
-  KneeJointStandard +KneeJointAxisStandard ,
-  HipJointStandard)
-  *RotMat(90*pi/180,y);
+  AnyMat33 ARelKnee = RotMat(.StdPar.KneeJoint,
+  .StdPar.KneeJoint +.StdPar.KneeJointAxis ,
+  .StdPar.HipJoint)
+  *RotMat(..Sign*90*pi/180,y);
      
   
-  AnyVar EpiCondyleMedAxisProj = (EpicondylusFemorisMedialisStandard-KneeJointStandard ) * ARelKnee *{0,0,1}' ;
+  AnyVar EpiCondyleMedAxisProj = (.StdPar.EpicondylusFemorisMedialis-.StdPar.KneeJoint ) * ARelKnee *{0,0,1}' ;
   
   //Calc EpicondylusFemorisMedialis projection on knee joint z axis.
-  AnyVar EpiCondyleLatAxisProj = (EpicondylusFemorisLateralStandard-KneeJointStandard ) * ARelKnee *{0,0,1}';
+  AnyVar EpiCondyleLatAxisProj = (.StdPar.EpicondylusFemorisLateralis -.StdPar.KneeJoint ) * ARelKnee *{0,0,1}';
   
   // Calc Patella tendon origin projection on knee joint x axis 
-  AnyVar PatellaProj = ({ 0.1020, -0.3970, 0.0360}-KneeJointStandard ) * ARelKnee *{1,0,0}';
+  AnyVar PatellaProj = ({ 0.1020, -0.3970, 0.0360}-.StdPar.KneeJoint ) * ARelKnee *{1,0,0}';
 
-  AnyVec3 LateralKneePoint = KneeJointStandard + (ARelKnee * EpiCondyleLatAxisProj * {0,0,1}' )';
+  AnyVec3 KneeLateralPoint = .StdPar.KneeJoint + (ARelKnee * EpiCondyleLatAxisProj * {0,0,1}' )';
   
-  AnyVec3 MedialKneePoint = KneeJointStandard + (ARelKnee * EpiCondyleMedAxisProj * {0,0,1}' )';
+  AnyVec3 KneeMedialPoint = .StdPar.KneeJoint + (ARelKnee * EpiCondyleMedAxisProj * {0,0,1}' )';
   
-  AnyVec3 AnteriorKneePoint = KneeJointStandard + (ARelKnee * 0.1 * {1,0,0}' )';    
+  AnyVec3 KneeAnteriorPoint = .StdPar.KneeJoint + (ARelKnee * 0.1 * {1,0,0}' )';    
   
-  AnyVec3 CenterKneePoint = KneeJointStandard;
+  AnyVec3 KneeCenterPoint = .StdPar.KneeJoint;
+ 
+  AnyVec3 CenterHipPoint = .StdPar.HipJoint;
+  
   // Rotation matrix for the scalingNode coordinate system
-  AnyMat33 scaleRot = .....BodyModel.Right.Leg.Seg.Thigh.ScalingNode.Rotation;
+  AnyMat33 scaleRot = ..LegTDRef.Thigh.ScalingNode.Rotation;
   
-  AnyVec3 ThighCPoint1 = HipJointStandard + (scaleRot*{.BoxSize, 1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
-  AnyVec3 ThighCPoint2 = HipJointStandard + (scaleRot*{.BoxSize, 1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
-  AnyVec3 ThighCPoint3 = HipJointStandard + (scaleRot*{-.BoxSize, 1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
-  AnyVec3 ThighCPoint4 = HipJointStandard + (scaleRot*{-.BoxSize, 1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
-  AnyVec3 ThighCPoint5 = HipJointStandard + (scaleRot*{.BoxSize, -1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
-  AnyVec3 ThighCPoint6 = HipJointStandard + (scaleRot*{.BoxSize, -1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
-  AnyVec3 ThighCPoint7 = HipJointStandard + (scaleRot*{-.BoxSize, -1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
-  AnyVec3 ThighCPoint8 = HipJointStandard + (scaleRot*{-.BoxSize, -1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
+  AnyVec3 ThighCPoint1 = .StdPar.HipJoint + (scaleRot*{.BoxSize, 1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
+  AnyVec3 ThighCPoint2 = .StdPar.HipJoint + (scaleRot*{.BoxSize, 1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
+  AnyVec3 ThighCPoint3 = .StdPar.HipJoint + (scaleRot*{-.BoxSize, 1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
+  AnyVec3 ThighCPoint4 = .StdPar.HipJoint + (scaleRot*{-.BoxSize, 1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
+  AnyVec3 ThighCPoint5 = .StdPar.HipJoint + (scaleRot*{.BoxSize, -1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
+  AnyVec3 ThighCPoint6 = .StdPar.HipJoint + (scaleRot*{.BoxSize, -1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
+  AnyVec3 ThighCPoint7 = .StdPar.HipJoint + (scaleRot*{-.BoxSize, -1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
+  AnyVec3 ThighCPoint8 = .StdPar.HipJoint + (scaleRot*{-.BoxSize, -1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
 
-  AnyVec3 ThighCPoint9 = HipJointStandard + (scaleRot*{.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint10 = HipJointStandard + (scaleRot*{.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint11 = HipJointStandard + (scaleRot*{-.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint12 = HipJointStandard + (scaleRot*{-.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint13 = HipJointStandard + (scaleRot*{.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint14 = HipJointStandard + (scaleRot*{.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint15 = HipJointStandard + (scaleRot*{-.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint16 = HipJointStandard + (scaleRot*{-.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint9 = .StdPar.HipJoint + (scaleRot*{.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint10 = .StdPar.HipJoint + (scaleRot*{.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint11 = .StdPar.HipJoint + (scaleRot*{-.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint12 = .StdPar.HipJoint + (scaleRot*{-.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint13 = .StdPar.HipJoint + (scaleRot*{.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint14 = .StdPar.HipJoint + (scaleRot*{.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint15 = .StdPar.HipJoint + (scaleRot*{-.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint16 = .StdPar.HipJoint + (scaleRot*{-.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
 
-  AnyVec3 ThighCPoint17 = HipJointStandard +(scaleRot*{.BoxSize, -1/2*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint18 = HipJointStandard +(scaleRot*{.BoxSize, -1/2*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint19 = HipJointStandard +(scaleRot*{-.BoxSize, -1/2*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint20 = HipJointStandard +(scaleRot*{-.BoxSize, -1/2*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint17 = .StdPar.HipJoint +(scaleRot*{.BoxSize, -1/2*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint18 = .StdPar.HipJoint +(scaleRot*{.BoxSize, -1/2*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint19 = .StdPar.HipJoint +(scaleRot*{-.BoxSize, -1/2*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint20 = .StdPar.HipJoint +(scaleRot*{-.BoxSize, -1/2*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
 
-  //AnyVec3 ThighCPoint21 = HipJointStandard + (scaleRot*{.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*.BoxSizeKnee}')';
-  //AnyVec3 ThighCPoint22 = HipJointStandard + (scaleRot*{.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*-.BoxSizeKnee}')';
-  //AnyVec3 ThighCPoint23 = HipJointStandard + (scaleRot*{-.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*-.BoxSizeKnee}')';
-  //AnyVec3 ThighCPoint24 = HipJointStandard + (scaleRot*{-.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*.BoxSizeKnee}')';
+  //AnyVec3 ThighCPoint21 = .StdPar.HipJoint + (scaleRot*{.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*.BoxSizeKnee}')';
+  //AnyVec3 ThighCPoint22 = .StdPar.HipJoint + (scaleRot*{.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*-.BoxSizeKnee}')';
+  //AnyVec3 ThighCPoint23 = .StdPar.HipJoint + (scaleRot*{-.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*-.BoxSizeKnee}')';
+  //AnyVec3 ThighCPoint24 = .StdPar.HipJoint + (scaleRot*{-.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*.BoxSizeKnee}')';
   
   
   
-  AnyFolder &ThighRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh;
-  
+  AnyFolder &ThighRef = ..LegTDRef.Thigh;
   ThighRef = {
     AnyRefNode MorphNodes = {
         AnyRefNode SourceCenterHipPoint = {
-          sRel = ...HipJointStandard; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+          sRel = ....StdPar.HipJoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
         };  
-        AnyRefNode SourceCenterKneePoint = {
-          sRel = ...KneeJointStandard; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        AnyRefNode SourceKneeCenterPoint = {
+          sRel = ....StdPar.KneeJoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
         };  
-        AnyRefNode SourceLateralKneePoint = {
-          sRel = ...LateralKneePoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        AnyRefNode SourceKneeLateralPoint = {
+          sRel = ...KneeLateralPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
         };        
-        AnyRefNode SourceMedialKneePoint = {
-          sRel = ...MedialKneePoint;  AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        AnyRefNode SourceKneeMedialPoint = {
+          sRel = ...KneeMedialPoint;  AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
         }; 
-        AnyRefNode SourceAnteriorKneePoint = {
-          sRel = ...AnteriorKneePoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        AnyRefNode SourceKneeAnteriorPoint = {
+          sRel = ...KneeAnteriorPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
         };
         AnyRefNode SourceThighCPoint1  = {
           sRel = ...ThighCPoint1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
@@ -178,65 +170,67 @@ AnyFolder MorphSourcePoints = {
 };//MorphSourcePoints
 
 AnyFolder MorphTargetPoints = {
-  AnyVec3 HipJointStandard = {0.0, 0.0, ..Sign*0.0};
-  AnyVec3 KneeJointStandard = {0.0384, -0.4078, ..Sign* 0.0138};
-  AnyVec3 PatellaTendonOriginStandard = {0.102, 0.397, ..Sign*0.036};
-  AnyVec3 EpicondylusFemorisLateralisStandard = { 0.0317, -0.3996, ..Sign*0.0547};
   //Define rotation matrix corresponding to the one used for target morphnodes. 
   // (That is one based on kneeJointCenter, hipjoint, and a central point on patella) 
   // y is the direction of the patella
-  AnyMat33 ThighControlPointRot = RotMat(KneeJointStandard,
-  HipJointStandard,
-  EpicondylusFemorisLateralisStandard // Patella tendon origin
+  AnyMat33 ThighControlPointRot = RotMat(.StdPar.KneeJoint,
+  .StdPar.HipJoint,
+  .StdPar.EpicondylusFemorisLateralis 
   );
   
-  AnyFolder &ThighMorphNodes = Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.MorphNodes;
+  AnyFolder &ThighMorphNodes = ..KinOptRef.Thigh.MorphNodes;
 
-  AnyMat33 LMFScaleMat =  {{(.ms/.ls)^0.5,0,0},{0, .ls, 0},{0, 0, (.ms/.ls)^0.5 }};              
+  
+  AnyVar ls = .LengthScale;
+  AnyVar ms = .MassScale;
+    
+  AnyMat33 LMFScaleMat =  {{(ms/ls)^0.5,0,0},{0, ls, 0},{0, 0, (ms/ls)^0.5 }};              
   // Rotation matrix for the scalingNode coordinate system
-  AnyMat33 scaleRot = .....BodyModel.Right.Leg.Seg.Thigh.ScalingNode.Rotation;
+  AnyMat33 scaleRot = ..LegTDRef.Thigh.ScalingNode.Rotation;
   
-  AnyVec3 ThighCPoint1 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSize, 1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
-  AnyVec3 ThighCPoint2 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSize, 1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
-  AnyVec3 ThighCPoint3 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSize, 1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
-  AnyVec3 ThighCPoint4 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSize, 1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
-  AnyVec3 ThighCPoint5 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSize, -1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
-  AnyVec3 ThighCPoint6 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSize, -1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
-  AnyVec3 ThighCPoint7 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSize, -1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
-  AnyVec3 ThighCPoint8 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSize, -1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
+  AnyVec3 CenterHipPoint = .StdPar.HipJoint;
+  
+  AnyVec3 ThighCPoint1 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSize, 1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
+  AnyVec3 ThighCPoint2 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSize, 1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
+  AnyVec3 ThighCPoint3 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSize, 1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
+  AnyVec3 ThighCPoint4 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSize, 1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
+  AnyVec3 ThighCPoint5 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSize, -1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
+  AnyVec3 ThighCPoint6 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSize, -1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
+  AnyVec3 ThighCPoint7 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSize, -1/5*.ThighLengthStandard, ..Sign*-.BoxSize}')';
+  AnyVec3 ThighCPoint8 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSize, -1/5*.ThighLengthStandard, ..Sign*.BoxSize}')';
 
   
   
-  AnyVec3 ThighCPoint9 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint10 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint11 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint12 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint13 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint14 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint15 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ThighCPoint16 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint9 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint10 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint11 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint12 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -4/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint13 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint14 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint15 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ThighCPoint16 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -6/5*.ThighLengthStandard, ..Sign*.BoxSizeKnee}')';
 
   AnyVec3 ThighCPoint17 = (scaleRot*LMFScaleMat*{.BoxSize, -1/2*.ThighLengthStandard, ..Sign*.BoxSize}')';
   AnyVec3 ThighCPoint18 = (scaleRot*LMFScaleMat*{.BoxSize, -1/2*.ThighLengthStandard, ..Sign*-.BoxSize}')';
   AnyVec3 ThighCPoint19 = (scaleRot*LMFScaleMat*{-.BoxSize, -1/2*.ThighLengthStandard, ..Sign*-.BoxSize}')';
   AnyVec3 ThighCPoint20 = (scaleRot*LMFScaleMat*{-.BoxSize, -1/2*.ThighLengthStandard, ..Sign*.BoxSize}')';
 //
-  //AnyVec3 ThighCPoint21 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*.BoxSizeKnee}')';
-  //AnyVec3 ThighCPoint22 = HipJointStandard + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -.ThighLengthStandard -0.02, ..Sign*-.BoxSizeKnee}')';
-  //AnyVec3 ThighCPoint23 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -.ThighLengthStandard -0.02, ..Sign*-.BoxSizeKnee}')';
-  //AnyVec3 ThighCPoint24 = HipJointStandard + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -.ThighLengthStandard -0.02, ..Sign*.BoxSizeKnee}')';
+  //AnyVec3 ThighCPoint21 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -.ThighLengthStandard-0.02, ..Sign*.BoxSizeKnee}')';
+  //AnyVec3 ThighCPoint22 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -.ThighLengthStandard -0.02, ..Sign*-.BoxSizeKnee}')';
+  //AnyVec3 ThighCPoint23 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -.ThighLengthStandard -0.02, ..Sign*-.BoxSizeKnee}')';
+  //AnyVec3 ThighCPoint24 = .StdPar.HipJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -.ThighLengthStandard -0.02, ..Sign*.BoxSizeKnee}')';
   
   
-  AnyVec3 CenterKneePoint = (scaleRot * {0,-.ThighLength, 0}')';
-  AnyVec3 MedialKneePoint = (scaleRot * {0,-.ThighLength, 0}' + ThighControlPointRot * ThighMorphNodes.MedialKneeControlPoint.sRel')';
-  AnyVec3 LateralKneePoint = (scaleRot * {0,-.ThighLength, 0}' + ThighControlPointRot * ThighMorphNodes.LateralKneeControlPoint.sRel')';
-  AnyVec3 AnteriorKneePoint = (scaleRot * {0,-.ThighLength, 0}' + ThighControlPointRot * ThighMorphNodes.AnteriorKneeControlPoint.sRel')';
+  AnyVec3 KneeCenterPoint = (scaleRot * {0,-.ThighLength, 0}')';
+  AnyVec3 KneeMedialPoint = (scaleRot * {0,-.ThighLength, 0}' + ThighControlPointRot * ThighMorphNodes.MedialKneeControlPoint.sRel')';
+  AnyVec3 KneeLateralPoint = (scaleRot * {0,-.ThighLength, 0}' + ThighControlPointRot * ThighMorphNodes.LateralKneeControlPoint.sRel')';
+  AnyVec3 KneeAnteriorPoint = (scaleRot * {0,-.ThighLength, 0}' + ThighControlPointRot * ThighMorphNodes.AnteriorKneeControlPoint.sRel')';
   
-  AnyFolder &ThighRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh;
+  AnyFolder &ThighRef = ..LegTDRef.Thigh;
   ThighRef = {
     MorphNodes = {
         AnyRefNode TargetCenterHipPoint = {
-          sRel = ...HipJointStandard; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+          sRel = ....StdPar.HipJoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
         };  
         AnyRefNode TargetThighCPoint1   = {
           sRel = ...ThighCPoint1 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
@@ -310,17 +304,17 @@ AnyFolder MorphTargetPoints = {
 //        AnyRefNode TargetThighCPoint24   = {
 //          sRel = ...ThighCPoint24 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
 //        };
-        AnyRefNode TargetCenterKneePoint  = {
-          sRel = ...CenterKneePoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        AnyRefNode TargetKneeCenterPoint  = {
+          sRel = ...KneeCenterPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
         };
-        AnyRefNode TargetMedialKneePoint  = {
-          sRel = ...MedialKneePoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        AnyRefNode TargetKneeMedialPoint  = {
+          sRel = ...KneeMedialPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
         };
-        AnyRefNode TargetLateralKneePoint = {
-          sRel = ...LateralKneePoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        AnyRefNode TargetKneeLateralPoint = {
+          sRel = ...KneeLateralPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
         };
-        AnyRefNode TargetAnteriorKneePoint  = {
-          sRel = ...AnteriorKneePoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        AnyRefNode TargetKneeAnteriorPoint  = {
+          sRel = ...KneeAnteriorPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
         };
       };
     };//Thighref
