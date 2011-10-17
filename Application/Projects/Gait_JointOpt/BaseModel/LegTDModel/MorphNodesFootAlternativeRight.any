@@ -1,7 +1,6 @@
  
 
-AnyVar LengthScale = ...AnthroSegmentLengths.Right.FootLength / ...StandardParameters.Right.Foot.Length;    
-AnyVar ms = ...MassScaling.Right.Foot.MassScale;
+AnyVar ms = MassScale;
 AnyVar ls = LengthScale;
 AnyFolder StdPar = {
   #include "..\..\..\..\..\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
@@ -9,8 +8,8 @@ AnyFolder StdPar = {
 
 AnyFolder MorphSourcePoints = {
 
-
-  
+  // Scaling node rotation for the foot.
+  AnyMat33 scaleRot = ..LegTDRef.Foot.ScalingNode.Rotation;  
 
   // 1. Place the markers where they should be relative to the LegTD model
   // These are giving in the ScalingNode coordinate system to make them easier to move
@@ -27,13 +26,12 @@ AnyFolder MorphSourcePoints = {
   AnyMat33 ARelAnkle = RotMat(.StdPar.AnkleJoint,
   .StdPar.AnkleJoint+.StdPar.AnkleJointAxis,
   .StdPar.KneeJoint)
-  *RotMat(-90*pi/180,y);  
+  *RotMat(-..Sign*90*pi/180,y);  
   
   
-  // Scaling node rotation for the foot.
-  AnyMat33 scaleRot = .....BodyModel.Right.Leg.Seg.Foot.ScalingNode.Rotation;
+
   
-  AnyFolder &ScaleNodeRef = .....BodyModel.Right.Leg.Seg.Foot.ScalingNode;
+  AnyFolder &ScaleNodeRef = ..LegTDRef.Foot.ScalingNode;
   //ScaleNodeRef = {AnyDrawRefFrame drw ={};};
   
   // These rotation matrixes define the rotation of the control point box
@@ -84,7 +82,7 @@ AnyFolder MorphSourcePoints = {
   AnyVec3 MedialAnklePoint = .StdPar.AnkleJoint+ (ARelAnkle * MedMallAxisProj * {0,0,1}' )';
    
   
-  AnyFolder &FootRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot;
+  AnyFolder &FootRef = ..LegTDRef.Foot;
   FootRef = {
     AnyRefNode MorphNodes = {
       AnySwitch ShowNodes = Off;
@@ -182,7 +180,7 @@ AnyFolder MorphTargetPoints = {
   //AnyVec3 .StdPar.SubTalarJointStandard={  0.070, -0.851, ..Sign*0.015}; 
   //AnyVec3 .StdPar.KneeJoint= {0.0384, -0.4078, ..Sign* 0.0138};
     
-   AnyFolder &FootMorphNodes = Main.JntParameterOptModel.LegModel.Right.Seg.Foot.MorphNodesFoot;
+   AnyFolder &FootMorphNodes = ..KinOptRef.Foot.MorphNodesFoot;
 
   // These rotation matrixes define the rotation of the control point box
   // The same rotations are used in the Stick-figure model
@@ -250,7 +248,7 @@ AnyFolder MorphTargetPoints = {
 //  };
   
   
-  AnyFolder &FootRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot;
+  AnyFolder &FootRef = ..LegTDRef.Foot;
   FootRef.MorphNodes = {
     AnyRefNode TargetCenterAnklePoint  = {
       sRel = ...CenterAnklePoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
