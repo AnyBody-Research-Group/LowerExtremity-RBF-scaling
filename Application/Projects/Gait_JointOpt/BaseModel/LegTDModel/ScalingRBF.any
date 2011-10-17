@@ -177,7 +177,7 @@ AnyFolder Scaling = {
       };
 
       AnyFolder Shank = {
-        AnySwitch ShowNodes = Off;
+        AnySwitch ShowNodes = On;
         #include "MorphNodesShankRight.any"
         
         #if !UseRbfScaling 

@@ -654,12 +654,10 @@ AnyFolder Mannequin = {
                                 Main.ModelSetup.StaticData.Points.Markers.LD5M.PosInterpol.Data[2][0]};
 
     
+    //AnyVec3 sLAnkleCenter = (0.6482538*sLAnkleLateral + 0.3517462*sLAnkleMedial);                         
+    AnyVec3 sLAnkleCenter = (sLAnkleLateral + sLAnkleMedial) /2; 
     
-    //AnyVec3 sLAnkleCenter = (sLAnkleLateral + sLAnkleMedial) /2; 
-    AnyVec3 sLKneeCenter = (sLKneeLateral + sLKneeMedial) /2;
     
-    
-    AnyVec3 sLAnkleCenter = (0.6482538*sLAnkleLateral + 0.3517462*sLAnkleMedial);                         
                               
                             
     // In principle the knee center can be any point along the revolute knee joint axis, thus
@@ -667,6 +665,7 @@ AnyFolder Mannequin = {
     // However, to correspond with the LegTD model the knee center is chosen 
     // to be a little closer to the lateral side.
     //AnyVec3 sLKneeCenter = (0.60135*sLKneeLateral + 0.39865*sLKneeMedial);
+    AnyVec3 sLKneeCenter = (sLKneeLateral + sLKneeMedial) /2;
 
     
     

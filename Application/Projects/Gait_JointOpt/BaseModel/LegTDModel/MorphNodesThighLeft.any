@@ -157,7 +157,7 @@ AnyFolder MorphSourcePoints = {
 
 AnyFolder MorphTargetPoints = {
   AnyVec3 HipJointStandard = {0.0, 0.0, ..Sign*0.0};
-  AnyVec3 KneeJointStandard = {0.0384, -0.4078, ..Sign* 0.0138};
+  AnyVec3 KneeJointStandard = .MorphSourcePoints.KneeJointStandard; //{0.0384, -0.4078, ..Sign* 0.0138};
   AnyVec3 PatellaTendonOriginStandard = {0.102, 0.397, ..Sign*0.036};
   AnyVec3 EpicondylusFemorisLateralisStandard = { 0.0317, -0.3996, ..Sign*0.0547};
   //Define rotation matrix corresponding to the one used for target morphnodes. 

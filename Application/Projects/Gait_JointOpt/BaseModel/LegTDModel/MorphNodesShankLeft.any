@@ -19,10 +19,11 @@ AnyFolder MorphSourcePoints = {
   AnyVec3 KneeJointAxisStandard = (EpicondylusFemorisLateralStandard-EpicondylusFemorisMedialisStandard)/vnorm(EpicondylusFemorisLateralStandard-EpicondylusFemorisMedialisStandard);
 
   AnyVec3 PatellaTendonOriginStandard = {0.102, 0.397, ..Sign*0.036};
-  AnyVec3 AnkleJointStandard = {0.0633, -0.83, ..Sign*0.0214};
-//  AnyVec3 AnkleJointStandard = 0.5*(MedialMalleolusStandard +LateralMalleolusStandard ); 
-  AnyVec3 AnkleJointAxisStandard = {-0.683553, -0.2060334, ..Sign*0.7002182 }/vnorm({-0.683553, -0.2060334, ..Sign*0.7002182 });
-//  AnyVec3 AnkleJointAxisStandard = (LateralMalleolusStandard -MedialMalleolusStandard )/vnorm(LateralMalleolusStandard -MedialMalleolusStandard);
+//  AnyVec3 AnkleJointStandard = {0.0633, -0.83, ..Sign*0.0214};
+  AnyVec3 AnkleJointStandard = 0.5*( MedialMalleolusStandard + LateralMalleolusStandard ); 
+//  AnyVec3 AnkleJointAxisStandard = {-0.683553, -0.2060334, ..Sign*0.7002182 }/vnorm({-0.683553, -0.2060334, ..Sign*0.7002182 });
+  AnyVec3 AnkleJointAxisStandard = (LateralMalleolusStandard - MedialMalleolusStandard )/vnorm( LateralMalleolusStandard - MedialMalleolusStandard );
+
   AnyVec3 EpicondylusFemorisLateralStandard= { 0.0317, -0.3996, ..Sign*0.0547 };                             
   AnyVec3 EpicondylusFemorisMedialisStandard={0.0768, -0.4050, ..Sign*-0.0321};
   AnyVec3 MedialMalleolusStandard = {0.1120, -0.7921,..Sign*0.0104};
@@ -128,7 +129,7 @@ AnyFolder MorphSourcePoints = {
 };// SourceMorphNode
 
 AnyFolder MorphTargetPoints = {
-  AnyVec3 KneeJointStandard = {0.0384, -0.4078, ..Sign* 0.0138};
+  AnyVec3 KneeJointStandard = .MorphSourcePoints.KneeJointStandard;//  {0.0384, -0.4078, ..Sign* 0.0138};
   AnyVec3 PatellaTendonOriginStandard = {0.102, 0.397, ..Sign*0.036};
   AnyVec3 EpicondylusFemorisLateralisStandard = { 0.0317, -0.3996, ..Sign*0.0547};
   AnyVec3 AnkleJointStandard = {0.072, -0.8275, ..Sign*0.0125};
