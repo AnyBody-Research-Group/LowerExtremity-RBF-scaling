@@ -141,7 +141,7 @@ AnyFolder Scaling = {
         {
           RBFDef.Param = 0.3;
           Points0 = {
-            .MorphSourcePoints.CenterAnklePoint,  
+            .MorphSourcePoints.AnkleCenterPoint,  
             .MorphSourcePoints.FootControlPoint1, 
             .MorphSourcePoints.FootControlPoint2, 
             .MorphSourcePoints.FootControlPoint3, 
@@ -159,7 +159,7 @@ AnyFolder Scaling = {
             .MorphSourcePoints.FootControlPoint15
           };
           Points1 = {
-            .MorphTargetPoints.CenterAnklePoint,  
+            .MorphTargetPoints.AnkleCenterPoint,  
             .MorphTargetPoints.FootControlPoint1, 
             .MorphTargetPoints.FootControlPoint2, 
             .MorphTargetPoints.FootControlPoint3, 
@@ -326,7 +326,7 @@ AnyFolder Scaling = {
           RBFDef.Param = 0.3;
           //RBFDef.Type = RBF_ThinPlate;          
           Points0 = {
-            .MorphSourcePoints.CenterAnklePoint,  
+            .MorphSourcePoints.AnkleCenterPoint,  
             .MorphSourcePoints.FootControlPoint1, 
             .MorphSourcePoints.FootControlPoint2, 
             .MorphSourcePoints.FootControlPoint3, 
@@ -344,7 +344,7 @@ AnyFolder Scaling = {
             .MorphSourcePoints.FootControlPoint15
           };
           Points1 = {
-            .MorphTargetPoints.CenterAnklePoint,  
+            .MorphTargetPoints.AnkleCenterPoint,  
             .MorphTargetPoints.FootControlPoint1, 
             .MorphTargetPoints.FootControlPoint2, 
             .MorphTargetPoints.FootControlPoint3, 

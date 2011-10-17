@@ -65,7 +65,7 @@ AnyFolder MorphSourcePoints = {
   AnyVec3 FootControlPoint18 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { 0, -0.05, ..Sign*-0.01}' )' ;
   AnyVec3 FootControlPoint19 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { 0, 0.06, ..Sign*-0.01}' )' ;
   
-  AnyVec3 CenterAnklePoint = .StdPar.AnkleJoint;  
+  AnyVec3 AnkleCenterPoint = .StdPar.AnkleJoint;  
 //  AnyVec3 AnteriorSubTalarPoint = .StdPar.SubTalarJointStandard - 0.03*.StdPar.SubTalarJointAxis ;
 //  AnyVec3 PosteriorSubTalarPoint = .StdPar.SubTalarJointStandard + 0.03*.StdPar.SubTalarJointAxis ;
   
@@ -111,8 +111,8 @@ AnyFolder MorphSourcePoints = {
         //AnyDrawRefFrame refFrame = { Visible = On; ScaleXYZ = {0.05, 0.05, 0.05};  };
       };
       
-      AnyRefNode SourceCenterAnklePoint  = {
-        sRel = ...CenterAnklePoint ; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      AnyRefNode SourceAnkleCenterPoint  = {
+        sRel = ...AnkleCenterPoint ; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
       };   
       AnyRefNode SourceFootControlPoint1  = {
         sRel = ...FootControlPoint1; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
@@ -187,7 +187,7 @@ AnyFolder MorphTargetPoints = {
   AnyMat33 ControlPointRotMat = .MorphSourcePoints.ControlPointRotMat ; 
   
   
-  AnyVec3 CenterAnklePoint = .StdPar.AnkleJoint;
+  AnyVec3 AnkleCenterPoint = .StdPar.AnkleJoint;
   
   AnyVec3 MedialAnklePoint = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.MedialAnkleControlPoint.sRel')';
   AnyVec3 LateralAnklePoint = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.LateralAnkleControlPoint.sRel')';
@@ -250,8 +250,8 @@ AnyFolder MorphTargetPoints = {
   
   AnyFolder &FootRef = ..LegTDRef.Foot;
   FootRef.MorphNodes = {
-    AnyRefNode TargetCenterAnklePoint  = {
-      sRel = ...CenterAnklePoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    AnyRefNode TargetAnkleCenterPoint  = {
+      sRel = ...AnkleCenterPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };
     AnyRefNode TargetMedialAnklePoint  = {
       sRel = ...MedialAnklePoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
