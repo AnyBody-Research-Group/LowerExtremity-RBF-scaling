@@ -1,0 +1,28 @@
+// Switches whether or not to use the anatomically computed joint center or the joint center listed below
+#define UseAnatomicalValuesLeftHip 1
+#define UseAnatomicalValuesRightHip 1
+
+AnyFolder SubjectSpecificData = {
+      
+  //These antrhopometric data will be used as initial guess for the optimization alogorithm the optimization algoritm will allow changes to the 
+  //segment lengths
+  AnyFolder Anthropometrics={
+    AnyVar BodyMass=78.4;  //the mass is automatically distributed to the segments
+    AnyVar BodyHeight=1.67;  //height
+    
+	#ifdef IncludeLegTDModel    
+		AnyFolder &SP = Main.AnyBodyGaitAppModel.HumanModel.Scaling.StandardParameters;
+		AnyVar StandardBodyHeight = SP.Head.Height+SP.Trunk.Height+SP.Right.LengthLeg+0.05;
+		AnyVar TrunkHeight = SP.Trunk.Height*BodyHeight/StandardBodyHeight;
+	#endif    
+
+    // User-defined hip joint centers
+    // AnyFolder Pelvis = {
+      // AnyVec3 OffsetPos = {-0.01799353, 0.0001675525, -0.0005441904};
+      // AnyMat33 OffsetRot = {{0.9997829, -0.02058313, 0.003227431}, {0.02059419, 0.999782, -0.003432066}, {-0.003156084, 0.003497787, 0.9999889}};
+                
+      // AnyVec3 LeftHip_sRel =  (OffsetRot*({ -22.5365, -116.9949,  -87.0964}/1000.0+OffsetPos)')';
+      // AnyVec3 RightHip_sRel =  (OffsetRot*({ -13.7442, -121.3618,   84.6766}/1000.0+OffsetPos)')';
+    // };
+  };
+};

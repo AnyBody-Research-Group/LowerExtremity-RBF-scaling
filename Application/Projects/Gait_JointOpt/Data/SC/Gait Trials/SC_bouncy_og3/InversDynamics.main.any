@@ -1,0 +1,10 @@
+
+#define ExternalMainFile
+#include "../../../../BaseModel/PreMainIncludes.any"
+
+Main = {
+ Project.Files.MainFile = "InverseDynamics.main.any";
+ #include "TrialSpecificData.any" 
+ #include "../../SubjectSpecificData.any"
+ #include "../../../../BaseModel/InverseDynamicModel.main.any"
+};
