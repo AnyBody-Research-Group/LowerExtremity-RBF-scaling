@@ -1,4 +1,3 @@
-
 #define IncludeRight 1
 #define IncludeLeft 1
 
@@ -18,15 +17,13 @@ AnyFolder TrialSpecificData={
   
   #define ForcePlateConfig "Gait"
   
-  //Name of the C3D file to be analysed
-  AnyString NameOfFile = TrialName; //Write the name of the file here
-  
-  AnyStringVar FileNameStatic = "static.c3d" ;
-  AnyStringVar FileNameDynamic = "gait4.c3d" ;
+  AnyStringVar TrialName = "gait4" ;
 
-  AnyStringVar TrialName = "Gait4" ;
-    
-  AnyStringVar PathName = "../Data/TestSubject/";
+  //Name of the C3D file to be analysed
+  
+  AnyStringVar C3DFileNameDynamic = "../Data/TestSubject/Raw Data/"+TrialName+".c3d";
+  AnyStringVar C3DFileNameStatic = "../Data/TestSubject/Raw Data/static.c3d" ;
+
   
   AnyIntVar StartFrameNo = 47;
   AnyIntVar LastFrameNo = 148;

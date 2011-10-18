@@ -12,7 +12,8 @@ AnyFolder JointsAndDriversKinOptModel = {
     FileErrorContinueOnOff = On;
     Type = Bspline;
     BsplineOrder = 4;
-    FileName = "../" + Main.TrialSpecificData.PathName + "/Tmp/"+Main.TrialSpecificData.TrialName+"-output-euler-pelvis.txt";
+    FileName = FilePathReferenceOf(Main.Project.Files.SubjectSpecificDataFile)+"/Tmp/"+
+	Main.TrialSpecificData.TrialName+"-output-euler-pelvis.txt";
     AnyKinMeasureOrg &PelvisPosX = .InterfaceRef.Trunk.PelvisDriveNodePosX;
     AnyKinMeasureOrg &PelvisPosY = .InterfaceRef.Trunk.PelvisDriveNodePosY;
     AnyKinMeasureOrg &PelvisPosZ = .InterfaceRef.Trunk.PelvisDriveNodePosZ;
@@ -27,7 +28,8 @@ AnyFolder JointsAndDriversKinOptModel = {
     FileErrorContinueOnOff = On;
     Type = Bspline;
     BsplineOrder = 4;
-    FileName = "../" + Main.TrialSpecificData.PathName + "/Tmp/"+Main.TrialSpecificData.TrialName+ "-output-euler-leftlegtd.txt";
+    FileName = FilePathReferenceOf(Main.Project.Files.SubjectSpecificDataFile)+"/Tmp/"+
+	Main.TrialSpecificData.TrialName+ "-output-euler-leftlegtd.txt";
     AnyKinMeasureOrg &HipJointMeasure0 = .InterfaceRef.Left.HipJointMeasure0;
     AnyKinMeasureOrg &HipJointMeasure1 = .InterfaceRef.Left.HipJointMeasure1;
     AnyKinMeasureOrg &HipJointMeasure2 = .InterfaceRef.Left.HipJointMeasure2;
@@ -43,7 +45,8 @@ AnyFolder JointsAndDriversKinOptModel = {
     FileErrorContinueOnOff = On;
     Type = Bspline;
     BsplineOrder = 4;
-    FileName = "../" + Main.TrialSpecificData.PathName + "/Tmp/"+Main.TrialSpecificData.TrialName+ "-output-euler-rightlegtd.txt";
+    FileName = FilePathReferenceOf(Main.Project.Files.SubjectSpecificDataFile)+"/Tmp/"+
+	Main.TrialSpecificData.TrialName+ "-output-euler-rightlegtd.txt";
     AnyKinMeasureOrg &HipJointMeasure0 = .InterfaceRef.Right.HipJointMeasure0;
     AnyKinMeasureOrg &HipJointMeasure1 = .InterfaceRef.Right.HipJointMeasure1;
     AnyKinMeasureOrg &HipJointMeasure2 = .InterfaceRef.Right.HipJointMeasure2;

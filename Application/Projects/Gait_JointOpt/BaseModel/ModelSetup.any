@@ -5,8 +5,7 @@ AnyFolder ModelSetup ={
   
   AnyInputC3D DynamicDataSet = 
   {
-    FileName = Main.TrialSpecificData.PathName +"Raw Data/"+ Main.TrialSpecificData.FileNameDynamic;
-
+    FileName =  Main.TrialSpecificData.C3DFileNameDynamic;
     PointsScaleFactor = 0.001;
     ConstructModelOnOff = Off;
     ConstructChartOnOff = Off;
@@ -24,7 +23,7 @@ AnyFolder ModelSetup ={
   
   AnyInputC3D StaticData = 
   {
-    FileName = Main.TrialSpecificData.PathName +"Raw Data/"+ Main.TrialSpecificData.FileNameStatic;
+    FileName =  Main.TrialSpecificData.C3DFileNameStatic;
     PointsScaleFactor = 0.001;
     ConstructModelOnOff = Off;
     ConstructChartOnOff = Off;

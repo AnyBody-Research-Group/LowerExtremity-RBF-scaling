@@ -1,3 +1,6 @@
+Main.Project.Files = {
+	AnyFile SubjectSpecificDataFile = "../SubjectSpecificData.any";
+};
 // Switches whether or not to use the anatomically computed joint center or the joint center listed below
 #define UseAnatomicalValuesLeftHip 1
 #define UseAnatomicalValuesRightHip 1
@@ -8,7 +11,7 @@ AnyFolder SubjectSpecificData = {
   AnyFolder Anthropometrics={
     AnyVar BodyMass=52.0;  //the mass is automatically distributed to the segments
     AnyVar BodyHeight=1.615;  //height
-    
+	
 #ifdef IncludeLegTDModel    
     AnyFolder &SP = Main.AnyBodyGaitAppModel.HumanModel.Scaling.StandardParameters;
     AnyVar StandardBodyHeight = SP.Head.Height+SP.Trunk.Height+SP.Right.LengthLeg+0.05;

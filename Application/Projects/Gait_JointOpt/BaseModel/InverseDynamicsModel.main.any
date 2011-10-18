@@ -1,6 +1,6 @@
 
 Main = {
-  
+  AnyProject Project = { Files.MainFile = MAIN_FILE_NAME; };   
   
   #include "ModelSetup.any"
   #include "DrawSettings.any"
