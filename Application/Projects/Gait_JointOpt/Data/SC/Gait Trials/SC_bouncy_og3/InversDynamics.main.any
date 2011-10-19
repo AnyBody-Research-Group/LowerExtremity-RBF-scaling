@@ -1,10 +1,11 @@
-
-#define ExternalMainFile
+#define MAIN_FILE_NAME "InversDynamics.main.any"
+//#define ExternalMainFile
 #include "../../../../BaseModel/PreMainIncludes.any"
 
+#define IncludeLegTDModel 1
+
 Main = {
- Project.Files.MainFile = "InverseDynamics.main.any";
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"
- #include "../../../../BaseModel/InverseDynamicModel.main.any"
+ #include "../../../../BaseModel/InverseDynamicsModel.main.any"
 };

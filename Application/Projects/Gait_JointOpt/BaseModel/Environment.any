@@ -8,8 +8,6 @@ AnyFixedRefFrame GlobalRef ={
 
 
 
-#if ForcePlateConfig == "Gait"
-
 ForcePlateType2AutoDetection ForcePlate1 (
 PlateName = Plate1,
 Folder = Main.ModelSetup.DynamicDataSet,
@@ -68,7 +66,4 @@ FootPresent = IncludeLegTDModel)
 };
 
 
-
-
-#endif
 

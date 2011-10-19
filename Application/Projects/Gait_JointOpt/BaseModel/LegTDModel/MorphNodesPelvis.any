@@ -113,16 +113,16 @@ AnyFolder MorphTargetPoints = {
 
 //  AnyVec3 sRelTarget = 1/2*(target.RHipJoint.sRel+ target.LHipJoint.sRel);
 //  AnyMat33 ARelTarget = RotMat(sRelTarget ,
-//  sRelTarget +(sRelTarget -1/2*(target.RASIS.sRel+target.LASIS.sRel)),
+//  sRelTarget +(sRelTarget -1/2*(target.RAsis.sRel+target.LAsis.sRel)),
 //  target.RHipJoint.sRel)*RotMat(-pi/2,x);
 //  AnyMat33 ARelTarget = RotMat(sRelTarget ,
 //  sRelTarget +(sRelTarget -target.Sacral.sRel),
 //  target.RHipJoint.sRel)*RotMat(-pi/2,x);
 
-  AnyVec3 sRelTarget = 1/2*(target.RASIS.sRel+ target.LASIS.sRel);
+  AnyVec3 sRelTarget = 1/2*(target.RAsis.sRel+ target.LAsis.sRel);
   AnyMat33 ARelTarget = RotMat(sRelTarget ,
   sRelTarget +(sRelTarget - target.PSIMidPoint.sRel ),
-  target.RASIS.sRel)*RotMat(-pi/2,x);
+  target.RAsis.sRel)*RotMat(-pi/2,x);
  
 //  AnyVec3 sRelSource = 1/2*( .MorphSourcePoints.RightHipJointPoint  + .MorphSourcePoints.LeftHipJointPoint  );
 //  AnyMat33 ARelSource = RotMat(sRelSource ,
@@ -138,19 +138,19 @@ AnyFolder MorphTargetPoints = {
   .MorphSourcePoints.RightAsisMarker  )*RotMat(-pi/2,x);
     
   
-//  AnyVec3 lRightAsisMarker = (ARelTarget'*(target.RASIS.sRel-sRelTarget)')';
-//  AnyVec3 lLeftAsisMarker =  (ARelTarget'*(target.LASIS.sRel-sRelTarget)')';
+//  AnyVec3 lRightAsisMarker = (ARelTarget'*(target.RAsis.sRel-sRelTarget)')';
+//  AnyVec3 lLeftAsisMarker =  (ARelTarget'*(target.LAsis.sRel-sRelTarget)')';
 //  AnyVec3 lRightHipJointPoint =  (ARelTarget'*(target.RHipJoint.sRel-sRelTarget)')';
 //  AnyVec3 lLeftHipJointPoint  =  (ARelTarget'*(target.LHipJoint.sRel-sRelTarget)')';
 //  AnyVec3 lSacrumMarker =  (ARelTarget'*(target.Sacral.sRel-sRelTarget)')';
 #if UseAnatomicalValuesLeftHip == 1 | UseAnatomicalValuesRightHip == 1    
-  AnyVec3 RightAsisMarker = sRelSource + (target.RASIS.sRel-sRelTarget )*ARelTarget*ARelSource';
-  AnyVec3 LeftAsisMarker = sRelSource + (target.LASIS.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 RightAsisMarker = sRelSource + (target.RAsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 LeftAsisMarker = sRelSource + (target.LAsis.sRel-sRelTarget )*ARelTarget*ARelSource';
   AnyVec3 RightHipJointPoint = sRelSource + (target.RHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
   AnyVec3 LeftHipJointPoint = sRelSource + (target.LHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
   //AnyVec3 SacrumMarker= sRelSource + (target.Sacral.sRel-sRelTarget )*ARelTarget*ARelSource';
-  AnyVec3 LeftPSISMarker= sRelSource + (target.LPSI.sRel-sRelTarget )*ARelTarget*ARelSource';
-  AnyVec3 RightPSISMarker= sRelSource + (target.RPSI.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 LeftPSISMarker= sRelSource + (target.LPsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 RightPSISMarker= sRelSource + (target.RPsis.sRel-sRelTarget )*ARelTarget*ARelSource';
 
   AnyVec3 CBox1 = {RightAsisMarker[0],0.08,RightAsisMarker[2]};
   AnyVec3 CBox2 = {LeftAsisMarker[0],0.08, LeftAsisMarker[2]};
@@ -166,10 +166,10 @@ AnyFolder &PelvisBonyLandMarks = Main.AnyBodyGaitAppModel.InverseDynamicStudy.Pe
 AnyVec3 OffsetPos = Main.SubjectSpecificData.Anthropometrics.Pelvis.OffsetPos;
 AnyMat33 OffsetRot = Main.SubjectSpecificData.Anthropometrics.Pelvis.OffsetRot;
 
-AnyVec3 TmpRightAsisMarker = (OffsetRot*(PelvisBonyLandMarks.RASIS.sRel+OffsetPos)')';
-AnyVec3 TmpLeftAsisMarker = (OffsetRot*(PelvisBonyLandMarks.LASIS.sRel+OffsetPos)')';
-AnyVec3 TmpLeftPSISMarker = (OffsetRot*(PelvisBonyLandMarks.LPSI.sRel+OffsetPos)')';
-AnyVec3 TmpRightPSISMarker = (OffsetRot*(PelvisBonyLandMarks.RPSI.sRel+OffsetPos)')';
+AnyVec3 TmpRightAsisMarker = (OffsetRot*(PelvisBonyLandMarks.RAsis.sRel+OffsetPos)')';
+AnyVec3 TmpLeftAsisMarker = (OffsetRot*(PelvisBonyLandMarks.LAsis.sRel+OffsetPos)')';
+AnyVec3 TmpLeftPSISMarker = (OffsetRot*(PelvisBonyLandMarks.LPsis.sRel+OffsetPos)')';
+AnyVec3 TmpRightPSISMarker = (OffsetRot*(PelvisBonyLandMarks.RPsis.sRel+OffsetPos)')';
 
 
   AnyVec3 RightAsisMarker = sRelSource + (TmpRightAsisMarker-sRelTarget )*ARelTarget*ARelSource';
@@ -306,7 +306,7 @@ AnyVec3 TmpRightPSISMarker = (OffsetRot*(PelvisBonyLandMarks.RPSI.sRel+OffsetPos
 ////  AnyVec3 SacrumMarker= target.SACR.sRel-TranslationOffset ;
 //   AnyVec3 sRelTarget = 1/2*(target.RHipJoint.sRel+ target.LHipJoint.sRel);
 //  AnyMat33 ARelTarget = RotMat(sRelTarget ,
-//  sRelTarget +(sRelTarget -1/2*(target.RASIS.sRel + target.LASIS.sRel)),
+//  sRelTarget +(sRelTarget -1/2*(target.RAsis.sRel + target.LAsis.sRel)),
 //  target.RHipJoint.sRel)*RotMat(-pi/2,x);
 //  
 //  AnyVec3 sRelSource = 1/2*( .MorphSourcePoints.RightHipJointPoint  + .MorphSourcePoints.LeftHipJointPoint  );
@@ -314,15 +314,15 @@ AnyVec3 TmpRightPSISMarker = (OffsetRot*(PelvisBonyLandMarks.RPSI.sRel+OffsetPos
 //  sRelSource +(sRelSource - 1/2*( .MorphSourcePoints.RightAsisMarker + .MorphSourcePoints.LeftAsisMarker  )),
 //  .MorphSourcePoints.RightHipJointPoint  )*RotMat(-pi/2,x);
 //  
-//  AnyVec3 lRightAsisMarker = (ARelTarget'*(target.RASIS.sRel-sRelTarget)')';
-//  AnyVec3 lLeftAsisMarker =  (ARelTarget'*(target.LASIS.sRel-sRelTarget)')';
+//  AnyVec3 lRightAsisMarker = (ARelTarget'*(target.RAsis.sRel-sRelTarget)')';
+//  AnyVec3 lLeftAsisMarker =  (ARelTarget'*(target.LAsis.sRel-sRelTarget)')';
 //  AnyVec3 lRightHipJointPoint =  (ARelTarget'*(target.RHipJoint.sRel-sRelTarget)')';
 //  AnyVec3 lLeftHipJointPoint  =  (ARelTarget'*(target.LHipJoint.sRel-sRelTarget)')';
 //  AnyVec3 lSacrumMarker =  (ARelTarget'*(target.Sacral.sRel-sRelTarget)')';
 //
 //  
-//  AnyVec3 RightAsisMarker = sRelSource + (target.RASIS.sRel-sRelTarget )*ARelTarget*ARelSource';
-//  AnyVec3 LeftAsisMarker = sRelSource + (target.LASIS.sRel-sRelTarget )*ARelTarget*ARelSource';
+//  AnyVec3 RightAsisMarker = sRelSource + (target.RAsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+//  AnyVec3 LeftAsisMarker = sRelSource + (target.LAsis.sRel-sRelTarget )*ARelTarget*ARelSource';
 //  AnyVec3 RightHipJointPoint = sRelSource + (target.RHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
 //  AnyVec3 LeftHipJointPoint = sRelSource + (target.LHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
 //  AnyVec3 SacrumMarker= sRelSource + (target.Sacral.sRel-sRelTarget )*ARelTarget*ARelSource';

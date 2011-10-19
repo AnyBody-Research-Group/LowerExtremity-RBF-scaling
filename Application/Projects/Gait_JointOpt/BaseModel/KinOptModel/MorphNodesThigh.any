@@ -1,5 +1,5 @@
  AnyRefNode MorphNodes = {
-   AnyVar MarkerRadius = 0.005;
+   AnyVar MarkerRadius = 0.010;
    sRel = .KneeJoint.sRel;
      #ifdef RightLeg     
        AnyVar Sign=1;

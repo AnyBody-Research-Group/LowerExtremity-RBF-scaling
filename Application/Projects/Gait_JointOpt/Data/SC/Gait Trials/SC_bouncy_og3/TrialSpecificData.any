@@ -5,7 +5,7 @@
 #define IncludeKnee 1
 #define IncludeAnkle 1
 
-#define UseDanamicLoadPosition 0
+#define UseDanamicLoadPosition 1
 #define EnableJointAxisScaling 1
 
 #define HideStickModelGraphics 0
@@ -21,12 +21,12 @@ AnyFolder TrialSpecificData={
   // C3D files to load
   AnyFileVar C3DFileNameDynamic = TrialName+".c3d"; // If named or placed differently then specify relative path and name
   AnyStringVar C3DFileNameStatic = "../Data/SC/Static Trials/SC_staticfor_again1/SC_staticfor_again1.c3d" ;
+  AnyIntVar StaticFrameIndex = 100;
   
   AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo;
   AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo;
   
-  AnyIntVar FrameRate = 120;
-  
+  AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
    // HeelStrike times
    #define UseHeelStrikesTimes
    AnyVar RightHeelStrike1 = 1;
@@ -40,6 +40,8 @@ AnyFolder TrialSpecificData={
   //This is the initial position of the body it should only be touched it the kinematics does not work it first timestep
   //then these variable can be used to create a better guess, otherwise leave them unchanged
   AnyFolder InitialPositionOfBody ={    
+    // The Flag PelvisRotMat overides Manual pelvis rotations
+    #define PelvisRotMat
     AnyVar PelvisRotZ = 90;
     AnyVar PelvisRotY = 0;
     AnyVar PelvisRotX = 90;

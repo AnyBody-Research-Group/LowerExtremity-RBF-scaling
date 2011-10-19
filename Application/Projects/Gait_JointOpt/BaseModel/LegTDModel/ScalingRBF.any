@@ -117,8 +117,10 @@ AnyFolder Scaling = {
     
     AnyFolder Right ={
       AnyVar Sign = 1;
+	AnyFolder &LegTDRef = ...BodyModel.Right.Leg.Seg;
+      AnyFolder &KinOptRef = Main.JntParameterOptModel.LegModel.Right.Seg;
 
-		AnyFolder Talus  = {
+      AnyFolder Talus  = {
         AnySwitch ShowNodes = Off;
 
         #if 1
@@ -295,7 +297,9 @@ AnyFolder Scaling = {
     
     AnyFolder Left ={
       AnyVar Sign = -1;
-      
+	AnyFolder &LegTDRef = ...BodyModel.Left.Leg.Seg;
+      AnyFolder &KinOptRef = Main.JntParameterOptModel.LegModel.Left.Seg;
+
       AnyFolder Talus  = {
         AnySwitch ShowNodes = Off;
 
