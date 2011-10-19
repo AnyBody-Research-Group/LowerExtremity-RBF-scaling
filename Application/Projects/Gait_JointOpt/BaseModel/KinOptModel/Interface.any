@@ -9,7 +9,7 @@ AnyFolder Interface = {
           AnyVec3 HipJointMidPoint = (.RHipJoint.sRel + .LHipJoint.sRel)/2;
 
 #if UseAnatomicalValuesLeftHip == 1 | UseAnatomicalValuesRightHip == 1             
-          sRel = (.RASIS.sRel + .LASIS.sRel)/2;
+          sRel = (.RAsis.sRel + .LAsis.sRel)/2;
 #else
 #ifdef IncludeLegTDModel
         AnyFolder &PelvisBonyLandMarks = Main.AnyBodyGaitAppModel.InverseDynamicStudy.PelvisStlVisualization.PelvisStlSeg.BonyLandmarks;
@@ -19,8 +19,8 @@ AnyFolder Interface = {
         AnyVec3 OffsetPos = Main.SubjectSpecificData.Anthropometrics.Pelvis.OffsetPos;
         AnyMat33 OffsetRot = Main.SubjectSpecificData.Anthropometrics.Pelvis.OffsetRot;
 
-        AnyVec3 TmpRightAsisMarker = (OffsetRot*(PelvisBonyLandMarks.RASIS.sRel+OffsetPos)')';
-        AnyVec3 TmpLeftAsisMarker = (OffsetRot*(PelvisBonyLandMarks.LASIS.sRel+OffsetPos)')';          
+        AnyVec3 TmpRightAsisMarker = (OffsetRot*(PelvisBonyLandMarks.RAsis.sRel+OffsetPos)')';
+        AnyVec3 TmpLeftAsisMarker = (OffsetRot*(PelvisBonyLandMarks.LAsis.sRel+OffsetPos)')';          
           sRel = (TmpRightAsisMarker  + TmpLeftAsisMarker)/2;
 #endif
           ARel = RotMat(sRel, HipJointMidPoint , .Sacral.sRel);

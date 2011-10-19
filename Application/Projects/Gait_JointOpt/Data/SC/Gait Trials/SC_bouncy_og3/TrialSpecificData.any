@@ -5,7 +5,7 @@
 #define IncludeKnee 1
 #define IncludeAnkle 1
 
-#define UseDanamicLoadPosition 1
+#define UseDanamicLoadPosition 0
 #define EnableJointAxisScaling 1
 
 #define HideStickModelGraphics 0
@@ -25,6 +25,7 @@ AnyFolder TrialSpecificData={
   AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo;
   AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo;
   
+  AnyIntVar FrameRate = 120;
   
    // HeelStrike times
    #define UseHeelStrikesTimes

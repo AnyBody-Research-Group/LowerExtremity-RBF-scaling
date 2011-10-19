@@ -7,8 +7,8 @@
         // Coordinates of Heel, Toe, and LateralFoot markers in the foot's coordinate system. 
         AnyVec3 HeelRef = (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.RHeel.sRel' - .r0') )';
         AnyVec3 ToeRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.RToe.sRel' - .r0') )';
-        AnyVec3 LateralFootRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.RD5M.sRel' - .r0') )';
-        AnyVec3 MedialFootRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.RD1M.sRel' - .r0') )';
+        AnyVec3 LateralFootRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.RMidfootLateral.sRel' - .r0') )';
+        AnyVec3 MedialFootRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.RMidfootMedial.sRel' - .r0') )';
         AnyVec3 MedAnkleRef = (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.RAnkleMedial.sRel' - .r0') )';
         AnyVec3 LatAnkleRef = (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.RAnkleLateral.sRel' - .r0') )';
 
@@ -18,8 +18,8 @@
         // Coordinates of Heel, Toe, and LateralFoot markers in the foot's coordinate system
         AnyVec3 HeelRef = (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.LHeel.sRel' - .r0') )';
         AnyVec3 ToeRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.LToe.sRel' - .r0') )';
-        AnyVec3 LateralFootRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.LD5M.sRel' - .r0') )';
-        AnyVec3 MedialFootRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.LD1M.sRel' - .r0') )';        
+        AnyVec3 LateralFootRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.LMidfootLateral.sRel' - .r0') )';
+        AnyVec3 MedialFootRef =  (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.LMidfootMedial.sRel' - .r0') )';        
         AnyVec3 MedAnkleRef = (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.LAnkleMedial.sRel' - .r0') )';
         AnyVec3 LatAnkleRef = (.Axes0'* (..Foot.r0'+..Foot.Axes0*..Foot.LAnkleLateral.sRel' - .r0') )';
         

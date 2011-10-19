@@ -9,46 +9,68 @@ AnyFolder Mannequin = {
     
     ////// Inititals positions of the static markers   ////////
      
-    AnyVec3 sRThighInferior = { Main.ModelSetup.StaticData.Points.Markers.RTHIA.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTHIA.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTHIA.PosInterpol.Data[2][0]};
-    AnyVec3 sRThighLateral =  { Main.ModelSetup.StaticData.Points.Markers.RTHI.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTHI.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTHI.PosInterpol.Data[2][0]};
-    AnyVec3 sRKneeLateral =   { Main.ModelSetup.StaticData.Points.Markers.RKNE.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RKNE.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RKNE.PosInterpol.Data[2][0]};
-    AnyVec3 sRKneeMedial =    { Main.ModelSetup.StaticData.Points.Markers.RTHL.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTHL.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTHL.PosInterpol.Data[2][0]};
-    AnyVec3 sRShankInferior = { Main.ModelSetup.StaticData.Points.Markers.RSHN.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RSHN.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RSHN.PosInterpol.Data[2][0]};
-    AnyVec3 sRShankLateral =  { Main.ModelSetup.StaticData.Points.Markers.RTIB.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTIB.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTIB.PosInterpol.Data[2][0]};
-    AnyVec3 sRTUB =           { Main.ModelSetup.StaticData.Points.Markers.RTUB.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTUB.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTUB.PosInterpol.Data[2][0]};                              
-    AnyVec3 sRAnkleLateral =  { Main.ModelSetup.StaticData.Points.Markers.RANK.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RANK.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RANK.PosInterpol.Data[2][0]};
-    AnyVec3 sRAnkleMedial =   { Main.ModelSetup.StaticData.Points.Markers.RMMA.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RMMA.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RMMA.PosInterpol.Data[2][0]};
-    AnyVec3 sRHeel =          { Main.ModelSetup.StaticData.Points.Markers.RHEE.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RHEE.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RHEE.PosInterpol.Data[2][0]};
-    AnyVec3 sRToe =           { Main.ModelSetup.StaticData.Points.Markers.RTOE.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTOE.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RTOE.PosInterpol.Data[2][0]};
-    AnyVec3 sRD1M ={ Main.ModelSetup.StaticData.Points.Markers.RD1M.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RD1M.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RD1M.PosInterpol.Data[2][0]};
+    AnyVec3 sRThighInferior = { Main.ModelSetup.StaticData.Points.Markers.RThighInferior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RThighInferior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RThighInferior.PosInterpol.Data[2][0]};
+    AnyVec3 sRThighLateral =  { Main.ModelSetup.StaticData.Points.Markers.RThighLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RThighLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RThighLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sRThighSuperior = { Main.ModelSetup.StaticData.Points.Markers.RThighSuperior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RThighSuperior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RThighSuperior.PosInterpol.Data[2][0]};
+    AnyVec3 sRKneeLateral =   { Main.ModelSetup.StaticData.Points.Markers.RKneeLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RKneeLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RKneeLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sRKneeMedial =    { Main.ModelSetup.StaticData.Points.Markers.RKneeMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RKneeMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RKneeMedial.PosInterpol.Data[2][0]};
+    AnyVec3 sRShankInferior = { Main.ModelSetup.StaticData.Points.Markers.RShankInferior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RShankInferior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RShankInferior.PosInterpol.Data[2][0]};
+    AnyVec3 sRShankLateral =  { Main.ModelSetup.StaticData.Points.Markers.RShankLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RShankLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RShankLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sRTUB =           { Main.ModelSetup.StaticData.Points.Markers.RShankSuperior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RShankSuperior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RShankSuperior.PosInterpol.Data[2][0]};                              
+    AnyVec3 sRAnkleLateral =  { Main.ModelSetup.StaticData.Points.Markers.RAnkleLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RAnkleLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RAnkleLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sRAnkleMedial =   { Main.ModelSetup.StaticData.Points.Markers.RAnkleMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RAnkleMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RAnkleMedial.PosInterpol.Data[2][0]};
+    AnyVec3 sRHeel =          { Main.ModelSetup.StaticData.Points.Markers.RHeel.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RHeel.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RHeel.PosInterpol.Data[2][0]};
+    AnyVec3 sRToe =           { Main.ModelSetup.StaticData.Points.Markers.RToe.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RToe.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RToe.PosInterpol.Data[2][0]};
+    AnyVec3 sRMidfootSuperior={ Main.ModelSetup.StaticData.Points.Markers.RMidfootSuperior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RMidfootSuperior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RMidfootSuperior.PosInterpol.Data[2][0]};
+    AnyVec3 sRMidfootMedial  ={ Main.ModelSetup.StaticData.Points.Markers.RMidfootMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RMidfootMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RMidfootMedial.PosInterpol.Data[2][0]};
+    AnyVec3 sRMidfootLateral ={ Main.ModelSetup.StaticData.Points.Markers.RMidfootLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RMidfootLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RMidfootLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sRToeMedial =     { Main.ModelSetup.StaticData.Points.Markers.RToeMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RToeMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RToeMedial.PosInterpol.Data[2][0]};
+    AnyVec3 sRToeLateral =    { Main.ModelSetup.StaticData.Points.Markers.RToeLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RToeLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RToeLateral.PosInterpol.Data[2][0]};
 
-    AnyVec3 sRD5M ={ Main.ModelSetup.StaticData.Points.Markers.RD5M.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RD5M.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RD5M.PosInterpol.Data[2][0]};
+                              
+                              
+                              
+//                              AnyVec3 sRD1M ={ Main.ModelSetup.StaticData.Points.Markers.RD1M.PosInterpol.Data[0][0],
+//                                Main.ModelSetup.StaticData.Points.Markers.RD1M.PosInterpol.Data[1][0],
+//                                Main.ModelSetup.StaticData.Points.Markers.RD1M.PosInterpol.Data[2][0]};
+//
+//    AnyVec3 sRD5M ={ Main.ModelSetup.StaticData.Points.Markers.RD5M.PosInterpol.Data[0][0],
+//                                Main.ModelSetup.StaticData.Points.Markers.RD5M.PosInterpol.Data[1][0],
+//                                Main.ModelSetup.StaticData.Points.Markers.RD5M.PosInterpol.Data[2][0]};
     
     
      // In principle the ankle center can be any point along the revolute knee joint axis, thus
@@ -87,16 +109,16 @@ AnyFolder Mannequin = {
       
       #if IncludeKnee + IncludeHip > 0    
       CreateLoadPositions InitialPos ( DynamicPos = UseDanamicLoadPosition )= {
-          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RKNE.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RKNE.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RKNE.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RTHIA.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RTHIA.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RTHIA.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RTHI.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RTHI.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RTHI.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          sCluster1 = ..sRKneeLateral ;
+          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RThighLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RThighLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RThighLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RThighInferior.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RThighInferior.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RThighInferior.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RThighLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RThighLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RThighLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          sCluster1 = ..sRThighLateral ;
           sCluster2 = ..sRThighInferior;
           sCluster3 = ..sRThighLateral;
       };
@@ -110,6 +132,10 @@ AnyFolder Mannequin = {
       AnyFolder RThighLateral = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRThighLateral -.r0_static)')';
+      };
+      AnyFolder RThighSuperior = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRThighSuperior -.r0_static)')';
       };
       AnyFolder RKneeLateral = 
       {
@@ -138,6 +164,9 @@ AnyFolder Mannequin = {
          };
          AnyRefNode RThighLateral = {
            sRel = ..RThighLateral.sRel_static;
+         };
+         AnyRefNode RThighSuperior = {
+           sRel = ..RThighSuperior.sRel_static;
          };
          AnyRefNode RKneeLateral = {
            sRel = ..RKneeLateral.sRel_static;
@@ -196,16 +225,16 @@ AnyFolder Mannequin = {
       
       #if IncludeKnee + IncludeAnkle > 0
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition )  = {
-          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RANK.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RANK.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RANK.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RSHN.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RSHN.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RSHN.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RTIB.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RTIB.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RTIB.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          sCluster1 = ..sRAnkleLateral;
+          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RShankInferior.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RShankInferior.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RShankInferior.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          sCluster1 = ..sRShankLateral;
           sCluster2 = ..sRShankInferior;
           sCluster3 = ..sRShankLateral;
       };
@@ -303,18 +332,18 @@ AnyFolder Mannequin = {
       
       #if IncludeAnkle == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
-          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RHEE.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RHEE.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RHEE.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RTOE.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RTOE.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RTOE.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RD5M.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RD5M.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RD5M.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
           sCluster1 = ..sRHeel;
           sCluster2 = ..sRToe;
-          sCluster3 = ..sRD5M;
+          sCluster3 = ..sRMidfootLateral;
       };
       #endif
       
@@ -329,11 +358,20 @@ AnyFolder Mannequin = {
       AnyFolder RToe = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRToe -.r0_static)')';
       };
-      AnyFolder RD1M  = {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sRD1M -.r0_static)')';
+      AnyFolder RMidfootSuperior  = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRMidfootSuperior -.r0_static)')';
       };
-      AnyFolder RD5M = {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sRD5M -.r0_static)')';
+      AnyFolder RMidfootLateral  = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRMidfootLateral  -.r0_static)')';
+      };
+      AnyFolder RMidfootMedial  = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRMidfootMedial -.r0_static)')';
+      };
+      AnyFolder RToeMedial  = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRToeMedial -.r0_static)')';
+      };
+      AnyFolder RToeLateral  = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRToeLateral  -.r0_static)')';
       };
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sRAnkleCenter -.r0_static)')';
@@ -360,13 +398,22 @@ AnyFolder Mannequin = {
         AnyRefNode RToe = {
           sRel = ..RToe.sRel_static;
         };
-        AnyRefNode RD1M= {
-          sRel = ..RD1M.sRel_static;
+        AnyRefNode RMidfootSuperior= {
+          sRel = ..RMidfootSuperior.sRel_static;
         };
-        AnyRefNode RD5M= {
-          sRel = ..RD5M.sRel_static;
+        AnyRefNode RMidfootLateral= {
+          sRel = ..RMidfootLateral.sRel_static;
+        };
+        AnyRefNode RMidfootMedial= {
+          sRel = ..RMidfootMedial.sRel_static;
+        };
+        AnyRefNode RToeMedial= {
+          sRel = ..RToeMedial.sRel_static;
         }; 
-         AnyRefNode RAnkleLateral = {
+        AnyRefNode RToeLateral= {
+          sRel = ..RToeLateral.sRel_static;
+        }; 
+        AnyRefNode RAnkleLateral = {
            sRel = ..RAnkleLateral.sRel_static;
          };
          AnyRefNode RAnkleMedial = {
@@ -392,60 +439,60 @@ AnyFolder Mannequin = {
   AnyFolder Trunk = {
     
      //// Initial positions of static markers /////
-    AnyVec3 sRASIS =          { Main.ModelSetup.StaticData.Points.Markers.RASI.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RASI.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RASI.PosInterpol.Data[2][0]};
-    AnyVec3 sLASIS =          { Main.ModelSetup.StaticData.Points.Markers.LASI.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LASI.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LASI.PosInterpol.Data[2][0]};
-    AnyVec3 sSacral =         { Main.ModelSetup.StaticData.Points.Markers.SACR.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.SACR.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.SACR.PosInterpol.Data[2][0]};
-     AnyVec3 sRPSI =          { Main.ModelSetup.StaticData.Points.Markers.RPSI.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RPSI.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RPSI.PosInterpol.Data[2][0]};
-     AnyVec3 sLPSI =          { Main.ModelSetup.StaticData.Points.Markers.LPSI.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LPSI.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LPSI.PosInterpol.Data[2][0]};
-     AnyVec3 sPSIMidPoint = 0.5*(sRPSI+sLPSI);
-     AnyVec3 sPREF1 =          { Main.ModelSetup.StaticData.Points.Markers.PREF1.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.PREF1.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.PREF1.PosInterpol.Data[2][0]};
-     AnyVec3 sPREF2 =          { Main.ModelSetup.StaticData.Points.Markers.PREF2.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.PREF2.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.PREF2.PosInterpol.Data[2][0]};
-     AnyVec3 sRAnkleMedial =   { Main.ModelSetup.StaticData.Points.Markers.RMMA.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RMMA.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.RMMA.PosInterpol.Data[2][0]}; 
-     AnyVec3 sLAnkleMedial =   { Main.ModelSetup.StaticData.Points.Markers.LMMA.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LMMA.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LMMA.PosInterpol.Data[2][0]}; 
+    AnyVec3 sRAsis =          { Main.ModelSetup.StaticData.Points.Markers.RAsis.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RAsis.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RAsis.PosInterpol.Data[2][0]};
+    AnyVec3 sLAsis =          { Main.ModelSetup.StaticData.Points.Markers.LAsis.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LAsis.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LAsis.PosInterpol.Data[2][0]};
+    AnyVec3 sSacral =         { Main.ModelSetup.StaticData.Points.Markers.Sacral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.Sacral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.Sacral.PosInterpol.Data[2][0]};
+     AnyVec3 sRPsis =          { Main.ModelSetup.StaticData.Points.Markers.RPsis.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RPsis.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RPsis.PosInterpol.Data[2][0]};
+     AnyVec3 sLPsis =          { Main.ModelSetup.StaticData.Points.Markers.LPsis.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LPsis.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LPsis.PosInterpol.Data[2][0]};
+     AnyVec3 sPSIMidPoint = 0.5*(sRPsis+sLPsis);
+//     AnyVec3 sPREF1 =          { Main.ModelSetup.StaticData.Points.Markers.PREF1.PosInterpol.Data[0][0],
+//                                Main.ModelSetup.StaticData.Points.Markers.PREF1.PosInterpol.Data[1][0],
+//                                Main.ModelSetup.StaticData.Points.Markers.PREF1.PosInterpol.Data[2][0]};
+//     AnyVec3 sPREF2 =          { Main.ModelSetup.StaticData.Points.Markers.PREF2.PosInterpol.Data[0][0],
+//                                Main.ModelSetup.StaticData.Points.Markers.PREF2.PosInterpol.Data[1][0],
+//                                Main.ModelSetup.StaticData.Points.Markers.PREF2.PosInterpol.Data[2][0]};
+     AnyVec3 sRAnkleMedial =   { Main.ModelSetup.StaticData.Points.Markers.RAnkleMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RAnkleMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.RAnkleMedial.PosInterpol.Data[2][0]}; 
+     AnyVec3 sLAnkleMedial =   { Main.ModelSetup.StaticData.Points.Markers.LAnkleMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LAnkleMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LAnkleMedial.PosInterpol.Data[2][0]}; 
                               
                               
     // Pelvis axis and positions
     AnyFolder Pelvis = {
-      AnyVec3 r0_static = 0.5*(.sRASIS+.sLASIS);
+      AnyVec3 r0_static = 0.5*(.sRAsis+.sLAsis);
       AnyVec3 u1 = (tmp  - .sPSIMidPoint) / vnorm( tmp - .sPSIMidPoint) ;
       AnyVec3 u2 = cross(u3, u1);
-      AnyVec3 u3 = (.sRASIS - .sLASIS ) / vnorm(.sRASIS - .sLASIS ) ;
+      AnyVec3 u3 = (.sRAsis - .sLAsis ) / vnorm(.sRAsis - .sLAsis ) ;
       
-      AnyVec3 tmp = (.sPSIMidPoint-.sLASIS )*u3'* u3 + .sLASIS ;
+      AnyVec3 tmp = (.sPSIMidPoint-.sLAsis )*u3'* u3 + .sLAsis ;
       //Axes0_static= RotMat(r0_static, u1, u3  );
       AnyMatrix Axes0_static= {u1,u2,u3}';
       
       #if IncludeHip == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
-        iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RASI.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RASI.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.RASI.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LASI.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LASI.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LASI.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.SACR.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.SACR.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.SACR.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          sCluster1 = ..sRASIS;
-          sCluster2 = ..sLASIS;
+        iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RAsis.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RAsis.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RAsis.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LAsis.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LAsis.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LAsis.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          sCluster1 = ..sRAsis;
+          sCluster2 = ..sLAsis;
           sCluster3 = ..sSacral;
       };  
       #endif
@@ -458,39 +505,39 @@ AnyFolder Mannequin = {
         AnyVec3 sRel_static= (.Axes0_static'*(..LHipJoint.r0_static - .r0_static)')';
       };
       
-      AnyFolder RASIS = 
+      AnyFolder RAsis = 
       {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sRASIS-.r0_static)')';
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRAsis-.r0_static)')';
       };
-      AnyFolder LASIS = 
+      AnyFolder LAsis = 
       {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sLASIS-.r0_static)')';
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLAsis-.r0_static)')';
       };
       AnyFolder Sacral = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sSacral-.r0_static)')';
       };
-      AnyFolder RPSI = 
+      AnyFolder RPsis = 
       {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sRPSI-.r0_static)')';
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRPsis-.r0_static)')';
       };
       AnyFolder PSIMidPoint = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sPSIMidPoint-.r0_static)')';
       };
-      AnyFolder LPSI = 
+      AnyFolder LPsis = 
       {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sLPSI-.r0_static)')';
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLPsis-.r0_static)')';
       };
 
-      AnyFolder PREF1 = 
-      {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sPREF1-.r0_static)')';
-      };
-      AnyFolder PREF2 = 
-      {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sPREF2-.r0_static)')';
-      };
+//      AnyFolder PREF1 = 
+//      {
+//        AnyVec3 sRel_static= (.Axes0_static'*(..sPREF1-.r0_static)')';
+//      };
+//      AnyFolder PREF2 = 
+//      {
+//        AnyVec3 sRel_static= (.Axes0_static'*(..sPREF2-.r0_static)')';
+//      };
 
 
 
@@ -500,30 +547,30 @@ AnyFolder Mannequin = {
       AnyFolder &PelvisRef = ....LegModel.Trunk.Seg.Pelvis;
       
       PelvisRef = {
-        AnyRefNode RASIS = {
-          sRel = ..RASIS.sRel_static;
+        AnyRefNode RAsis = {
+          sRel = ..RAsis.sRel_static;
         };
-        AnyRefNode LASIS = {
-          sRel = ..LASIS.sRel_static;
+        AnyRefNode LAsis = {
+          sRel = ..LAsis.sRel_static;
         };
         AnyRefNode Sacral = {
           sRel = ..Sacral.sRel_static;
         };
-        AnyRefNode RPSI = {
-          sRel = ..RPSI.sRel_static;
+        AnyRefNode RPsis = {
+          sRel = ..RPsis.sRel_static;
         };
         AnyRefNode PSIMidPoint = {
           sRel = ..PSIMidPoint.sRel_static;
         };
-        AnyRefNode LPSI = {
-          sRel = ..LPSI.sRel_static;
+        AnyRefNode LPsis = {
+          sRel = ..LPsis.sRel_static;
         };
-        AnyRefNode PREF1 = {
-          sRel = ..PREF1.sRel_static;
-        };
-        AnyRefNode PREF2 = {
-          sRel = ..PREF2.sRel_static;
-        };
+//        AnyRefNode PREF1 = {
+//          sRel = ..PREF1.sRel_static;
+//        };
+//        AnyRefNode PREF2 = {
+//          sRel = ..PREF2.sRel_static;
+//        };
         
       };
       #endif
@@ -536,7 +583,7 @@ AnyFolder Mannequin = {
       AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*....LegModel.Trunk.Seg.Pelvis.RHipJoint.sRel')';
 
       
-      AnyFloat AsisDist = vnorm(.sRASIS -.sLASIS);
+      AnyFloat AsisDist = vnorm(.sRAsis -.sLAsis);
       
       // Anatomical Hip postition by Bell  (1989)
       AnyVec3 AnatomicalHipPosBell = {-0.22*AsisDist, -0.30*AsisDist, 0.36*AsisDist};//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
@@ -554,7 +601,7 @@ AnyFolder Mannequin = {
       // Y = sign(C*sin(theta)-dasis/2)
       // Z = (-xdis-rmarker)sin(beta)-C*cos(theta)*cos(beta)
       
-      AnyVar Lleg = vnorm(.sRASIS - .sRAnkleMedial);
+      AnyVar Lleg = vnorm(.sRAsis - .sRAnkleMedial);
       AnyVar xdis = (0.1288*Lleg)-0.04856;
       AnyVar rmarker = 0.007;
       AnyVar beta = pi*18/180;
@@ -573,7 +620,7 @@ AnyFolder Mannequin = {
     AnyFolder LHipJoint = {
       AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*....LegModel.Trunk.Seg.Pelvis.LHipJoint.sRel')';
       
-     AnyFloat AsisDist = vnorm(.sRASIS -.sLASIS);
+     AnyFloat AsisDist = vnorm(.sRAsis -.sLAsis);
       
       // Anatomical Hip postition by Bell  (1989)
       AnyVec3 AnatomicalHipPosBell = {-0.22*AsisDist, -0.30*AsisDist, -0.36*AsisDist};//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
@@ -591,7 +638,7 @@ AnyFolder Mannequin = {
       // Y = sign(C*sin(theta)-dasis/2)
       // Z = (-xdis-rmarker)sin(beta)-C*cos(theta)*cos(beta)
       
-      AnyVar Lleg = vnorm(.sLASIS - .sLAnkleMedial);
+      AnyVar Lleg = vnorm(.sLAsis - .sLAnkleMedial);
       AnyVar xdis = (0.1288*Lleg)-0.04856;
       AnyVar rmarker = 0.007;
       AnyVar beta = pi*18/180;
@@ -612,46 +659,57 @@ AnyFolder Mannequin = {
   #if IncludeLeft == 1
   AnyFolder Left = {
         ////// Inititals positions of the static markers  ///////
-    AnyVec3 sLThighInferior = { Main.ModelSetup.StaticData.Points.Markers.LTHIA.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTHIA.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTHIA.PosInterpol.Data[2][0]};
-    AnyVec3 sLThighLateral =  { Main.ModelSetup.StaticData.Points.Markers.LTHI.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTHI.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTHI.PosInterpol.Data[2][0]};
-    AnyVec3 sLKneeLateral =   { Main.ModelSetup.StaticData.Points.Markers.LKNE.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LKNE.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LKNE.PosInterpol.Data[2][0]};
-    AnyVec3 sLKneeMedial =    { Main.ModelSetup.StaticData.Points.Markers.LTHL.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTHL.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTHL.PosInterpol.Data[2][0]};
-    AnyVec3 sLShankInferior = { Main.ModelSetup.StaticData.Points.Markers.LSHN.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LSHN.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LSHN.PosInterpol.Data[2][0]};
-    AnyVec3 sLShankLateral =  { Main.ModelSetup.StaticData.Points.Markers.LTIB.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTIB.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTIB.PosInterpol.Data[2][0]};
-    AnyVec3 sLTUB =           { Main.ModelSetup.StaticData.Points.Markers.LTUB.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTUB.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTUB.PosInterpol.Data[2][0]};                              
-    AnyVec3 sLAnkleLateral =  { Main.ModelSetup.StaticData.Points.Markers.LANK.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LANK.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LANK.PosInterpol.Data[2][0]};
-    AnyVec3 sLAnkleMedial =   { Main.ModelSetup.StaticData.Points.Markers.LMMA.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LMMA.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LMMA.PosInterpol.Data[2][0]};
-    AnyVec3 sLHeel =          { Main.ModelSetup.StaticData.Points.Markers.LHEE.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LHEE.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LHEE.PosInterpol.Data[2][0]};
-    AnyVec3 sLToe =           { Main.ModelSetup.StaticData.Points.Markers.LTOE.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTOE.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LTOE.PosInterpol.Data[2][0]};
-    AnyVec3 sLD1M ={ Main.ModelSetup.StaticData.Points.Markers.LD1M.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LD1M.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LD1M.PosInterpol.Data[2][0]};
-
-    AnyVec3 sLD5M ={ Main.ModelSetup.StaticData.Points.Markers.LD5M.PosInterpol.Data[0][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LD5M.PosInterpol.Data[1][0],
-                                Main.ModelSetup.StaticData.Points.Markers.LD5M.PosInterpol.Data[2][0]};
+    AnyVec3 sLThighInferior = { Main.ModelSetup.StaticData.Points.Markers.LThighInferior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LThighInferior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LThighInferior.PosInterpol.Data[2][0]};
+    AnyVec3 sLThighLateral =  { Main.ModelSetup.StaticData.Points.Markers.LThighLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LThighLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LThighLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sLThighSuperior = { Main.ModelSetup.StaticData.Points.Markers.LThighSuperior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LThighSuperior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LThighSuperior.PosInterpol.Data[2][0]};
+    AnyVec3 sLKneeLateral =   { Main.ModelSetup.StaticData.Points.Markers.LKneeLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LKneeLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LKneeLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sLKneeMedial =    { Main.ModelSetup.StaticData.Points.Markers.LKneeMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LKneeMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LKneeMedial.PosInterpol.Data[2][0]};
+    AnyVec3 sLShankInferior = { Main.ModelSetup.StaticData.Points.Markers.LShankInferior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LShankInferior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LShankInferior.PosInterpol.Data[2][0]};
+    AnyVec3 sLShankLateral =  { Main.ModelSetup.StaticData.Points.Markers.LShankLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LShankLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LShankLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sLTUB =           { Main.ModelSetup.StaticData.Points.Markers.LShankSuperior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LShankSuperior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LShankSuperior.PosInterpol.Data[2][0]};                              
+    AnyVec3 sLAnkleLateral =  { Main.ModelSetup.StaticData.Points.Markers.LAnkleLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LAnkleLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LAnkleLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sLAnkleMedial =   { Main.ModelSetup.StaticData.Points.Markers.LAnkleMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LAnkleMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LAnkleMedial.PosInterpol.Data[2][0]};
+    AnyVec3 sLHeel =          { Main.ModelSetup.StaticData.Points.Markers.LHeel.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LHeel.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LHeel.PosInterpol.Data[2][0]};
+    AnyVec3 sLToe =           { Main.ModelSetup.StaticData.Points.Markers.LToe.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LToe.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LToe.PosInterpol.Data[2][0]};
+    AnyVec3 sLMidfootSuperior={ Main.ModelSetup.StaticData.Points.Markers.LMidfootSuperior.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LMidfootSuperior.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LMidfootSuperior.PosInterpol.Data[2][0]};
+    AnyVec3 sLMidfootMedial  ={ Main.ModelSetup.StaticData.Points.Markers.LMidfootMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LMidfootMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LMidfootMedial.PosInterpol.Data[2][0]};
+    AnyVec3 sLMidfootLateral ={ Main.ModelSetup.StaticData.Points.Markers.LMidfootLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LMidfootLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LMidfootLateral.PosInterpol.Data[2][0]};
+    AnyVec3 sLToeMedial =     { Main.ModelSetup.StaticData.Points.Markers.LToeMedial.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LToeMedial.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LToeMedial.PosInterpol.Data[2][0]};
+    AnyVec3 sLToeLateral =    { Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[0][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[1][0],
+                                Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[2][0]};
 
     
     //AnyVec3 sLAnkleCenter = (0.6482538*sLAnkleLateral + 0.3517462*sLAnkleMedial);                         
@@ -688,16 +746,16 @@ AnyFolder Mannequin = {
       
       #if IncludeKnee + IncludeHip > 0    
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
-          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LKNE.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LKNE.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LKNE.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LTHIA.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LTHIA.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LTHIA.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LTHI.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LTHI.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LTHI.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          sCluster1 = ..sLKneeLateral ;
+          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LThighSuperior.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LThighSuperior.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LThighSuperior.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LThighInferior.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LThighInferior.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LThighInferior.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LThighLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LThighLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LThighLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          sCluster1 = ..sLThighSuperior;
           sCluster2 = ..sLThighInferior;
           sCluster3 = ..sLThighLateral;
       };      
@@ -711,6 +769,10 @@ AnyFolder Mannequin = {
       AnyFolder LThighLateral = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLThighLateral -.r0_static)')';
+      };
+      AnyFolder LThighSuperior = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLThighSuperior -.r0_static)')';
       };
       AnyFolder LKneeLateral = 
       {
@@ -741,6 +803,9 @@ AnyFolder Mannequin = {
         };
         AnyRefNode LThighLateral = {
           sRel = ..LThighLateral.sRel_static;
+        };
+        AnyRefNode LThighSuperior = {
+          sRel = ..LThighSuperior.sRel_static;
         };
         AnyRefNode LKneeLateral = {
           sRel = ..LKneeLateral.sRel_static;
@@ -776,16 +841,16 @@ AnyFolder Mannequin = {
       
       #if IncludeKnee + IncludeAnkle > 0
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
-          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LANK.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LANK.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LANK.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LSHN.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LSHN.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LSHN.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LTIB.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LTIB.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LTIB.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          sCluster1 = ..sLAnkleLateral;
+          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LShankLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LShankLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LShankLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LShankInferior.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LShankInferior.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LShankInferior.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LShankLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LShankLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LShankLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          sCluster1 = ..sLShankLateral;
           sCluster2 = ..sLShankInferior;
           sCluster3 = ..sLShankLateral;
 
@@ -877,18 +942,18 @@ AnyFolder Mannequin = {
       
       #if IncludeAnkle == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
-          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LHEE.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LHEE.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LHEE.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LTOE.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LTOE.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LTOE.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
-          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LD5M.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LD5M.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.LD5M.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral.PosInterpol.Data[0][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral.PosInterpol.Data[1][Main.TrialSpecificData.StartFrameNo],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral.PosInterpol.Data[2][Main.TrialSpecificData.StartFrameNo]};
           sCluster1 = ..sLHeel;
           sCluster2 = ..sLToe;
-          sCluster3 = ..sLD5M;
+          sCluster3 = ..sLMidfootLateral;
       };  
       #endif
       
@@ -903,15 +968,21 @@ AnyFolder Mannequin = {
       AnyFolder LToe = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLToe -.r0_static)')';
       };
-
-      AnyFolder LD1M = {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sLD1M -.r0_static)')';
+      AnyFolder LMidfootSuperior = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLMidfootSuperior -.r0_static)')';
       };
-
-      AnyFolder LD5M = {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sLD5M -.r0_static)')';
+      AnyFolder LMidfootMedial = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLMidfootMedial -.r0_static)')';
       };
-      
+      AnyFolder LMidfootLateral = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLMidfootMedial -.r0_static)')';
+      };
+      AnyFolder LToeMedial = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLToeMedial -.r0_static)')';
+      };
+      AnyFolder LToeLateral = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLToeLateral -.r0_static)')';
+      };      
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sLAnkleCenter -.r0_static)')';
         AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;        
@@ -937,11 +1008,20 @@ AnyFolder Mannequin = {
         AnyRefNode LToe = {
           sRel = ..LToe.sRel_static;
         };
-        AnyRefNode LD1M = {
-          sRel = ..LD1M.sRel_static;
+        AnyRefNode LMidfootMedial = {
+          sRel = ..LMidfootMedial.sRel_static;
         };
-        AnyRefNode LD5M = {
-          sRel = ..LD5M.sRel_static;
+        AnyRefNode LMidfootSuperior = {
+          sRel = ..LMidfootSuperior.sRel_static;
+        };
+        AnyRefNode LMidfootLateral = {
+          sRel = ..LMidfootLateral.sRel_static;
+        };
+        AnyRefNode LToeMedial = {
+          sRel = ..LToeMedial.sRel_static;
+        };        
+        AnyRefNode LToeLateral = {
+          sRel = ..LToeLateral.sRel_static;
         };
         AnyRefNode LAnkleLateral = {
           sRel = ..LAnkleLateral.sRel_static;
