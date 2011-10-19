@@ -10,23 +10,23 @@ AnyFolder Seg = {
     Jii = {0.01, 0.005, 0.01};
     
     #ifdef RightLeg
-    r0 = ....Mannequin.Posture.Right.Thigh.InitialPos.r0;
-    Axes0 = ....Mannequin.Posture.Right.Thigh.InitialPos.Axes0;
+    r0 = ....StickFigure.Posture.Right.Thigh.InitialPos.r0;
+    Axes0 = ....StickFigure.Posture.Right.Thigh.InitialPos.Axes0;
     #endif
     
     #ifdef LeftLeg
-    r0 = ....Mannequin.Posture.Left.Thigh.InitialPos.r0;
-    Axes0 = ....Mannequin.Posture.Left.Thigh.InitialPos.Axes0;
+    r0 = ....StickFigure.Posture.Left.Thigh.InitialPos.r0;
+    Axes0 = ....StickFigure.Posture.Left.Thigh.InitialPos.Axes0;
     #endif
     
     AnyRefNode HipJoint = {  
       #ifdef RightLeg
       //#if UseAnatomicalValuesRightHip == 1 
-      sRel = .....Mannequin.Posture.Right.Thigh.HipJoint.sRel_static;//{0.0,0.0,0.0};
+      sRel = .....StickFigure.Posture.Right.Thigh.HipJoint.sRel_static;//{0.0,0.0,0.0};
       //#endif
       #else
 //      #if UseAnatomicalValuesLeftHip == 1
-      sRel = .....Mannequin.Posture.Left.Thigh.HipJoint.sRel_static;
+      sRel = .....StickFigure.Posture.Left.Thigh.HipJoint.sRel_static;
 //      #endif
       #endif
     };  
@@ -38,11 +38,11 @@ AnyFolder Seg = {
       * RotMat(90*pi/180,y);
       
       #ifdef RightLeg 
-      sRel = .....Mannequin.Posture.Right.Thigh.KneeJoint.sRel_static;
+      sRel = .....StickFigure.Posture.Right.Thigh.KneeJoint.sRel_static;
       ARel = InitialRotation;
       #endif
       #ifdef LeftLeg
-      sRel = .....Mannequin.Posture.Left.Thigh.KneeJoint.sRel_static;
+      sRel = .....StickFigure.Posture.Left.Thigh.KneeJoint.sRel_static;
       ARel = InitialRotation;
       #endif
       
@@ -95,12 +95,12 @@ AnyFolder Seg = {
     
     // Initial Segment position
     #ifdef RightLeg 
-    r0 = ....Mannequin.Posture.Right.Shank.InitialPos.r0;
-    Axes0 = ....Mannequin.Posture.Right.Shank.InitialPos.Axes0;
+    r0 = ....StickFigure.Posture.Right.Shank.InitialPos.r0;
+    Axes0 = ....StickFigure.Posture.Right.Shank.InitialPos.Axes0;
     #endif
     #ifdef LeftLeg
-    r0 = ....Mannequin.Posture.Left.Shank.InitialPos.r0;
-    Axes0 = ....Mannequin.Posture.Left.Shank.InitialPos.Axes0;
+    r0 = ....StickFigure.Posture.Left.Shank.InitialPos.r0;
+    Axes0 = ....StickFigure.Posture.Left.Shank.InitialPos.Axes0;
     #endif
     
     
@@ -112,13 +112,13 @@ AnyFolder Seg = {
       //AnyMat33 InitialRotation = RotMat(sRel, sRel+{0,0,1},.AnkleJoint.sRel) * RotMat(...Sign*90*pi/180,y)*RotMat(pi,z);
       
       #ifdef RightLeg 
-      sRel = .....Mannequin.Posture.Right.Shank.RKneeJoint.sRel_static; 
-      ARel = .....Mannequin.Posture.Right.Shank.RKneeJoint.ARel_static;             
+      sRel = .....StickFigure.Posture.Right.Shank.RKneeJoint.sRel_static; 
+      ARel = .....StickFigure.Posture.Right.Shank.RKneeJoint.ARel_static;             
       #endif
       
       #ifdef LeftLeg
-      sRel = .....Mannequin.Posture.Left.Shank.KneeJoint.sRel_static; 
-      ARel = .....Mannequin.Posture.Left.Shank.KneeJoint.ARel_static;
+      sRel = .....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
+      ARel = .....StickFigure.Posture.Left.Shank.KneeJoint.ARel_static;
       #endif
     };
     
@@ -129,10 +129,10 @@ AnyFolder Seg = {
       * RotMat(...Sign*90*pi/180,y);
       
       #ifdef RightLeg 
-      sRel = .....Mannequin.Posture.Right.Shank.AnkleJoint.sRel_static;
+      sRel = .....StickFigure.Posture.Right.Shank.AnkleJoint.sRel_static;
       #endif
       #ifdef LeftLeg
-      sRel = .....Mannequin.Posture.Left.Shank.AnkleJoint.sRel_static;
+      sRel = .....StickFigure.Posture.Left.Shank.AnkleJoint.sRel_static;
       #endif
     };
     
@@ -171,13 +171,13 @@ AnyFolder Seg = {
     
     // Initial Segment position
     #ifdef RightLeg
-    r0 = ....Mannequin.Posture.Right.Foot.InitialPos.r0; 
-    Axes0 = ....Mannequin.Posture.Right.Foot.InitialPos.Axes0; 
+    r0 = ....StickFigure.Posture.Right.Foot.InitialPos.r0; 
+    Axes0 = ....StickFigure.Posture.Right.Foot.InitialPos.Axes0; 
     #endif
     
     #ifdef LeftLeg
-    r0 = ....Mannequin.Posture.Left.Foot.InitialPos.r0; 
-    Axes0 = ....Mannequin.Posture.Left.Foot.InitialPos.Axes0; 
+    r0 = ....StickFigure.Posture.Left.Foot.InitialPos.r0; 
+    Axes0 = ....StickFigure.Posture.Left.Foot.InitialPos.Axes0; 
     #endif
     
     
@@ -191,13 +191,13 @@ AnyFolder Seg = {
     AnyRefNode AnkleJoint = {
       //AnyDrawRefFrame drw ={};
       #ifdef RightLeg 
-      sRel = .....Mannequin.Posture.Right.Foot.AnkleJoint.sRel_static;
-      ARel = .....Mannequin.Posture.Right.Foot.AnkleJoint.ARel_static;
+      sRel = .....StickFigure.Posture.Right.Foot.AnkleJoint.sRel_static;
+      ARel = .....StickFigure.Posture.Right.Foot.AnkleJoint.ARel_static;
       #endif
       
       #ifdef LeftLeg
-      sRel = .....Mannequin.Posture.Left.Foot.AnkleJoint.sRel_static;
-      ARel = .....Mannequin.Posture.Left.Foot.AnkleJoint.ARel_static;
+      sRel = .....StickFigure.Posture.Left.Foot.AnkleJoint.sRel_static;
+      ARel = .....StickFigure.Posture.Left.Foot.AnkleJoint.ARel_static;
       #endif  
     };
     

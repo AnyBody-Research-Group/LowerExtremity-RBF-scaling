@@ -4,20 +4,20 @@
       #ifdef RightLeg
         AnyVar Sign = 1;
         // Coordinates of Medial and Lateral condyle markers in Shank ref system
-        AnyVec3 LatKneeRef = .....Mannequin.Posture.Right.Shank.RKneeLateral.sRel_static;
-        AnyVec3 MedKneeRef = .....Mannequin.Posture.Right.Shank.RKneeMedial.sRel_static;
-//        AnyVec3 PatellaRef = .....Mannequin.Posture.Right.Shank.RPatella.sRel_static;
-        AnyVec3 MedAnkleRef = .....Mannequin.Posture.Right.Shank.RAnkleMedial.sRel_static;
-        AnyVec3 LatAnkleRef = .....Mannequin.Posture.Right.Shank.RAnkleLateral.sRel_static;
+        AnyVec3 LatKneeRef = .....StickFigure.Posture.Right.Shank.RKneeLateral.sRel_static;
+        AnyVec3 MedKneeRef = .....StickFigure.Posture.Right.Shank.RKneeMedial.sRel_static;
+//        AnyVec3 PatellaRef = .....StickFigure.Posture.Right.Shank.RPatella.sRel_static;
+        AnyVec3 MedAnkleRef = .....StickFigure.Posture.Right.Shank.RAnkleMedial.sRel_static;
+        AnyVec3 LatAnkleRef = .....StickFigure.Posture.Right.Shank.RAnkleLateral.sRel_static;
       #endif
       #ifdef LeftLeg
          AnyVar Sign = -1;
         // Coordinates of Medial and Lateral condyle markers in Thigh ref system
-        AnyVec3 LatKneeRef = .....Mannequin.Posture.Left.Shank.LKneeLateral.sRel_static;
-        AnyVec3 MedKneeRef = .....Mannequin.Posture.Left.Shank.LKneeMedial.sRel_static;
-//        AnyVec3 PatellaRef = .....Mannequin.Posture.Left.Shank.LPatella.sRel_static;
-        AnyVec3 MedAnkleRef = .....Mannequin.Posture.Left.Shank.LAnkleMedial.sRel_static;
-        AnyVec3 LatAnkleRef = .....Mannequin.Posture.Left.Shank.LAnkleLateral.sRel_static;
+        AnyVec3 LatKneeRef = .....StickFigure.Posture.Left.Shank.LKneeLateral.sRel_static;
+        AnyVec3 MedKneeRef = .....StickFigure.Posture.Left.Shank.LKneeMedial.sRel_static;
+//        AnyVec3 PatellaRef = .....StickFigure.Posture.Left.Shank.LPatella.sRel_static;
+        AnyVec3 MedAnkleRef = .....StickFigure.Posture.Left.Shank.LAnkleMedial.sRel_static;
+        AnyVec3 LatAnkleRef = .....StickFigure.Posture.Left.Shank.LAnkleLateral.sRel_static;
       #endif
 
      // Calculate Knee and Ankle axis orientation in the MorphNodes coordinate system

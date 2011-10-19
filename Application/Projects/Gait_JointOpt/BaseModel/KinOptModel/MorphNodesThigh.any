@@ -4,16 +4,16 @@
      #ifdef RightLeg     
        AnyVar Sign=1;
        // Coordinates of Medial and Lateral condyle markers in Thigh ref system
-       AnyVec3 LatKneeRef = .....Mannequin.Posture.Right.Thigh.RKneeLateral.sRel_static;
-       AnyVec3 MedKneeRef = .....Mannequin.Posture.Right.Thigh.RKneeMedial.sRel_static;
+       AnyVec3 LatKneeRef = .....StickFigure.Posture.Right.Thigh.RKneeLateral.sRel_static;
+       AnyVec3 MedKneeRef = .....StickFigure.Posture.Right.Thigh.RKneeMedial.sRel_static;
        //AnyVec3 PatellaRef = .....Mannequin.Posture.Right.Thigh.RPatella.sRel_static;
 
      #endif
      #ifdef LeftLeg 
        AnyVar Sign=-1;
        // Coordinates of Medial and Lateral condyle markers in Thigh ref system
-       AnyVec3 LatKneeRef = .....Mannequin.Posture.Left.Thigh.LKneeLateral.sRel_static;
-       AnyVec3 MedKneeRef = .....Mannequin.Posture.Left.Thigh.LKneeMedial.sRel_static;
+       AnyVec3 LatKneeRef = .....StickFigure.Posture.Left.Thigh.LKneeLateral.sRel_static;
+       AnyVec3 MedKneeRef = .....StickFigure.Posture.Left.Thigh.LKneeMedial.sRel_static;
        //AnyVec3 PatellaRef = .....Mannequin.Posture.Left.Thigh.LPatella.sRel_static;
      #endif
 

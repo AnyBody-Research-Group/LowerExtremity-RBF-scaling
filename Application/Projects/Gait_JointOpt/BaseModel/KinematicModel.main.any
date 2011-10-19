@@ -10,7 +10,7 @@ Main = {
   
   AnyFolder JntParameterOptModel = {
     
-     #include "KinOptModel\Mannequin.any"
+     #include "KinOptModel\StickFigure.any"
 
      // The actual body model goes in this folder
      AnyFolder LegModel = {
