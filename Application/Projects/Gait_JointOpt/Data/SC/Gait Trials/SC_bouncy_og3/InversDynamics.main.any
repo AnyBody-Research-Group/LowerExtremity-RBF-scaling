@@ -1,5 +1,4 @@
 #define MAIN_FILE_NAME "InversDynamics.main.any"
-//#define ExternalMainFile
 #include "../../../../BaseModel/PreMainIncludes.any"
 
 #define IncludeLegTDModel 1

@@ -167,7 +167,7 @@ AnyFolder Seg = {
   AnySeg Foot = {
 //    AnyDrawRefFrame drw ={RGB={1,0,0};};
 
-    #include "MorphNodesFoot2.any"
+    #include "MorphNodesFoot.any"
     
     // Initial Segment position
     #ifdef RightLeg

@@ -1,5 +1,4 @@
 #define MAIN_FILE_NAME "KinematicModel.main.any"
-#define ExternalMainFile
 #include "../../../../BaseModel/PreMainIncludes.any"
 
 Main = {
