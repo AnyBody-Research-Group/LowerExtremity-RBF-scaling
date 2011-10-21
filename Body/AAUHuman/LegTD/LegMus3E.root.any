@@ -35,7 +35,7 @@ HipNodeRef = {
    AnyFunTransform3DLin Scale = {
       AnyFunTransform3DLin Transform_HipNode = {
         ScaleMat = ..ARel;
-        Offset = -..sRel0*..ARel;
+        Offset = ..sRel0*..ARel;
       };
         
       PreTransforms = {
@@ -43,7 +43,7 @@ HipNodeRef = {
         &..Scaling.GeometricalScaling.Pelvis.ScaleFunction
       };
       ScaleMat = .ARel';
-      Offset = .sRel;
+      Offset = -.sRel;
   };
    
   
