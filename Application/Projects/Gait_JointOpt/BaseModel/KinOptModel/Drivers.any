@@ -204,7 +204,24 @@ AnyFolder Drivers = {
     };
 #endif
   };
-
+  
+  AnyKinDriverMarker RPatella=    {
+    CType = {Soft,Soft,Soft};
+    AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RPatella;
+    AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RPatella.PosInterpol;
+    AnyFolder Weights = {AnyFunConst WFun ={Value = {0.0, 0.0, 10.0};};};
+    WeightFun={&Weights.WFun };    
+    Linear.Ref = 0; // Weights are in local coordinates
+ #if SHOW_MARKERS == 1
+    AnyDrawKinMeasure drw = 
+    {
+      Label = Off;
+      Size = 0.005;
+      Line = Off;
+    };
+#endif
+  };  
+  
 //  AnyKinDriverMarker RANK=    {
 //    CType = {Soft,Soft,Soft};
 //    AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RAnkleLateral ;
@@ -428,7 +445,23 @@ AnyFolder Drivers = {
     };
 #endif
   };
-
+  
+  AnyKinDriverMarker LPatella =    {
+    CType = {Soft,Soft,Soft};
+    AnyRefFrame &ref1 = ...LegModel.Left.Seg.Thigh.LPatella;
+    AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LPatella.PosInterpol;
+    AnyFolder Weights = {AnyFunConst WFun ={Value = {0.0, 0.0, 10.0};};};
+    WeightFun={&Weights.WFun };
+    Linear.Ref = 0; // Weights are in local coordinates
+ #if SHOW_MARKERS == 1
+    AnyDrawKinMeasure drw = 
+    {
+      Label = Off;
+      Size = 0.005;
+      Line = Off;
+    };
+#endif
+  };
 
   #endif
   

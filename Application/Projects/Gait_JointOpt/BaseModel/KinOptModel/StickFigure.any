@@ -13,8 +13,8 @@ AnyFolder StickFigure = {
      
     
     AnyVec3 sRPatella = { Main.ModelSetup.StaticData.Points.Markers.RPatella.PosInterpol.Data[0][..FirstFrameStatic],
-                                Main.ModelSetup.StaticData.Points.Markers.RThighInferior.PosInterpol.Data[1][..FirstFrameStatic],
-                                Main.ModelSetup.StaticData.Points.Markers.RThighInferior.PosInterpol.Data[2][..FirstFrameStatic]};
+                                Main.ModelSetup.StaticData.Points.Markers.RPatella.PosInterpol.Data[1][..FirstFrameStatic],
+                                Main.ModelSetup.StaticData.Points.Markers.RPatella.PosInterpol.Data[2][..FirstFrameStatic]};
     AnyVec3 sRThighInferior = { Main.ModelSetup.StaticData.Points.Markers.RThighInferior.PosInterpol.Data[0][..FirstFrameStatic],
                                 Main.ModelSetup.StaticData.Points.Markers.RThighInferior.PosInterpol.Data[1][..FirstFrameStatic],
                                 Main.ModelSetup.StaticData.Points.Markers.RThighInferior.PosInterpol.Data[2][..FirstFrameStatic]};
@@ -168,6 +168,9 @@ AnyFolder StickFigure = {
       #if IncludeHip + IncludeKnee > 0
        AnyFolder &ThighRef = ....LegModel.Right.Seg.Thigh;
        ThighRef = {
+         AnyRefNode RPatella = {
+           sRel= ..RPatella.sRel_static;
+         };
          AnyRefNode RThighInferior = {
            sRel= ..RThighInferior.sRel_static;
          };
@@ -182,9 +185,6 @@ AnyFolder StickFigure = {
          };
          AnyRefNode RKneeMedial = {
            sRel = ..RKneeMedial.sRel_static;
-         };
-         AnyRefNode RPatella = {
-           sRel = ..RPatella.sRel_static;
          };
        };
       #endif 
@@ -248,7 +248,12 @@ AnyFolder StickFigure = {
           sCluster3 = ..sRShankLateral;
       };
       #endif
-            
+       
+      
+      AnyFolder RPatella = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRPatella -.r0_static)')';
+      };
       AnyFolder RKneeLateral = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeLateral -.r0_static)')';
@@ -310,9 +315,9 @@ AnyFolder StickFigure = {
          AnyRefNode RAnkleMedial = {
            sRel = ..RAnkleMedial.sRel_static;
          };
-//         AnyRefNode RPatella = {
-//           sRel = ..RPatella.sRel_static;
-//         };
+         AnyRefNode RPatella = {
+           sRel = ..RPatella.sRel_static;
+         };
          AnyRefNode RKneeLateral = {
            sRel = ..RKneeLateral.sRel_static;
          };
@@ -874,7 +879,11 @@ AnyFolder StickFigure = {
 
       };
       #endif
-            
+        
+      AnyFolder LPatella = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLPatella -.r0_static)')';
+      };
       AnyFolder LKneeLateral = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLKneeLateral -.r0_static)')';
@@ -921,6 +930,9 @@ AnyFolder StickFigure = {
       AnyFolder &ShankRef = ....LegModel.Left.Seg.Shank;
       
       ShankRef = {
+        AnyRefNode LPatella = {
+          sRel = ..LPatella.sRel_static;
+        };
         AnyRefNode LShankInferior = {
           sRel = ..LShankInferior.sRel_static;
         };
