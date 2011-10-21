@@ -486,11 +486,11 @@ AnyFolder StickFigure = {
     // Pelvis axis and positions
     AnyFolder Pelvis = {
       AnyVec3 r0_static = 0.5*(.sRAsis+.sLAsis);
-      AnyVec3 u1 = (tmp  - .sPSIMidPoint) / vnorm( tmp - .sPSIMidPoint) ;
+      AnyVec3 u1 = (tmp  - .sSacral ) / vnorm( tmp - .sSacral ) ;
       AnyVec3 u2 = cross(u3, u1);
       AnyVec3 u3 = (.sRAsis - .sLAsis ) / vnorm(.sRAsis - .sLAsis ) ;
       
-      AnyVec3 tmp = (.sPSIMidPoint-.sLAsis )*u3'* u3 + .sLAsis ;
+      AnyVec3 tmp = (.sSacral -.sLAsis )*u3'* u3 + .sLAsis ;
       //Axes0_static= RotMat(r0_static, u1, u3  );
       AnyMatrix Axes0_static= {u1,u2,u3}';
       
