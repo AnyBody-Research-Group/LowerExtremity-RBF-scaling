@@ -122,10 +122,7 @@ AnyFolder Scaling = {
 
       AnyFolder Talus  = {
         AnySwitch ShowNodes = Off;
-
-        #if 1
-          AnyFunTransform3DIdentity ScaleFunction = {};
-        #endif
+          AnyFunTransform3D &ScaleFunction = .Foot.ScaleFunction;
       };
       
          
@@ -301,11 +298,7 @@ AnyFolder Scaling = {
       AnyFolder &KinOptRef = Main.JntParameterOptModel.LegModel.Left.Seg;
 
       AnyFolder Talus  = {
-        AnySwitch ShowNodes = Off;
-
-        #if 1
-          AnyFunTransform3DIdentity ScaleFunction = {};
-        #endif
+          AnyFunTransform3D &ScaleFunction = .Foot.ScaleFunction;
       };      
       
       
