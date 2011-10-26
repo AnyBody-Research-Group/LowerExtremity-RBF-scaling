@@ -83,8 +83,8 @@ AnyFolder StickFigure = {
     // selecting the middle point between the lateral and medial malleous makes sense anatomically. 
     // However, to correspond with the LegTD model the ankle center is chosen 
     // to be a little closer to the lateral side.
-    //AnyVec3 sRAnkleCenter = (0.6482538*sRAnkleLateral + 0.3517462*sRAnkleMedial);                         
-    AnyVec3 sRAnkleCenter = (sRAnkleLateral + sRAnkleMedial)/2;                         
+    AnyVec3 sRAnkleCenter = (0.6482538*sRAnkleLateral + 0.3517462*sRAnkleMedial);                         
+//    AnyVec3 sRAnkleCenter = (sRAnkleLateral + sRAnkleMedial)/2;                         
                               
                             
     // In principle the knee center can be any point along the revolute knee joint axis, thus
@@ -706,8 +706,8 @@ AnyFolder StickFigure = {
                                 Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[2][..FirstFrameStatic]};
 
     
-    //AnyVec3 sLAnkleCenter = (0.6482538*sLAnkleLateral + 0.3517462*sLAnkleMedial);                         
-    AnyVec3 sLAnkleCenter = (sLAnkleLateral + sLAnkleMedial) /2; 
+    AnyVec3 sLAnkleCenter = (0.6482538*sLAnkleLateral + 0.3517462*sLAnkleMedial);                         
+//    AnyVec3 sLAnkleCenter = (sLAnkleLateral + sLAnkleMedial) /2; 
     
     
                               
@@ -716,8 +716,8 @@ AnyFolder StickFigure = {
     // selecting the middle point between the epicondyle makes sense anatomically. 
     // However, to correspond with the LegTD model the knee center is chosen 
     // to be a little closer to the lateral side.
-    //AnyVec3 sLKneeCenter = (0.60135*sLKneeLateral + 0.39865*sLKneeMedial);
-    AnyVec3 sLKneeCenter = (sLKneeLateral + sLKneeMedial) /2;
+    AnyVec3 sLKneeCenter = (0.60135*sLKneeLateral + 0.39865*sLKneeMedial);
+//    AnyVec3 sLKneeCenter = (sLKneeLateral + sLKneeMedial) /2;
 
     
     
