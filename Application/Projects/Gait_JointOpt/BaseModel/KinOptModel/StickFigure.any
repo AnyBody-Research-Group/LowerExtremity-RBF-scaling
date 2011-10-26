@@ -592,29 +592,17 @@ AnyFolder StickFigure = {
       
     };
     AnyFolder RHipJoint = {
-      // Initial position of hip joint based on anatomical landmarks as described by 
-      // Alexander L. Bell 1990 "A comparison of the accuracy of several hip center location prediction methods"
-      AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*....LegModel.Trunk.Seg.Pelvis.RHipJoint.sRel')';
+      // This calculates the global coordinates of the hip joint.      
+      AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*AnatomicalHipPosDavis ')';
 
       
-      AnyFloat AsisDist = vnorm(.sRAsis -.sLAsis);
-      
+      // Initial position of hip joint based on anatomical landmarks as described by 
+      // Alexander L. Bell 1990 "A comparison of the accuracy of several hip center location prediction methods"
       // Anatomical Hip postition by Bell  (1989)
+      AnyFloat AsisDist = vnorm(.sRAsis -.sLAsis);
       AnyVec3 AnatomicalHipPosBell = {-0.22*AsisDist, -0.30*AsisDist, 0.36*AsisDist};//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
       
-      // Calculation of the anatomical hip joint position used by Vicons Plug-in gait system. Based on the work by Davis 
-      // (Lleg) Asis-malleoulus dist:
-      // (xdis) Trochanter-asis dist: (0.1288* Asis-mallous)-48.56 (this formula is given by plug-in gait manual)
-      // (dasis) Asis dist: 
-      // (rmarker) marker diameter:
-      // Beta = 18
-      // Theta = 28.4
-      // sign = +1 (right leg)
-      // C =0.115*Lleg-0.153
-      // X = (-xdis -rmarker)cos(beta)+C(cos(theta)sin(beta))
-      // Y = sign(C*sin(theta)-dasis/2)
-      // Z = (-xdis-rmarker)sin(beta)-C*cos(theta)*cos(beta)
-      
+      // Calculation of the anatomical hip joint position used by Vicons Plug-in gait system. Based on the work by Davis       
       AnyVar Lleg = vnorm(.sRAsis - .sRAnkleMedial);
       AnyVar xdis = (0.1288*Lleg)-0.04856;
       AnyVar rmarker = 0.007;
@@ -632,26 +620,15 @@ AnyFolder StickFigure = {
       
     };
     AnyFolder LHipJoint = {
-      AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*....LegModel.Trunk.Seg.Pelvis.LHipJoint.sRel')';
+      // This calculates the global coordinates of the hip joint.      
+      AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*AnatomicalHipPosDavis ')';
       
-     AnyFloat AsisDist = vnorm(.sRAsis -.sLAsis);
       
       // Anatomical Hip postition by Bell  (1989)
+      AnyFloat AsisDist = vnorm(.sRAsis -.sLAsis);
       AnyVec3 AnatomicalHipPosBell = {-0.22*AsisDist, -0.30*AsisDist, -0.36*AsisDist};//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
       
-      // Calculation of the anatomical hip joint position used by Vicons Plug-in gait system. Based on the work by Davis 
-      // (Lleg) Asis-malleoulus dist:
-      // (xdis) Trochanter-asis dist: (0.1288* Asis-mallous)-48.56 (this formula is given by plug-in gait manual)
-      // (dasis) Asis dist: 
-      // (rmarker) marker diameter:
-      // Beta = 18
-      // Theta = 28.4
-      // sign = +1 (right leg)
-      // C =0.115*Lleg-0.153
-      // X = (-xdis -rmarker)cos(beta)+C(cos(theta)sin(beta))
-      // Y = sign(C*sin(theta)-dasis/2)
-      // Z = (-xdis-rmarker)sin(beta)-C*cos(theta)*cos(beta)
-      
+      // Calculation of the anatomical hip joint position used by Vicons Plug-in gait system. Based on the work by Davis       
       AnyVar Lleg = 0.5*( vnorm(.sLAsis - .sLAnkleMedial)+ vnorm(.sRAsis - .sRAnkleMedial));
       AnyVar xdis = (0.1288*Lleg)-0.04856;
       AnyVar rmarker = 0.007;

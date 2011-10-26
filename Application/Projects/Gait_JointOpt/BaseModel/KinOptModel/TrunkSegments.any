@@ -14,7 +14,7 @@ AnyFolder Seg = {
     AnyRefNode RHipJoint = {
       // See Mannequin.any for calculated values
 	#if UseAnatomicalValuesRightHip 
-        sRel = .....StickFigure.Posture.Trunk.RHipJoint.AnatomicalHipPosDavis;    
+        sRel = .....StickFigure.Posture.Trunk.Pelvis.RHipJoint.sRel_static;    
       #else 
         sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
       #endif
@@ -22,7 +22,7 @@ AnyFolder Seg = {
     
     AnyRefNode LHipJoint = {
 	#if UseAnatomicalValuesLeftHip == 1 
-        sRel = .....StickFigure.Posture.Trunk.LHipJoint.AnatomicalHipPosDavis;    
+        sRel = .....StickFigure.Posture.Trunk.Pelvis.LHipJoint.sRel_static;    
       #else 
       sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
       #endif
