@@ -1,5 +1,6 @@
 
 AnyFolder StickFigure = {
+
   
   AnyIntVar FirstFrameDynamic = Main.TrialSpecificData.StartFrameNo - Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo;
   AnyIntVar FirstFrameStatic = Main.TrialSpecificData.StaticFrameIndex; 
@@ -91,8 +92,8 @@ AnyFolder StickFigure = {
     // selecting the middle point between the epicondyle makes sense anatomically. 
     // However, to correspond with the LegTD model the knee center is chosen 
     // to be a little closer to the lateral side.
-    //AnyVec3 sRKneeCenter = (0.60135*sRKneeLateral + 0.39865*sRKneeMedial);
-    AnyVec3 sRKneeCenter = (sRKneeLateral + sRKneeMedial)/2;
+    AnyVec3 sRKneeCenter = (0.60135*sRKneeLateral + 0.39865*sRKneeMedial);
+//    AnyVec3 sRKneeCenter = (sRKneeLateral + sRKneeMedial)/2;
     
     
     AnyFolder Thigh = {
@@ -286,13 +287,13 @@ AnyFolder StickFigure = {
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sRAnkleCenter -.r0_static)')';
       };
-      AnyFolder RHipJoint = {
+      AnyFolder HipJoint = {
         AnyVec3 sRel_static=  (.Axes0_static'*(...Trunk.RHipJoint.r0_static - .r0_static)')';
       };
-      AnyFolder RKneeJoint = 
+      AnyFolder KneeJoint = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeCenter - .r0_static)')';       
-        AnyMat33 ARel_static = RotMat(sRel_static, .RKneeLateral.sRel_static,.RHipJoint.sRel_static)* RotMat(90*pi/180,y);
+        AnyMat33 ARel_static = RotMat(sRel_static, .RKneeLateral.sRel_static,.HipJoint.sRel_static)* RotMat(90*pi/180,y);
       };      
       
       #if IncludeRight == 1
@@ -502,12 +503,12 @@ AnyFolder StickFigure = {
           iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LAsis.PosInterpol.Data[0][....FirstFrameDynamic],
                         Main.ModelSetup.DynamicDataSet.Points.Markers.LAsis.PosInterpol.Data[1][....FirstFrameDynamic],
                         Main.ModelSetup.DynamicDataSet.Points.Markers.LAsis.PosInterpol.Data[2][....FirstFrameDynamic]};
-          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosInterpol.Data[0][....FirstFrameDynamic],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosInterpol.Data[1][....FirstFrameDynamic],
-                        Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosInterpol.Data[2][....FirstFrameDynamic]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RPsis.PosInterpol.Data[0][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RPsis.PosInterpol.Data[1][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RPsis.PosInterpol.Data[2][....FirstFrameDynamic]};
           sCluster1 = ..sRAsis;
           sCluster2 = ..sLAsis;
-          sCluster3 = ..sSacral;
+          sCluster3 = ..sRPsis ;
       };  
       #endif
       
@@ -821,22 +822,43 @@ AnyFolder StickFigure = {
     };
     
     AnyFolder Shank = {
-      
-      // Initial Segment position
-      AnyVec3 r0_static = .sLKneeCenter;   
-      
-      // Point of projection of knee joint center on the line passing though 
-      // medial and lateral ankle markers ( represented by u3)
-      AnyVec3 sTmp = (r0_static-.sLAnkleCenter )*u3'*u3 + .sLAnkleCenter;
+//      
+////      // Initial Segment position
+//      AnyVec3 r0_static = .sLKneeCenter;   
+//      
+//      
+//      // Point of projection of knee joint center on the line passing though 
+//      // medial and lateral ankle markers ( represented by u3)
+//      AnyVec3 sTmp = (r0_static-.sLAnkleCenter )*u3'*u3 + .sLAnkleCenter;
+//      
+//      // Basis for the thigh coordinate system. 
+//      // u3 is define by a line though mediala and lateral malleolus makers
+//      // u2 is a unit vector from the sTmp point to the kneeCenter
+//      // u1 is the remaining orthonormal direction (cross product of u2, and u3) 
+//      AnyVec3 u3 = -(.sLAnkleLateral - .sLAnkleCenter) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
+//      AnyVec3 u2 = (r0_static - sTmp ) /vnorm( r0_static - sTmp) ;
+//      AnyVec3 u1 = cross(u2, u3);
+//      
+
+      //The origin of the  reference frame is found by projecting the 
+      // kneeCenter-ankleCenter vector onto the y axis of the shank (u2)
+      AnyVec3 r0_static = .sLAnkleCenter+ ( .sLKneeCenter- .sLAnkleCenter )*u2'*u2;      
       
       // Basis for the thigh coordinate system. 
-      // u3 is define by a line though mediala and lateral malleolus makers
-      // u2 is a unit vector from the sTmp point to the kneeCenter
-      // u1 is the remaining orthonormal direction (cross product of u2, and u3) 
-      AnyVec3 u3 = -(.sLAnkleLateral - .sLAnkleCenter) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
-      AnyVec3 u2 = (r0_static - sTmp ) /vnorm( r0_static - sTmp) ;
-      AnyVec3 u1 = cross(u2, u3);
+      // u3 is define by a line though mediala and lateral malleolus makers pointing right
+      // u1 is a vector pependicular to u3 and the sRKneeCenter-sRAnkleCenter vector
+      // u2 is the remaining orthonormal direction (cross product of u3, and u1) (y axis of shank)
+      AnyVec3 u3 = (.sLAnkleCenter -.sLAnkleLateral ) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
+      AnyVec3 u1 = cross(.sLKneeCenter - .sLAnkleCenter, u3)/vnorm( cross(.sLKneeCenter - .sLAnkleCenter, u3 ));
+      AnyVec3 u2 = cross(u3,u1);
       
+      
+            
+
+
+
+
+
       AnyMatrix Axes0_static = {u1, u2, u3}';
       
       #if IncludeKnee + IncludeAnkle > 0

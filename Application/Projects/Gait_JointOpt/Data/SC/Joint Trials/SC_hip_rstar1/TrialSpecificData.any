@@ -1,11 +1,10 @@
 #path TRIAL_PATH "."
-#define FULL_MARKERSET
 
 AnyFolder TrialSpecificData={
   
   /// Name of the C3D file to be analysed
   /// Trialname specifies naming of output files
-  AnyString TrialName = "SC_bouncy_og3"; 
+  AnyString TrialName = "SC_hip_rstar1"; 
   
   // C3D files to load
   AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";

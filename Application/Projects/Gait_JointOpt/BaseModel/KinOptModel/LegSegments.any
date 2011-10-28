@@ -22,11 +22,11 @@ AnyFolder Seg = {
     AnyRefNode HipJoint = {  
       #ifdef RightLeg
       //#if UseAnatomicalValuesRightHip == 1 
-      sRel = .....StickFigure.Posture.Right.Thigh.HipJoint.sRel_static;//{0.0,0.0,0.0};
+      sRel = {0,0,0};//.....StickFigure.Posture.Right.Thigh.HipJoint.sRel_static;//{0.0,0.0,0.0};
       //#endif
       #else
 //      #if UseAnatomicalValuesLeftHip == 1
-      sRel = .....StickFigure.Posture.Left.Thigh.HipJoint.sRel_static;
+      sRel = {0,0,0};//.....StickFigure.Posture.Left.Thigh.HipJoint.sRel_static;
 //      #endif
       #endif
     };  
@@ -35,15 +35,19 @@ AnyFolder Seg = {
     AnyRefNode KneeJoint = {    
       //AnyDrawRefFrame drw ={};
       AnyMat33 InitialRotation= RotMat(sRel, sRel+{0,0,1}, .HipJoint.sRel)
-      * RotMat(90*pi/180,y);
+      * RotMat(...Sign*90*pi/180,y);
       
+      AnyFloat xRot = 0;
+      AnyFloat yRot = 0;
       #ifdef RightLeg 
-      sRel = .....StickFigure.Posture.Right.Thigh.KneeJoint.sRel_static;
-      ARel = InitialRotation;
+      sRel = {6.938894e-018, -0.4092138, -0.01005267};
+      //.....StickFigure.Posture.Right.Thigh.KneeJoint.sRel_static;
+      ARel = InitialRotation*RotMat(xRot,x)*RotMat(yRot,y);
       #endif
       #ifdef LeftLeg
-      sRel = .....StickFigure.Posture.Left.Thigh.KneeJoint.sRel_static;
-      ARel = InitialRotation;
+      sRel =  {1.387779e-017, -0.4084952, -0.05969414};
+      //.....StickFigure.Posture.Left.Thigh.KneeJoint.sRel_static;
+      ARel = InitialRotation*RotMat(xRot,x)*RotMat(yRot,y);
       #endif
       
     };//KneeJoint
@@ -109,16 +113,20 @@ AnyFolder Seg = {
     
     AnyRefNode KneeJoint = {
      // AnyDrawRefFrame drw ={};
-      //AnyMat33 InitialRotation = RotMat(sRel, sRel+{0,0,1},.AnkleJoint.sRel) * RotMat(...Sign*90*pi/180,y)*RotMat(pi,z);
       
+      AnyFloat xRot = 0;
+      AnyFloat yRot = 0;
       #ifdef RightLeg 
-      sRel = .....StickFigure.Posture.Right.Shank.RKneeJoint.sRel_static; 
-      ARel = .....StickFigure.Posture.Right.Shank.RKneeJoint.ARel_static;             
+      sRel = {0, 0, -0.08041919};
+//.....StickFigure.Posture.Right.Shank.RKneeJoint.sRel_static; 
+      ARel = .....StickFigure.Posture.Right.Shank.KneeJoint.ARel_static
+        *RotMat(xRot,x)*RotMat(yRot,y);             
       #endif
       
       #ifdef LeftLeg
-      sRel = .....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
-      ARel = .....StickFigure.Posture.Left.Shank.KneeJoint.ARel_static;
+      sRel = {0, 0, -0.005640184};//.....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
+      ARel = .....StickFigure.Posture.Left.Shank.KneeJoint.ARel_static
+        *RotMat(xRot,x)*RotMat(yRot,y);   
       #endif
     };
     
@@ -128,12 +136,16 @@ AnyFolder Seg = {
       AnyMat33 InitialRotation = RotMat(sRel, sRel+{0,0,1}, .KneeJoint.sRel)
       * RotMat(...Sign*90*pi/180,y);
       
+      AnyFloat xRot = 0;
+      AnyFloat yRot = 0;      
       #ifdef RightLeg 
-      sRel = .....StickFigure.Posture.Right.Shank.AnkleJoint.sRel_static;
+      sRel = {0, -0.4277873, 0};//.....StickFigure.Posture.Right.Shank.AnkleJoint.sRel_static;
       #endif
       #ifdef LeftLeg
-      sRel = .....StickFigure.Posture.Left.Shank.AnkleJoint.sRel_static;
+      sRel = {-3.469447e-018, -0.4213269, -2.081668e-017};
+//.....StickFigure.Posture.Left.Shank.AnkleJoint.sRel_static;
       #endif
+      ARel = InitialRotation * RotMat(xRot,x)*RotMat(yRot,y);
     };
     
     #include "DrawNodes.any"
@@ -190,14 +202,20 @@ AnyFolder Seg = {
     
     AnyRefNode AnkleJoint = {
       //AnyDrawRefFrame drw ={};
+      AnyFloat xRot = 0;
+      AnyFloat yRot = 0;
       #ifdef RightLeg 
-      sRel = .....StickFigure.Posture.Right.Foot.AnkleJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Right.Foot.AnkleJoint.ARel_static;
+      sRel = {0.07679916, 0.04160866, 0};
+//.....StickFigure.Posture.Right.Foot.AnkleJoint.sRel_static;
+      ARel = .....StickFigure.Posture.Right.Foot.AnkleJoint.ARel_static
+      *RotMat(xRot,x)*RotMat(yRot,y);
       #endif
       
       #ifdef LeftLeg
-      sRel = .....StickFigure.Posture.Left.Foot.AnkleJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Left.Foot.AnkleJoint.ARel_static;
+      sRel =  {0.07139887, 0.03693105, -1.387779e-017};
+//.....StickFigure.Posture.Left.Foot.AnkleJoint.sRel_static;
+      ARel = .....StickFigure.Posture.Left.Foot.AnkleJoint.ARel_static
+      *RotMat(xRot,x)*RotMat(yRot,y);
       #endif  
     };
     

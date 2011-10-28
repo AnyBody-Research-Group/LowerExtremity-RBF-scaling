@@ -1,6 +1,5 @@
-Main.Project.Files = {
-	AnyFile SubjectSpecificDataFile = "../../SubjectSpecificData.any";
-};
+#path SUBJECT_PATH "."
+
 // Switches whether or not to use the anatomically computed joint center or the joint center listed below
 #define UseAnatomicalValuesLeftHip 1
 #define UseAnatomicalValuesRightHip 1

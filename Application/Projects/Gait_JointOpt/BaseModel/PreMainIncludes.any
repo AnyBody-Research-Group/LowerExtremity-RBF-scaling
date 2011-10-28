@@ -1,3 +1,8 @@
+#ifndef PREMAININCLUDES_ANY
+#define PREMAININCLUDES_ANY
+#path BASE_MODEL_PATH "."
+
+
 #include "../../../../Body/AAUHuman/ToolBox/Mocap/CreateMarkerClass.any"
 #include "../../../../Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTD.any"
 #include "../../../../Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTDWidgetV2.any"
@@ -9,3 +14,9 @@
 #include  "LegTDModel\MomentArmTemplate.any"
 //#include "MomentArmTemplate.any"
 #include "EmulateC3DMacros.any"
+
+
+
+#endif
+
+

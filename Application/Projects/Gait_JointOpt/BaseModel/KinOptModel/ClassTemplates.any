@@ -54,4 +54,36 @@
    #endif         
    };
   
+#class_template Link2StickFigure(name,LegModelVar,StickFigureVar ) {
   
+  AnyFolder &ref = .DesStudy;
+  ref = {
+   
+   
+  AnyDesVar name##_X = {
+    Val = LegModelVar[0];
+  };
+  //AnyDesVar &<Insert name1> = <Insert object reference (or full object definition)>; You can make any number of these objects!
+  AnyDesMeasure name##SF_X = {
+    Val = StickFigureVar[0];
+  };  
+  
+  AnyDesVar name##_Y = {
+    Val = LegModelVar[1];
+  };
+  AnyDesMeasure name##SF_Y = {
+    Val = StickFigureVar[1];
+  };
+  
+  AnyDesVar name##_Z = {
+    Val = LegModelVar[2];
+  };
+  AnyDesMeasure name##_SF_Z = {
+    Val = StickFigureVar[2];
+  };
+
+  
+ };
+  
+  
+};

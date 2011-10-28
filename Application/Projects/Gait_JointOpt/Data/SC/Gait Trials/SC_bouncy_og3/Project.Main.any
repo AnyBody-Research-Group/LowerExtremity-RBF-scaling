@@ -1,0 +1,48 @@
+#ifndef MAIN_FILE_NAME
+  #define MAIN_FILE_NAME "Project.Main.any"
+#endif
+
+#include "../../../../BaseModel/PreMainIncludes.any"
+
+
+
+Main = {
+
+ AnyProject Project = {
+   Files.MainFile = MAIN_FILE_NAME;
+    
+  Tasks = {
+      
+      AnyProjectTaskFolder Optimize_Stick_Figure={
+        
+        AnyProjectTaskLoadModel Load_Hip_Model = {
+          Description =   {
+            Title ="Load Hip Model";
+            BodyText = "Body Text here";      
+            Tooltip = "Load Model";
+          };
+          MainFile = "Kinematics_hip.main.any";
+        };
+//        AnyProjectTaskOperation Set_C3D_Markers  = {
+//          #ifndef LoadC3DMarkerModel 
+//          Description = {
+//            BodyHTML = "<b>Please select the load task above to enable content in this task</b>";
+//          };
+//          #endif
+//        };
+//        
+//        AnyProjectTaskOperation Replay  = {
+//          #ifndef LoadC3DMarkerModel 
+//          Description = {
+//            BodyHTML = "<b>Please select the load task above to enable content in this task</b>";
+//          };
+//          #endif
+//        };
+        
+      };
+      
+    };// Project
+  
+  };
+};
+

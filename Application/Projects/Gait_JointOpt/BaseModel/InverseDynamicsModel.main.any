@@ -1,6 +1,41 @@
+#ifndef IncludeRight 
+#define IncludeRight 1
+#endif
+
+#ifndef IncludeLeft 
+#define IncludeLeft 1
+#endif
+
+#ifndef IncludeHip 
+#define IncludeHip 1
+#endif
+
+#ifndef IncludeKnee 
+#define IncludeKnee 1
+#endif
+
+#ifndef IncludeAnkle 
+#define IncludeAnkle 1
+#endif
+
+#ifndef UseDanamicLoadPosition 
+#define UseDanamicLoadPosition 1
+#endif
+
+#ifndef EnableJointAxisScaling 
+#define EnableJointAxisScaling 1
+#endif
+
+#ifndef HideStickModelGraphics 
+#define HideStickModelGraphics 0
+#endif
+
+#ifndef UseRbfScaling
+#define UseRbfScaling 0
+#endif
 
 Main = {
-  AnyProject Project = { Files.MainFile = MAIN_FILE_NAME; };   
+//  AnyProject Project = { Files.MainFile = MAIN_FILE_NAME; };   
   
   #include "ModelSetup.any"
   #include "DrawSettings.any"

@@ -3,7 +3,7 @@ AnyFolder JointAngleOutputs = {
   #if IncludeHip == 1
   
   AnyOutputFile OutputFile1 = {
-    FileName = FilePathReferenceOf(Main.Project.Files.SubjectSpecificDataFile)+"/Tmp/"+
+    FileName = SUBJECT_PATH +"/Tmp/"+
        Main.TrialSpecificData.TrialName+ "-output-euler-pelvis.txt";
     
     SepSign = " ";
@@ -21,7 +21,7 @@ AnyFolder JointAngleOutputs = {
   #if IncludeLeft + IncludeKnee + IncludeAnkle == 3
   
   AnyOutputFile OutputFile2 = {
-    FileName = FilePathReferenceOf(Main.Project.Files.SubjectSpecificDataFile)+"/Tmp/"+
+    FileName = SUBJECT_PATH +"/Tmp/"+
 	Main.TrialSpecificData.TrialName+"-output-euler-leftlegtd.txt";
     
     SepSign = " ";
@@ -41,7 +41,7 @@ AnyFolder JointAngleOutputs = {
   
   
   AnyOutputFile OutputFile3 = {
-    FileName = FilePathReferenceOf(Main.Project.Files.SubjectSpecificDataFile)+"/Tmp/"+
+    FileName = SUBJECT_PATH +"/Tmp/"+
 	Main.TrialSpecificData.TrialName+"-output-euler-rightlegtd.txt";
     SepSign = " ";
     
