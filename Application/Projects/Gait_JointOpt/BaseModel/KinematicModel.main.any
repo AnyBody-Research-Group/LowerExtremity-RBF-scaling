@@ -15,7 +15,7 @@
 #endif
 
 #ifndef IncludeAnkle 
-#define IncludeAnkle 0
+#define IncludeAnkle 1
 #endif
 
 #ifndef UseDanamicLoadPosition 
@@ -35,9 +35,6 @@
 
 Main = {  
   #include "ModelSetup.any"
-  #include "DrawSettings.any"
-  #include "GeneralSettings.any"
-  
   
   AnyFolder JntParameterOptModel = {
     
@@ -79,7 +76,16 @@ Main = {
        #include "KinOptModel\Drivers.any"
      };
      
-      
+  
+  AnyOptKinStudy LoadSavaDesignParameters = 
+  { 
+    Analysis = { AnyOperation &Operation = ..KinematicStudy.Kinematics; };
+    AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
+    #include "KinOptModel/DesignVars_HipTrial.any"
+    #include "KinOptModel/DesignVars_GaitTrial.any"
+  };  
+       
+     
   AnyBodyStudy KinematicStudy = 
   {
     tStart = Main.ModelSetup.tStart;
@@ -99,6 +105,10 @@ Main = {
       Kinematics.PosAnalysisOnlyOnOff=On;     
   };
   
+  
+  
 };
     
+
+  
 };  // Main

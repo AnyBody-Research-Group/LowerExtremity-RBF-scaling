@@ -4,5 +4,5 @@
 Main = {
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"  
- #include "../../../../BaseModel/OptimizeRHip.main.any"
+ #include "../../../../BaseModel/OptimizeHip.main.any"
 }; 

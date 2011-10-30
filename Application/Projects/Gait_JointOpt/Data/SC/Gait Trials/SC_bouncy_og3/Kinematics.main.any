@@ -5,6 +5,5 @@ Main = {
  #include "Project.Main.any"
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"
-// #include "../../../../BaseModel/KinematicModel.main.any"
  #include "../../../../BaseModel/OptimizeGait.main.any"
 }; 

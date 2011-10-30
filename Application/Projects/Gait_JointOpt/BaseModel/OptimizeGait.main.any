@@ -14,31 +14,13 @@
 #include "KinematicModel.main.any"
 
 Main.JntParameterOptModel  = {
-  Main = {    
-    
-    AnyOperationSequence ThisOperationFails = 
-    {
-      AnyOperation &ref = .JntParameterOptModel.KinematicStudy.Kinematics;
-    };
-
-    AnyOperationMacro Run_Kinematic_Optimization = 
-    {
-      AnyString SaveName = TRIAL_PATH+"GaitOptimizedParameters.txt";
-      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
-      + strformat("\x22") +"Save design"+strformat("\x22")+ 
-      " --file=" + strformat("\x22") + SaveName + strformat("\x22");
-      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
-                  "run",
-                  SaveMcr};
-    };
-  };
   
   AnyOptKinStudy OptimizeParameters = 
   { 
     ParameterOptimization.ConvergenceTol = 1e-6;
     Analysis = { AnyOperation &Operation = .KinematicStudyForParameterOptimization.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
-//    #include "KinOptModel/DesignVars_HipTrial.any"
+
     #include "KinOptModel/DesignVars_GaitTrial.any"
     
   AnyBodyStudy KinematicStudyForParameterOptimization = 
@@ -59,9 +41,36 @@ Main.JntParameterOptModel  = {
     Kinematics.KinematicTol = 1e-5;
   };  
 
-}; 
+ }; 
+};  
   
   
   
+  
+Main = {    
+    
+    AnyOperationMacro Load_RightHipParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.RightHipParametersFile)) ;
+      MacroStr = { LoadMcr };
+    };
+    AnyOperationMacro Load_LeftHipParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.LeftHipParametersFile)) ;
+      MacroStr = { LoadMcr };
+    };
+
+    AnyOperationMacro Run_Kinematic_Optimization = 
+    {
+      AnyString SaveName = TRIAL_PATH+"OptimizedParameters.txt";
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
+      + strquote("Save design")+ " --file=" + strquote(SaveName) ;
+      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
+                  "run",
+                  SaveMcr};
+    };
+    
 };  // Main
 
