@@ -38,12 +38,21 @@ AnyFolder Jnt = {
   {
     Axis = z;
     AnyRefFrame &ref1 = ..Seg.Shank.AnkleJoint;
-    AnyRefFrame &ref2 = ..Seg.Foot.AnkleJoint;
+    AnyRefFrame &ref2 = ..Seg.Talus.AnkleJoint;
     #if HideStickModelGraphics == 0
     AnyDrawStdJoint drwJnt =  { D = 0.005; L=4*D; };
     #endif
   };      
-      
+  AnyRevoluteJoint SubtalarJoint = 
+  {
+    Axis = x;
+    AnyRefFrame &ref1 = ..Seg.Talus.SubtalarJoint;
+    AnyRefFrame &ref2 = ..Seg.Foot.SubtalarJoint;
+    #if HideStickModelGraphics == 0
+    AnyDrawStdJoint drwJnt =  { D = 0.005; L=4*D; };
+    #endif
+  };  
+  
   #endif
 };
 

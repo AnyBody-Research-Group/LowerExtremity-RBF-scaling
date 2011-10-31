@@ -331,17 +331,75 @@ AnyFolder StickFigure = {
       
     };
     
+    
+    AnyFolder Talus = {
+      AnyVec3 r0_static = .sRAnkleCenter;
+      
+      AnyVec3 u3 = (.sRAnkleLateral -.sRAnkleCenter ) / vnorm(.sRAnkleLateral - .sRAnkleCenter);
+      AnyVec3 u1 = cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static)
+          /vnorm( cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static) );
+      AnyVec3 u2 = cross(u3,u1);
+      
+      AnyMat33 Axes0_static = {u1, u2, u3}';
+      
+      #if IncludeAnkle == 1
+      CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
+          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol.Data[0][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol.Data[1][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol.Data[2][....FirstFrameDynamic]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol.Data[0][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol.Data[1][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol.Data[2][....FirstFrameDynamic]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral.PosInterpol.Data[0][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral.PosInterpol.Data[1][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral.PosInterpol.Data[2][....FirstFrameDynamic]};
+          sCluster1 = ..sRHeel;
+          sCluster2 = ..sRToe;
+          sCluster3 = ..sRMidfootLateral;
+      };  
+      #endif
+      
+      AnyFolder AnkleJoint = {
+        AnyVec3 sRel_static= (.Axes0_static'*( ..sRAnkleCenter -.r0_static)')';
+        AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;        
+      };
+      AnyFolder SubtalarJoint = {
+        // Transform subtalarjoint out of foot coordianates and into talus coordinates
+        AnyVec3 sRel_static= (..Foot.r0_static+ ..Foot.SubtalarJoint.sRel_static*..Foot.Axes0_static'-.r0_static)*.Axes0_static;
+        AnyMat33 ARel_static = .Axes0_static'*(..Foot.Axes0_static*..Foot.SubtalarJoint.ARel_static)  ;   
+      };
+      AnyFolder RAnkleLateral = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRAnkleLateral -.r0_static)')';
+      };
+      AnyFolder RAnkleMedial = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRAnkleMedial -.r0_static)')';
+      };
+      AnyFolder RKneeCenter = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeCenter -.r0_static)')';
+      };      
+      
+    };
+        
+    
     AnyFolder Foot = {
       // Initial Segment position
       AnyVec3 r0_static = .sRHeel; 
       
-      // Vector defining the point of projection of AnkleJoint on the 
-      // line between RHeel and RToe (represented by u1)
-      AnyVec3 sTmp = (.sRAnkleCenter - r0_static) *u1'*u1+ r0_static;
-      
-      AnyVec3 u1 = (.sRToe-.sRHeel) /vnorm( .sRToe-.sRHeel );
-      AnyVec3 u2 = (.sRAnkleCenter - sTmp) /vnorm(.sRAnkleCenter -sTmp);
-      AnyVec3 u3 = cross(u1,u2);
+//      // Vector defining the point of projection of AnkleJoint on the 
+//      // line between RHeel and RToe (represented by u1)
+//      AnyVec3 sTmp = (.sRAnkleCenter - r0_static) *u1'*u1+ r0_static;
+//      
+//      AnyVec3 u1 = (.sRToe-.sRHeel) /vnorm( .sRToe-.sRHeel );
+//      AnyVec3 u2 = (.sRAnkleCenter - sTmp) /vnorm(.sRAnkleCenter -sTmp);
+//      AnyVec3 u3 = cross(u1,u2);
+
+     // Foot Cordianate system changed to follow the lab, with x axis pointing to toe node
+      AnyVec3 u2 = {0,0,1};
+      AnyVec3 u3 = cross(.sRToe-.sRHeel,u2)/vnorm(cross(.sRToe-.sRHeel,u2));
+      AnyVec3 u1 = cross(u2,u3);
       
       AnyMatrix Axes0_static = {u1, u2, u3}';
       
@@ -391,6 +449,12 @@ AnyFolder StickFigure = {
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sRAnkleCenter -.r0_static)')';
         AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;
+      };
+      AnyFolder SubtalarJoint = {
+        AnyVar zRot = 45*pi/180;
+        AnyVar yRot = (1)*30*pi/180;
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0,-0.015,(1)*-0.015};
+        AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
       };
       AnyFolder RAnkleLateral = 
       {
@@ -954,6 +1018,60 @@ AnyFolder StickFigure = {
       
     };
     
+    AnyFolder Talus = {
+      AnyVec3 r0_static = .sLAnkleCenter;
+      
+      AnyVec3 u3 = (.sLAnkleCenter -.sLAnkleLateral ) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
+      AnyVec3 u1 = cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static)
+          /vnorm( cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static) );
+      AnyVec3 u2 = cross(u3,u1);
+      
+      AnyMat33 Axes0_static = {u1, u2, u3}';
+      
+      #if IncludeAnkle == 1
+      CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
+          iCluster1 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosInterpol.Data[0][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosInterpol.Data[1][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosInterpol.Data[2][....FirstFrameDynamic]};
+          iCluster2 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol.Data[0][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol.Data[1][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol.Data[2][....FirstFrameDynamic]};
+          iCluster3 = { Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral.PosInterpol.Data[0][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral.PosInterpol.Data[1][....FirstFrameDynamic],
+                        Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral.PosInterpol.Data[2][....FirstFrameDynamic]};
+          sCluster1 = ..sLHeel;
+          sCluster2 = ..sLToe;
+          sCluster3 = ..sLMidfootLateral;
+      };  
+      #endif
+      
+      AnyFolder AnkleJoint = {
+        AnyVec3 sRel_static= (.Axes0_static'*( ..sLAnkleCenter -.r0_static)')';
+        AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;        
+      };
+      AnyFolder SubtalarJoint = {
+        // Transform subtalarjoint out of foot coordianates and into talus coordinates
+        AnyVec3 sRel_static= (..Foot.r0_static+ ..Foot.SubtalarJoint.sRel_static*..Foot.Axes0_static'-.r0_static)*.Axes0_static;
+        AnyMat33 ARel_static = .Axes0_static'*(..Foot.Axes0_static*..Foot.SubtalarJoint.ARel_static)  ;   
+      };
+      AnyFolder LAnkleLateral = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLAnkleLateral -.r0_static)')';
+      };
+      AnyFolder LAnkleMedial = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLAnkleMedial -.r0_static)')';
+      };
+      AnyFolder LKneeCenter = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLKneeCenter -.r0_static)')';
+      };      
+      
+    };
+    
+    
+    
+    
     
     AnyFolder Foot = {
       // Initial Segment position
@@ -961,11 +1079,16 @@ AnyFolder StickFigure = {
       
       // Vector defining the point of projection of AnkleJoint on the 
       // line between LHeel and LToe (represented by u1)
-      AnyVec3 sTmp = (.sLAnkleCenter - r0_static) *u1'*u1+ r0_static;
+//      AnyVec3 sTmp = (.sLAnkleCenter - r0_static) *u1'*u1+ r0_static;
+
+// Foot Cordianate system changed to follow the lab, with x axis pointing to toe node
+      AnyVec3 u2 = {0,0,1};
+      AnyVec3 u3 = cross(.sLToe-.sLHeel,u2)/vnorm(cross(.sLToe-.sLHeel,u2));
+      AnyVec3 u1 = cross(u2,u3);
       
-      AnyVec3 u1 = (.sLToe-.sLHeel) /vnorm( .sLToe-.sLHeel );
-      AnyVec3 u2 = (.sLAnkleCenter - sTmp) /vnorm(.sLAnkleCenter -sTmp);
-      AnyVec3 u3 = cross(u1,u2);
+//      AnyVec3 u1 = (.sLToe-.sLHeel) /vnorm( .sLToe-.sLHeel );
+////      AnyVec3 u2 = (.sLAnkleCenter - sTmp) /vnorm(.sLAnkleCenter -sTmp);
+//      AnyVec3 u3 = cross(u1,u2);
       
       AnyMatrix Axes0_static = {u1, u2, u3}';
       
@@ -985,9 +1108,6 @@ AnyFolder StickFigure = {
           sCluster3 = ..sLMidfootLateral;
       };  
       #endif
-      
-      
-     
       
 
       AnyFolder LHeel = {
@@ -1015,6 +1135,12 @@ AnyFolder StickFigure = {
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sLAnkleCenter -.r0_static)')';
         AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;        
+      };
+      AnyFolder SubtalarJoint = {
+        AnyVar zRot = 45*pi/180;
+        AnyVar yRot = (-1)*30*pi/180;
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0,-0.015,(-1)*-0.015};
+        AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
       };
       AnyFolder LAnkleLateral = 
       {
