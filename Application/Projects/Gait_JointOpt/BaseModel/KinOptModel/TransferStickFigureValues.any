@@ -1,7 +1,7 @@
 AnyDesEvalStudy SetStickFigureValues  = 
 {
   Main = {
-    AnyOperationSequence Load_Anatomical_Values = {
+    AnyOperationSequence Load_AnatomicalParameters= {
       AnyOperation &ref1 = ..UpdateDesign;
       AnyOperation &ref2 = ...KinematicStudy.InitialConditions;
     };
@@ -36,8 +36,7 @@ AnyDesEvalStudy SetStickFigureValues  =
   #if IncludeKnee + IncludeAnkle > 0
    AnyFolder &mRShank = .LegModel.Right.Seg.Shank;
    AnyFolder &sRShank = .StickFigure.Posture.Right.Shank;
-   AnyFolder &mRFoot = .LegModel.Right.Seg.Foot;
-   AnyFolder &sRFoot = .StickFigure.Posture.Right.Foot;
+   
    LINK_SREL(RShankKneeJoint, .mRShank.KneeJoint.sRel, .sRShank.KneeJoint.sRel_static);
    LINK_ROT(RShankKneeRotX, .mRShank.KneeJoint.xRot);
    LINK_ROT(RShankKneeRotY, .mRShank.KneeJoint.yRot);
@@ -45,11 +44,21 @@ AnyDesEvalStudy SetStickFigureValues  =
    LINK_SREL(RShankAnkleJoint,.mRShank.AnkleJoint.sRel, .sRShank.AnkleJoint.sRel_static);
    LINK_ROT(RShankAnkleRotX, .mRShank.AnkleJoint.xRot);
    LINK_ROT(RShankAnkleRotY, .mRShank.AnkleJoint.yRot);  
-   
-   LINK_SREL(RFootAnkleJoint,.mRFoot.AnkleJoint.sRel, .sRFoot.AnkleJoint.sRel_static);
-   LINK_ROT(RFootAnkleRotX, .mRFoot.AnkleJoint.xRot);
-   LINK_ROT(RFootAnkleRotY, .mRFoot.AnkleJoint.yRot);
    #endif
+   
+   #if IncludeAnkle > 0
+   AnyFolder &mRTalus = .LegModel.Right.Seg.Talus;
+   AnyFolder &sRTalus = .StickFigure.Posture.Right.Talus;
+   AnyFolder &mRFoot = .LegModel.Right.Seg.Foot;
+   AnyFolder &sRFoot = .StickFigure.Posture.Right.Foot;
+   
+   LINK_SREL(RTalusSubtalarJoint,.mRTalus.SubtalarJoint.sRel, .sRTalus.SubtalarJoint.sRel_static);
+   LINK_ROT(RTalusSubtalarRotY, .mRTalus.SubtalarJoint.yRot);
+   
+   LINK_SREL(RFootSubtalarJoint,.mRFoot.SubtalarJoint.sRel, .sRFoot.SubtalarJoint.sRel_static);
+   LINK_ROT(RFootSubtalarRotY, .mRFoot.SubtalarJoint.yRot);
+   LINK_ROT(RFootSubtalarRotZ, .mRFoot.SubtalarJoint.zRot);     #endif
+   
 #endif
 
 
@@ -63,20 +72,32 @@ AnyDesEvalStudy SetStickFigureValues  =
    LINK_ROT(LThighKneeRotX, .mLThigh.KneeJoint.xRot);
    LINK_ROT(LThighKneeRotY, .mLThigh.KneeJoint.yRot);
   #endif
+  
   #if IncludeKnee + IncludeAnkle > 0
    AnyFolder &mLShank = .LegModel.Left.Seg.Shank;
    AnyFolder &sLShank = .StickFigure.Posture.Left.Shank;
-   AnyFolder &mLFoot = .LegModel.Left.Seg.Foot;
-   AnyFolder &sLFoot = .StickFigure.Posture.Left.Foot;
    LINK_SREL(LShankKneeJoint,.mLShank.KneeJoint.sRel, .sLShank.KneeJoint.sRel_static);
    LINK_ROT(LShankKneeRotX, .mLShank.KneeJoint.xRot);
    LINK_ROT(LShankKneeRotY, .mLShank.KneeJoint.yRot);
+   
    LINK_SREL(LShankAnkleJoint,.mLShank.AnkleJoint.sRel, .sLShank.AnkleJoint.sRel_static);
    LINK_ROT(LShankAnkleRotX, .mLShank.AnkleJoint.xRot);
    LINK_ROT(LShankAnkleRotY, .mLShank.AnkleJoint.yRot);  
-   LINK_SREL(LFootAnkleJoint,.mLFoot.AnkleJoint.sRel, .sLFoot.AnkleJoint.sRel_static);
-   LINK_ROT(LFootAnkleRotX, .mLFoot.AnkleJoint.xRot);
-   LINK_ROT(LFootAnkleRotY, .mLFoot.AnkleJoint.yRot);
+  #endif
+  
+  #if IncludeAnkle > 0 
+   AnyFolder &mLTalus = .LegModel.Left.Seg.Talus;
+   AnyFolder &sLTalus = .StickFigure.Posture.Left.Talus;
+   AnyFolder &mLFoot = .LegModel.Left.Seg.Foot;
+   AnyFolder &sLFoot = .StickFigure.Posture.Left.Foot;
+
+   LINK_SREL(LTalusSubtalarJoint,.mLTalus.SubtalarJoint.sRel, .sLTalus.SubtalarJoint.sRel_static);
+   LINK_ROT(LTalusSubtalarRotY, .mLTalus.SubtalarJoint.yRot);
+   
+   LINK_SREL(LFootSubtalarJoint,.mLFoot.SubtalarJoint.sRel, .sLFoot.SubtalarJoint.sRel_static);
+   LINK_ROT(LFootSubtalarRotY, .mLFoot.SubtalarJoint.yRot);
+   LINK_ROT(LFootSubtalarRotZ, .mLFoot.SubtalarJoint.zRot);
+   
   #endif
   
 #endif

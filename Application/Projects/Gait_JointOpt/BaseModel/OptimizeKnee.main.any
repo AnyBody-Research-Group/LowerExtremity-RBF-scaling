@@ -1,7 +1,3 @@
-
-#define IncludeRight 1
-#define IncludeLeft 0
-
 #define IncludeHip 0
 #define IncludeKnee 1
 #define IncludeAnkle 0
@@ -13,26 +9,16 @@
 
 #include "KinematicModel.main.any"
 
-Main.JntParameterOptModel  = {
-  Main = {    
-    AnyOperationMacro Run_Kinematic_Optimization = 
-    {
-      AnyString SaveName = "LKneeOptimizedParameters.txt;
-      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
-      + strformat("\x22") +"Save design"+strformat("\x22")+ 
-      " --file=" + strformat("\x22") + SaveName + strformat("\x22");
-      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
-                  "run",
-                  SaveMcr};
-    };
-  };
+
+Main = {
+  
+ JntParameterOptModel  = {
   
   AnyOptKinStudy OptimizeParameters = 
   { 
     ParameterOptimization.ConvergenceTol = 1e-6;
-    Analysis = { AnyOperation &Operation = .KinematicStudyForParameterOptimization.Kinematics; };
+    Analysis = { AnyOperation &Operation = ..OptimizeParameters.KinematicStudyForParameterOptimization.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
-    #include "KinOptModel/DesignVars_HipTrial.any"
     #include "KinOptModel/DesignVars_GaitTrial.any"
     
   AnyBodyStudy KinematicStudyForParameterOptimization = 
@@ -52,10 +38,17 @@ Main.JntParameterOptModel  = {
     Kinematics.PosAnalysisOnlyOnOff=On;
     Kinematics.KinematicTol = 1e-5;
   };  
-
 }; 
-  
-  
-  
+};
+    AnyOperationMacro Run_Kinematic_Optimization = 
+    {
+      AnyString SaveName = TRIAL_PATH+"OptimizedParameters.txt";
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
+      + strquote("Save design")+ " --file=" + strquote(SaveName) ;
+      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
+                  "run",
+                  SaveMcr};
+    };
+    
 };  // Main
 

@@ -1,8 +1,7 @@
-#define MAIN_FILE_NAME "Kinematics_hip.main.any"
 #include "../../../../BaseModel/PreMainIncludes.any"
 
 Main = {
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"  
- #include "../../../../BaseModel/OptimizeGait.main.any"
+ #include "../../../../BaseModel/KinematicModel.main.any"
 }; 

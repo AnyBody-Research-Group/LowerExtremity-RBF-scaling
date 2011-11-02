@@ -453,7 +453,7 @@ AnyFolder StickFigure = {
       AnyFolder SubtalarJoint = {
         AnyVar zRot = 45*pi/180;
         AnyVar yRot = (1)*30*pi/180;
-        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0,-0.015,(1)*-0.015};
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0.005,-0.001,(1)*-0.02};
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
       };
       AnyFolder RAnkleLateral = 
@@ -797,7 +797,7 @@ AnyFolder StickFigure = {
       // u3 is define by a line though mediala and lateral epicondily makers
       // u2 is a direction of define by the RThighLateral marker rejekted from u3
       // u1 is the remaining orthonormal direction (cross product of u2, and u3) 
-      AnyVec3 u3 = -(.sLKneeLateral - .sLKneeCenter ) / vnorm(.sLKneeLateral - .sLKneeCenter );
+      AnyVec3 u3 = (.sLKneeCenter -.sLKneeLateral ) / vnorm(.sLKneeLateral - .sLKneeCenter );
       AnyVec3 u2 = (r0_static-sTmp)/vnorm(r0_static-sTmp);
       AnyVec3 u1 = cross(u2, u3);
       
@@ -1139,7 +1139,7 @@ AnyFolder StickFigure = {
       AnyFolder SubtalarJoint = {
         AnyVar zRot = 45*pi/180;
         AnyVar yRot = (-1)*30*pi/180;
-        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0,-0.015,(-1)*-0.015};
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static +{0.000,-0.02,(-1)*-0.02};
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
       };
       AnyFolder LAnkleLateral = 

@@ -11,6 +11,8 @@ AnyFolder ModelSetup ={
     ConstructChartOnOff = Off;
     MarkerUseAllPointsOnOff = On;
     MarkerUseCamMaskOnOff = Off;
+    MarkerScaleXYZ = {0.01,0.01,0.01};
+    MarkerRGB = {1,1,0};
     Filter = 
     {
     AutomaticInitialConditionOnOff = On;
@@ -27,6 +29,8 @@ AnyFolder ModelSetup ={
     PointsScaleFactor = 0.001;
     ConstructModelOnOff = Off;
     ConstructChartOnOff = Off;
+    MarkerScaleXYZ = {0.01,0.01,0.01};
+    MarkerRGB = {0,1,0};
     MarkerUseAllPointsOnOff = On;
     MarkerUseCamMaskOnOff = Off;
   };

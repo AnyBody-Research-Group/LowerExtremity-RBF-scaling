@@ -1,4 +1,3 @@
-#define MAIN_FILE_NAME "KinematicModel.main.any"
 #include "../../../../BaseModel/PreMainIncludes.any"
 
 Main = {

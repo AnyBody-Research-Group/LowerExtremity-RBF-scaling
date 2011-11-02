@@ -1,45 +1,31 @@
-
-#define IncludeRight 1
-#define IncludeLeft 0
-
 #define IncludeHip 0
 #define IncludeKnee 0
 #define IncludeAnkle 1
 
 #define UseDanamicLoadPosition 1
-#define EnableJointAxisScaling 1
 
 #define HideStickModelGraphics 0
 
 #include "KinematicModel.main.any"
 
-Main.JntParameterOptModel  = {
-  Main = {    
-    AnyOperationMacro Run_Kinematic_Optimization = 
-    {
-      AnyString SaveName = "RAnkleOptimizedParameters.txt;
-      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
-      + strformat("\x22") +"Save design"+strformat("\x22")+ 
-      " --file=" + strformat("\x22") + SaveName + strformat("\x22");
-      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
-                  "run",
-                  SaveMcr};
-    };
-  };
+
+Main = {
+  
+ JntParameterOptModel  = {
   
   AnyOptKinStudy OptimizeParameters = 
   { 
     ParameterOptimization.ConvergenceTol = 1e-6;
-    Analysis = { AnyOperation &Operation = .KinematicStudyForParameterOptimization.Kinematics; };
+    Analysis = { AnyOperation &Operation = ..OptimizeParameters.KinematicStudyForParameterOptimization.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
-    #include "KinOptModel/DesignVars_HipTrial.any"
+    #include "KinOptModel/DesignVars_AnkleTrial.any"
     #include "KinOptModel/DesignVars_GaitTrial.any"
     
   AnyBodyStudy KinematicStudyForParameterOptimization = 
   {
     tStart = Main.ModelSetup.tStart;
     tEnd = Main.ModelSetup.tEnd;
-    nStep = 70;
+    nStep = 150;
     Gravity = {0, 0, 0};
     
     AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
@@ -50,12 +36,19 @@ Main.JntParameterOptModel  = {
     Kinematics.SolverType = KinSolOverDeterminate;   
     InitialConditions.PosAnalysisOnlyOnOff=On;
     Kinematics.PosAnalysisOnlyOnOff=On;
-    Kinematics.KinematicTol = 1e-5;
+    Kinematics.KinematicTol = 1e-3;
   };  
-
 }; 
-  
-  
-  
+};
+    AnyOperationMacro Run_Kinematic_Optimization = 
+    {
+      AnyString SaveName = TRIAL_PATH+"OptimizedParameters.txt";
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
+      + strquote("Save design")+ " --file=" + strquote(SaveName) ;
+      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
+                  "run",
+                  SaveMcr};
+    };
+    
 };  // Main
 

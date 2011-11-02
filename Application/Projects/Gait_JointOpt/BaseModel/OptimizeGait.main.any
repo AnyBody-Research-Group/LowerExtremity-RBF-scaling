@@ -6,7 +6,7 @@
 #define IncludeKnee 1
 #define IncludeAnkle 1
 
-#define UseDanamicLoadPosition 1
+#define UseDanamicLoadPosition 0
 #define EnableJointAxisScaling 1
 
 #define HideStickModelGraphics 0
@@ -53,13 +53,39 @@ Main = {
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
       + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.RightHipParametersFile)) ;
-      MacroStr = { LoadMcr };
+      MacroStr = { LoadMcr};
     };
     AnyOperationMacro Load_LeftHipParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
       + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.LeftHipParametersFile)) ;
       MacroStr = { LoadMcr };
+    };
+    AnyOperationMacro Load_LeftAnkleParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.LeftAnkleParametersFile)) ;
+      MacroStr = { LoadMcr };
+    };
+    AnyOperationMacro Load_RightAnkleParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.RightAnkleParametersFile)) ;
+      MacroStr = { LoadMcr };
+    };
+    AnyOperationMacro Load_GaitParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote("OptimizedParameters") ;
+      MacroStr = { LoadMcr };
+    };
+    AnyOperationSequence Load_AllParameters = {
+      AnyOperation &m1 =.Load_RightHipParameters ;
+      AnyOperation &m2 =.Load_LeftHipParameters ;
+      AnyOperation &m3 =.Load_RightAnkleParameters ;
+      AnyOperation &m4 =.Load_LeftAnkleParameters ;
+      AnyOperation &m5 =.Load_GaitParameters;
+      AnyOperation &m6 = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
     };
 
     AnyOperationMacro Run_Kinematic_Optimization = 

@@ -16,8 +16,9 @@ AnyString TrialName = "SC_bouncy_og3";
   AnyStringVar C3DFileNameStatic = "../Data/SC/Static Trials/SC_staticfor_again1/SC_staticfor_again1.c3d" ;
   AnyFileVar RightHipParametersFile = "../../Joint Trials/SC_hip_rstar1/OptimizedParameters.txt";
   AnyFileVar LeftHipParametersFile = "../../Joint Trials/SC_hip_lstar1_again1/OptimizedParameters.txt";
-  
-  
+  AnyFileVar LeftAnkleParametersFile = "../../Joint Trials/SC_ankle_l1_again1/OptimizedParameters.txt";
+  AnyFileVar RightAnkleParametersFile = "../../Joint Trials/SC_ankle_r2/OptimizedParameters.txt";
+    
   AnyIntVar StaticFrameIndex = 100;
   
   AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;

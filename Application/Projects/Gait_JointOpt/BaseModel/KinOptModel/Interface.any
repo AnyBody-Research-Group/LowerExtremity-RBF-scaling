@@ -97,7 +97,6 @@ AnyFolder Interface = {
      * RotMat(90*pi/180,y);
    };  
   };
-  AnyFolder &ShankRef = ..Right.Seg.Shank;
   ShankRef = {
     AnyRefNode DriveNodeKnee = {
      sRel = .KneeJoint.sRel;
@@ -118,6 +117,12 @@ AnyFolder Interface = {
   
   
   #endif
+  
+  #if IncludeAnkle + IncludeKnee > 0
+  AnyFolder &ShankRef = ..Right.Seg.Shank;  
+  #endif
+  
+  
   
   #if IncludeAnkle == 1
  
@@ -198,7 +203,6 @@ AnyFolder Interface = {
      * RotMat(90*pi/180,y);
    };  
   };
-  AnyFolder &ShankRef = ..Left.Seg.Shank;
   ShankRef = {
     AnyRefNode DriveNodeKnee = {
      sRel = .KneeJoint.sRel;
@@ -216,8 +220,10 @@ AnyFolder Interface = {
      };
     MeasureOrganizer={0};
   };
+  #endif
   
-  
+  #if IncludeAnkle + IncludeKnee > 0
+  AnyFolder &ShankRef = ..Left.Seg.Shank;
   #endif
   
   #if IncludeAnkle == 1
@@ -236,7 +242,7 @@ AnyFolder Interface = {
      sRel = .AnkleJoint.sRel;
      //ARel = .AnkleJoint.ARel*RotMat(11*pi/180,z);
      ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .LToe.sRel);
-     AnyDrawRefFrame drw ={};
+//     AnyDrawRefFrame drw ={};
 //     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
    };     
  };

@@ -55,21 +55,21 @@
       AnyDesVar RShankAnkleJointYPos =  {
         Val = .ModelRef.Right.Seg.Shank.AnkleJoint.sRel[1];
       };   
-      AnyDesVar RFootAnkleJointXRot =  {
-        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.xRot;
-      };   
-      AnyDesVar RFootAnkleJointYRot =  {
-        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.yRot;
-      };    
-      AnyDesVar RFootAnkleJointXPos =  {
-        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.sRel[0];
-      };      
-      AnyDesVar RFootAnkleJointYPos =  {
-        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.sRel[1];
-      };      
-      AnyDesVar RFootAnkleJointZPos =  {
-        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.sRel[2];
-      }; 
+//      AnyDesVar RFootAnkleJointXRot =  {
+//        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.xRot;
+//      };   
+//      AnyDesVar RFootAnkleJointYRot =  {
+//        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.yRot;
+//      };    
+//      AnyDesVar RFootAnkleJointXPos =  {
+//        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.sRel[0];
+//      };      
+//      AnyDesVar RFootAnkleJointYPos =  {
+//        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.sRel[1];
+//      };      
+//      AnyDesVar RFootAnkleJointZPos =  {
+//        Val = .ModelRef.Right.Seg.Foot.AnkleJoint.sRel[2];
+//      }; 
       //      AnyDesVar RAnkle_P3 =  {
 //        Val = .ModelRef.Right.Seg.Talus.SubTalarJoint.yRot;
 //      };    
@@ -143,21 +143,21 @@
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.sRel[1];
       };   
 
-      AnyDesVar LFootAnkleJointXRot =  {
-        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.xRot;
-      };   
-      AnyDesVar LFootAnkleJointYRot =  {
-        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.yRot;
-      };    
-      AnyDesVar LFootAnkleJointXPos =  {
-        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.sRel[0];
-      };      
-      AnyDesVar LFootAnkleJointYPos =  {
-        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.sRel[1];
-      };      
-      AnyDesVar LFootAnkleJointZPos =  {
-        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.sRel[2];
-      };       
+//      AnyDesVar LFootAnkleJointXRot =  {
+//        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.xRot;
+//      };   
+//      AnyDesVar LFootAnkleJointYRot =  {
+//        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.yRot;
+//      };    
+//      AnyDesVar LFootAnkleJointXPos =  {
+//        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.sRel[0];
+//      };      
+//      AnyDesVar LFootAnkleJointYPos =  {
+//        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.sRel[1];
+//      };      
+//      AnyDesVar LFootAnkleJointZPos =  {
+//        Val = .ModelRef.Left.Seg.Foot.AnkleJoint.sRel[2];
+//      };       
       
 //      AnyDesVar LAnkle_P3 =  {
 //        Val = .ModelRef.Left.Seg.Talus.SubTalarJoint.yRot;

@@ -271,14 +271,16 @@ AnyFolder Drivers = {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LMidfootMedial ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootMedial.PosInterpol;
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
   };  
   
   AnyKinDriverMarker LMidfootSuperior =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LMidfootSuperior ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootSuperior.PosInterpol;
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
   };
-  
+  #ifdef FULL_MARKERSET
   AnyKinDriverMarker LToeMedial =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LToeMedial ;
@@ -288,12 +290,18 @@ AnyFolder Drivers = {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LToeLateral ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LToeLateral.PosInterpol;
-  };    
+  };  
+#endif
+  
+
+
   AnyKinDriverMarker LToe =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LToe ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol;
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
   };
+  
   #endif
   #endif
   

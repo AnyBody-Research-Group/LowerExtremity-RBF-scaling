@@ -1,5 +1,5 @@
 load "Kinematics.main.any"
-operation Main.Load_AnatomicalParameters
+operation Main.Load_Anatomical_Parameters
 run
 operation Main.Run_Kinematic_Optimization  
 run

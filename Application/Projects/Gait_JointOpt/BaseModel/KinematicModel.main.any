@@ -19,7 +19,7 @@
 #endif
 
 #ifndef UseDanamicLoadPosition 
-#define UseDanamicLoadPosition 1
+#define UseDanamicLoadPosition 0
 #endif
 
 #ifndef EnableJointAxisScaling 
@@ -83,6 +83,7 @@ Main = {
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
     #include "KinOptModel/DesignVars_HipTrial.any"
     #include "KinOptModel/DesignVars_GaitTrial.any"
+    #include "KinOptModel/DesignVars_AnkleTrial.any"
   };  
        
      

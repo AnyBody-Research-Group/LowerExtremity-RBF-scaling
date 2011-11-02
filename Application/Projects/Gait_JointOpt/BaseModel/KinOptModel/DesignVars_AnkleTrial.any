@@ -1,0 +1,60 @@
+#if IncludeRight == 1
+   #if IncludeAnkle == 1
+      AnyDesVar RTalusSubtalarJointYRot =  {
+        Val = .ModelRef.Right.Seg.Talus.SubtalarJoint.yRot;
+      };   
+      AnyDesVar RTalusSubtalarJointYPos =  {
+        Val = .ModelRef.Right.Seg.Talus.SubtalarJoint.sRel[1];
+      }; 
+      AnyDesVar RTalusSubtalarJointZPos =  {
+        Val = .ModelRef.Right.Seg.Talus.SubtalarJoint.sRel[2];
+      };  
+      AnyDesVar RFootSubtalarJointZRot =  {
+        Val = .ModelRef.Right.Seg.Foot.SubtalarJoint.zRot;
+      };   
+      AnyDesVar RFootSubtalarJointYRot =  {
+        Val = .ModelRef.Right.Seg.Foot.SubtalarJoint.yRot;
+      };    
+      AnyDesVar RFootSubtalarJointXPos =  {
+        Val = .ModelRef.Right.Seg.Foot.SubtalarJoint.sRel[0];
+      };      
+      AnyDesVar RFootSubtalarJointYPos =  {
+        Val = .ModelRef.Right.Seg.Foot.SubtalarJoint.sRel[1];
+      };      
+      AnyDesVar RFootSubtalarJointZPos =  {
+        Val = .ModelRef.Right.Seg.Foot.SubtalarJoint.sRel[2];
+      };     
+      
+    #endif
+#endif
+
+
+#if IncludeLeft == 1
+   #if IncludeAnkle == 1
+      AnyDesVar LTalusSubtalarJointYRot =  {
+        Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.yRot;
+      };   
+      AnyDesVar LTalusSubtalarJointYPos =  {
+        Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.sRel[1];
+      }; 
+      AnyDesVar LTalusSubtalarJointZPos =  {
+        Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.sRel[2];
+      };  
+      AnyDesVar LFootSubtalarJointZRot =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.zRot;
+      };   
+      AnyDesVar LFootSubtalarJointYRot =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.yRot;
+      };    
+      AnyDesVar LFootSubtalarJointXPos =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[0];
+      };      
+      AnyDesVar LFootSubtalarJointYPos =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[1];
+      };      
+      AnyDesVar LFootSubtalarJointZPos =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[2];
+      };       
+      
+      #endif
+#endif

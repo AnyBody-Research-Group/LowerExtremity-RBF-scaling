@@ -3,7 +3,7 @@ AnyFolder Seg = {
   #if IncludeKnee + IncludeHip > 0
   
   AnySeg Thigh = {
-   // AnyDrawRefFrame drw ={RGB={1,0,0};};
+//   AnyDrawRefFrame drw ={RGB={1,0,0};};
    #include "MorphNodesThigh.any"  
     
     Mass = 50.5; 
@@ -33,21 +33,19 @@ AnyFolder Seg = {
     
     
     AnyRefNode KneeJoint = {    
-      //AnyDrawRefFrame drw ={};
-      AnyMat33 InitialRotation= RotMat(sRel, sRel+{0,0,1}, .HipJoint.sRel)
-      * RotMat(...Sign*90*pi/180,y);
+      AnyDrawRefFrame drw ={};
       
       AnyFloat xRot = 0;
       AnyFloat yRot = 0;
       #ifdef RightLeg 
-      sRel = {6.938894e-018, -0.4092138, -0.01005267};
+      sRel = {0, -0.4092138, -0.01005267};
       //.....StickFigure.Posture.Right.Thigh.KneeJoint.sRel_static;
-      ARel = InitialRotation*RotMat(xRot,x)*RotMat(yRot,y);
+      ARel = RotMat(xRot,x)*RotMat(yRot,y);
       #endif
       #ifdef LeftLeg
-      sRel =  {1.387779e-017, -0.4084952, -0.05969414};
+      sRel =  {0, -0.4084952, -0.05969414};
       //.....StickFigure.Posture.Left.Thigh.KneeJoint.sRel_static;
-      ARel = InitialRotation*RotMat(xRot,x)*RotMat(yRot,y);
+      ARel = RotMat(xRot,x)*RotMat(yRot,y);
       #endif
       
     };//KneeJoint
@@ -112,7 +110,7 @@ AnyFolder Seg = {
     Jii = {0.005, 0.0025, 0.005};
     
     AnyRefNode KneeJoint = {
-     // AnyDrawRefFrame drw ={};
+//      AnyDrawRefFrame drw ={};
       
       AnyFloat xRot = 0;
       AnyFloat yRot = 0;
@@ -124,7 +122,7 @@ AnyFolder Seg = {
       #endif
       
       #ifdef LeftLeg
-      sRel = {0, 0, -0.005640184};//.....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
+      sRel = {0, 0, 0.005640184};//.....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
       ARel = .....StickFigure.Posture.Left.Shank.KneeJoint.ARel_static
         *RotMat(xRot,x)*RotMat(yRot,y);   
       #endif
@@ -132,9 +130,9 @@ AnyFolder Seg = {
     
     
     AnyRefNode AnkleJoint = {
-      //AnyDrawRefFrame drw ={};
+      AnyDrawRefFrame drw ={};
       AnyMat33 InitialRotation = RotMat(sRel, sRel+{0,0,1}, .KneeJoint.sRel)
-      * RotMat(...Sign*90*pi/180,y);
+      * RotMat(90*pi/180,y);
       
       AnyFloat xRot = 0;
       AnyFloat yRot = 0;      
@@ -142,7 +140,7 @@ AnyFolder Seg = {
       sRel = {0, -0.4277873, 0};//.....StickFigure.Posture.Right.Shank.AnkleJoint.sRel_static;
       #endif
       #ifdef LeftLeg
-      sRel = {-3.469447e-018, -0.4213269, -2.081668e-017};
+      sRel = {0, -0.4213269, 0};
 //.....StickFigure.Posture.Left.Shank.AnkleJoint.sRel_static;
       #endif
       ARel = InitialRotation * RotMat(xRot,x)*RotMat(yRot,y);
@@ -178,7 +176,7 @@ AnyFolder Seg = {
   
   
   AnySeg Talus = {
-    AnyDrawRefFrame drw = {ScaleXYZ = {0.1,0.1,0.1};};
+//    AnyDrawRefFrame drw = {ScaleXYZ = {0.1,0.1,0.1};};
     // Initial Segment position
     #ifdef RightLeg
     r0 = ....StickFigure.Posture.Right.Talus.InitialPos.r0; 
@@ -196,19 +194,15 @@ AnyFolder Seg = {
     JaboutCoMOnOff = On;
     
     AnyRefNode AnkleJoint = {
-      //AnyDrawRefFrame drw ={};
-      AnyFloat xRot = 0;
-      AnyFloat yRot = 0;
+      AnyDrawRefFrame drw ={};
       #ifdef RightLeg 
       sRel = {0.0, 0.0, 0.0};//.....StickFigure.Posture.Right.Talus.AnkleJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Right.Talus.AnkleJoint.ARel_static
-      *RotMat(xRot,x)*RotMat(yRot,y);
+      ARel = .....StickFigure.Posture.Right.Talus.AnkleJoint.ARel_static;
       #endif
       
       #ifdef LeftLeg
       sRel = {0.0, 0.0, 0.0};//.....StickFigure.Posture.Left.Talus.AnkleJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Left.Talus.AnkleJoint.ARel_static
-      *RotMat(xRot,x)*RotMat(yRot,y);
+      ARel = .....StickFigure.Posture.Left.Talus.AnkleJoint.ARel_static;
       #endif  
     };
 
@@ -216,15 +210,15 @@ AnyFolder Seg = {
       //AnyDrawRefFrame drw ={};
       AnyFloat yRot = 0;
       #ifdef RightLeg 
-      sRel = {0, -0.01621633, -0.01367591};//.....StickFigure.Posture.Right.Talus.SubtalarJoint.sRel_static;
+      sRel = {0, -0.005250511, -0.01996076};//.....StickFigure.Posture.Right.Talus.SubtalarJoint.sRel_static;
       ARel = .....StickFigure.Posture.Right.Talus.SubtalarJoint.ARel_static
       *RotMat(yRot,y);
       #endif
       
       #ifdef LeftLeg
-      sRel =  {0, -0.01355196, 0.01632006};//.....StickFigure.Posture.Left.Talus.SubtalarJoint.sRel_static;
+      sRel =   {1.084202e-019, -0.01806928, 0.02176008};//.....StickFigure.Posture.Left.Talus.SubtalarJoint.sRel_static;
       ARel = .....StickFigure.Posture.Left.Talus.SubtalarJoint.ARel_static
-      *RotMat(yRot,x);
+      *RotMat(yRot,y);
       #endif  
     };  
   
@@ -259,34 +253,35 @@ AnyFolder Seg = {
     
     AnyRefNode AnkleJoint = {
       //AnyDrawRefFrame drw ={};
-      AnyFloat xRot = 0;
-      AnyFloat yRot = 0;
+//      AnyFloat xRot = 0;
+//      AnyFloat yRot = 0;
       #ifdef RightLeg 
       sRel =  {0.07830296, 0.03119825, 0.02290649};//.....StickFigure.Posture.Right.Foot.AnkleJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Right.Foot.AnkleJoint.ARel_static
-      *RotMat(xRot,x)*RotMat(yRot,y);
+      ARel = .....StickFigure.Posture.Right.Foot.AnkleJoint.ARel_static;
+//      *RotMat(xRot,x)*RotMat(yRot,y);
       #endif
       
       #ifdef LeftLeg
       sRel =  {0.07336435, 0.0303326, -0.01262166};//.....StickFigure.Posture.Left.Foot.AnkleJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Left.Foot.AnkleJoint.ARel_static
-      *RotMat(xRot,x)*RotMat(yRot,y);
+      ARel = .....StickFigure.Posture.Left.Foot.AnkleJoint.ARel_static;
+//      *RotMat(xRot,x)*RotMat(yRot,y);
       #endif  
     };
 
     AnyRefNode SubtalarJoint = {
       //AnyDrawRefFrame drw ={};
       AnyFloat yRot = 0;
+      AnyFloat zRot = 0;
       #ifdef RightLeg 
-      sRel = {0.07830296, 0.01619825, 0.007906492};//.....StickFigure.Posture.Right.Foot.SubtalarJoint.sRel_static;
+      sRel = {0.08330296, 0.03019825, 0.002906492};//.....StickFigure.Posture.Right.Foot.SubtalarJoint.sRel_static;
       ARel = .....StickFigure.Posture.Right.Foot.SubtalarJoint.ARel_static
-      *RotMat(yRot,y);
+      *RotMat(yRot,y)*RotMat(zRot,z);
       #endif
       
       #ifdef LeftLeg
-      sRel = {0.07336435, 0.0153326, 0.002378342};//.....StickFigure.Posture.Left.Foot.SubtalarJoint.sRel_static;
+      sRel = {0.07336435, 0.0103326, 0.007378342};//.....StickFigure.Posture.Left.Foot.SubtalarJoint.sRel_static;
       ARel = .....StickFigure.Posture.Left.Foot.SubtalarJoint.ARel_static
-      *RotMat(yRot,y);
+      *RotMat(yRot,y)*RotMat(zRot,z);
       #endif  
     };    
     #if HideStickModelGraphics == 0
@@ -295,10 +290,24 @@ AnyFolder Seg = {
     {
       #ifdef RightLeg    
       p0 = .RHeel.sRel;
-      p1 = .RToe.sRel;
+      p1 = .RMidfootLateral.sRel;
       #else
       p0 = .LHeel.sRel;
-      p1 = .LToe.sRel;
+      p1 = .LMidfootLateral.sRel;
+      #endif
+      
+      GlobalCoord = Off;
+      Line.Thickness = 0.01;
+      Line.RGB = {1,0,0};
+    };
+    AnyDrawLine DrwLine00 = 
+    {
+      #ifdef RightLeg    
+      p0 = .RHeel.sRel;
+      p1 = .RMidfootMedial.sRel;
+      #else
+      p0 = .LHeel.sRel;
+      p1 = .LMidfootMedial.sRel;
       #endif
       
       GlobalCoord = Off;
@@ -313,21 +322,34 @@ AnyFolder Seg = {
       p0 = .LHeel.sRel;
       #endif
       
-      p1 = .AnkleJoint.sRel;
+      p1 = .SubtalarJoint.sRel;
       
       GlobalCoord = Off;
       Line.Thickness = 0.01;
       Line.RGB = {1,0,0};
     };
-    AnyDrawLine DrwLine2 = 
+    AnyDrawLine DrwLine22 = 
     {
       #ifdef RightLeg    
-      p0 = .RToe.sRel;
+      p0 = .RMidfootLateral.sRel;
+      p1 = .RToe.sRel;
       #else
-      p0 = .LToe.sRel;
+      p0 = .LMidfootLateral.sRel;
+      p1 = .LToe.sRel;
       #endif
-      
-      p1 = .AnkleJoint.sRel;
+      GlobalCoord = Off;
+      Line.Thickness = 0.01;
+      Line.RGB = {1,0,0};
+    };
+    AnyDrawLine DrwLine23 = 
+    {
+      #ifdef RightLeg    
+      p0 = .RMidfootMedial.sRel;
+      p1 = .RToe.sRel;
+      #else
+      p0 = .LMidfootMedial.sRel;
+      p1 = .LToe.sRel;
+      #endif
       GlobalCoord = Off;
       Line.Thickness = 0.01;
       Line.RGB = {1,0,0};

@@ -1,8 +1,6 @@
-
 load "Kinematics.main.any"
-operation Main.RunMotionAndParameterOptimizationSequence  
+operation Main.Load_AnatomicalParameters
 run
-load "InversDynamics.main.any"
-operation Main.InverseDynamicAnalysisSequence 
+operation Main.Run_Kinematic_Optimization  
 run
-exit  
+exit
