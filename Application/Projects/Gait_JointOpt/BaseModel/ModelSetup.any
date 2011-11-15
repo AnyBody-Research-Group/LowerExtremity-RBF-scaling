@@ -40,7 +40,18 @@ AnyFolder ModelSetup ={
   AnyFloatVar  tStart = Main.TrialSpecificData.StartFrameNo/Main.TrialSpecificData.FrameRate;
   AnyFloatVar  tEnd = Main.TrialSpecificData.LastFrameNo/Main.TrialSpecificData.FrameRate; 
   
-  
+  AnyFolder Files = {
+    AnyStringVar RightHipParameters = TEMP_FILE_PATH + Main.TrialSpecificData.RightHipParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftHipParameters = TEMP_FILE_PATH + Main.TrialSpecificData.LeftHipParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftAnkleParameters = TEMP_FILE_PATH + Main.TrialSpecificData.LeftAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + Main.TrialSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar GaitParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_Gait_" + "_OptimizedParameters.txt";
+    AnyStringVar AllParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
+    
+    AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";
+    AnyFileVar OptimizedMotionLeftLegTD = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "-output-euler-leftlegtd.txt";
+    AnyFileVar OptimizedMotionRightLegTD = TEMP_FILE_PATH  + Main.TrialSpecificData.TrialName + "-output-euler-rightlegtd.txt";
+  };
   
 };
 

@@ -2,7 +2,7 @@ AnyVar LengthScale = vnorm(.KinOptRef.Shank.KneeJoint.sRel - .KinOptRef.Shank.An
 					 vnorm(StdPar.KneeJoint - StdPar.AnkleJoint );
 
 AnyFolder StdPar = {
-  #include "..\..\..\..\..\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
+  #include "<AMMR_PATH>\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
 };
 
 

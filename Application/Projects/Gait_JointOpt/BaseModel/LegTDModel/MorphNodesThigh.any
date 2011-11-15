@@ -11,7 +11,7 @@ AnyVar BoxSize=0.07;
 AnyVar BoxSizeKnee=0.07;
 
 AnyFolder StdPar = {
-  #include "..\..\..\..\..\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
+  #include "<AMMR_PATH>\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
 };
 
 AnyFolder MorphSourcePoints = {

@@ -42,9 +42,8 @@ Main = {
 };
     AnyOperationMacro Run_Kinematic_Optimization = 
     {
-      AnyString SaveName = TRIAL_PATH+"OptimizedParameters.txt";
-      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
-      + strquote("Save design")+ " --file=" + strquote(SaveName) ;
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters" 
+      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters) ;
       MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
                   "run",
                   SaveMcr};

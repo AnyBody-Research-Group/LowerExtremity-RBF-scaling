@@ -14,6 +14,11 @@ AnyFolder TrialSpecificData={
   AnyStringVar C3DFileNameStatic = "../Data/SC/Static Trials/SC_staticfor_again1/SC_staticfor_again1.c3d" ;
   AnyIntVar StaticFrameIndex = 100;
   
+  AnyStringVar RightHipParametersTrial = "";
+  AnyStringVar LeftHipParametersTrial = "";
+  AnyStringVar LeftAnkleParametersTrial = "";
+  AnyStringVar RightAnkleParametersTrial = "";
+  
   AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
   AnyIntVar  LastFrameNo = -200+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   

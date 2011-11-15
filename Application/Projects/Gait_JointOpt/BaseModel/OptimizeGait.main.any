@@ -52,50 +52,64 @@ Main = {
     AnyOperationMacro Load_RightHipParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.RightHipParametersFile)) ;
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightHipParameters) ;
       MacroStr = { LoadMcr};
     };
     AnyOperationMacro Load_LeftHipParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.LeftHipParametersFile)) ;
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftHipParameters ) ;
       MacroStr = { LoadMcr };
     };
     AnyOperationMacro Load_LeftAnkleParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.LeftAnkleParametersFile)) ;
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftAnkleParameters ) ;
       MacroStr = { LoadMcr };
     };
     AnyOperationMacro Load_RightAnkleParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(FilePathCompleteOf(Main.TrialSpecificData.RightAnkleParametersFile)) ;
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightAnkleParameters ) ;
       MacroStr = { LoadMcr };
     };
     AnyOperationMacro Load_GaitParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote("OptimizedParameters") ;
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.GaitParameters ) ;
       MacroStr = { LoadMcr };
     };
-    AnyOperationSequence Load_AllParameters = {
+    
+    AnyOperationSequence Load_JointTrialParameters = {
       AnyOperation &m1 =.Load_RightHipParameters ;
       AnyOperation &m2 =.Load_LeftHipParameters ;
       AnyOperation &m3 =.Load_RightAnkleParameters ;
       AnyOperation &m4 =.Load_LeftAnkleParameters ;
-      AnyOperation &m5 =.Load_GaitParameters;
-      AnyOperation &m6 = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
+      AnyOperation &m5 = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
     };
+    
+    AnyOperationMacro Load_TrialParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters ) ;
+      MacroStr = { LoadMcr };
+    };    
+    
 
     AnyOperationMacro Run_Kinematic_Optimization = 
     {
-      AnyString SaveName = TRIAL_PATH+"OptimizedParameters.txt";
-      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
-      + strquote("Save design")+ " --file=" + strquote(SaveName) ;
+      AnyString SaveMcrGait = "classoperation Main.JntParameterOptModel.OptimizeParameters" 
+      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.GaitParameters);
+      AnyString SaveMcrAll = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters );
       MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
                   "run",
-                  SaveMcr};
+                  SaveMcrGait,
+                  "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" + strquote("Load design") +
+                  " --file=" + strquote(Main.ModelSetup.Files.GaitParameters),
+                  SaveMcrAll,
+                  "operation Main.JntParameterOptModel.KinematicStudy.Kinematics",
+                  "run"};
     };
     
 };  // Main

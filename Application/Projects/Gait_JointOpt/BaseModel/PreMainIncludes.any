@@ -1,14 +1,15 @@
 #ifndef PREMAININCLUDES_ANY
 #define PREMAININCLUDES_ANY
 #path BASE_MODEL_PATH "."
+#path AMMR_PATH "../../../../"
 
 
-#include "../../../../Body/AAUHuman/ToolBox/Mocap/CreateMarkerClass.any"
-#include "../../../../Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTD.any"
-#include "../../../../Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTDWidgetV2.any"
+#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClass.any"
+#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTD.any"
+#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTDWidgetV2.any"
 //#include "ForcePlateGrandChallenge.any"
-#include "../../../../Body/AAUHuman/ToolBox/Mocap/ForcePlateType2AutoDetection.any"
-#include "../../../../Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOff.any"
+#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/ForcePlateType2AutoDetection.any"
+#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOff.any"
 #include "KinOptModel\ClassTemplates.any"
 //#include "EmgProcessing.any"
 #include  "LegTDModel\MomentArmTemplate.any"

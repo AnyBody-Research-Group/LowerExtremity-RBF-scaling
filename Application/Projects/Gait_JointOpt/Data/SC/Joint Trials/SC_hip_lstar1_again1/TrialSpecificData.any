@@ -19,6 +19,8 @@ AnyFolder TrialSpecificData={
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
    
-
-
+  AnyStringVar RightHipParametersTrial = "";
+  AnyStringVar LeftHipParametersTrial = "";
+  AnyStringVar LeftAnkleParametersTrial = "";
+  AnyStringVar RightAnkleParametersTrial = "";
 };

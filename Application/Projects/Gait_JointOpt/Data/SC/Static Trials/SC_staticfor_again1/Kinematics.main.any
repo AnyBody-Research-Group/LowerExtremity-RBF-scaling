@@ -3,5 +3,6 @@
 Main = {
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"  
- #include "../../../../BaseModel/KinematicModel.main.any"
+ #include "<BASE_MODEL_PATH>/LegTDModel/FootPosStudy.any"
+ #include "<BASE_MODEL_PATH>/KinematicModel.main.any"
 }; 

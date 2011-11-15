@@ -10,7 +10,7 @@ AnyFolder HumanModel={
     #include  "BodyPartsSetup.any"
 //    
     // This file creates the body model from the selected list.
-    #include  "..\..\..\..\..\Body\AAUHuman\BodyModels\GenericBodyModel\BodyModel.any"
+    #include  "<AMMR_PATH>\Body\AAUHuman\BodyModels\GenericBodyModel\BodyModel.any"
 
  
  AnyFolder StrengthParameters={

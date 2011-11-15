@@ -3,9 +3,7 @@ AnyFolder JointAngleOutputs = {
   #if IncludeHip == 1
   
   AnyOutputFile OutputFile1 = {
-    FileName = SUBJECT_PATH +"/Tmp/"+
-       Main.TrialSpecificData.TrialName+ "-output-euler-pelvis.txt";
-    
+    FileName = Main.ModelSetup.Files.OptimizedMotionTrunk ;
     SepSign = " ";
     
     AnyVector PelvisPosX = ...LegModel.Interface.Trunk.PelvisDriveNodePosX.Pos;
@@ -18,12 +16,10 @@ AnyFolder JointAngleOutputs = {
   #endif
   
   
-  #if IncludeLeft + IncludeKnee + IncludeAnkle == 3
+  #if IncludeLeft + IncludeHip + IncludeKnee + IncludeAnkle == 4
   
   AnyOutputFile OutputFile2 = {
-    FileName = SUBJECT_PATH +"/Tmp/"+
-	Main.TrialSpecificData.TrialName+"-output-euler-leftlegtd.txt";
-    
+    FileName =  Main.ModelSetup.Files.OptimizedMotionLeftLegTD ;
     SepSign = " ";
     
     AnyVector HipMeasure0 = ...LegModel.Interface.Left.HipJointMeasure0.Pos;
@@ -37,12 +33,11 @@ AnyFolder JointAngleOutputs = {
   
   
   
-  #if IncludeRight + IncludeKnee + IncludeAnkle == 3
+  #if IncludeRight + IncludeHip + IncludeKnee + IncludeAnkle == 4
   
   
   AnyOutputFile OutputFile3 = {
-    FileName = SUBJECT_PATH +"/Tmp/"+
-	Main.TrialSpecificData.TrialName+"-output-euler-rightlegtd.txt";
+    FileName =  Main.ModelSetup.Files.OptimizedMotionRightLegTD ;
     SepSign = " ";
     
     AnyVector HipMeasure0 = ...LegModel.Interface.Right.HipJointMeasure0.Pos;

@@ -41,8 +41,7 @@ AnyFolder JointsAndDriversLegTD = {
     FileErrorContinueOnOff = On;
     Type = Bspline;
     BsplineOrder = 4;
-    FileName = SUBJECT_PATH+"/Tmp/"+
-	Main.TrialSpecificData.TrialName+"-output-euler-pelvis.txt";
+    FileName = Main.ModelSetup.Files.OptimizedMotionTrunk ;
     AnyKinMeasureOrg &PelvisPosX = ...HumanModel.BodyModel.Interface.Trunk.PelvisDriveNodePosX;
     AnyKinMeasureOrg &PelvisPosY = ...HumanModel.BodyModel.Interface.Trunk.PelvisDriveNodePosY;
     AnyKinMeasureOrg &PelvisPosZ = ...HumanModel.BodyModel.Interface.Trunk.PelvisDriveNodePosZ;
@@ -57,8 +56,7 @@ AnyFolder JointsAndDriversLegTD = {
     FileErrorContinueOnOff = On;
     Type = Bspline;
     BsplineOrder = 4;
-    FileName = SUBJECT_PATH+"/Tmp/"+
-	Main.TrialSpecificData.TrialName+"-output-euler-leftlegtd.txt";
+    FileName =  Main.ModelSetup.Files.OptimizedMotionLeftLegTD ;
     AnyKinMeasureOrg &HipMeasure0 = ...HumanModel.BodyModel.Interface.Left.HipJointMeasure0;
     AnyKinMeasureOrg &HipMeasure1 = ...HumanModel.BodyModel.Interface.Left.HipJointMeasure1;
     AnyKinMeasureOrg &HipMeasure2 = ...HumanModel.BodyModel.Interface.Left.HipJointMeasure2;
@@ -81,8 +79,7 @@ AnyFolder JointsAndDriversLegTD = {
     FileErrorContinueOnOff = On;
     Type = Bspline;
     BsplineOrder = 4;
-    FileName = SUBJECT_PATH+"/Tmp/"+
-	Main.TrialSpecificData.TrialName+"-output-euler-rightlegtd.txt";
+    FileName =  Main.ModelSetup.Files.OptimizedMotionRightLegTD ;
     AnyKinMeasureOrg &HipMeasure0 = ...HumanModel.BodyModel.Interface.Right.HipJointMeasure0;
     AnyKinMeasureOrg &HipMeasure1 = ...HumanModel.BodyModel.Interface.Right.HipJointMeasure1;
     AnyKinMeasureOrg &HipMeasure2 = ...HumanModel.BodyModel.Interface.Right.HipJointMeasure2;

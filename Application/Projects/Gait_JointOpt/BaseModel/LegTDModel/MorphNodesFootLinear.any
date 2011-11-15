@@ -3,7 +3,7 @@
 AnyVar ms = MassScale;
 AnyVar ls = LengthScale;
 AnyFolder StdPar = {
-  #include "..\..\..\..\..\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
+  #include "<AMMR_PATH>\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
 };
 
 AnyFolder MorphSourcePoints = {

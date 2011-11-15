@@ -1,4 +1,6 @@
 #path SUBJECT_PATH "."
+#path TEMP_FILE_PATH "Tmp/"
+
 
 // Switches whether or not to use the anatomically computed joint center or the joint center listed below
 #define UseAnatomicalValuesLeftHip 1
