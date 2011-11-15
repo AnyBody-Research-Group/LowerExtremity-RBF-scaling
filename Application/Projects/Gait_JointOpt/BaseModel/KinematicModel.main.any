@@ -94,9 +94,10 @@ Main = {
     nStep = Main.ModelSetup.nStep;
     Gravity = {0, 0, 0};
     
-    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
+//    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
     AnyFolder &LegModel = .LegModel;
     AnyFolder &Environment = .Environment;
+
 
     #include "KinOptModel\JointAngleOutputs.any"
     
