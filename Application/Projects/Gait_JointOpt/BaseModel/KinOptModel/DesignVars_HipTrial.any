@@ -2,11 +2,9 @@
    #if IncludeHip == 1
       AnyDesVar RPelvisHipJointZPos = {
         Val = .ModelRef.Trunk.Seg.Pelvis.RHipJoint.sRel[2];
-        Max = Val + 1.0;  Min = Val - 1.0;
       };
       AnyDesVar RThighHipJointZPos =  {
         Val = .ModelRef.Right.Seg.Thigh.HipJoint.sRel[2];
-        Max = Val + 1.0;  Min = Val - 1.0;
       };  
    #endif 
 #endif
@@ -16,11 +14,9 @@
    #if IncludeHip == 1
       AnyDesVar LPelvisHipJointZPos = {
         Val = .ModelRef.Trunk.Seg.Pelvis.LHipJoint.sRel[2];
-        Max = Val + 1.0;  Min = Val - 1.0;
       };
       AnyDesVar LThighHipJointZPos =  {
         Val = .ModelRef.Left.Seg.Thigh.HipJoint.sRel[2];
-        Max = Val + 1.0;  Min = Val - 1.0;
       };  
     #endif
 #endif
