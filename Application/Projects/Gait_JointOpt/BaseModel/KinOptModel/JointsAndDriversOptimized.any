@@ -13,7 +13,7 @@ AnyFolder JointsAndDriversKinOptModel = {
     Type = Bspline;
     BsplineOrder = 4;
     FileName = SUBJECT_PATH+"/Tmp/"+
-	Main.TrialSpecificData.TrialName+"-output-euler-pelvis.txt";
+	Main.TrialSpecificData.TrialName+"-output-euler-trunk.txt";
     AnyKinMeasureOrg &PelvisPosX = .InterfaceRef.Trunk.PelvisDriveNodePosX;
     AnyKinMeasureOrg &PelvisPosY = .InterfaceRef.Trunk.PelvisDriveNodePosY;
     AnyKinMeasureOrg &PelvisPosZ = .InterfaceRef.Trunk.PelvisDriveNodePosZ;
@@ -35,7 +35,8 @@ AnyFolder JointsAndDriversKinOptModel = {
     AnyKinMeasureOrg &HipJointMeasure2 = .InterfaceRef.Left.HipJointMeasure2;
     AnyKinMeasureOrg &KneeJointMeasure = .InterfaceRef.Left.KneeJointMeasure;
     AnyKinMeasureOrg &AnkleJointMeasure = .InterfaceRef.Left.AnkleJointMeasure;
-    Reaction.Type={On,On,On,On,On};
+    AnyKinMeasureOrg &SubtalarMeasure = .InterfaceRef.Left.SubtalarJointMeasure;
+Reaction.Type={On,On,On,On,On,On};
   };
   #endif
   
@@ -52,7 +53,8 @@ AnyFolder JointsAndDriversKinOptModel = {
     AnyKinMeasureOrg &HipJointMeasure2 = .InterfaceRef.Right.HipJointMeasure2;
     AnyKinMeasureOrg &KneeJointMeasure = .InterfaceRef.Right.KneeJointMeasure;
     AnyKinMeasureOrg &AnkleJointMeasure = .InterfaceRef.Right.AnkleJointMeasure;
-    Reaction.Type={On,On,On,On,On};
+    AnyKinMeasureOrg &SubtalarMeasure = .InterfaceRef.Right.SubtalarJointMeasure;
+    Reaction.Type={On,On,On,On,On,On};
   };
   
  #endif

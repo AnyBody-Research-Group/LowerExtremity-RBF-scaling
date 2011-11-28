@@ -125,31 +125,62 @@ AnyFolder Interface = {
   
   
   #if IncludeAnkle == 1
- 
- ShankRef = {
-    AnyRefNode DriveNodeAnkle = {
-     sRel = .AnkleJoint.sRel;
-     ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .KneeJoint.sRel);
-     //AnyDrawRefFrame drw ={};
-   };     
- };
   
- AnyFolder &FootRef = ..Right.Seg.Foot;
+  AnyFolder &FootRef = ..Right.Seg.Foot;
+  AnyFolder &TalusRef = ..Right.Seg.Talus;
+  
+ 
+   ShankRef = {
+      AnyRefNode DriveNodeAnkle = {
+       sRel = .AnkleJoint.sRel;
+       ARel = .AnkleJoint.ARel;
+       //ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .KneeJoint.sRel);
+      AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,1};};
+     };     
+   };
+   
+  TalusRef = {
+    AnyRefNode DriveNodeAnkle= {
+      sRel = .AnkleJoint.sRel;
+      ARel = .AnkleJoint.ARel;
+      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
+    };
+    AnyRefNode DriveNodeSubtalar= {
+      sRel = .SubtalarJoint.sRel;
+      ARel = .SubtalarJoint.ARel;
+      AnyDrawRefFrame drw ={Visible = On;RGB = {0,1,0};};
+    };
+  };
+
  FootRef = {
+   AnyRefNode DriveNodeSubtalar = {
+     sRel = .SubtalarJoint.sRel;
+     ARel = .SubtalarJoint.ARel;//AnkleJoint.ARel*RotMat(11*pi/180,z);
+//     ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .RToe.sRel);
+     AnyDrawRefFrame drw ={Visible = On;RGB = {1,0,0};};
+//     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
+   };     
+   
    AnyRefNode DriveNode = {
      sRel = .AnkleJoint.sRel;
      //ARel = .AnkleJoint.ARel*RotMat(11*pi/180,z);
      ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .RToe.sRel);
-     //AnyDrawRefFrame drw ={};
+     AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,0};};
 //     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
    };     
  };
+ 
+ TalusRef = {
+//   AnyRefNode = DriveNode
+ 
+ };
+ 
  
  
   AnyKinMeasureOrg AnkleJointMeasure = {
      AnyKinRotational AnkleRot ={
        AnyRefNode &AnkleRef1 = ....Right.Seg.Shank.DriveNodeAnkle;
-       AnyRefNode &AnkleRef2 = ....Right.Seg.Foot.DriveNode;
+       AnyRefNode &AnkleRef2 = ....Right.Seg.Talus.DriveNodeAnkle;
 
 //       AnkleRef1 = {AnyDrawRefFrame drw ={RGB={1,0,0};};};
 //       AnkleRef2 = {AnyDrawRefFrame drw ={};};
@@ -161,6 +192,23 @@ AnyFolder Interface = {
      };
     MeasureOrganizer={0};
   };
+  
+  AnyKinMeasureOrg SubtalarJointMeasure = {
+     AnyKinRotational Rot ={
+       AnyRefNode &AnkleRef1 = ....Right.Seg.Talus.DriveNodeSubtalar;
+       AnyRefNode &AnkleRef2 = ....Right.Seg.Foot.DriveNodeSubtalar;
+
+//       AnkleRef1 = {AnyDrawRefFrame drw ={RGB={1,0,0};};};
+//       AnkleRef2 = {AnyDrawRefFrame drw ={};};
+       
+       Type=RotAxesAngles;
+       Axis1 = x;
+       Axis2 = y;
+       Axis3 = z;
+     };
+    MeasureOrganizer={0};
+  };  
+  
   #endif
     
   
@@ -228,30 +276,56 @@ AnyFolder Interface = {
   
   #if IncludeAnkle == 1
   
- ShankRef = {
-    AnyRefNode DriveNodeAnkle = {
-     sRel = .AnkleJoint.sRel;
-     ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .KneeJoint.sRel);
-     //AnyDrawRefFrame drw ={};
-   };     
- };
+  AnyFolder &FootRef = ..Left.Seg.Foot;
+  AnyFolder &TalusRef = ..Left.Seg.Talus;
   
- AnyFolder &FootRef = ..Left.Seg.Foot;
+ 
+   ShankRef = {
+      AnyRefNode DriveNodeAnkle = {
+       sRel = .AnkleJoint.sRel;
+       ARel = .AnkleJoint.ARel;
+       //ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .KneeJoint.sRel);
+      AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,1};};
+     };     
+   };
+   
+  TalusRef = {
+    AnyRefNode DriveNodeAnkle= {
+      sRel = .AnkleJoint.sRel;
+      ARel = .AnkleJoint.ARel;
+      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
+    };
+    AnyRefNode DriveNodeSubtalar= {
+      sRel = .SubtalarJoint.sRel;
+      ARel = .SubtalarJoint.ARel;
+      AnyDrawRefFrame drw ={Visible = On;RGB = {0,1,0};};
+    };
+  };
+
  FootRef = {
+   AnyRefNode DriveNodeSubtalar = {
+     sRel = .SubtalarJoint.sRel;
+     ARel = .SubtalarJoint.ARel;//AnkleJoint.ARel*RotMat(11*pi/180,z);
+//     ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .RToe.sRel);
+     AnyDrawRefFrame drw ={Visible = On;RGB = {1,0,0};};
+//     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
+   };     
+   
    AnyRefNode DriveNode = {
      sRel = .AnkleJoint.sRel;
      //ARel = .AnkleJoint.ARel*RotMat(11*pi/180,z);
      ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .LToe.sRel);
-//     AnyDrawRefFrame drw ={};
+     AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,0};};
 //     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
    };     
  };
+
  
  
   AnyKinMeasureOrg AnkleJointMeasure = {
      AnyKinRotational AnkleRot ={
        AnyRefNode &AnkleRef1 = ....Left.Seg.Shank.DriveNodeAnkle;
-       AnyRefNode &AnkleRef2 = ....Left.Seg.Foot.DriveNode;
+       AnyRefNode &AnkleRef2 = ....Left.Seg.Talus.DriveNodeAnkle;
 
 //       AnkleRef1 = {AnyDrawRefFrame drw ={RGB={1,0,0};};};
 //       AnkleRef2 = {AnyDrawRefFrame drw ={};};
@@ -263,6 +337,24 @@ AnyFolder Interface = {
      };
     MeasureOrganizer={0};
   };
+  
+  AnyKinMeasureOrg SubtalarJointMeasure = {
+     AnyKinRotational Rot ={
+       AnyRefNode &AnkleRef1 = ....Left.Seg.Talus.DriveNodeSubtalar;
+       AnyRefNode &AnkleRef2 = ....Left.Seg.Foot.DriveNodeSubtalar;
+
+//       AnkleRef1 = {AnyDrawRefFrame drw ={RGB={1,0,0};};};
+//       AnkleRef2 = {AnyDrawRefFrame drw ={};};
+       
+       Type=RotAxesAngles;
+       Axis1 = x;
+       Axis2 = y;
+       Axis3 = z;
+     };
+    MeasureOrganizer={0};
+  };    
+  
+  
   #endif
     
   

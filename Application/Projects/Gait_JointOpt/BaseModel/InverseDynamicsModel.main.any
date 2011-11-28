@@ -1,107 +1,18 @@
-#ifndef IncludeRight 
 #define IncludeRight 1
-#endif
-
-#ifndef IncludeLeft 
 #define IncludeLeft 1
-#endif
-
-#ifndef IncludeHip 
 #define IncludeHip 1
-#endif
-
-#ifndef IncludeKnee 
 #define IncludeKnee 1
-#endif
-
-#ifndef IncludeAnkle 
 #define IncludeAnkle 1
-#endif
-
-#ifndef UseDanamicLoadPosition 
 #define UseDanamicLoadPosition 1
-#endif
-
-#ifndef EnableJointAxisScaling 
 #define EnableJointAxisScaling 1
-#endif
-
-#ifndef HideStickModelGraphics 
 #define HideStickModelGraphics 0
-#endif
-
-#ifndef UseRbfScaling
 #define UseRbfScaling 0
-#endif
+
+#include "KinematicModel.main.any"
 
 Main = {
-//  AnyProject Project = { Files.MainFile = MAIN_FILE_NAME; };   
-  
-  #include "ModelSetup.any"
   #include "DrawSettings.any"
   #include "GeneralSettings.any"  
-  
-  AnyFolder JntParameterOptModel = {
-    
-    #include "KinOptModel\StickFigure.any"
-    
-    // The actual body model goes in this folder
-    AnyFolder LegModel = {
-      
-      AnyFolder Trunk = {
-        #include "KinOptModel\TrunkSegments.any"
-      };
-      
-      #if IncludeRight == 1
-      #define RightLeg
-      AnyFolder Right = {
-        #include "KinOptModel\LegSegments.any"
-        #include "KinOptModel\Joints.any"
-        AnyFloat Sign = 1;
-      };   
-      #undef RightLeg
-      #endif
-      
-      #if IncludeLeft == 1
-      #define LeftLeg
-      AnyFolder Left = {
-        #include "KinOptModel\LegSegments.any"
-        #include "KinOptModel\Joints.any"
-        AnyFloat Sign = -1;
-      };   
-      #undef LeftLeg
-      #endif       
-      
-      #include "KinOptModel\Interface.any"
-      
-    };
-    
-    AnyFolder Environment = {
-      #include "KinOptModel\Drivers.any"
-    };
-    
-    
-    AnyBodyStudy KinematicStudy = 
-    {
-      tStart = Main.ModelSetup.tStart;
-      tEnd = Main.ModelSetup.tEnd;
-      nStep = Main.ModelSetup.nStep;
-      Gravity = {0, 0, 0};
-      
-      AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
-      AnyFolder &LegModel = .LegModel;
-      AnyFolder &Environment = .Environment;
-      
-      #include "KinOptModel\JointAngleOutputs.any"
-      
-      InitialConditions.SolverType = KinSolOverDeterminate;
-      Kinematics.SolverType = KinSolOverDeterminate;   
-      InitialConditions.PosAnalysisOnlyOnOff=On;
-      Kinematics.PosAnalysisOnlyOnOff=On;
-      
-    };
-    
-  };
   
   #if IncludeLegTDModel  == 1
   AnyFolder AnyBodyGaitAppModel = {
@@ -157,6 +68,14 @@ Main = {
  };
   
   #endif
+  
+    AnyOperationMacro Load_TrialParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters ) ;
+      MacroStr = { LoadMcr };
+    };    
+  
   
 };  // Main
 

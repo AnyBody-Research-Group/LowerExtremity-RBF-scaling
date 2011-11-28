@@ -130,7 +130,6 @@ AnyFolder Seg = {
     
     
     AnyRefNode AnkleJoint = {
-      AnyDrawRefFrame drw ={};
       AnyMat33 InitialRotation = RotMat(sRel, sRel+{0,0,1}, .KneeJoint.sRel)
       * RotMat(90*pi/180,y);
       
@@ -194,7 +193,7 @@ AnyFolder Seg = {
     JaboutCoMOnOff = On;
     
     AnyRefNode AnkleJoint = {
-      AnyDrawRefFrame drw ={};
+      AnyDrawRefFrame drw ={Visible = Off;};
       #ifdef RightLeg 
       sRel = {0.0, 0.0, 0.0};//.....StickFigure.Posture.Right.Talus.AnkleJoint.sRel_static;
       ARel = .....StickFigure.Posture.Right.Talus.AnkleJoint.ARel_static;

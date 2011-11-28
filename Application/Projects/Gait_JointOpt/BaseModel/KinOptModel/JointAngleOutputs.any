@@ -27,6 +27,7 @@ AnyFolder JointAngleOutputs = {
     AnyVector HipMeasure2 = ...LegModel.Interface.Left.HipJointMeasure2.Pos;
     AnyVector KneeJointMeasure = ...LegModel.Interface.Left.KneeJointMeasure.Pos;
     AnyVector AnkleJointMeasure = ...LegModel.Interface.Left.AnkleJointMeasure.Pos;
+    AnyVector SubtalarMeasure = ...LegModel.Interface.Left.SubtalarJointMeasure.Pos;
   };
   
   #endif
@@ -45,6 +46,7 @@ AnyFolder JointAngleOutputs = {
     AnyVector HipMeasure2 = ...LegModel.Interface.Right.HipJointMeasure2.Pos;
     AnyVector KneeJointMeasure = ...LegModel.Interface.Right.KneeJointMeasure.Pos;
     AnyVector AnkleJointMeasure = ...LegModel.Interface.Right.AnkleJointMeasure.Pos;
+    AnyVector SubtalarMeasure = ...LegModel.Interface.Right.SubtalarJointMeasure.Pos;
   };
   
   #endif

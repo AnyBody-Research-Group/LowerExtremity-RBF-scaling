@@ -335,12 +335,13 @@ AnyFolder StickFigure = {
     AnyFolder Talus = {
       AnyVec3 r0_static = .sRAnkleCenter;
       
-      AnyVec3 u3 = (.sRAnkleLateral -.sRAnkleCenter ) / vnorm(.sRAnkleLateral - .sRAnkleCenter);
-      AnyVec3 u1 = cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static)
-          /vnorm( cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static) );
-      AnyVec3 u2 = cross(u3,u1);
+//      AnyVec3 u3 = (.sRAnkleLateral -.sRAnkleCenter ) / vnorm(.sRAnkleLateral - .sRAnkleCenter);
+//      AnyVec3 u1 = cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static)
+//          /vnorm( cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static) );
+//      AnyVec3 u2 = cross(u3,u1);
       
-      AnyMat33 Axes0_static = {u1, u2, u3}';
+      //AnyMat33 Axes0_static = {u1, u2, u3}';
+      AnyMat33 Axes0_static = .Foot.Axes0_static;
       
       #if IncludeAnkle == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -453,7 +454,7 @@ AnyFolder StickFigure = {
       AnyFolder SubtalarJoint = {
         AnyVar zRot = 45*pi/180;
         AnyVar yRot = (1)*30*pi/180;
-        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0.005,-0.001,(1)*-0.02};
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0.005,-0.001,(1)*-0.015};
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
       };
       AnyFolder RAnkleLateral = 
@@ -1021,12 +1022,13 @@ AnyFolder StickFigure = {
     AnyFolder Talus = {
       AnyVec3 r0_static = .sLAnkleCenter;
       
-      AnyVec3 u3 = (.sLAnkleCenter -.sLAnkleLateral ) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
-      AnyVec3 u1 = cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static)
-          /vnorm( cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static) );
-      AnyVec3 u2 = cross(u3,u1);
-      
-      AnyMat33 Axes0_static = {u1, u2, u3}';
+//      AnyVec3 u3 = (.sLAnkleCenter -.sLAnkleLateral ) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
+//      AnyVec3 u1 = cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static)
+//          /vnorm( cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static) );
+//      AnyVec3 u2 = cross(u3,u1);
+//      
+//      AnyMat33 Axes0_static = {u1, u2, u3}';
+      AnyMat33 Axes0_static = .Foot.Axes0_static;
       
       #if IncludeAnkle == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -1139,8 +1141,9 @@ AnyFolder StickFigure = {
       AnyFolder SubtalarJoint = {
         AnyVar zRot = 45*pi/180;
         AnyVar yRot = (-1)*30*pi/180;
-        AnyVec3 sRel_static = .AnkleJoint.sRel_static +{0.000,-0.02,(-1)*-0.02};
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static +{0.005,-0.001,(-1)*-0.015};
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
+        
       };
       AnyFolder LAnkleLateral = 
       {
