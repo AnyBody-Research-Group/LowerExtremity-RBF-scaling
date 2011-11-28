@@ -659,7 +659,7 @@ AnyFolder StickFigure = {
     };
     AnyFolder RHipJoint = {
       // This calculates the global coordinates of the hip joint.      
-      AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*AnatomicalHipPosDavis ')';
+      AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*AnatomicalHipPosHarrington ')';
 
       
       // Initial position of hip joint based on anatomical landmarks as described by 
@@ -670,24 +670,34 @@ AnyFolder StickFigure = {
       
       // Calculation of the anatomical hip joint position used by Vicons Plug-in gait system. Based on the work by Davis       
       AnyVar Lleg = vnorm(.sRAsis - .sRAnkleMedial);
+      AnyVar MeanLleg = (vnorm(.sLAsis - .sLAnkleMedial)+vnorm(.sRAsis - .sRAnkleMedial))/2;      
+      
       AnyVar xdis = (0.1288*Lleg)-0.04856;
       AnyVar rmarker = 0.007;
       AnyVar beta = pi*18/180;
       AnyVar theta = pi*28.4/180;
       AnyVar sign = 1;
-      AnyVar C = 0.115*Lleg-0.0153;
-      AnyVar XH = (-xdis-rmarker)*cos(beta)+C*cos(theta)*sin(beta);
-      AnyVar YH = sign*(C*sin(theta)-AsisDist/2);
-      AnyVar ZH = (-xdis-rmarker)*sin(beta)-C*cos(theta)*cos(beta);
+      AnyVar C = 0.115*MeanLleg-0.0153;
+      AnyVar XHD = (-xdis-rmarker)*cos(beta)+C*cos(theta)*sin(beta);
+      AnyVar YHD = sign*(C*sin(theta)-AsisDist/2);
+      AnyVar ZHD = (-xdis-rmarker)*sin(beta)-C*cos(theta)*cos(beta);
 
-      AnyVec3 AnatomicalHipPosDavis = {XH,ZH,-YH};//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
+      AnyVec3 AnatomicalHipPosDavis = {XHD,ZHD,-YHD};//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
       
+      AnyVar PelvisDepth = vnorm((.sRAsis+.sLAsis)/2-(.sLPsis+.sRPsis)/2);
+
+      AnyVar XHH = (-0.24*PelvisDepth*1000-9.9)/1000;
+      AnyVar YHH = (-0.16*AsisDist*1000-0.04*Lleg*1000-7.1)/1000;
+      AnyVar ZHH = (0.28*PelvisDepth*1000+0.16*AsisDist*1000+7.9)/1000;
+
+
+      AnyVec3 AnatomicalHipPosHarrington = {XHH,YHH,ZHH};
       
       
     };
     AnyFolder LHipJoint = {
       // This calculates the global coordinates of the hip joint.      
-      AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*AnatomicalHipPosDavis ')';
+      AnyVec3 r0_static = .Pelvis.r0_static+(.Pelvis.Axes0_static*AnatomicalHipPosHarrington ')';
       
       
       // Anatomical Hip postition by Bell  (1989)
@@ -695,19 +705,28 @@ AnyFolder StickFigure = {
       AnyVec3 AnatomicalHipPosBell = {-0.22*AsisDist, -0.30*AsisDist, -0.36*AsisDist};//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
       
       // Calculation of the anatomical hip joint position used by Vicons Plug-in gait system. Based on the work by Davis       
-      AnyVar Lleg = 0.5*( vnorm(.sLAsis - .sLAnkleMedial)+ vnorm(.sRAsis - .sRAnkleMedial));
+      AnyVar Lleg = vnorm(.sLAsis - .sLAnkleMedial);
+      AnyVar MeanLleg = (vnorm(.sLAsis - .sLAnkleMedial)+vnorm(.sRAsis - .sRAnkleMedial))/2;      
+      
       AnyVar xdis = (0.1288*Lleg)-0.04856;
       AnyVar rmarker = 0.007;
       AnyVar beta = pi*18/180;
       AnyVar theta = pi*28.4/180;
       AnyVar sign = 1;
-      AnyVar C = 0.115*Lleg-0.0153;
+      AnyVar C = 0.115*MeanLleg-0.0153;
       AnyVar XH = (-xdis-rmarker)*cos(beta)+C*cos(theta)*sin(beta);
       AnyVar YH = sign*(C*sin(theta)-AsisDist/2);
       AnyVar ZH = (-xdis-rmarker)*sin(beta)-C*cos(theta)*cos(beta);
 
       AnyVec3 AnatomicalHipPosDavis = {XH,ZH,YH};//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
-      
+
+      AnyVar PelvisDepth = vnorm((.sRAsis+.sLAsis)/2-(.sLPsis+.sRPsis)/2);
+
+      AnyVar XHH = (-0.24*PelvisDepth*1000-9.9)/1000;
+      AnyVar YHH = (-0.16*AsisDist*1000-0.04*Lleg*1000-7.1)/1000;
+      AnyVar ZHH = (0.28*PelvisDepth*1000+0.16*AsisDist*1000+7.9)/1000;
+
+      AnyVec3 AnatomicalHipPosHarrington = {XHH,YHH,-ZHH};      
     };    
     
     
