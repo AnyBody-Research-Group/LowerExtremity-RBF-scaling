@@ -107,10 +107,47 @@ Main = {
       Kinematics.PosAnalysisOnlyOnOff=On;     
   };
   
-  
-  
+    AnyOperationMacro Load_RightHipParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightHipParameters) ;
+      MacroStr = { LoadMcr};
+    };
+    AnyOperationMacro Load_LeftHipParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftHipParameters ) ;
+      MacroStr = { LoadMcr };
+    };
+    AnyOperationMacro Load_LeftAnkleParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftAnkleParameters ) ;
+      MacroStr = { LoadMcr };
+    };
+    AnyOperationMacro Load_RightAnkleParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightAnkleParameters ) ;
+      MacroStr = { LoadMcr };
+    };
+    AnyOperationMacro Load_GaitParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.GaitParameters ) ;
+      MacroStr = { LoadMcr };
+    };
+    
 };
     
 
+   AnyOperationSequence Load_JointTrialParameters = {
+     AnyOperation &m1 =.JntParameterOptModel.Load_RightHipParameters ;
+     AnyOperation &m2 =.JntParameterOptModel.Load_LeftHipParameters ;
+     AnyOperation &m3 =.JntParameterOptModel.Load_RightAnkleParameters ;
+     AnyOperation &m4 =.JntParameterOptModel.Load_LeftAnkleParameters ;
+     AnyOperation &m5 = .JntParameterOptModel.Load_GaitParameters;
+     AnyOperation &m6 = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
+   };
   
 };  // Main

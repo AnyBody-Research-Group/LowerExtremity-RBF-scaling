@@ -14,12 +14,21 @@ AnyFolder SubjectSpecificData = {
     AnyVar BodyMass=78.4;  //the mass is automatically distributed to the segments
     AnyVar BodyHeight=1.67;  //height
     
-	#ifdef IncludeLegTDModel    
+	#ifdef IncludeLegTDModel 
 		AnyFolder &SP = Main.AnyBodyGaitAppModel.HumanModel.Scaling.StandardParameters;
 		AnyVar StandardBodyHeight = SP.Head.Height+SP.Trunk.Height+SP.Right.LengthLeg+0.05;
 		AnyVar TrunkHeight = SP.Trunk.Height*BodyHeight/StandardBodyHeight;
 	#endif    
 
+     #define MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
+     AnyVar KneeWidth = 0.09796;
+     AnyVar AnkleWidth = 0.0793;
+          
+     
+     
+ 
+ 
+ 
     // User-defined hip joint centers
     // AnyFolder Pelvis = {
       // AnyVec3 OffsetPos = {-0.01799353, 0.0001675525, -0.0005441904};

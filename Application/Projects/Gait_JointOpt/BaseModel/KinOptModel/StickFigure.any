@@ -100,8 +100,8 @@ AnyFolder StickFigure = {
       
       //The origin of the  reference frame is found by projecting the 
       // hip-kneeCenter vector to the y axis of the thigh (u2)
-      AnyVec3 r0_static = ..Trunk.RHipJoint.r0_static;//.sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*u2'*u2;
-      
+     // AnyVec3 r0_static = ..Trunk.RHipJoint.r0_static;//.sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*u2'*u2;
+      AnyVec3 r0_static = .sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*u2'*u2;
       
       
       // Basis for the thigh coordinate system. 
@@ -381,6 +381,17 @@ AnyFolder StickFigure = {
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeCenter -.r0_static)')';
       };      
+      
+      #if IncludeRight == 1  
+      #if IncludeAnkle == 1
+      AnyFolder &TalusRef = ....LegModel.Right.Seg.Talus;
+      TalusRef = {
+        AnyRefNode RKneeCenter = {
+          sRel = ..RKneeCenter.sRel_static;
+        };
+      };
+      #endif
+      #endif
       
     };
         
@@ -807,19 +818,37 @@ AnyFolder StickFigure = {
     
     
     AnyFolder Thigh = {
-      AnyVec3 r0_static = ..Trunk.LHipJoint.r0_static;
+     
       
-      // Vector defining the point of projection of 'RThighLateral' marker on the line passing though 
-      // medial and lateral epicondyle markers ( represented by u3)
-      AnyVec3 sTmp = (r0_static -.sLKneeCenter )*u3'*u3 + .sLKneeCenter ;
+      
+            //The origin of the  reference frame is found by projecting the 
+      // hip-kneeCenter vector to the y axis of the thigh (u2)
+     // AnyVec3 r0_static = ..Trunk.RHipJoint.r0_static;//.sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*u2'*u2;
+      AnyVec3 r0_static = .sLKneeCenter+ ( ..Trunk.LHipJoint.r0_static-.sLKneeCenter)*u2'*u2;
+      
       
       // Basis for the thigh coordinate system. 
       // u3 is define by a line though mediala and lateral epicondily makers
-      // u2 is a direction of define by the RThighLateral marker rejekted from u3
-      // u1 is the remaining orthonormal direction (cross product of u2, and u3) 
+      // u1 is a vector pependicular to u3 and HipJoint-sRKneeCenter
+      // u2 is the remaining orthonormal direction (cross product of u3, and u1) (y axis of thigh)
       AnyVec3 u3 = (.sLKneeCenter -.sLKneeLateral ) / vnorm(.sLKneeLateral - .sLKneeCenter );
-      AnyVec3 u2 = (r0_static-sTmp)/vnorm(r0_static-sTmp);
-      AnyVec3 u1 = cross(u2, u3);
+      AnyVec3 u1 = cross(..Trunk.LHipJoint.r0_static -.sLKneeCenter, u3)/vnorm( cross(..Trunk.LHipJoint.r0_static -.sLKneeCenter, u3));
+      AnyVec3 u2 = cross(u3,u1);
+          
+      
+      
+      
+//      // Vector defining the point of projection of 'RThighLateral' marker on the line passing though 
+//      // medial and lateral epicondyle markers ( represented by u3)
+//      AnyVec3 sTmp = (r0_static -.sLKneeCenter )*u3'*u3 + .sLKneeCenter ;
+//      
+//      // Basis for the thigh coordinate system. 
+//      // u3 is define by a line though mediala and lateral epicondily makers
+//      // u2 is a direction of define by the RThighLateral marker rejekted from u3
+//      // u1 is the remaining orthonormal direction (cross product of u2, and u3) 
+//      AnyVec3 u3 = (.sLKneeCenter -.sLKneeLateral ) / vnorm(.sLKneeLateral - .sLKneeCenter );
+//      AnyVec3 u2 = (r0_static-sTmp)/vnorm(r0_static-sTmp);
+//      AnyVec3 u1 = cross(u2, u3);
       
       AnyMatrix Axes0_static= {u1, u2, u3}';
       
@@ -866,7 +895,7 @@ AnyFolder StickFigure = {
       };
       AnyFolder HipJoint = 
       {
-        AnyVec3 sRel_static= {0,0,0};
+        AnyVec3 sRel_static= (.Axes0_static'*(...Trunk.LHipJoint.r0_static - .r0_static)')';
       };
       AnyFolder KneeJoint = 
       {       
@@ -1088,6 +1117,16 @@ AnyFolder StickFigure = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLKneeCenter -.r0_static)')';
       };      
       
+      #if IncludeLeft == 1  
+      #if IncludeAnkle == 1
+      AnyFolder &TalusRef = ....LegModel.Left.Seg.Talus;
+      TalusRef = {
+        AnyRefNode LKneeCenter = {
+          sRel = ..LKneeCenter.sRel_static;
+        };
+      };
+      #endif
+      #endif      
     };
     
     

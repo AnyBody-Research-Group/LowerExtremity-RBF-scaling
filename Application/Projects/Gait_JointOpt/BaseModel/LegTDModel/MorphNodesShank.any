@@ -1,6 +1,11 @@
-AnyVar LengthScale = vnorm(.KinOptRef.Shank.KneeJoint.sRel - .KinOptRef.Shank.AnkleJoint.sRel) /
-					 vnorm(StdPar.KneeJoint - StdPar.AnkleJoint );
 
+AnyVar ShankLengthStandard = vnorm(StdPar.KneeJoint - StdPar.AnkleJoint );
+AnyVar LengthScale = vnorm(.KinOptRef.Shank.KneeJoint.sRel - .KinOptRef.Shank.AnkleJoint.sRel) /
+					 ShankLengthStandard ;
+
+AnyVar BoxSizeKnee =0.1;
+AnyVar BoxSizeAnkle=0.1;
+      
 AnyFolder StdPar = {
   #include "<AMMR_PATH>\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
 };
@@ -10,8 +15,7 @@ AnyFolder MorphSourcePoints = {
   
   AnyMat33 ARelAnkle = RotMat(.StdPar.AnkleJoint,
   .StdPar.AnkleJoint +.StdPar.AnkleJointAxis ,
-  .StdPar.KneeJoint)
-  *RotMat(..Sign*90*pi/180,y);
+  .StdPar.KneeJoint)  *RotMat(..Sign*90*pi/180,y);
   
   AnyMat33 ARelKnee = RotMat(.StdPar.KneeJoint,
   .StdPar.KneeJoint + .StdPar.KneeJointAxis, 
@@ -51,20 +55,45 @@ AnyFolder MorphSourcePoints = {
   AnyVec3 KneeMedialPoint = .StdPar.KneeJoint + (ARelKnee * EpiMedAxisProj * {0,0,1}' )';
   
   // Anterior knee control source point. Placed 10 cm anterior to the knee axis.
+  AnyVec3 test2 =  (ARelKnee * 0.1 * {1,0,0}' )'; 
   AnyVec3 KneeAnteriorPoint = .StdPar.KneeJoint + (ARelKnee * 0.1 * {1,0,0}' )';  
   
   // Center knee control source point. 
   AnyVec3 KneeCenterPoint = .StdPar.KneeJoint;  
   
   // Set of control points above the knee to avoid weird RBF behavior
-  AnyVec3 KneeAboveAnteriorPoint = KneeAnteriorPoint - 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
-  AnyVec3 KneeAboveLateralPoint = KneeLateralPoint - 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
-  AnyVec3 KneeAboveMedialPoint = KneeMedialPoint - 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
+  AnyVec3 KneeBelowAnteriorPoint = KneeAnteriorPoint + 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
+  AnyVec3 KneeBelowLateralPoint = KneeLateralPoint + 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
+  AnyVec3 KneeBelowMedialPoint = KneeMedialPoint + 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
   
   
   // Rotation matrix for the scalingNode coordinate system
   AnyMat33 scaleRot = ..LegTDRef.Shank.ScalingNode.Rotation;
-   
+  
+  AnyVec3 ShankCPoint1 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint2 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint3 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint4 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint5 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint6 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint7 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint8 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  
+  AnyVec3 ShankCPoint9 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint10 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint11 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint12 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint13 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint14 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint15 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint16 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+    
+
+  
+  
+  
+  
+  
   AnyFolder &ShankRef = ..LegTDRef.Shank;
   ShankRef = {
     AnyRefNode MorphNodes = {
@@ -92,15 +121,64 @@ AnyFolder MorphSourcePoints = {
       AnyRefNode SourceKneeAnteriorPoint= {
         sRel = ...KneeAnteriorPoint; AnyDrawNode drw =  { Visible = .....ShowNodes; RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = {0.005, 0.005, 0.005};  };
       };    
-      AnyRefNode SourceKneeAboveAnteriorPoint = {
-        sRel = ...KneeAboveAnteriorPoint; AnyDrawNode drw =  { Visible = .....ShowNodes; RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = {0.005, 0.005, 0.005};  };
+      AnyRefNode SourceKneeBelowAnteriorPoint = {
+        sRel = ...KneeBelowAnteriorPoint; AnyDrawNode drw =  { Visible = .....ShowNodes; RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = {0.005, 0.005, 0.005};  };
       };    
-      AnyRefNode SourceKneeAboveLateralPoint  = {
-        sRel = ...KneeAboveLateralPoint ; AnyDrawNode drw =  { Visible = .....ShowNodes; RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = {0.005, 0.005, 0.005};  };
+      AnyRefNode SourceKneeBelowLateralPoint  = {
+        sRel = ...KneeBelowLateralPoint ; AnyDrawNode drw =  { Visible = .....ShowNodes; RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = {0.005, 0.005, 0.005};  };
       };       
-      AnyRefNode SourceKneeAboveMedialPoint   = {
-        sRel = ...KneeAboveMedialPoint; AnyDrawNode drw =  { Visible = .....ShowNodes; RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = {0.005, 0.005, 0.005};  };
+      AnyRefNode SourceKneeBelowMedialPoint   = {
+        sRel = ...KneeBelowMedialPoint; AnyDrawNode drw =  { Visible = .....ShowNodes; RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = {0.005, 0.005, 0.005};  };
       }; 
+        AnyRefNode SourceShankCPoint1  = {
+          sRel = ...ShankCPoint1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint2  = {
+          sRel = ...ShankCPoint2; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint3  = {
+          sRel = ...ShankCPoint3; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint4  = {
+          sRel = ...ShankCPoint4; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint5  = {
+          sRel = ...ShankCPoint5; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint6  = {
+          sRel = ...ShankCPoint6; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint7  = {
+          sRel = ...ShankCPoint7; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint8  = {
+          sRel = ...ShankCPoint8; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint9  = {
+          sRel = ...ShankCPoint9; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint10  = {
+          sRel = ...ShankCPoint10; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint11  = {
+          sRel = ...ShankCPoint11; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint12  = {
+          sRel = ...ShankCPoint12; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint13  = {
+          sRel = ...ShankCPoint13; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint14  = {
+          sRel = ...ShankCPoint14; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint15  = {
+          sRel = ...ShankCPoint15; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint16  = {
+          sRel = ...ShankCPoint16; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+      
     };
   };//ShankRef
   
@@ -113,7 +191,12 @@ AnyFolder MorphTargetPoints = {
   AnyFolder &ShankMorphNodes = ..KinOptRef.Shank.MorphNodes;
   AnyMat33 ShankControlPointRot = RotMat( .StdPar.KneeJoint,
   .StdPar.AnkleJoint,
-  .StdPar.EpicondylusFemorisLateralis );
+  .StdPar.PatellaTendonOrigin);
+  
+  AnyVec3 test1 =  ShankMorphNodes.AnteriorKneeControlPoint.sRel;
+  AnyVec3 test2 =  (ShankControlPointRot * test1')';
+
+
   
   AnyVar ls = .LengthScale;
   AnyVar ms = .MassScale;
@@ -134,12 +217,27 @@ AnyFolder MorphTargetPoints = {
   AnyVec3 AnkleLateralPoint = .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.LateralAnkleControlPoint.sRel')';
   AnyVec3 AnkleAnteriorPoint= .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.AnteriorAnkleControlPoint.sRel')';
   
-  AnyVec3 KneeAboveAnteriorPoint = KneeAnteriorPoint - 0.1*(AnkleCenterPoint-KneeCenterPoint);
-  AnyVec3 KneeAboveLateralPoint = KneeLateralPoint - 0.1*(AnkleCenterPoint-KneeCenterPoint);
-  AnyVec3 KneeAboveMedialPoint = KneeMedialPoint - 0.1*(AnkleCenterPoint-KneeCenterPoint);
+  AnyVec3 KneeBelowAnteriorPoint = KneeAnteriorPoint + 0.1*(AnkleCenterPoint-KneeCenterPoint);
+  AnyVec3 KneeBelowLateralPoint = KneeLateralPoint + 0.1*(AnkleCenterPoint-KneeCenterPoint);
+  AnyVec3 KneeBelowMedialPoint = KneeMedialPoint + 0.1*(AnkleCenterPoint-KneeCenterPoint);
     
-  
-    
+  AnyVec3 ShankCPoint1 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint2 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint3 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint4 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint5 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint6 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint7 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint8 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+
+  AnyVec3 ShankCPoint9 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint10 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint11 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint12 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint13 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint14 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint15 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint16 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
   
   AnyFolder &ShankRef = ..LegTDRef.Shank;
   ShankRef.MorphNodes  = {
@@ -167,15 +265,63 @@ AnyFolder MorphTargetPoints = {
     AnyRefNode KneeAnteriorPoint= {
       sRel = ...KneeAnteriorPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };    
-    AnyRefNode TargetKneeAboveAnteriorPoint = {
-      sRel = ...KneeAboveAnteriorPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    AnyRefNode TargetKneeBelowAnteriorPoint = {
+      sRel = ...KneeBelowAnteriorPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };  
-    AnyRefNode TargetKneeAboveLateralPoint  = {
-      sRel = ...KneeAboveLateralPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    AnyRefNode TargetKneeBelowLateralPoint  = {
+      sRel = ...KneeBelowLateralPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };  
-    AnyRefNode TargetKneeAboveMedialPoint   = {
-      sRel = ...KneeAboveMedialPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    AnyRefNode TargetKneeBelowMedialPoint   = {
+      sRel = ...KneeBelowMedialPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };
+        AnyRefNode TargetShankCPoint1   = {
+          sRel = ...ShankCPoint1 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint2   = {
+          sRel = ...ShankCPoint2 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint3   = {
+          sRel = ...ShankCPoint3 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint4   = {
+          sRel = ...ShankCPoint4 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint5   = {
+          sRel = ...ShankCPoint5 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint6   = {
+          sRel = ...ShankCPoint6 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint7   = {
+          sRel = ...ShankCPoint7 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint8   = {
+          sRel = ...ShankCPoint8 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint9   = {
+          sRel = ...ShankCPoint9 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint10   = {
+          sRel = ...ShankCPoint10 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint11   = {
+          sRel = ...ShankCPoint11 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint12   = {
+          sRel = ...ShankCPoint12 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint13   = {
+          sRel = ...ShankCPoint13 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint14   = {
+          sRel = ...ShankCPoint14 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint15   = {
+          sRel = ...ShankCPoint15 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint16   = {
+          sRel = ...ShankCPoint16 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
     
   };//ShankMorphNodes
   

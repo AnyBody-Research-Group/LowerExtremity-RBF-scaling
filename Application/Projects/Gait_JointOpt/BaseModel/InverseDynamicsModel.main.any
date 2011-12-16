@@ -6,7 +6,7 @@
 #define UseDanamicLoadPosition 1
 #define EnableJointAxisScaling 1
 #define HideStickModelGraphics 0
-#define UseRbfScaling 0
+#define UseRbfScaling 1
 
 #include "KinematicModel.main.any"
 
@@ -62,7 +62,7 @@ Main = {
       };
      
    }; 
-    
+  #include "LegTDModel\LoadAnkleJointParameters.any"
     
     
  };
@@ -75,7 +75,6 @@ Main = {
       + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters ) ;
       MacroStr = { LoadMcr };
     };    
-  
   
 };  // Main
 

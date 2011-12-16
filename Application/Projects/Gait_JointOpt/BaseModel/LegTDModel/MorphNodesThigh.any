@@ -175,7 +175,7 @@ AnyFolder MorphTargetPoints = {
   // y is the direction of the patella
   AnyMat33 ThighControlPointRot = RotMat(.StdPar.KneeJoint,
   .StdPar.HipJoint,
-  .StdPar.EpicondylusFemorisLateralis 
+  .StdPar.PatellaTendonOrigin
   );
   
   AnyFolder &ThighMorphNodes = ..KinOptRef.Thigh.MorphNodes;

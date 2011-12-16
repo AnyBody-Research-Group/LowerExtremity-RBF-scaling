@@ -23,7 +23,7 @@
      
      // Calculate a scale factor for the knee based on the knee width
      AnyVar AnkleWidth = vnorm(sMedAnkleMarker - sLatAnkleMarker )-2*MarkerRadius;
-     AnyVar LegTDAnkleWidthStandard = 0.09796637;
+     AnyVar LegTDAnkleWidthStandard = 0.0793;
      AnyVar AnkleScaleFactor = AnkleWidth /LegTDAnkleWidthStandard ;
      
 
@@ -48,6 +48,7 @@
      // Medial ankle target morph node. Found by projection of the medial ankle marker
      // onto the ankle axis
      AnyRefNode MedialAnkleControlPoint = {
+       
 //        sRel = .sAnkleCenter + ( (.sMedAnkleMarker-.sAnkleCenter) *.sAnkleAxisZ'+.MarkerRadius ) * .sAnkleAxisZ;
         sRel = .sAnkleCenter - 0.02*.sAnkleAxisZ;
         #include "ControlPointsDrw.any"

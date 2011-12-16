@@ -1,0 +1,8 @@
+#include "../../../../BaseModel/PreMainIncludes.any"
+#define IncludeLegTDModel 1
+
+Main = {
+ #include "TrialSpecificData.any" 
+ #include "../../SubjectSpecificData.any"
+ #include "<BASE_MODEL_PATH>/InverseDynamicsModel.main.any"
+};

@@ -1,0 +1,11 @@
+#include "../../../../BaseModel/PreMainIncludes.any"
+
+#define IncludeHip 0
+#define IncludeKnee 1
+#define IncludeAnkle 0
+
+Main = {
+ #include "TrialSpecificData.any" 
+ #include "../../SubjectSpecificData.any"
+ #include "<BASE_MODEL_PATH>OptimizeGait.main.any"
+}; 

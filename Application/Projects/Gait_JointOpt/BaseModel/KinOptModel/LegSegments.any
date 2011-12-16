@@ -3,7 +3,7 @@ AnyFolder Seg = {
   #if IncludeKnee + IncludeHip > 0
   
   AnySeg Thigh = {
-//   AnyDrawRefFrame drw ={RGB={1,0,0};};
+   AnyDrawRefFrame drw ={RGB={1,0,0}; ScaleXYZ = {0.1,0.1,0.1};Visible = On;};
    #include "MorphNodesThigh.any"  
     
     Mass = 50.5; 
@@ -22,11 +22,11 @@ AnyFolder Seg = {
     AnyRefNode HipJoint = {  
       #ifdef RightLeg
       //#if UseAnatomicalValuesRightHip == 1 
-      sRel = {0,0,0};//.....StickFigure.Posture.Right.Thigh.HipJoint.sRel_static;//{0.0,0.0,0.0};
+      sRel = {0,0,0.03326166};//.....StickFigure.Posture.Right.Thigh.HipJoint.sRel_static;//{0.0,0.0,0.0};
       //#endif
       #else
 //      #if UseAnatomicalValuesLeftHip == 1
-      sRel = {0,0,0};//.....StickFigure.Posture.Left.Thigh.HipJoint.sRel_static;
+      sRel = {0,0, 0.03307216};//.....StickFigure.Posture.Left.Thigh.HipJoint.sRel_static;
 //      #endif
       #endif
     };  
@@ -38,12 +38,12 @@ AnyFolder Seg = {
       AnyFloat xRot = 0;
       AnyFloat yRot = 0;
       #ifdef RightLeg 
-      sRel = {0, -0.4092138, -0.01005267};
+      sRel = {0, -0.4205802, 0};
       //.....StickFigure.Posture.Right.Thigh.KneeJoint.sRel_static;
       ARel = RotMat(xRot,x)*RotMat(yRot,y);
       #endif
       #ifdef LeftLeg
-      sRel =  {0, -0.4084952, -0.05969414};
+      sRel =  {0, -0.4218081, 0};
       //.....StickFigure.Posture.Left.Thigh.KneeJoint.sRel_static;
       ARel = RotMat(xRot,x)*RotMat(yRot,y);
       #endif
@@ -89,7 +89,7 @@ AnyFolder Seg = {
   #if IncludeKnee + IncludeAnkle > 0 
   
   AnySeg Shank = {
-   // AnyDrawRefFrame drw ={RGB={1,0,0};};
+   AnyDrawRefFrame drw ={RGB={1,0,1}; ScaleXYZ = {0.1,0.1,0.1};Visible = On;};
  
    #include "MorphNodesShank.any"
     
@@ -115,7 +115,7 @@ AnyFolder Seg = {
       AnyFloat xRot = 0;
       AnyFloat yRot = 0;
       #ifdef RightLeg 
-      sRel = {0, 0, -0.08041919};
+      sRel = {0, 0,  -0.08041919};
 //.....StickFigure.Posture.Right.Shank.RKneeJoint.sRel_static; 
       ARel = .....StickFigure.Posture.Right.Shank.KneeJoint.ARel_static
         *RotMat(xRot,x)*RotMat(yRot,y);             

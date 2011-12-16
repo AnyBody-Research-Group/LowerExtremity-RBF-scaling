@@ -1,9 +1,9 @@
 AnyDesEvalStudy SetStickFigureValues  = 
 {
-  Main = {
+  Main.JntParameterOptModel  = {
     AnyOperationSequence Load_AnatomicalParameters= {
-      AnyOperation &ref1 = ..UpdateDesign;
-      AnyOperation &ref2 = ...KinematicStudy.InitialConditions;
+      AnyOperation &ref1 = ...UpdateDesign;
+      AnyOperation &ref2 = ....KinematicStudy.InitialConditions;
     };
   };
     

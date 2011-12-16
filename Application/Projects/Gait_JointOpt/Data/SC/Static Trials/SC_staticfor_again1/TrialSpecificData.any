@@ -17,7 +17,7 @@ AnyFolder TrialSpecificData={
   AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
   AnyIntVar StaticFrameIndex = 100;
   
-  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+  AnyIntVar  StartFrameNo = 100;//Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
   AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;

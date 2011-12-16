@@ -1,0 +1,19 @@
+load "Kinematics.main.any"
+operation Main.Load_AnatomicalParameters
+run
+operation Main.Load_RightHipParameters
+run
+operation Main.Load_LeftHipParameters
+run
+operation Main.Load_LeftAnkleParameters
+run
+operation Main.Load_RightAnkleParameters
+run
+operation Main.Run_Kinematic_Optimization
+run
+operation Main.JntParameterOptModel.KinematicStudy.Kinematics
+run
+load "InversDynamics.main.any"
+operation Main.InverseDynamicAnalysisSequence 
+run
+exit  

@@ -2,9 +2,17 @@
 #define IncludeRight 1
 #define IncludeLeft 1
 
+#ifndef IncludeHip 
 #define IncludeHip 1
+#endif 
+
+#ifndef IncludeKnee 
 #define IncludeKnee 1
+#endif
+
+#ifndef IncludeAnkle 
 #define IncludeAnkle 1
+#endif
 
 #define UseDanamicLoadPosition 0
 #define EnableJointAxisScaling 1
@@ -47,69 +55,16 @@ Main.JntParameterOptModel  = {
   
   
   
-Main = {    
-    
-    AnyOperationMacro Load_RightHipParameters = 
-    {
-      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightHipParameters) ;
-      MacroStr = { LoadMcr};
-    };
-    AnyOperationMacro Load_LeftHipParameters = 
-    {
-      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftHipParameters ) ;
-      MacroStr = { LoadMcr };
-    };
-    AnyOperationMacro Load_LeftAnkleParameters = 
-    {
-      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftAnkleParameters ) ;
-      MacroStr = { LoadMcr };
-    };
-    AnyOperationMacro Load_RightAnkleParameters = 
-    {
-      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightAnkleParameters ) ;
-      MacroStr = { LoadMcr };
-    };
-    AnyOperationMacro Load_GaitParameters = 
-    {
-      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.GaitParameters ) ;
-      MacroStr = { LoadMcr };
-    };
-    
-    AnyOperationSequence Load_JointTrialParameters = {
-      AnyOperation &m1 =.Load_RightHipParameters ;
-      AnyOperation &m2 =.Load_LeftHipParameters ;
-      AnyOperation &m3 =.Load_RightAnkleParameters ;
-      AnyOperation &m4 =.Load_LeftAnkleParameters ;
-      AnyOperation &m5 = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
-    };
-    
-    AnyOperationMacro Load_TrialParameters = 
-    {
-      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters ) ;
-      MacroStr = { LoadMcr };
-    };    
-    
+Main = {      
 
     AnyOperationMacro Run_Kinematic_Optimization = 
     {
       AnyString SaveMcrGait = "classoperation Main.JntParameterOptModel.OptimizeParameters" 
       + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.GaitParameters);
-      AnyString SaveMcrAll = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters );
       MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
                   "run",
-                  SaveMcrGait,
-                  "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" + strquote("Load design") +
-                  " --file=" + strquote(Main.ModelSetup.Files.GaitParameters),
-                  SaveMcrAll,
-                  "operation Main.JntParameterOptModel.KinematicStudy.Kinematics",
-                  "run"};
+                  SaveMcrGait
+                };
     };
     
 };  // Main

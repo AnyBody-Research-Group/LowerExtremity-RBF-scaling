@@ -13,21 +13,21 @@ AnyFolder Seg = {
         
     AnyRefNode RHipJoint = {
       // See Mannequin.any for calculated values
-	#if UseAnatomicalValuesRightHip 
-        sRel =  {-0.05057936, -0.1024816, 0.09031454};
+//	#if UseAnatomicalValuesRightHip 
+        sRel =  { -0.06371582, -0.08784103, 0.1137453};
         //sRel = .....StickFigure.Posture.Trunk.Pelvis.RHipJoint.sRel_static;    
-      #else 
-        sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
-      #endif
+//      #else 
+//        sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
+//      #endif
     };
     
     AnyRefNode LHipJoint = {
-	#if UseAnatomicalValuesLeftHip == 1 
-        sRel = {-0.05042981, -0.1022586, -0.09040419};
+//	#if UseAnatomicalValuesLeftHip == 1 
+        sRel =  {-0.06371582, -0.0877099, -0.1137453};
 //.....StickFigure.Posture.Trunk.Pelvis.LHipJoint.sRel_static;    
-      #else 
-      sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
-      #endif
+//      #else 
+//      sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
+//      #endif
     };
     
     

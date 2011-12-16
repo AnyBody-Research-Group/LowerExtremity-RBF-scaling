@@ -1,6 +1,6 @@
 #define IncludeHip 0
 #define IncludeKnee 1
-#define IncludeAnkle 0
+#define IncludeAnkle 1
 
 #define UseDanamicLoadPosition 1
 #define EnableJointAxisScaling 1
@@ -10,15 +10,14 @@
 #include "KinematicModel.main.any"
 
 
-Main = {
-  
- JntParameterOptModel  = {
+Main.JntParameterOptModel  = {
   
   AnyOptKinStudy OptimizeParameters = 
   { 
     ParameterOptimization.ConvergenceTol = 1e-6;
-    Analysis = { AnyOperation &Operation = ..OptimizeParameters.KinematicStudyForParameterOptimization.Kinematics; };
+    Analysis = { AnyOperation &Operation = .KinematicStudyForParameterOptimization.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
+
     #include "KinOptModel/DesignVars_GaitTrial.any"
     
   AnyBodyStudy KinematicStudyForParameterOptimization = 
@@ -38,8 +37,12 @@ Main = {
     Kinematics.PosAnalysisOnlyOnOff=On;
     Kinematics.KinematicTol = 1e-5;
   };  
-}; 
-};
+
+ }; 
+};  
+
+Main = {    
+    
     AnyOperationMacro Run_Kinematic_Optimization = 
     {
       AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 

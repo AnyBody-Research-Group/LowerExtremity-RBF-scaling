@@ -22,6 +22,6 @@
   AnyVec3 LateralMalleolus = {0.045, -0.8159,..Sign*0.0455}; 
   AnyVec3 EpicondylusFemorisMedialis={0.0768, -0.4050, ..Sign*-0.0321};
   AnyVec3 EpicondylusFemorisLateralis = {0.0317, -0.3996, ..Sign*0.0547};
-  AnyVec3 PatellaTendonOrigin = {0.102, 0.397, ..Sign*0.036};
+  AnyVec3 PatellaTendonOrigin = {0.102, -0.397, ..Sign*0.036};
   AnyVec3 HeelNode ={0.02, -0.8485, ..Sign*-0.025};
   AnyVec3 BigToeNode =   {0.21, -0.9900, ..Sign*0.075};
