@@ -21,7 +21,8 @@ Main = {
     AnyOperationMacro SaveAnkleAxisPositions =  {
       MacroStr = { "classoperation Main" + strquote("Load Values") 
                     + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_FootPos.anyset",
-                   "operation Main.Load_JointTrialParameters","run",
+                   "operation Main.Load_JointTrialParameters.RAnk","run",
+                   "operation Main.Load_JointTrialParameters.LAnk","run",
                    "operation Main.FootPosModel.study.InitialConditions","run",
                    "operation Main.FootPosModel.SaveAnkleJointPar.UpdateDesign","run",
                    "classoperation Main.FootPosModel.SaveAnkleJointPar" 

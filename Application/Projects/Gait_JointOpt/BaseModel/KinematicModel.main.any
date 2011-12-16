@@ -142,12 +142,12 @@ Main = {
     
 
    AnyOperationSequence Load_JointTrialParameters = {
-     AnyOperation &m1 =.JntParameterOptModel.Load_RightHipParameters ;
-     AnyOperation &m2 =.JntParameterOptModel.Load_LeftHipParameters ;
-     AnyOperation &m3 =.JntParameterOptModel.Load_RightAnkleParameters ;
-     AnyOperation &m4 =.JntParameterOptModel.Load_LeftAnkleParameters ;
-     AnyOperation &m5 = .JntParameterOptModel.Load_GaitParameters;
-     AnyOperation &m6 = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
+     AnyOperation &RHip =.JntParameterOptModel.Load_RightHipParameters ;
+     AnyOperation &LHip =.JntParameterOptModel.Load_LeftHipParameters ;
+     AnyOperation &RAnk =.JntParameterOptModel.Load_RightAnkleParameters ;
+     AnyOperation &LAnk =.JntParameterOptModel.Load_LeftAnkleParameters ;
+     AnyOperation &Gait = .JntParameterOptModel.Load_GaitParameters;
+     AnyOperation &InitCon = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
    };
   
 };  // Main
