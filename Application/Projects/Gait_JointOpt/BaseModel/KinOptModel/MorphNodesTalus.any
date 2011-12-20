@@ -23,7 +23,7 @@
      
      // Calculate a scale factor for the knee based on the knee width
      AnyVar AnkleWidth = vnorm(sMedAnkleMarker - sLatAnkleMarker )-2*MarkerRadius;
-     AnyVar LegTDAnkleWidthStandard = 0.0793;
+     AnyVar LegTDAnkleWidthStandard = 0.0753;
      AnyVar AnkleScaleFactor = AnkleWidth /LegTDAnkleWidthStandard ;
      
 

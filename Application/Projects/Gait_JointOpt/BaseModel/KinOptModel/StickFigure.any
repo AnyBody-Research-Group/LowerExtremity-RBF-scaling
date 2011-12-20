@@ -83,8 +83,8 @@ AnyFolder StickFigure = {
      // In principle the ankle center can be any point along the revolute knee joint axis, thus
     // selecting the middle point between the lateral and medial malleous makes sense anatomically. 
     // However, to correspond with the LegTD model the ankle center is chosen 
-    // to be a little closer to the lateral side.
-    AnyVec3 sRAnkleCenter = (0.6482538*sRAnkleLateral + 0.3517462*sRAnkleMedial);                         
+    // to be a little closer to the medial side.
+    AnyVec3 sRAnkleCenter = (0.4796*sRAnkleLateral + 0.5204*sRAnkleMedial);                         
 //    AnyVec3 sRAnkleCenter = (sRAnkleLateral + sRAnkleMedial)/2;                         
                               
                             
@@ -92,7 +92,7 @@ AnyFolder StickFigure = {
     // selecting the middle point between the epicondyle makes sense anatomically. 
     // However, to correspond with the LegTD model the knee center is chosen 
     // to be a little closer to the lateral side.
-    AnyVec3 sRKneeCenter = (0.60135*sRKneeLateral + 0.39865*sRKneeMedial);
+    AnyVec3 sRKneeCenter = (0.6013*sRKneeLateral + 0.3987*sRKneeMedial);
 //    AnyVec3 sRKneeCenter = (sRKneeLateral + sRKneeMedial)/2;
     
     
@@ -802,9 +802,8 @@ AnyFolder StickFigure = {
                                 Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[2][..FirstFrameStatic]};
 
     
-    AnyVec3 sLAnkleCenter = (0.6482538*sLAnkleLateral + 0.3517462*sLAnkleMedial);                         
+    AnyVec3 sLAnkleCenter = (0.4796*sLAnkleLateral + 0.5204*sLAnkleMedial);                         
 //    AnyVec3 sLAnkleCenter = (sLAnkleLateral + sLAnkleMedial) /2; 
-    
     
                               
                             
@@ -812,7 +811,7 @@ AnyFolder StickFigure = {
     // selecting the middle point between the epicondyle makes sense anatomically. 
     // However, to correspond with the LegTD model the knee center is chosen 
     // to be a little closer to the lateral side.
-    AnyVec3 sLKneeCenter = (0.60135*sLKneeLateral + 0.39865*sLKneeMedial);
+    AnyVec3 sLKneeCenter = (0.6013*sLKneeLateral + 0.3987*sLKneeMedial);
 //    AnyVec3 sLKneeCenter = (sLKneeLateral + sLKneeMedial) /2;
 
     

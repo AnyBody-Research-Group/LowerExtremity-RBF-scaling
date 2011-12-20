@@ -15,14 +15,16 @@ AnyFolder SubjectSpecificData = {
     AnyVar BodyHeight=1.67;  //height
     
 	#ifdef IncludeLegTDModel 
+      #if IncludeLegTDModel == 1
 		AnyFolder &SP = Main.AnyBodyGaitAppModel.HumanModel.Scaling.StandardParameters;
 		AnyVar StandardBodyHeight = SP.Head.Height+SP.Trunk.Height+SP.Right.LengthLeg+0.05;
 		AnyVar TrunkHeight = SP.Trunk.Height*BodyHeight/StandardBodyHeight;
-	#endif    
+	#endif
+      #endif    
 
      #define MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
-     AnyVar KneeWidth = 0.09796;
-     AnyVar AnkleWidth = 0.0793;
+     AnyVar KneeWidth = 0.0975;
+     AnyVar AnkleWidth = 0.0753;
           
      
      

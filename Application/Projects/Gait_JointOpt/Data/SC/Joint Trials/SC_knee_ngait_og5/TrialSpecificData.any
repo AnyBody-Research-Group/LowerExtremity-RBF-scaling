@@ -19,9 +19,11 @@ AnyFolder TrialSpecificData={
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
    
-  AnyStringVar RightHipParametersTrial = "";
-  AnyStringVar LeftHipParametersTrial = "";
-  AnyStringVar LeftAnkleParametersTrial = "";
-  AnyStringVar RightAnkleParametersTrial = "";
-
+  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
+  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
+  AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
+  AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
+  AnyStringVar LeftKneeParametersTrial = "";
+  AnyStringVar RightKneeParametersTrial = "";
+  AnyStringVar GaitParametersTrial = "";
 };

@@ -3,8 +3,8 @@ AnyVar ShankLengthStandard = vnorm(StdPar.KneeJoint - StdPar.AnkleJoint );
 AnyVar LengthScale = vnorm(.KinOptRef.Shank.KneeJoint.sRel - .KinOptRef.Shank.AnkleJoint.sRel) /
 					 ShankLengthStandard ;
 
-AnyVar BoxSizeKnee =0.1;
-AnyVar BoxSizeAnkle=0.1;
+AnyVar BoxSizeKnee =0.05;
+AnyVar BoxSizeAnkle=0.05;
       
 AnyFolder StdPar = {
   #include "<AMMR_PATH>\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
@@ -54,9 +54,9 @@ AnyFolder MorphSourcePoints = {
   // Medial knee source control point, found by projecting the medial Epicondyle to the knee axis.
   AnyVec3 KneeMedialPoint = .StdPar.KneeJoint + (ARelKnee * EpiMedAxisProj * {0,0,1}' )';
   
-  // Anterior knee control source point. Placed 10 cm anterior to the knee axis.
-  AnyVec3 test2 =  (ARelKnee * 0.1 * {1,0,0}' )'; 
-  AnyVec3 KneeAnteriorPoint = .StdPar.KneeJoint + (ARelKnee * 0.1 * {1,0,0}' )';  
+  // Anterior knee control source point. Placed 5 cm anterior to the knee axis.
+  AnyVec3 test2 =  (ARelKnee * 0.05 * {1,0,0}' )'; 
+  AnyVec3 KneeAnteriorPoint = .StdPar.KneeJoint + (ARelKnee * 0.05 * {1,0,0}' )';  
   
   // Center knee control source point. 
   AnyVec3 KneeCenterPoint = .StdPar.KneeJoint;  

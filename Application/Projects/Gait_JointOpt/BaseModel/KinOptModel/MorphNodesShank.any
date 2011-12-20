@@ -30,23 +30,23 @@
      // Calculate a scale factor for the knee based on the knee width
      #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
      AnyVar KneeWidth = Main.SubjectSpecificData.Anthropometrics.KneeWidth;
-     AnyVar KneeWidthLateral = KneeWidth*0.3517462;
+     AnyVar KneeWidthLateral = KneeWidth*0.3987; // This hard coded value must be the same as in the sticfigure.any
      AnyVar KneeWidthMedial = KneeWidth-KneeWidthLateral ;
      #else
       AnyVar KneeWidth = vnorm(sMedKneeMarker  - sLatKneeMarker )-2*MarkerRadius;
      #endif
-     AnyVar LegTDKneeWidthStandard = 0.09796637;
-     AnyVar KneeScaleFactor = KneeWidth /LegTDKneeWidthStandard ;
+    AnyVar LegTDKneeWidthStandard = 0.0975;
+    AnyVar KneeScaleFactor = KneeWidth /LegTDKneeWidthStandard ;
      
      // Calculate a scale factor for the ankle based on the ankle width
      #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
      AnyVar AnkleWidth = Main.SubjectSpecificData.Anthropometrics.AnkleWidth ;
-     AnyVar AnkleWidthLateral = AnkleWidth*0.3517462;
+     AnyVar AnkleWidthLateral = AnkleWidth*0.5204;  // This hard coded value must be the same as in the sticfigure.any
      AnyVar AnkleWidthMedial = AnkleWidth-AnkleWidthLateral ;
      #else
      AnyVar AnkleWidth = vnorm(sMedAnkleMarker - sLatAnkleMarker )-2*MarkerRadius;
      #endif
-     AnyVar LegTDAnkleWidthStandard = 0.0793;
+     AnyVar LegTDAnkleWidthStandard = 0.0753;
      AnyVar AnkleScaleFactor = AnkleWidth /LegTDAnkleWidthStandard ;
           
      // Calculate Marker Positions in the MorphNodes coordinate system
@@ -63,10 +63,10 @@
 
      
      
-     // Anterior knee target morph node. For now this is placed 10 cm times a knee scaling factor
+     // Anterior knee target morph node. For now this is placed 5 cm times a knee scaling factor
      // anterior to the knee (i.e. the x-axis). 
      AnyRefNode AnteriorKneeControlPoint = {
-        sRel = 0.1*.KneeScaleFactor * .sKneeAxisX;
+        sRel = 0.05*.KneeScaleFactor * .sKneeAxisX;
         //sRel = (.sPatellaMarker*.sKneeAxisX' - .MarkerRadius) * .sKneeAxisX;
        AnyDrawNode drw = { ScaleXYZ = {0.005, 0.005, 0.005};RGB={1,1,1}; Visible = ..ShowNodes;};
      };   

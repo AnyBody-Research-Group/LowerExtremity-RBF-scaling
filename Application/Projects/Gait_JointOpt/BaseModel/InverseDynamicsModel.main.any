@@ -68,13 +68,7 @@ Main = {
  };
   
   #endif
-  
-    AnyOperationMacro Load_TrialParameters = 
-    {
-      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters ) ;
-      MacroStr = { LoadMcr };
-    };    
+    
   
 };  // Main
 

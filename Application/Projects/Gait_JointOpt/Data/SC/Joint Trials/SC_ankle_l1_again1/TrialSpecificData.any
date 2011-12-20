@@ -18,6 +18,10 @@ AnyFolder TrialSpecificData={
   AnyStringVar LeftHipParametersTrial = "";
   AnyStringVar LeftAnkleParametersTrial = "";
   AnyStringVar RightAnkleParametersTrial = "";
+  AnyStringVar LeftKneeParametersTrial = "";
+  AnyStringVar RightKneeParametersTrial = "";
+  AnyStringVar GaitParametersTrial = "";
+  
   
   AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
   AnyIntVar  LastFrameNo = -200+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;

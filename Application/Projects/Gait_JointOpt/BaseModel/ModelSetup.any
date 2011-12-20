@@ -45,7 +45,8 @@ AnyFolder ModelSetup ={
     AnyStringVar LeftHipParameters = TEMP_FILE_PATH + Main.TrialSpecificData.LeftHipParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar LeftAnkleParameters = TEMP_FILE_PATH + Main.TrialSpecificData.LeftAnkleParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + Main.TrialSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar GaitParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_Gait_" + "_OptimizedParameters.txt";
+    AnyStringVar GaitParameters = TEMP_FILE_PATH + Main.TrialSpecificData.GaitParametersTrial + "_OptimizedParameters.txt";
+//    AnyStringVar GaitParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_Gait_" + "_OptimizedParameters.txt";
     AnyStringVar AllParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
     
     AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";

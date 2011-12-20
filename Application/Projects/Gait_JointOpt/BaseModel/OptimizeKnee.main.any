@@ -1,6 +1,6 @@
 #define IncludeHip 0
 #define IncludeKnee 1
-#define IncludeAnkle 1
+#define IncludeAnkle 0
 
 #define UseDanamicLoadPosition 1
 #define EnableJointAxisScaling 1

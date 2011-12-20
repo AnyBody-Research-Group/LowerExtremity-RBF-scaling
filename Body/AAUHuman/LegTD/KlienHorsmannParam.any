@@ -25,3 +25,9 @@
   AnyVec3 PatellaTendonOrigin = {0.102, -0.397, ..Sign*0.036};
   AnyVec3 HeelNode ={0.02, -0.8485, ..Sign*-0.025};
   AnyVec3 BigToeNode =   {0.21, -0.9900, ..Sign*0.075};
+
+  
+  // KneeWidth. projection of epicondyle to the joint axis
+  AnyVar KneeWidth =  0.0975;
+  AnyVar AnkleWidth =  0.0753;
+  

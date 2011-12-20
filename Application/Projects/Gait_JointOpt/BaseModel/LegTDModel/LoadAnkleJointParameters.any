@@ -1,11 +1,22 @@
-
+Main = {
+  AnyOperationMacro LoadFootJointAxis = {
+     MacroStr = {
+     "classoperation Main.AnyBodyGaitAppModel.LoadFootScalingPar"
+     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_AnklePositions.txt",
+     "classoperation Main.AnyBodyGaitAppModel.LoadTalusJointPar"
+     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_AnklePositions.txt",
+     "classoperation Main.AnyBodyGaitAppModel.LoadFootJointPar"
+     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_AnklePositions.txt"
+     };
+  };
+};
 
   AnyOptKinStudy LoadFootScalingPar = {   
     Analysis = { AnyOperation &Operation = ..InverseDynamicStudy.Kinematics; };
     
     AnyFolder &RRef = .HumanModel.Scaling.GeometricalScaling.Right.Foot.ScaleFunction;
     AnyFolder &LRef = .HumanModel.Scaling.GeometricalScaling.Left.Foot.ScaleFunction;
-    
+
     // Foot Scaling parameters
      AnyDesVar RScaleMat00 = {Val = .RRef.ScaleMat[0][0];}; 
      AnyDesVar RScaleMat01 = {Val= .RRef.ScaleMat[0][1];}; 
@@ -48,15 +59,15 @@
 //
 //     // AnkleJoint Rotation maxtrix
      AnyDesVar RAnkleJointRot00 = {Val=  .RRef.Talus.AnkleJoint.ARel[0][0];}; 
-     AnyDesVar RAnkleointRot01= {Val=  .RRef.Talus.AnkleJoint.ARel[0][1];}; 
+     AnyDesVar RAnkleJointRot01= {Val=  .RRef.Talus.AnkleJoint.ARel[0][1];}; 
      AnyDesVar RAnkleJointRot02 = {Val=  .RRef.Talus.AnkleJoint.ARel[0][2];}; 
      
      AnyDesVar RAnkleJointRot10 = {Val=  .RRef.Talus.AnkleJoint.ARel[1][0];}; 
-     AnyDesVar RAnkleointRot11= {Val=  .RRef.Talus.AnkleJoint.ARel[1][1];}; 
+     AnyDesVar RAnkleJointRot11= {Val=  .RRef.Talus.AnkleJoint.ARel[1][1];}; 
      AnyDesVar RAnkleJointRot12 = {Val=  .RRef.Talus.AnkleJoint.ARel[1][2];}; 
      
      AnyDesVar RAnkleJointRot20 = {Val= .RRef.Talus.AnkleJoint.ARel[2][0];}; 
-     AnyDesVar RAnkleointRot21= {Val=  .RRef.Talus.AnkleJoint.ARel[2][1];}; 
+     AnyDesVar RAnkleJointRot21= {Val=  .RRef.Talus.AnkleJoint.ARel[2][1];}; 
      AnyDesVar RAnkleJointRot22 = {Val=  .RRef.Talus.AnkleJoint.ARel[2][2];}; 
 //          
 //    // SubtalarJoint Pos 
@@ -66,15 +77,15 @@
 //
 //     // RSubtalarJoint Rotations
      AnyDesVar RSubtalarJointRot00 = {Val=  .RRef.Talus.SubTalarJoint.ARel[0][0];}; 
-     AnyDesVar RSubtalarointRot01= {Val=   .RRef.Talus.SubTalarJoint.ARel[0][1];}; 
+     AnyDesVar RSubtalarJointRot01= {Val=   .RRef.Talus.SubTalarJoint.ARel[0][1];}; 
      AnyDesVar RSubtalarJointRot02 = {Val=  .RRef.Talus.SubTalarJoint.ARel[0][2];}; 
      
      AnyDesVar RSubtalarJointRot10 = {Val=   .RRef.Talus.SubTalarJoint.ARel[1][0];}; 
-     AnyDesVar RSubtalarointRot11= {Val=   .RRef.Talus.SubTalarJoint.ARel[1][1];}; 
+     AnyDesVar RSubtalarJointRot11= {Val=   .RRef.Talus.SubTalarJoint.ARel[1][1];}; 
      AnyDesVar RSubtalarJointRot12 = {Val=   .RRef.Talus.SubTalarJoint.ARel[1][2];}; 
      
      AnyDesVar RSubtalarJointRot20 = {Val= .RRef.Talus.SubTalarJoint.ARel[2][0];}; 
-     AnyDesVar RSubtalarointRot21= {Val=   .RRef.Talus.SubTalarJoint.ARel[2][1];}; 
+     AnyDesVar RSubtalarJointRot21= {Val=   .RRef.Talus.SubTalarJoint.ARel[2][1];}; 
      AnyDesVar RSubtalarJointRot22 = {Val=  .RRef.Talus.SubTalarJoint.ARel[2][2];}; 
 
       // LEFT
@@ -85,15 +96,15 @@
 //
 //     // AnkleJoint Rotation maxtrix
      AnyDesVar LAnkleJointRot00 = {Val=  .LRef.Talus.AnkleJoint.ARel[0][0];}; 
-     AnyDesVar LAnkleointRot01= {Val=  .LRef.Talus.AnkleJoint.ARel[0][1];}; 
+     AnyDesVar LAnkleJointRot01= {Val=  .LRef.Talus.AnkleJoint.ARel[0][1];}; 
      AnyDesVar LAnkleJointRot02 = {Val=  .LRef.Talus.AnkleJoint.ARel[0][2];}; 
      
      AnyDesVar LAnkleJointRot10 = {Val=  .LRef.Talus.AnkleJoint.ARel[1][0];}; 
-     AnyDesVar LAnkleointRot11= {Val=  .LRef.Talus.AnkleJoint.ARel[1][1];}; 
+     AnyDesVar LAnkleJointRot11= {Val=  .LRef.Talus.AnkleJoint.ARel[1][1];}; 
      AnyDesVar LAnkleJointRot12 = {Val=  .LRef.Talus.AnkleJoint.ARel[1][2];}; 
      
      AnyDesVar LAnkleJointRot20 = {Val= .LRef.Talus.AnkleJoint.ARel[2][0];}; 
-     AnyDesVar LAnkleointRot21= {Val=  .LRef.Talus.AnkleJoint.ARel[2][1];}; 
+     AnyDesVar LAnkleJointRot21= {Val=  .LRef.Talus.AnkleJoint.ARel[2][1];}; 
      AnyDesVar LAnkleJointRot22 = {Val=  .LRef.Talus.AnkleJoint.ARel[2][2];}; 
 //          
 //    // SubtalarJoint Pos 
@@ -103,15 +114,15 @@
 //
 //     // LSubtalarJoint Rotations
      AnyDesVar LSubtalarJointRot00 = {Val=  .LRef.Talus.SubTalarJoint.ARel[0][0];}; 
-     AnyDesVar LSubtalarointRot01= {Val=   .LRef.Talus.SubTalarJoint.ARel[0][1];}; 
+     AnyDesVar LSubtalarJointRot01= {Val=   .LRef.Talus.SubTalarJoint.ARel[0][1];}; 
      AnyDesVar LSubtalarJointRot02 = {Val=  .LRef.Talus.SubTalarJoint.ARel[0][2];}; 
      
      AnyDesVar LSubtalarJointRot10 = {Val=   .LRef.Talus.SubTalarJoint.ARel[1][0];}; 
-     AnyDesVar LSubtalarointRot11= {Val=   .LRef.Talus.SubTalarJoint.ARel[1][1];}; 
+     AnyDesVar LSubtalarJointRot11= {Val=   .LRef.Talus.SubTalarJoint.ARel[1][1];}; 
      AnyDesVar LSubtalarJointRot12 = {Val=   .LRef.Talus.SubTalarJoint.ARel[1][2];}; 
      
      AnyDesVar LSubtalarJointRot20 = {Val= .LRef.Talus.SubTalarJoint.ARel[2][0];}; 
-     AnyDesVar LSubtalarointRot21= {Val=   .LRef.Talus.SubTalarJoint.ARel[2][1];}; 
+     AnyDesVar LSubtalarJointRot21= {Val=   .LRef.Talus.SubTalarJoint.ARel[2][1];}; 
      AnyDesVar LSubtalarJointRot22 = {Val=  .LRef.Talus.SubTalarJoint.ARel[2][2];}; 
       
      
@@ -131,17 +142,17 @@
      AnyDesVar RSubtalarJointPos2 = {Val=  .RRef.Foot.SubTalarJoint.sRel[2];}; 
 //
 //     // RSubtalarJoint Rotations
-     AnyDesVar RSubtalarJointRot00 = {Val=  .RRef.Foot.SubTalarJoint.ARel[0][0];}; 
-     AnyDesVar RSubtalarointRot01= {Val=   .RRef.Foot.SubTalarJoint.ARel[0][1];}; 
-     AnyDesVar RSubtalarJointRot02 = {Val=  .RRef.Foot.SubTalarJoint.ARel[0][2];}; 
+     AnyDesVar RFootSubtalarJointRot00 = {Val=  .RRef.Foot.SubTalarJoint.ARel[0][0];}; 
+     AnyDesVar RFootSubtalarJointRot01= {Val=   .RRef.Foot.SubTalarJoint.ARel[0][1];}; 
+     AnyDesVar RFootSubtalarJointRot02 = {Val=  .RRef.Foot.SubTalarJoint.ARel[0][2];}; 
      
-     AnyDesVar RSubtalarJointRot10 = {Val=   .RRef.Foot.SubTalarJoint.ARel[1][0];}; 
-     AnyDesVar RSubtalarointRot11= {Val=   .RRef.Foot.SubTalarJoint.ARel[1][1];}; 
-     AnyDesVar RSubtalarJointRot12 = {Val=   .RRef.Foot.SubTalarJoint.ARel[1][2];}; 
+     AnyDesVar RFootSubtalarJointRot10 = {Val=   .RRef.Foot.SubTalarJoint.ARel[1][0];}; 
+     AnyDesVar RFootSubtalarJointRot11= {Val=   .RRef.Foot.SubTalarJoint.ARel[1][1];}; 
+     AnyDesVar RFootSubtalarJointRot12 = {Val=   .RRef.Foot.SubTalarJoint.ARel[1][2];}; 
      
-     AnyDesVar RSubtalarJointRot20 = {Val= .RRef.Foot.SubTalarJoint.ARel[2][0];}; 
-     AnyDesVar RSubtalarointRot21= {Val=   .RRef.Foot.SubTalarJoint.ARel[2][1];}; 
-     AnyDesVar RSubtalarJointRot22 = {Val=  .RRef.Foot.SubTalarJoint.ARel[2][2];}; 
+     AnyDesVar RFootSubtalarJointRot20 = {Val= .RRef.Foot.SubTalarJoint.ARel[2][0];}; 
+     AnyDesVar RFootSubtalarJointRot21= {Val=   .RRef.Foot.SubTalarJoint.ARel[2][1];}; 
+     AnyDesVar RFootSubtalarJointRot22 = {Val=  .RRef.Foot.SubTalarJoint.ARel[2][2];}; 
     
     
 //    // SubtalarJoint Pos 
@@ -150,17 +161,17 @@
      AnyDesVar LSubtalarJointPos2 = {Val=  .LRef.Foot.SubTalarJoint.sRel[2];}; 
 //
 //     // LSubtalarJoint Rotations
-     AnyDesVar LSubtalarJointRot00 = {Val=  .LRef.Foot.SubTalarJoint.ARel[0][0];}; 
-     AnyDesVar LSubtalarointRot01= {Val=   .LRef.Foot.SubTalarJoint.ARel[0][1];}; 
-     AnyDesVar LSubtalarJointRot02 = {Val=  .LRef.Foot.SubTalarJoint.ARel[0][2];}; 
+     AnyDesVar LFootSubtalarJointRot00 = {Val=  .LRef.Foot.SubTalarJoint.ARel[0][0];}; 
+     AnyDesVar LFootSubtalarJointRot01= {Val=   .LRef.Foot.SubTalarJoint.ARel[0][1];}; 
+     AnyDesVar LFootSubtalarJointRot02 = {Val=  .LRef.Foot.SubTalarJoint.ARel[0][2];}; 
      
-     AnyDesVar LSubtalarJointRot10 = {Val=   .LRef.Foot.SubTalarJoint.ARel[1][0];}; 
-     AnyDesVar LSubtalarointRot11= {Val=   .LRef.Foot.SubTalarJoint.ARel[1][1];}; 
-     AnyDesVar LSubtalarJointRot12 = {Val=   .LRef.Foot.SubTalarJoint.ARel[1][2];}; 
+     AnyDesVar LFootSubtalarJointRot10 = {Val=   .LRef.Foot.SubTalarJoint.ARel[1][0];}; 
+     AnyDesVar LFootSubtalarJointRot11= {Val=   .LRef.Foot.SubTalarJoint.ARel[1][1];}; 
+     AnyDesVar LFootSubtalarJointRot12 = {Val=   .LRef.Foot.SubTalarJoint.ARel[1][2];}; 
      
-     AnyDesVar LSubtalarJointRot20 = {Val= .LRef.Foot.SubTalarJoint.ARel[2][0];}; 
-     AnyDesVar LSubtalarointRot21= {Val=   .LRef.Foot.SubTalarJoint.ARel[2][1];}; 
-     AnyDesVar LSubtalarJointRot22 = {Val=  .LRef.Foot.SubTalarJoint.ARel[2][2];}; 
+     AnyDesVar LFootSubtalarJointRot20 = {Val= .LRef.Foot.SubTalarJoint.ARel[2][0];}; 
+     AnyDesVar LFootSubtalarJointRot21= {Val=   .LRef.Foot.SubTalarJoint.ARel[2][1];}; 
+     AnyDesVar LFootSubtalarJointRot22 = {Val=  .LRef.Foot.SubTalarJoint.ARel[2][2];}; 
 
      
    };   

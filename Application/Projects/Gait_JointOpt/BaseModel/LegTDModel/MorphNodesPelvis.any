@@ -10,14 +10,14 @@ AnyFolder MorphSourcePoints = {
 
 #if UseAnatomicalValuesLeftHip == 1 | UseAnatomicalValuesRightHip == 1  
   // These are Marker positions on the unscaled pelvis
-  AnyVec3 RightAsisMarker =  {0.1050608, -0.05008401, 0.1295};//+{ 0.012,0.07,0.01};//+{-Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0],0,0};
+  AnyVec3 RightAsisMarker =  {0.1050608, -0.05008401, 0.1295}+{ 0.02,0.03,0.00};//+{-Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0],0,0};
 //+{ 0.01,0.01,0};
-  AnyVec3 LeftAsisMarker =  {0.1050608, -0.05008401, -0.1295};//+{ 0.012,0.07,-0.01};//+{-Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0],0,0};
+  AnyVec3 LeftAsisMarker =  {0.1050608, -0.05008401, -0.1295}+{ 0.02,0.03,-0.00};//+{-Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0],0,0};
 //+{ 0.01 ,0.01,0};
 //  AnyVec3 SacrumMarker= {-0.03194569, 0.01086048, -0.00135}+{-0.025,0.05,0};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
   
-  AnyVec3 LeftPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.05,-0.04};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
-  AnyVec3 RightPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.05,0.04};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
+  AnyVec3 LeftPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{-0.02,0.0,-0.04};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
+  AnyVec3 RightPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{-0.02,0.0,0.04};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
 #else
   AnyVec3 RightAsisMarker =  {0.1050608, -0.05008401, 0.1295}+{-0.006,0.02,0.007};
   AnyVec3 LeftAsisMarker =  {0.1050608, -0.05008401, -0.1295}+{-0.006,0.02,-0.007};

@@ -23,5 +23,7 @@ AnyFolder TrialSpecificData={
   AnyStringVar LeftHipParametersTrial = "";
   AnyStringVar LeftAnkleParametersTrial = "";
   AnyStringVar RightAnkleParametersTrial = "";
-
+  AnyStringVar LeftKneeParametersTrial = "";
+  AnyStringVar RightKneeParametersTrial = "";
+  AnyStringVar GaitParametersTrial = "";
 };

@@ -7,14 +7,18 @@ AnyFolder TrialSpecificData={
   /// Name of the C3D file to be analysed
   /// Trialname specifies naming of output files
   AnyString TrialName = "SC_staticfor_again1"; 
+  AnyStringVar TrialNameStatic = "SC_staticfor_again1";
   
   // C3D files to load
   AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";
-  AnyStringVar C3DFileNameStatic = BASE_MODEL_PATH +"../Data/SC/Static Trials/SC_staticfor_again1/SC_staticfor_again1.c3d" ;
+  AnyStringVar C3DFileNameStatic = BASE_MODEL_PATH +"../Data/SC/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
   AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
   AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
   AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
   AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
+  AnyStringVar GaitParametersTrial = "SC_knee_ngait_og5";
+  
+  
   AnyIntVar StaticFrameIndex = 100;
   
   AnyIntVar  StartFrameNo = 100;//Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;

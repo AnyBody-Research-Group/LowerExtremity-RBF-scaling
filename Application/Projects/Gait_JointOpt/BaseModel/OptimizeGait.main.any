@@ -1,25 +1,15 @@
-
-#define IncludeRight 1
-#define IncludeLeft 1
-
-#ifndef IncludeHip 
 #define IncludeHip 1
-#endif 
-
-#ifndef IncludeKnee 
 #define IncludeKnee 1
-#endif
+#define IncludeAnkle 0
+#define FULL_MARKERSET
 
-#ifndef IncludeAnkle 
-#define IncludeAnkle 1
-#endif
-
-#define UseDanamicLoadPosition 0
+#define UseDanamicLoadPosition 1
 #define EnableJointAxisScaling 1
 
 #define HideStickModelGraphics 0
 
 #include "KinematicModel.main.any"
+
 
 Main.JntParameterOptModel  = {
   
@@ -51,20 +41,21 @@ Main.JntParameterOptModel  = {
 
  }; 
 };  
-  
-  
-  
-  
-Main = {      
 
+Main = {    
+    
     AnyOperationMacro Run_Kinematic_Optimization = 
     {
-      AnyString SaveMcrGait = "classoperation Main.JntParameterOptModel.OptimizeParameters" 
-      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.GaitParameters);
-      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
+      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters) ;
+      MacroStr = { "operation Main.JntParameterOptModel.Load_AnatomicalParameters","run",
+                   "operation Main.JntParameterOptModel.Load_RightHipParameters","run",
+                   "operation Main.JntParameterOptModel.Load_LeftHipParameters","run",
+                   "operation Main.JntParameterOptModel.Load_RightAnkleParameters","run",
+                   "operation Main.JntParameterOptModel.Load_LeftAnkleParameters","run",
+                   "operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
                   "run",
-                  SaveMcrGait
-                };
+                  SaveMcr};
     };
     
 };  // Main

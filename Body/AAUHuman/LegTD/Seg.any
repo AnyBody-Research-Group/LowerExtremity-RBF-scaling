@@ -157,7 +157,7 @@ AnySeg Talus = {
   };  
   
   AnyRefNode SubTalarJoint = {
-    //AnyDrawRefFrame Drw = {};
+    AnyDrawRefFrame Drw = {Visible = Off;};        
     sRel = .Scale(.StdPar.SubTalarJoint);
    #ifndef  EnableJointAxisScaling 
       #define    EnableJointAxisScaling 0
@@ -205,7 +205,8 @@ AnySeg Talus = {
   
 
   AnyRefNode AnkleJoint = {
-    //AnyDrawRefFrame Drw = {};        
+    AnyDrawRefFrame Drw = {Visible = Off;};        
+    AnyVec3 test = .Scale(.StdPar.AnkleJoint);
     sRel = .Scale(.StdPar.AnkleJoint);
     //sRel = ..Shank.Scale(.StdPar.AnkleJoint);
     #ifndef  EnableJointAxisScaling 
@@ -311,7 +312,7 @@ AnySeg Foot = {
   };
     
   AnyRefNode SubTalarJoint = {
-   //AnyDrawRefFrame Drw = {};    
+    AnyDrawRefFrame Drw = {Visible = Off;};        
     sRel = .Scale(.StdPar.SubTalarJoint);
    #ifndef  EnableJointAxisScaling 
       #define    EnableJointAxisScaling 0
@@ -569,21 +570,21 @@ AnySeg Shank = {
   
   AnyFolder &StdPar = .LegTDStandardParameters;   
 
-  // Point to control the ankle axis orientation. 0.02647921 cm lateral to ankle center. 
+  // Point to control the ankle axis orientation. 0.0392 cm lateral to ankle center. 
   // The distance is given by projection of the lateral malleolus (bony landmark) projection to the 
   // ankle axis.
   AnyRefNode LateralAnkleAxisControlPoint = {
-    AnyVec3 Standard = .StdPar.AnkleJoint + 0.02647921 *.StdPar.AnkleJointAxis;
+    AnyVec3 Standard = .StdPar.AnkleJoint + 0.0392 *.StdPar.AnkleJointAxis;
 //    AnyVec3 Standard = .StdPar.LateralMalleolus;    
     sRel = .Scale( Standard );
     //AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
   };
   
- // Point to control the ankle axis orientation. 0.0488001 cm medial to ankle center. 
+ // Point to control the ankle axis orientation. 0.0361 cm medial to ankle center. 
   // The distance is given by projection of the lateral malleolus (bony landmark) projection to the 
   // ankle axis. 
   AnyRefNode MedialAnkleAxisControlPoint = {
-    AnyVec3 Standard = .StdPar.AnkleJoint  -0.0488001 *.StdPar.AnkleJointAxis;
+    AnyVec3 Standard = .StdPar.AnkleJoint  -0.0361 *.StdPar.AnkleJointAxis;
 //    AnyVec3 Standard = .StdPar.MedialMalleolus;
     sRel = .Scale( Standard );
    // AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
@@ -592,7 +593,7 @@ AnySeg Shank = {
   
   AnyRefNode AnkleJoint = {
    // AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
-   //AnyDrawRefFrame Drw = {};        
+   AnyDrawRefFrame Drw = {Visible = Off;};        
     sRel = .Scale(.StdPar.AnkleJoint);
    #ifndef  EnableJointAxisScaling 
       #define    EnableJointAxisScaling 0
@@ -622,7 +623,7 @@ AnySeg Shank = {
   // The distance is given by projection of the lateral epicondyle (bony landmark) projection to the 
   // knee axis.
   AnyRefNode LateralKneeAxisControlPoint = {
-    AnyVec3 sRelStandard = .StdPar.KneeJoint + 0.03887656*.StdPar.KneeJointAxis;
+    AnyVec3 sRelStandard = .StdPar.KneeJoint + 0.0389*.StdPar.KneeJointAxis;
 //    AnyVec3 sRelStandard = .StdPar.EpicondylusFemorisLateralis;
     sRel = .Scale( sRelStandard );
     AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};RGB={1,0,0};};
@@ -632,7 +633,7 @@ AnySeg Shank = {
   // The distance is given by projection of the lateral epicondyle (bony landmark) projection to the 
   // knee axis. 
   AnyRefNode MedialKneeAxisControlPoint = {
-    AnyVec3 sRelStandard = .StdPar.KneeJoint -0.05864344*.StdPar.KneeJointAxis;
+    AnyVec3 sRelStandard = .StdPar.KneeJoint -0.0586*.StdPar.KneeJointAxis;
 //    AnyVec3 sRelStandard = .StdPar.EpicondylusFemorisMedialis;
     sRel = .Scale( sRelStandard );
     AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};RGB={1,0,0};};
@@ -947,7 +948,7 @@ AnySeg Thigh = {
   // The distance is given by projection of the lateral epicondyle (bony landmark) projection to the 
   // knee axis.
   AnyRefNode LateralKneeAxisControlPoint = {
-    AnyVec3 sRelStandard = .StdPar.KneeJoint + 0.03887656*.StdPar.KneeJointAxis;
+    AnyVec3 sRelStandard = .StdPar.KneeJoint + 0.0389*.StdPar.KneeJointAxis;
 //     AnyVec3 sRelStandard = .StdPar.EpicondylusFemorisLateralis;
     sRel = .Scale( sRelStandard );
     AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};
@@ -957,7 +958,7 @@ AnySeg Thigh = {
   // The distance is given by projection of the medial epicondyle (bony landmark) projection to the 
   // knee axis. 
   AnyRefNode MedialKneeAxisControlPoint = {
-    AnyVec3 sRelStandard = .StdPar.KneeJoint -0.05864344*.StdPar.KneeJointAxis;
+    AnyVec3 sRelStandard = .StdPar.KneeJoint -0.0586*.StdPar.KneeJointAxis;
 //    AnyVec3 sRelStandard = .StdPar.EpicondylusFemorisMedialis;
     sRel = .Scale( sRelStandard );
     AnyDrawNode drw = {ScaleXYZ = {0.005,0.005,0.005};};

@@ -128,7 +128,7 @@ AnyFolder Scaling = {
          
       AnyFolder Foot  = {
         AnySwitch ShowNodes = Off;
-        #include "MorphNodesFootLinear.any"
+//        #include "MorphNodesFootLinear.any"
         AnyVar LengthScale = ...AnthroSegmentLengths.Right.FootLength / ...StandardParameters.Right.Foot.Length;    
         AnyVar MassScale = ...MassScaling.Right.Foot.MassScale;
 //        #if !UseRbfScaling
@@ -341,7 +341,7 @@ AnyFolder Scaling = {
       
       AnyFolder Foot  = {
         AnySwitch ShowNodes = Off;
-        #include "MorphNodesFootLinear.any"
+//        #include "MorphNodesFootLinear.any"
         AnyVar LengthScale = ...AnthroSegmentLengths.Left.FootLength / ...StandardParameters.Left.Foot.Length;    
         AnyVar MassScale = ...MassScaling.Left.Foot.MassScale;
 	  
@@ -399,7 +399,7 @@ AnyFolder Scaling = {
       };
       
       AnyFolder Shank = {
-        AnySwitch ShowNodes = On;
+        AnySwitch ShowNodes = Off;
         #include "MorphNodesShank.any"
         AnyVar MassScale = ...MassScaling.Left.Shank.MassScale;
 
@@ -555,7 +555,7 @@ AnyFolder Scaling = {
     // *****************************
     
    AnyFolder Pelvis = {
-      AnySwitch ShowNodes = Off;
+      AnySwitch ShowNodes = On;
       #include "MorphNodesPelvis.any"
       #if !UseRbfScaling    
       AnyFunTransform3DLin ScaleFunction = { ScaleMat = {{1, 0, 0},{0, 1, 0},{0, 0, 1}}; Offset = {0,0,0};};      

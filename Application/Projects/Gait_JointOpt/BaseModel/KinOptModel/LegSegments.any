@@ -33,19 +33,21 @@ AnyFolder Seg = {
     
     
     AnyRefNode KneeJoint = {    
-      AnyDrawRefFrame drw ={};
+//      AnyDrawRefFrame drw ={};
       
       AnyFloat xRot = 0;
       AnyFloat yRot = 0;
       #ifdef RightLeg 
       sRel = {0, -0.4205802, 0};
       //.....StickFigure.Posture.Right.Thigh.KneeJoint.sRel_static;
-      ARel = RotMat(xRot,x)*RotMat(yRot,y);
+      AnyMat33 Rotation = RotMat(xRot,x)*RotMat(yRot,y);
+      ARel = RotMat(sRel,sRel+Rotation'[2],.HipJoint.sRel) * RotMat(pi/2,y);
       #endif
       #ifdef LeftLeg
       sRel =  {0, -0.4218081, 0};
       //.....StickFigure.Posture.Left.Thigh.KneeJoint.sRel_static;
-      ARel = RotMat(xRot,x)*RotMat(yRot,y);
+      AnyMat33 Rotation = RotMat(xRot,x)*RotMat(yRot,y);
+      ARel = RotMat(sRel,sRel+Rotation'[2],.HipJoint.sRel)*RotMat(pi/2,y);
       #endif
       
     };//KneeJoint
@@ -110,26 +112,28 @@ AnyFolder Seg = {
     Jii = {0.005, 0.0025, 0.005};
     
     AnyRefNode KneeJoint = {
-//      AnyDrawRefFrame drw ={};
       
       AnyFloat xRot = 0;
       AnyFloat yRot = 0;
       #ifdef RightLeg 
       sRel = {0, 0,  -0.08041919};
 //.....StickFigure.Posture.Right.Shank.RKneeJoint.sRel_static; 
-      ARel = .....StickFigure.Posture.Right.Shank.KneeJoint.ARel_static
-        *RotMat(xRot,x)*RotMat(yRot,y);             
+      AnyMat33 Rotation = .....StickFigure.Posture.Right.Shank.KneeJoint.ARel_static
+        *RotMat(xRot,x)*RotMat(yRot,y);    
+      ARel = RotMat(sRel,sRel+Rotation'[2],.AnkleJoint.sRel)*RotMat(pi/2,y)*RotMat(pi,z);
       #endif
       
       #ifdef LeftLeg
       sRel = {0, 0, 0.005640184};//.....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
-      ARel = .....StickFigure.Posture.Left.Shank.KneeJoint.ARel_static
-        *RotMat(xRot,x)*RotMat(yRot,y);   
+      AnyMat33 Rotation = .....StickFigure.Posture.Left.Shank.KneeJoint.ARel_static
+        *RotMat(xRot,x)*RotMat(yRot,y); 
+      ARel =  RotMat(sRel,sRel+Rotation'[2],.AnkleJoint.sRel)*RotMat(pi/2,y)*RotMat(pi,z);
       #endif
     };
-    
+
     
     AnyRefNode AnkleJoint = {
+      AnyDrawRefFrame drw ={Visible = Off;};
       AnyMat33 InitialRotation = RotMat(sRel, sRel+{0,0,1}, .KneeJoint.sRel)
       * RotMat(90*pi/180,y);
       
@@ -142,7 +146,9 @@ AnyFolder Seg = {
       sRel = {0, -0.4213269, 0};
 //.....StickFigure.Posture.Left.Shank.AnkleJoint.sRel_static;
       #endif
-      ARel = InitialRotation * RotMat(xRot,x)*RotMat(yRot,y);
+      AnyMat33 Rotation = InitialRotation * RotMat(xRot,x)*RotMat(yRot,y);
+      
+      ARel = RotMat(sRel,sRel+Rotation'[2],.KneeJoint.sRel)*RotMat(pi/2,y);
     };
     
     #include "DrawNodes.any"
@@ -206,7 +212,7 @@ AnyFolder Seg = {
     };
 
     AnyRefNode SubtalarJoint = {
-      //AnyDrawRefFrame drw ={};
+      AnyDrawRefFrame drw ={Visible = On;};
       AnyFloat yRot = 0;
       #ifdef RightLeg 
       sRel = {0, -0.005250511, -0.01996076};//.....StickFigure.Posture.Right.Talus.SubtalarJoint.sRel_static;
@@ -227,9 +233,9 @@ AnyFolder Seg = {
   
   
   AnySeg Foot = {
-    AnyDrawRefFrame drw ={RGB={1,0,0};ScaleXYZ ={0.1,0.1,0.1};};
+    AnyDrawRefFrame drw ={RGB={1,0,0};ScaleXYZ ={0.1,0.1,0.1};Visible = Off;};
 
-    #include "MorphNodesFoot.any"
+//    #include "MorphNodesFoot.any"
     
     // Initial Segment position
     #ifdef RightLeg
@@ -250,25 +256,25 @@ AnyFolder Seg = {
     //Jij = {0.01,0.1, 0.01};
     
     
-    AnyRefNode AnkleJoint = {
-      //AnyDrawRefFrame drw ={};
-//      AnyFloat xRot = 0;
-//      AnyFloat yRot = 0;
-      #ifdef RightLeg 
-      sRel =  {0.07830296, 0.03119825, 0.02290649};//.....StickFigure.Posture.Right.Foot.AnkleJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Right.Foot.AnkleJoint.ARel_static;
-//      *RotMat(xRot,x)*RotMat(yRot,y);
-      #endif
-      
-      #ifdef LeftLeg
-      sRel =  {0.07336435, 0.0303326, -0.01262166};//.....StickFigure.Posture.Left.Foot.AnkleJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Left.Foot.AnkleJoint.ARel_static;
-//      *RotMat(xRot,x)*RotMat(yRot,y);
-      #endif  
-    };
+//    AnyRefNode AnkleJoint = {
+//      //AnyDrawRefFrame drw ={};
+////      AnyFloat xRot = 0;
+////      AnyFloat yRot = 0;
+//      #ifdef RightLeg 
+//      sRel =  {0.07830296, 0.03119825, 0.02290649};//.....StickFigure.Posture.Right.Foot.AnkleJoint.sRel_static;
+//      ARel = .....StickFigure.Posture.Right.Foot.AnkleJoint.ARel_static;
+////      *RotMat(xRot,x)*RotMat(yRot,y);
+//      #endif
+//      
+//      #ifdef LeftLeg
+//      sRel =  {0.07336435, 0.0303326, -0.01262166};//.....StickFigure.Posture.Left.Foot.AnkleJoint.sRel_static;
+//      ARel = .....StickFigure.Posture.Left.Foot.AnkleJoint.ARel_static;
+////      *RotMat(xRot,x)*RotMat(yRot,y);
+//      #endif  
+//    };
 
     AnyRefNode SubtalarJoint = {
-      //AnyDrawRefFrame drw ={};
+      AnyDrawRefFrame drw ={Visible = On;};
       AnyFloat yRot = 0;
       AnyFloat zRot = 0;
       #ifdef RightLeg 
