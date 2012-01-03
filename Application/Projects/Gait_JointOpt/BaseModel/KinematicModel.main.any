@@ -31,10 +31,16 @@
 #endif
 
 //#define UseRbfScaling 1
+// MAIN Project file. This include ensures that it is embedded in all models
+#include "<PROJECT_PATH>/Project.Main.any"
+
+// Project operation of kinmatic model
+#include "KinOptModel\Project.any"
 
 
 Main = {  
   #include "ModelSetup.any"
+  #include "Camera.any"
   
   AnyFolder JntParameterOptModel = {
     

@@ -1,11 +1,9 @@
 #include "../../../../BaseModel/PreMainIncludes.any"
-
-#define IncludeHip 0
-#define IncludeKnee 1
-#define IncludeAnkle 0
+#define IncludeLegTDModel 1
 
 Main = {
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"
- #include "<BASE_MODEL_PATH>OptimizeGait.main.any"
-}; 
+ #include "<BASE_MODEL_PATH>/InverseDynamicsModel.main.any"
+
+};

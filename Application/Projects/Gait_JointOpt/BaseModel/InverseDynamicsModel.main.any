@@ -10,6 +10,9 @@
 
 #include "KinematicModel.main.any"
 
+// This is the project operation for the inverse dynamic models
+#include "LegTDModel\Project.any"
+
 Main = {
   #include "DrawSettings.any"
   #include "GeneralSettings.any"  

@@ -45,6 +45,8 @@
         AnyVec3 scaleDif=-( ..Scale(.sRelEdit*..ScalingNode.ARel')*..ScalingNode.ARel-.sRelEdit); 
         RelPos=&scaleDif;
         UpdateEvent = OnMouseRelease;
+        MaxDrawSize = 0.05;
+        MinDrawSize = 0.03;
       };
     };   
     AnyRefNode Toe = {
@@ -57,6 +59,8 @@
         AnyVec3 scaleDif=(..Scale(.sRelEdit*..ScalingNode.ARel')*..ScalingNode.ARel-.sRelEdit); 
         RelPos=&scaleDif;
         UpdateEvent = OnMouseRelease;
+        MaxDrawSize = 0.05;
+        MinDrawSize = 0.03;
       };
     };       
     AnyRefNode MidfootLateral = {
@@ -69,6 +73,8 @@
         AnyVec3 scaleDif=(..Scale(.sRelEdit*..ScalingNode.ARel')*..ScalingNode.ARel-.sRelEdit); 
         RelPos=&scaleDif;
         UpdateEvent = OnMouseRelease;
+        MaxDrawSize = 0.05;
+        MinDrawSize = 0.03;
       };
     };   
     

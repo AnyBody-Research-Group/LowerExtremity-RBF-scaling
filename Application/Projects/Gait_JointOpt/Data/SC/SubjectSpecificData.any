@@ -1,3 +1,4 @@
+
 #path SUBJECT_PATH "."
 #path TEMP_FILE_PATH "Tmp/"
 
@@ -7,7 +8,28 @@
 #define UseAnatomicalValuesRightHip 1
 
 AnyFolder SubjectSpecificData = {
-      
+     
+  #ifndef USE_TRIAL_SPECIFIC_PARAMETERS
+  
+  AnyStringVar TrialNameStatic = "SC_staticfor_again1";
+  AnyStringVar C3DFileNameStatic = BASE_MODEL_PATH +"../Data/SC/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
+  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
+  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
+  AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
+  AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
+  AnyStringVar RightKneeParametersTrial = "SC_knee_ngait_og5";
+  AnyStringVar LeftKneeParametersTrial = "SC_knee_ngait_og5";
+  AnyStringVar GaitParametersTrial = "SC_knee_ngait_og5";
+
+  AnyIntVar StaticFrameIndex = 100;
+  #endif
+  
+  
+  
+  
+  
+  
+  
   //These antrhopometric data will be used as initial guess for the optimization alogorithm the optimization algoritm will allow changes to the 
   //segment lengths
   AnyFolder Anthropometrics={

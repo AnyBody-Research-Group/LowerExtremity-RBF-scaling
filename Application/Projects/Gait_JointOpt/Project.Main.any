@@ -1,0 +1,17 @@
+#ifndef PREMAININCLUDES_ANY
+#path BASE_MODEL_PATH "."
+#path PROJECT_PATH "../Gait_JointOpt"
+#endif
+
+Main = {
+  AnyProject Project = {
+    #include "Data/TrialSelector.any"
+    
+    Tasks = {
+    #ifdef PREMAININCLUDES_ANY
+      
+    #endif
+
+    };
+  };
+};

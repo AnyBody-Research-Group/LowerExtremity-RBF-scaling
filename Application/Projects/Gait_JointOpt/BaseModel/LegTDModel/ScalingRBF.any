@@ -555,7 +555,7 @@ AnyFolder Scaling = {
     // *****************************
     
    AnyFolder Pelvis = {
-      AnySwitch ShowNodes = On;
+      AnySwitch ShowNodes = Off;
       #include "MorphNodesPelvis.any"
       #if !UseRbfScaling    
       AnyFunTransform3DLin ScaleFunction = { ScaleMat = {{1, 0, 0},{0, 1, 0},{0, 0, 1}}; Offset = {0,0,0};};      

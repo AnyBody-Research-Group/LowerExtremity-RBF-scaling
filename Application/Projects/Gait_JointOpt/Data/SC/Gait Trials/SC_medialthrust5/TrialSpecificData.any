@@ -1,0 +1,75 @@
+#path TRIAL_PATH "."
+#define FULL_MARKERSET
+
+AnyFolder TrialSpecificData={
+  
+  /// Name of the C3D file to be analysed
+  /// Trialname specifies naming of output files
+  AnyString TrialName = "SC_medialthrust5"; 
+  
+  // C3D files to load
+  AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";
+
+  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+  AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+  
+  AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
+   
+  // HeelStrike times
+   #define UseHeelStrikesTimes
+   AnyVar RightHeelStrike1 = 1;
+   AnyVar RightHeelStrike2 = 2;
+   AnyVar LeftHeelStrike1 = 1;
+   AnyVar LeftHeelStrike2 = 2;   
+   AnyInt nStep_BetweenHeelStrikes = 100;
+   
+  
+  //This is the initial position of the body it should only be touched it the kinematics does not work it first timestep
+  //then these variable can be used to create a better guess, otherwise leave them unchanged
+  AnyFolder InitialPositionOfBody ={    
+    // The Flag PelvisRotMat overides Manual pelvis rotations
+    #define PelvisRotMat
+    AnyVar PelvisRotZ = 90;
+    AnyVar PelvisRotY = 0;
+    AnyVar PelvisRotX = 90;
+    
+    AnyFolder Right={
+      AnyVar HipFlexion = 20.31705;
+      AnyVar HipAbduction = 5.707386;
+      AnyVar HipExternalRotation = -3.079478;
+      AnyVar KneeFlexion = 0;
+      AnyVar AnklePlantarFlexion = 0;
+      AnyVar SubTalarEversion = 0;
+    };
+    
+    AnyFolder Left ={
+      AnyVar HipFlexion = -20.1819;
+      AnyVar HipAbduction = -3.050171;
+      AnyVar HipExternalRotation = 0*-16.907892;
+      AnyVar KneeFlexion = 0;
+      AnyVar AnklePlantarFlexion = 0;
+      AnyVar SubTalarEversion =0.0;
+    };
+  };
+  
+//  #ifdef USE_TRIAL_SPECIFIC_PARAMETERS
+//  Main.SubjectSpecificData = {
+//  AnyStringVar TrialNameStatic = "SC_staticfor_again1";
+//  AnyStringVar C3DFileNameStatic = BASE_MODEL_PATH +"../Data/SC/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
+//  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
+//  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
+//  AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
+//  AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
+//  AnyStringVar RightKneeParametersTrial = "SC_knee_ngait_og5";
+//  AnyStringVar LeftKneeParametersTrial = "SC_knee_ngait_og5";
+//  AnyStringVar GaitParametersTrial = "SC_knee_ngait_og5";
+// };
+  
+  
+  
+  
+  
+  
+  
+
+};

@@ -212,7 +212,7 @@ AnyFolder Seg = {
     };
 
     AnyRefNode SubtalarJoint = {
-      AnyDrawRefFrame drw ={Visible = On;};
+      AnyDrawRefFrame drw ={Visible = Off;};
       AnyFloat yRot = 0;
       #ifdef RightLeg 
       sRel = {0, -0.005250511, -0.01996076};//.....StickFigure.Posture.Right.Talus.SubtalarJoint.sRel_static;
@@ -274,7 +274,7 @@ AnyFolder Seg = {
 //    };
 
     AnyRefNode SubtalarJoint = {
-      AnyDrawRefFrame drw ={Visible = On;};
+      AnyDrawRefFrame drw ={Visible = Off;};
       AnyFloat yRot = 0;
       AnyFloat zRot = 0;
       #ifdef RightLeg 
@@ -364,6 +364,7 @@ AnyFolder Seg = {
       RGB = {1,0,0};
       Opacity = 0.5;
       ScaleXYZ = {0.005, 0.005, 0.005};
+      Visible = Off;
     };
     #endif
   };

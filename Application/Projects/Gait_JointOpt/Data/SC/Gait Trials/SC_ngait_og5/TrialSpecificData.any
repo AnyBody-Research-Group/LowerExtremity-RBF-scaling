@@ -1,28 +1,15 @@
 #path TRIAL_PATH "."
 #define FULL_MARKERSET
 
-
-
 AnyFolder TrialSpecificData={
   
   /// Name of the C3D file to be analysed
   /// Trialname specifies naming of output files
   AnyString TrialName = "SC_ngait_og5"; 
-  AnyStringVar TrialNameStatic = "SC_staticfor_again1";
   
   // C3D files to load
   AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";
-  AnyStringVar C3DFileNameStatic = BASE_MODEL_PATH +"../Data/SC/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
-  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
-  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
-  AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
-  AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
-  AnyStringVar RightKneeParametersTrial = "SC_knee_ngait_og5";
-  AnyStringVar LeftKneeParametersTrial = "SC_knee_ngait_og5";
-  AnyStringVar GaitParametersTrial = TrialName;
 
-  AnyIntVar StaticFrameIndex = 100;
-  
   AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
   AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   
@@ -64,5 +51,25 @@ AnyFolder TrialSpecificData={
       AnyVar SubTalarEversion =0.0;
     };
   };
+  
+//  #ifdef USE_TRIAL_SPECIFIC_PARAMETERS
+//  Main.SubjectSpecificData = {
+//  AnyStringVar TrialNameStatic = "SC_staticfor_again1";
+//  AnyStringVar C3DFileNameStatic = BASE_MODEL_PATH +"../Data/SC/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
+//  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
+//  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
+//  AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
+//  AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
+//  AnyStringVar RightKneeParametersTrial = "SC_knee_ngait_og5";
+//  AnyStringVar LeftKneeParametersTrial = "SC_knee_ngait_og5";
+//  AnyStringVar GaitParametersTrial = "SC_knee_ngait_og5";
+// };
+  
+  
+  
+  
+  
+  
+  
 
 };

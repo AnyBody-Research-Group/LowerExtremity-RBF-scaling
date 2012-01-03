@@ -2,11 +2,11 @@ Main = {
   AnyOperationMacro LoadFootJointAxis = {
      MacroStr = {
      "classoperation Main.AnyBodyGaitAppModel.LoadFootScalingPar"
-     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_AnklePositions.txt",
+     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.SubjectSpecificData.TrialNameStatic +"_AnklePositions.txt",
      "classoperation Main.AnyBodyGaitAppModel.LoadTalusJointPar"
-     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_AnklePositions.txt",
+     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.SubjectSpecificData.TrialNameStatic +"_AnklePositions.txt",
      "classoperation Main.AnyBodyGaitAppModel.LoadFootJointPar"
-     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_AnklePositions.txt"
+     + strquote("Load design") + "--file=" + TEMP_FILE_PATH + Main.SubjectSpecificData.TrialNameStatic +"_AnklePositions.txt"
      };
   };
 };

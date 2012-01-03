@@ -1,5 +1,5 @@
     AnyRefNode MorphNodes = {
-    AnySwitch ShowNodes = On;
+    AnySwitch ShowNodes = Off;
     AnyVar MarkerRadius = 0.010;
     sRel = .KneeJoint.sRel;
       #ifdef RightLeg
@@ -127,7 +127,7 @@
      
       AnyDrawRefFrame drwMorphNodeFrame = 
       {
-        ScaleXYZ = {0.1, 0.1, 0.1};Visible = On;
+        ScaleXYZ = {0.1, 0.1, 0.1};Visible = Off;
       };
       
           

@@ -1,6 +1,7 @@
 #ifndef PREMAININCLUDES_ANY
 #define PREMAININCLUDES_ANY
 #path BASE_MODEL_PATH "."
+#path PROJECT_PATH "../"
 #path AMMR_PATH "../../../../"
 
 
@@ -15,7 +16,6 @@
 #include  "LegTDModel\MomentArmTemplate.any"
 //#include "MomentArmTemplate.any"
 #include "EmulateC3DMacros.any"
-
 
 
 #endif

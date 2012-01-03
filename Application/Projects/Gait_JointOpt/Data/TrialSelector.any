@@ -1,0 +1,630 @@
+AnyProjectTaskFolder Switch_Trial = { 
+  AnyProjectTaskFolder SC = { 
+    AnyProjectTaskFolder Calibration_Trials = { 
+      AnyProjectTaskFolder SC_1legstand1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_1legstand1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_1legstand1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_1legstand1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_1legstand1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_2legsquat1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_2legsquat1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_2legsquat1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_2legsquat1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_2legsquat1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_calfrise1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_calfrise1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_calfrise1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_calfrise1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_calfrise1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_chairrise2 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_chairrise2\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_chairrise2\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_chairrise2\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_chairrise2\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_deepsquat1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_deepsquat1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_deepsquat1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_deepsquat1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_deepsquat1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_loadlegext1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_loadlegext1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_loadlegext1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_loadlegext1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_loadlegext1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_staticmaxiso1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_staticmaxiso1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_staticmaxiso1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_staticmaxiso1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_staticmaxiso1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_staticsit1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_staticsit1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_staticsit1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_staticsit1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_staticsit1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_unloadlegext1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_unloadlegext1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_unloadlegext1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_unloadlegext1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Calibration Trials\SC_unloadlegext1\output_log.txt";
+        };
+      };
+    };
+    AnyProjectTaskFolder Gait_Trials = { 
+      AnyProjectTaskFolder SC_bouncy_og3 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og3\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og3\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og3\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og3\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_bouncy_og5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_bouncy_og6 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og6\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og6\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og6\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og6\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_bouncy_og7 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og7\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og7\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og7\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og7\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_bouncy_og8 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og8\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og8\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og8\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_bouncy_og8\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_crouch_og1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_crouch_og3 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og3\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og3\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og3\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og3\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_crouch_og4 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og4\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og4\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og4\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og4\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_crouch_og5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_crouch_og6 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og6\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og6\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og6\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_crouch_og6\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_medialthrust3 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust3\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust3\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust3\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust3\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_medialthrust4 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust4\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust4\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust4\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust4\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_medialthrust5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_medialthrust6 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust6\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust6\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust6\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust6\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_medialthrust8 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust8\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust8\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust8\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_medialthrust8\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_mtpgait1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_mtpgait2 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait2\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait2\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait2\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait2\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_mtpgait3 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait3\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait3\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait3\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait3\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_mtpgait4 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait4\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait4\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait4\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait4\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_mtpgait5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_mtpgait6 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait6\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait6\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait6\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_mtpgait6\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_ngait_og5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_ngait_og6 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og6\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og6\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og6\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og6\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_ngait_og7 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og7\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og7\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og7\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og7\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_ngait_og8 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og8\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og8\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og8\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og8\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_ngait_og9 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og9\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og9\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og9\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_ngait_og9\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_smooth_og1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_smooth_og2 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og2\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og2\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og2\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og2\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_smooth_og3 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og3\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og3\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og3\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og3\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_smooth_og4 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og4\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og4\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og4\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og4\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_smooth_og5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_smooth_og5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_trunksway1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_trunksway4 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway4\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway4\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway4\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway4\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_trunksway5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_trunksway6 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway6\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway6\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway6\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway6\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_trunksway7 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway7\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway7\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway7\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_trunksway7\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_wpgait_l11 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l11\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l11\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l11\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l11\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_wpgait_l5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_wpgait_l8 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l8\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l8\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l8\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_l8\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_wpgait_s1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_wpgait_s5 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s5\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s5\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_wpgait_s6 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s6\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s6\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s6\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Gait Trials\SC_wpgait_s6\output_log.txt";
+        };
+      };
+    };
+    AnyProjectTaskFolder Joint_Trials = { 
+      AnyProjectTaskFolder SC_ankle_l1_again1 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_ankle_l1_again1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_ankle_l1_again1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_ankle_r2 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_ankle_r2\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_ankle_r2\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_hip_lstar1_again1 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_hip_lstar1_again1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_hip_lstar1_again1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_hip_rstar1 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_hip_rstar1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_hip_rstar1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_hip_Tl1_again1 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_hip_Tl1_again1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_hip_Tl1_again1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_hip_Tr1 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_hip_Tr1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_hip_Tr1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_knee_l1 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_l1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_l1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_knee_l2 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_l2\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_l2\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_knee_ngait_og5 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_ngait_og5\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_ngait_og5\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_knee_r1 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_r1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_r1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_knee_r2 = { 
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_r2\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Joint Trials\SC_knee_r2\output_log.txt";
+        };
+      };
+    };
+    AnyProjectTaskFolder Static_Trials = { 
+      AnyProjectTaskFolder SC_staticfor_again1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticfor_again1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticfor_again1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticfor_again1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticfor_again1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_staticin_again1 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticin_again1\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticin_again1\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticin_again1\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticin_again1\output_log.txt";
+        };
+      };
+      AnyProjectTaskFolder SC_staticout_again2 = { 
+        AnyProjectTaskLoadModel  InversDynamics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticout_again2\InversDynamics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticout_again2\output_log.txt";
+        };
+        AnyProjectTaskLoadModel  Kinematics= { 
+          MainFile = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticout_again2\Kinematics.main.any";
+          Description.Files = PROJECT_PATH+"\Data\"+"SC\Static Trials\SC_staticout_again2\output_log.txt";
+        };
+      };
+    };
+  };
+  AnyProjectTaskFolder TestSubject = { 
+    AnyProjectTaskFolder Trial_Gait_4 = { 
+      AnyProjectTaskLoadModel  InverseDynamicsModel= { 
+        MainFile = PROJECT_PATH+"\Data\"+"TestSubject\Trial Gait 4\InverseDynamicsModel.main.any";
+        Description.Files = PROJECT_PATH+"\Data\"+"TestSubject\Trial Gait 4\output_log.txt";
+      };
+      AnyProjectTaskLoadModel  KinematicModel= { 
+        MainFile = PROJECT_PATH+"\Data\"+"TestSubject\Trial Gait 4\KinematicModel.main.any";
+        Description.Files = PROJECT_PATH+"\Data\"+"TestSubject\Trial Gait 4\output_log.txt";
+      };
+    };
+  };
+};

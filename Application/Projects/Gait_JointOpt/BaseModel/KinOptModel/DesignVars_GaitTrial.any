@@ -43,19 +43,22 @@
       };
    #endif
    #if IncludeAnkle == 1
-      AnyDesVar RShankAnkleJointXRot =  {
-        Val = .ModelRef.Right.Seg.Shank.AnkleJoint.xRot;
-      };
-      AnyDesVar RShankAnkleJointYRot =  {
-        Val = .ModelRef.Right.Seg.Shank.AnkleJoint.yRot;
-      };
       AnyDesVar RShankAnkleJointXPos =  {
         Val = .ModelRef.Right.Seg.Shank.AnkleJoint.sRel[0];
       };    
       AnyDesVar RShankAnkleJointYPos =  {
         Val = .ModelRef.Right.Seg.Shank.AnkleJoint.sRel[1];
+      };          
+      AnyDesVar RFootSubtalarJointXPos =  {
+        Val = .ModelRef.Right.Seg.Foot.SubtalarJoint.sRel[0];
       };      
-    #endif
+      AnyDesVar RFootSubtalarJointYPos =  {
+        Val = .ModelRef.Right.Seg.Foot.SubtalarJoint.sRel[1];
+      };    
+      AnyDesVar RFootSubtalarJointZPos =  {
+        Val = .ModelRef.Right.Seg.Foot.SubtalarJoint.sRel[2];
+      };   
+      #endif
 #endif
 
 
@@ -104,17 +107,21 @@
       };
    #endif
    #if IncludeAnkle == 1
-      AnyDesVar LShankAnkleJointXRot =  {
-        Val = .ModelRef.Left.Seg.Shank.AnkleJoint.xRot;
-      };
-      AnyDesVar LShankAnkleJointYRot =  {
-        Val = .ModelRef.Left.Seg.Shank.AnkleJoint.yRot;
-      };   
       AnyDesVar LShankAnkleJointXPos =  {
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.sRel[0];
       };    
       AnyDesVar LShankAnkleJointYPos =  {
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.sRel[1];
+      };   
+   
+      AnyDesVar LFootSubtalarJointXPos =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[0];
+      };      
+      AnyDesVar LFootSubtalarJointYPos =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[1];
+      }; 
+      AnyDesVar LFootSubtalarJointZPos =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[2];
       };   
       #endif
 #endif

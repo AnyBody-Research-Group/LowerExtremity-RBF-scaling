@@ -1,10 +1,11 @@
 #define IncludeRight 1
 #define IncludeLeft 1
-#define IncludeKnee 0
-#define IncludeHip 0
+#define IncludeKnee 1
+#define IncludeHip 1
 #define IncludeAnkle 1
 #define UseDanamicLoadPosition 0
 #define HideStickModelGraphics 0
+
 
 
 #include "<BASE_MODEL_PATH>/KinematicModel.main.any"
@@ -21,8 +22,7 @@ Main = {
     AnyOperationMacro RunApplication=  {
       MacroStr = { "classoperation Main" + strquote("Load Values") 
                     + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_FootPos.anyset",
-                   "operation Main.JntParameterOptModel.Load_RightAnkleParameters","run",
-                   "operation Main.JntParameterOptModel.Load_LeftAnkleParameters","run",
+                   "operation Main.Load_JointTrialParameters","run",
                    "operation Main.FootPosModel.study.InitialConditions","run",
                    "operation Main.FootPosModel.SaveAnkleJointPar.UpdateDesign","run",
                    "classoperation Main.FootPosModel.SaveAnkleJointPar" 

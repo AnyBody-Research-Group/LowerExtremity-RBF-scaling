@@ -6,6 +6,7 @@ AnyFolder ModelSetup ={
   AnyInputC3D DynamicDataSet = 
   {
     FileName =  Main.TrialSpecificData.C3DFileNameDynamic;
+    ConstructWeightFunUsingResidualOnOff = Off;
     PointsScaleFactor = 0.001;
     ConstructModelOnOff = Off;
     ConstructChartOnOff = Off;
@@ -13,6 +14,9 @@ AnyFolder ModelSetup ={
     MarkerUseCamMaskOnOff = Off;
     MarkerScaleXYZ = {0.01,0.01,0.01};
     MarkerRGB = {1,1,0};
+//    MarkerLabels = {"Sternum","Neck","RShoulder","LShoulder","Xiphoid","Thoracic","RAsis","LAsis","RPsis","LPsis","Lumbar","RElbow","RWrist","RRadius","RUlna","LElbow","LWrist","LUlna","LRadius","LThighSuperior","LThighInferior","LThighLateral","LPatella","LShankSuperior","LShankInferior","LShankLateral","RThighSuperior","RThighInferior","RThighLateral","RPatella","RShankLateral","RShankSuperior","RShankInferior","RHeel","RToe","RMidfootMedial","RMidfootLateral","RHindfoot","RMidfootSuperior","RToeMedial","RToeMedial","RToeLateral","LHeel","LToe","LMidfootMedial","LMidfootLateral","LHindfoot","LMidfootSuperior","LToeMedial","LToeLateral","LShoulderCenter","Sacral"};
+
+
     Filter = 
     {
     AutomaticInitialConditionOnOff = On;
@@ -25,7 +29,7 @@ AnyFolder ModelSetup ={
   
   AnyInputC3D StaticData = 
   {
-    FileName =  Main.TrialSpecificData.C3DFileNameStatic;
+    FileName =  Main.SubjectSpecificData.C3DFileNameStatic;
     PointsScaleFactor = 0.001;
     ConstructModelOnOff = Off;
     ConstructChartOnOff = Off;
@@ -41,13 +45,12 @@ AnyFolder ModelSetup ={
   AnyFloatVar  tEnd = Main.TrialSpecificData.LastFrameNo/Main.TrialSpecificData.FrameRate; 
   
   AnyFolder Files = {
-    AnyStringVar RightHipParameters = TEMP_FILE_PATH + Main.TrialSpecificData.RightHipParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar LeftHipParameters = TEMP_FILE_PATH + Main.TrialSpecificData.LeftHipParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar LeftAnkleParameters = TEMP_FILE_PATH + Main.TrialSpecificData.LeftAnkleParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + Main.TrialSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar GaitParameters = TEMP_FILE_PATH + Main.TrialSpecificData.GaitParametersTrial + "_OptimizedParameters.txt";
-//    AnyStringVar GaitParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_Gait_" + "_OptimizedParameters.txt";
-    AnyStringVar AllParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
+    AnyStringVar RightHipParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.RightHipParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftHipParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.LeftHipParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftAnkleParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.LeftAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar GaitParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.GaitParametersTrial + "_OptimizedParameters.txt";
+//    AnyStringVar AllParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
     
     AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";
     AnyFileVar OptimizedMotionLeftLegTD = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "-output-euler-leftlegtd.txt";

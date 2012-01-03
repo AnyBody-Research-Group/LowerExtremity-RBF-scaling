@@ -1,7 +1,6 @@
 #define IncludeHip 1
 #define IncludeKnee 1
-#define IncludeAnkle 0
-#define FULL_MARKERSET
+#define IncludeAnkle 1
 
 #define UseDanamicLoadPosition 1
 #define EnableJointAxisScaling 1

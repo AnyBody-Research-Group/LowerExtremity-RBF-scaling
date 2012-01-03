@@ -3,7 +3,7 @@ AnyFolder StickFigure = {
 
   
   AnyIntVar FirstFrameDynamic = Main.TrialSpecificData.StartFrameNo - Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo;
-  AnyIntVar FirstFrameStatic = Main.TrialSpecificData.StaticFrameIndex; 
+  AnyIntVar FirstFrameStatic = Main.SubjectSpecificData.StaticFrameIndex; 
   
   
   AnyFolder Posture = {
