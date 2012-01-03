@@ -160,7 +160,25 @@ Right ={
   
   // Definition of cylinder used for wrapping of the psoas major muscle
   
-  AnyRefNode pecent_ossis_pubis={ 
+  
+  AnyRefNode pecent_ossis_pubis ={ 
+    AnyVec3 P1 = ..Scale({ 0.065,-0.09,0.095 });
+    AnyVec3 P2 = ..Scale({  0.07,-0.12,0.06 });
+    AnyVec3 P3 = ..HipJointRightTD.sRel+{0,0.025,0};//..Scale({ 0.06,-0.09,0.08 });
+    AnyVar Radius = 0.04;
+    AnyVar Length = 0.2;
+    
+    ARel = RotMat(P1,P2,P3)*RotMat(pi/2,y)*.ARel;
+    sRel = ( P1+Radius*ARel'[1]-Length/2*ARel'[2] -.sRel)*.ARel;
+    AnySurfCylinder cyl = { 
+      Radius = .Radius;
+      Length= .Length;
+      AnyDrawParamSurf drw={RGB={0,1,1};Visible = Off; Opacity = 0.5;};
+    };
+    
+  };  
+  
+  AnyRefNode pecent_ossis_pubisOLD={ 
     sRel=  ..Scale({0.04,-0.13,0.048});
     AnyVec3 p2=..Scale(0.1*{0,0.743294,0.668965}+{0.04,-0.13,0.048});
     
@@ -186,7 +204,7 @@ Right ={
       //Radius= ...HipJointRightTD.pecent_ossis_pubis.cyl.Radius;
       //The lenght are extended by 25% too improve wrapping stability in extreme cases
       Length= 1.25*((.sRel[0]-.p2[0])^2+(.sRel[1]-.p2[1])^2+(.sRel[2]-.p2[2])^2)^0.5;
-      //AnyDrawParamSurf drw={RGB={0,1,0};};
+      AnyDrawParamSurf drw={RGB={0,1,0};Visible = Off; Opacity = 0.5;};
     };
   }; 
   
@@ -198,14 +216,30 @@ Left ={
     sRel = {..Right.IliopubicEminenceEndNode.sRel[0],..Right.IliopubicEminenceEndNode.sRel[1],..Right.IliopubicEminenceEndNode.sRel[2]*-1};
   };
   
-
-  AnyRefNode pecent_ossis_pubis={ 
+  AnyRefNode pecent_ossis_pubis ={ 
+    AnyVec3 P1 = ..Scale({ 0.065,-0.09,-0.095 });
+    AnyVec3 P2 = ..Scale({  0.07,-0.12,-0.06 });
+    AnyVec3 P3 = ..HipJointLeftTD.sRel+{0,0.025,0};//..Scale({ 0.06,-0.09,0.08 });
+    AnyVar Radius = 0.04;
+    AnyVar Length = 0.2;
     
-    sRel=  {..Right.pecent_ossis_pubis.sRel[0],..Right.pecent_ossis_pubis.sRel[1],..Right.pecent_ossis_pubis.sRel[2]*-1};
+    ARel = RotMat(P1,P2,P3)*RotMat(pi/2,y)*.ARel;
+    sRel = ( P1+Radius*ARel'[1]-Length/2*ARel'[2] -.sRel)*.ARel;
+    AnySurfCylinder cyl = { 
+      Radius = .Radius;
+      Length= .Length;
+      AnyDrawParamSurf drw={RGB={0,1,1};Visible = Off; Opacity = 0.5;};
+    };
     
-    AnyVec3 p2= {..Right.pecent_ossis_pubis.p2[0],..Right.pecent_ossis_pubis.p2[1],..Right.pecent_ossis_pubis.p2[2]*-1};
+  };
+  
+  AnyRefNode pecent_ossis_pubisOLD={ 
     
-    AnyVec3 p3= {..Right.pecent_ossis_pubis.p3[0],..Right.pecent_ossis_pubis.p3[1],..Right.pecent_ossis_pubis.p3[2]*-1};
+    sRel=  {..Right.pecent_ossis_pubisOLD.sRel[0],..Right.pecent_ossis_pubisOLD.sRel[1],..Right.pecent_ossis_pubisOLD.sRel[2]*-1};
+    
+    AnyVec3 p2= {..Right.pecent_ossis_pubisOLD.p2[0],..Right.pecent_ossis_pubisOLD.p2[1],..Right.pecent_ossis_pubisOLD.p2[2]*-1};
+    
+    AnyVec3 p3= {..Right.pecent_ossis_pubisOLD.p3[0],..Right.pecent_ossis_pubisOLD.p3[1],..Right.pecent_ossis_pubisOLD.p3[2]*-1};
     
     
     //Calculate rot matrix for cylinder using three points
@@ -226,7 +260,7 @@ Left ={
       //This radius is a little more accurate but causes an error, to be fixed.
       //Radius= ...HipJointLeftTD.pecent_ossis_pubis.cyl.Radius;
       Length= 1.25*((.sRel[0]-.p2[0])^2+(.sRel[1]-.p2[1])^2+(.sRel[2]-.p2[2])^2)^0.5;
-      //AnyDrawParamSurf drw={RGB={0,1,0};};
+      AnyDrawParamSurf drw={RGB={0,1,0};Visible = Off; Opacity = 0.5;};
     };
     
   }; 

@@ -86,10 +86,35 @@ HipNodeRef = {
   };
   
   
+
   
   
+  AnyRefNode pecent_ossis_pubis ={ 
+    AnyVec3 P1 = ..Scaling.GeometricalScaling.Pelvis.ScaleFunction( { 0.06,-0.1,..Sign*0.095 } );
+    AnyVec3 P2 = ..Scaling.GeometricalScaling.Pelvis.ScaleFunction({  0.07,-0.11,..Sign*0.07 });
+    AnyVec3 P3 = .sRel+{0,0.01,0};//..Scale({ 0.06,-0.09,0.08 });
+    AnyVar Radius = 0.04;
+    AnyVar Length = 0.2;
+    
+    ARel =.ARel'*A;
+    AnyMat33 A = RotMat(P1,P2,P3)*RotMat(pi/2,y);
+    //sRel = ( P1-.sRel)*.ARel;
+    sRel = ( P1+Radius*A'[1]-Length/2*A'[2] -.sRel)*.ARel;
+//    sRel = ( P1 -.sRel)*.ARel + Radius*ARel'[1];
+
+    AnyDrawRefFrame drw={RGB={1,0,1};ScaleXYZ = 0.05*{1,1,1};};
+    
+    AnyRefNode Translate = {
+      AnySurfCylinder cyl = { 
+        Radius = ..Radius;
+        Length= ..Length;
+        AnyDrawParamSurf drw={RGB={1,1,0};Visible = On; Opacity = 0.5;};
+      };
+    };
+  };
+
   
-  AnyRefNode pecent_ossis_pubis={
+  AnyRefNode pecent_ossis_pubisOLD={
     sRel=.P1_scaled.sRel; 
     ARel=.P1_scaled.ARel;
 
@@ -102,7 +127,9 @@ HipNodeRef = {
         //Radius= ...HipJointRightTD.pecent_ossis_pubis.cyl.Radius;
         //The lenght are extended by 25% too improve wrapping stability in extreme cases
         Length= 1.5*((..sRel[0]-...P2_scaled.sRel[0])^2+(..sRel[1]-...P2_scaled.sRel[1])^2+(..sRel[2]-...P2_scaled.sRel[2])^2)^0.5;
-
+            AnyDrawParamSurf drv = {
+              Opacity = 0.5;RGB = {1,0,0}; Visible = Off;
+            }; 
       };
     };
     

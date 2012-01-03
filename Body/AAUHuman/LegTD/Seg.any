@@ -1272,7 +1272,7 @@ AnySeg Thigh = {
   
   // This cylinder describes the wrapping surface of the femur 
   // epicondyle for the Gastrocnemius lateralis en medialis. 
-  AnyRefNode CylCenter = { 
+  AnyRefNode CylCenterOLD = { 
     sRel = .Scale({0.0606, -0.4022, ...Sign*-0.0175}); 
     //    AnyDrawRefFrame drws = {};
     AnyVar Ci = iffun(ltfun(...Sign,0), 1, 0);
@@ -1284,13 +1284,38 @@ AnySeg Thigh = {
       Radius = ScaledRadius[1];
       
       Length = 0.1; // not correct, random input
-      //      AnyDrawParamSurf drv = {
-      //        Opacity = 1;
-      //      }; 
+            AnyDrawParamSurf drv = {
+              Opacity = 1; Visible = Off;
+            }; 
     };
   
   
   };
+
+
+  
+  AnyRefNode CylCenter = { 
+    AnyVec3 P1 = .Scale( {0.035, -0.400, ...Sign*-0.022} );
+    AnyVec3 P2 = .Scale({  0.015, -0.40, ...Sign*0.03});
+    AnyVec3 P3 = .Scale(.StdPar.PatellaTendonOrigin);//.KneeJoint.sRel;//sRel+{0,0.020,0};//..Scale({ 0.06,-0.09,0.08 });
+    AnyVar Radius = 0.02;
+    AnyVar Length = 0.15;
+    
+    ARel = RotMat(P1,P2,P3)*RotMat(pi/2,y);
+    //sRel = ( P1-.sRel)*.ARel;
+    sRel =  P1+Radius*ARel'[1]-Length/4*ARel'[2];
+    //sRel = ( P1+Radius*ARel'[1]-Length/2*ARel'[2] -.sRel)*.ARel;
+//    sRel = ( P1 -.sRel)*.ARel + Radius*ARel'[1];
+
+    AnyDrawRefFrame drw={RGB={1,0,1};ScaleXYZ = 0.05*{1,1,1};};
+    
+      AnySurfCylinder WrapSurf= { 
+        Radius = .Radius;
+        Length= .Length;
+        AnyDrawParamSurf drw={RGB={1,1,0};Visible = On; Opacity = 0.5;};
+      };
+  };
+  
 };
 // End of Thigh
 
