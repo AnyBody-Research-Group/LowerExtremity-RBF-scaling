@@ -12,32 +12,18 @@ AnyFolder Seg = {
     JaboutCoMOnOff = On;
         
     AnyRefNode RHipJoint = {
-      // See Mannequin.any for calculated values
-//	#if UseAnatomicalValuesRightHip 
         sRel =  { -0.06371582, -0.08784103, 0.1137453};
-        //sRel = .....StickFigure.Posture.Trunk.Pelvis.RHipJoint.sRel_static;    
-//      #else 
-//        sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset;
-//      #endif
     };
     
     AnyRefNode LHipJoint = {
-//	#if UseAnatomicalValuesLeftHip == 1 
         sRel =  {-0.06371582, -0.0877099, -0.1137453};
-//.....StickFigure.Posture.Trunk.Pelvis.LHipJoint.sRel_static;    
-//      #else 
-//      sRel = Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHip_sRel;//+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset;
-//      #endif
     };
     
     
 #if HideStickModelGraphics == 0
 AnyDrawSeg drwSeg = 
 {
-  //Visible = On;
-  //Opacity = 1;
   RGB = {0, 0.76953125, 0};
-  //Transparency = 1;
   InertiaScale=0.5;
 };
 #endif
