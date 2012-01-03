@@ -29,9 +29,13 @@
      
      // Calculate a scale factor for the knee based on the knee width
      #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
-     AnyVar KneeWidth = Main.SubjectSpecificData.Anthropometrics.KneeWidth;
-     AnyVar KneeWidthLateral = KneeWidth*0.3987; // This hard coded value must be the same as in the sticfigure.any
-     AnyVar KneeWidthMedial = KneeWidth-KneeWidthLateral ;
+       AnyVar KneeWidth = Main.SubjectSpecificData.Anthropometrics.KneeWidth;
+       #ifndef USE_STATIC_MODEL
+       AnyVar KneeWidthLateral = KneeWidth*0.3987; // This hard coded value must be the same as in the sticfigure.any
+       #else
+       AnyVar KneeWidthLateral = KneeWidth*0.5; // This hard coded value must be the same as in the sticfigure.any
+       #endif
+       AnyVar KneeWidthMedial = KneeWidth-KneeWidthLateral ;
      #else
       AnyVar KneeWidth = vnorm(sMedKneeMarker  - sLatKneeMarker )-2*MarkerRadius;
      #endif
@@ -40,9 +44,13 @@
      
      // Calculate a scale factor for the ankle based on the ankle width
      #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
-     AnyVar AnkleWidth = Main.SubjectSpecificData.Anthropometrics.AnkleWidth ;
-     AnyVar AnkleWidthLateral = AnkleWidth*0.5204;  // This hard coded value must be the same as in the sticfigure.any
-     AnyVar AnkleWidthMedial = AnkleWidth-AnkleWidthLateral ;
+       AnyVar AnkleWidth = Main.SubjectSpecificData.Anthropometrics.AnkleWidth ;
+       #ifndef USE_STATIC_MODEL
+       AnyVar AnkleWidthLateral = AnkleWidth*0.5204;  // This hard coded value must be the same as in the sticfigure.any
+       #else
+       AnyVar AnkleWidthLateral = AnkleWidth*0.5;  // This hard coded value must be the same as in the sticfigure.any
+       #endif
+       AnyVar AnkleWidthMedial = AnkleWidth-AnkleWidthLateral ;
      #else
      AnyVar AnkleWidth = vnorm(sMedAnkleMarker - sLatAnkleMarker )-2*MarkerRadius;
      #endif

@@ -1,5 +1,6 @@
 #include "../../../../BaseModel/PreMainIncludes.any"
 #define IncludeLegTDModel 1
+#define USE_STATIC_MODEL
 
 Main = {
  #include "TrialSpecificData.any" 
