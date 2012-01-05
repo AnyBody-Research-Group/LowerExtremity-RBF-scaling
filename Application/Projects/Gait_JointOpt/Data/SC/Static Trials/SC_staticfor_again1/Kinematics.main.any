@@ -1,5 +1,4 @@
 #include "../../../../BaseModel/PreMainIncludes.any"
-#define USE_STATIC_MODEL
 
 Main = {
  #include "TrialSpecificData.any" 

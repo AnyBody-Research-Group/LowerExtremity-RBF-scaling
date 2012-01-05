@@ -16,22 +16,17 @@ Main = {
      
     AnyOperationMacro Save_Marker_Widget_Values=  {
       MacroStr = { "classoperation Main " + strquote("Save Values") 
-        + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_FootPos.anyset"};    
+        + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset"};    
     };
       
     AnyOperationMacro RunApplication=  {
       MacroStr = { "classoperation Main" + strquote("Load Values") 
-                    + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_FootPos.anyset",
+                    + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset",
                    "operation Main.Load_JointTrialParameters","run",
-                   "operation Main.FootPosModel.study.InitialConditions","run",
-                   "operation Main.FootPosModel.SaveAnkleJointPar.UpdateDesign","run",
-                   "classoperation Main.FootPosModel.SaveAnkleJointPar" 
-                   + strquote("Save design") + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName +"_AnklePositions.txt"};
+                   "operation Main.FootPosModel.study.InitialConditions","run"};
     };
     
 };  // Main
-
-
 
 
 AnyFolder FootPosModel = {
@@ -84,12 +79,6 @@ AnyFolder Left = {
   };
 };//Left
  
-
-
-
-
-  //  
-//  
   
   
    AnyKinStudy study = {
@@ -108,8 +97,9 @@ AnyFolder Left = {
          InitialConditions.PosAnalysisOnlyOnOff=On;
          Kinematics.PosAnalysisOnlyOnOff=On; 
 
-   AnyFolder FootPar = {
-    
+   AnyFolder FootPar = {       
+
+     
       AnyFolder &sfRTalus= .LegModel.Right.Seg.Talus;
       AnyFolder &sfRFoot= .LegModel.Right.Seg.Foot;
       AnyFolder &sfLTalus= .LegModel.Left.Seg.Talus;
@@ -128,17 +118,94 @@ AnyFolder Left = {
       AnyMat33 RFootSubtalarJointRot = RFootref.Axes'*(sfRFoot.Axes*sfRFoot.DriveNodeSubtalar.ARel);
 
       
-      
       AnyVec3 LAnkleJointPos = (sfLTalus.r + sfLTalus.AnkleJoint.sRel*sfLTalus.Axes'-LFootref.r)*LFootref.Axes;
       AnyVec3 LSubtalarJointPos = (sfLFoot.r + sfLFoot.SubtalarJoint.sRel*sfLFoot.Axes'-LFootref.r)*LFootref.Axes;
       AnyMat33 LAnkleJointRot = LFootref.Axes'*(sfLTalus.Axes*sfLTalus.DriveNodeAnkle.ARel);
       AnyMat33 LSubtalarJointRot = LFootref.Axes'*(sfLTalus.Axes*sfLTalus.DriveNodeSubtalar.ARel);
       AnyMat33 LFootSubtalarJointRot = LFootref.Axes'*(sfLFoot.Axes*sfLFoot.DriveNodeSubtalar.ARel);
     
-    
-    
-    
-    };
+      
+      AnyFolder SaveToAnySetFile = {
+        
+        
+     AnyFunEx SaveAnySetValue = 
+     {
+       // Return type shoud be of same length as TrialForce*UnComp
+       AnyInt Return = 0;
+       AnyFunExMonoPy save_vec3=
+       {
+        ModuleFile = "save_anyset_file.py";
+         ArgList = 
+         {
+           AnyString filename = "Test file name";
+           AnyString varname =  "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel";
+           AnyVec3 var = {0.3434,0.3434,0.3434};
+         };
+       };
+       AnyFunExMonoPy save_anymat33=
+       {
+        ModuleFile = "save_anyset_file.py";
+         ArgList = 
+         {
+           AnyString filename = "Test file name";
+           AnyString varname =  "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel";
+           AnyMat33 var = {{1.0,1.0,1.0},{2,2,2},{3,3,3}};
+         };
+       };
+     };
+     
+     AnyString anysetfile = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_Ankle_Joint_Parameters.anyset";
+
+     
+     AnyInt ret0 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Right.Foot.ScaleFunction.ScaleMat",
+                           .RScaleMat );
+     AnyInt ret00 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Left.Foot.ScaleFunction.ScaleMat",
+                           .LScaleMat );
+     AnyInt ret1 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.sRel",
+                           .RAnkleJointPos);
+     AnyInt ret2 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel",
+                           .RAnkleJointRot);
+     AnyInt ret3 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel",
+                           .RSubtalarJointPos);
+     AnyInt ret4 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel",
+                           .RSubtalarJointRot );
+     AnyInt ret5 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.sRel",
+                           .RSubtalarJointPos );
+     AnyInt ret6 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel",
+                           .RFootSubtalarJointRot );
+                           
+     AnyInt ret7 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.sRel",
+                           .LAnkleJointPos);
+     AnyInt ret8 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.ARel",
+                           .LAnkleJointRot);
+     AnyInt ret9 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.sRel",
+                           .LSubtalarJointPos);
+     AnyInt ret10 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel",
+                           .LSubtalarJointRot );
+     AnyInt ret11 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.sRel",
+                           .LSubtalarJointPos );
+     AnyInt ret12 = SaveAnySetValue(anysetfile,
+             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.ARel",
+                           .LFootSubtalarJointRot );                           
+                                 
+      
+      
+      };
+          
+  };
   
 };
 
@@ -146,231 +213,6 @@ AnyFolder Left = {
    
    
 
-  AnyDesEvalStudy SaveAnkleJointPar = {   
-    
-    
-    // Foot Scaling parameters
-     AnyDesVar RScaleMat00 = {Val= 0; };
-     AnyDesMeasure mRScaleMat00 = {Val = ..study.FootPar.RScaleMat[0][0];}; 
-     AnyDesVar RScaleMat01 = {Val= 0; };
-     AnyDesMeasure mRScaleMat01 = {Val = ..study.FootPar.RScaleMat[0][1];}; 
-     AnyDesVar RScaleMat02 = {Val= 0; };
-     AnyDesMeasure mRScaleMat02 = {Val = ..study.FootPar.RScaleMat[0][2];}; 
-     
-     AnyDesVar RScaleMat10 = {Val= 0; };
-     AnyDesMeasure mRScaleMat10 = {Val = ..study.FootPar.RScaleMat[1][0];}; 
-     AnyDesVar RScaleMat11 = {Val= 0; };
-     AnyDesMeasure mRScaleMat11 = {Val = ..study.FootPar.RScaleMat[1][1];}; 
-     AnyDesVar RScaleMat12 = {Val= 0; };
-     AnyDesMeasure mRScaleMat12 = {Val = ..study.FootPar.RScaleMat[1][2];}; 
-
-     AnyDesVar RScaleMat20 = {Val= 0; };
-     AnyDesMeasure mRScaleMat20 = {Val = ..study.FootPar.RScaleMat[2][0];}; 
-     AnyDesVar RScaleMat21 = {Val= 0; };
-     AnyDesMeasure mRScaleMat21 = {Val = ..study.FootPar.RScaleMat[2][1];}; 
-     AnyDesVar RScaleMat22 = {Val= 0; };
-     AnyDesMeasure mRScaleMat22 = {Val = ..study.FootPar.RScaleMat[2][2];}; 
-             
-    // AnkleJoint Pos
-     AnyDesVar RAnkleJointPos0 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointPos0 = {Val = ..study.FootPar.RAnkleJointPos[0];}; 
-     AnyDesVar RAnkleJointPos1 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointPos1 = {Val = ..study.FootPar.RAnkleJointPos[1];}; 
-     AnyDesVar RAnkleJointPos2 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointPos2 = {Val = ..study.FootPar.RAnkleJointPos[2];}; 
-
-     // AnkleJoint Rotation maxtrix
-     AnyDesVar RAnkleJointRot00 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot00 = {Val = ..study.FootPar.RAnkleJointRot[0][0];}; 
-     AnyDesVar RAnkleJointRot01= {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot01= {Val = ..study.FootPar.RAnkleJointRot[0][1];}; 
-     AnyDesVar RAnkleJointRot02 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot02 = {Val = ..study.FootPar.RAnkleJointRot[0][2];}; 
-     
-     AnyDesVar RAnkleJointRot10 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot10 = {Val = ..study.FootPar.RAnkleJointRot[1][0];}; 
-     AnyDesVar RAnkleJointRot11= {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot11= {Val = ..study.FootPar.RAnkleJointRot[1][1];}; 
-     AnyDesVar RAnkleJointRot12 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot12 = {Val = ..study.FootPar.RAnkleJointRot[1][2];}; 
-     
-     AnyDesVar RAnkleJointRot20 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot20 = {Val = ..study.FootPar.RAnkleJointRot[2][0];}; 
-     AnyDesVar RAnkleJointRot21= {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot21= {Val = ..study.FootPar.RAnkleJointRot[2][1];}; 
-     AnyDesVar RAnkleJointRot22 = {Val= 0; };
-     AnyDesMeasure mRAnkleJointRot22 = {Val = ..study.FootPar.RAnkleJointRot[2][2];}; 
-          
-     
-     
-     
-     
-//    // SubtalarJoint Pos 
-     AnyDesVar RSubtalarJointPos0 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointPos0 = {Val = ..study.FootPar.RSubtalarJointPos[0];}; 
-     AnyDesVar RSubtalarJointPos1 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointPos1 = {Val = ..study.FootPar.RSubtalarJointPos[1];}; 
-     AnyDesVar RSubtalarJointPos2 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointPos2 = {Val = ..study.FootPar.RSubtalarJointPos[2];}; 
-
-     // RSubtalarJoint Rotations
-     AnyDesVar RSubtalarJointRot00 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot00 = {Val = ..study.FootPar.RSubtalarJointRot[0][0];}; 
-     AnyDesVar RSubtalarJointRot01= {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot01= {Val = ..study.FootPar.RSubtalarJointRot[0][1];}; 
-     AnyDesVar RSubtalarJointRot02 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot02 = {Val = ..study.FootPar.RSubtalarJointRot[0][2];}; 
-     
-     AnyDesVar RSubtalarJointRot10 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot10 = {Val = ..study.FootPar.RSubtalarJointRot[1][0];}; 
-     AnyDesVar RSubtalarJointRot11= {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot11= {Val = ..study.FootPar.RSubtalarJointRot[1][1];}; 
-     AnyDesVar RSubtalarJointRot12 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot12 = {Val = ..study.FootPar.RSubtalarJointRot[1][2];}; 
-     
-     AnyDesVar RSubtalarJointRot20 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot20 = {Val = ..study.FootPar.RSubtalarJointRot[2][0];}; 
-     AnyDesVar RSubtalarJointRot21= {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot21= {Val = ..study.FootPar.RSubtalarJointRot[2][1];}; 
-     AnyDesVar RSubtalarJointRot22 = {Val= 0; };
-     AnyDesMeasure mRSubtalarJointRot22 = {Val = ..study.FootPar.RSubtalarJointRot[2][2];}; 
-   
-     // Subtalar Rot in foot
-     AnyDesVar RFootSubtalarJointRot00 = {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot00 = {Val = ..study.FootPar.RFootSubtalarJointRot[0][0];}; 
-     AnyDesVar RFootSubtalarJointRot01= {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot01= {Val = ..study.FootPar.RFootSubtalarJointRot[0][1];}; 
-     AnyDesVar RFootSubtalarJointRot02 = {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot02 = {Val = ..study.FootPar.RFootSubtalarJointRot[0][2];}; 
-     
-     AnyDesVar RFootSubtalarJointRot10 = {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot10 = {Val = ..study.FootPar.RFootSubtalarJointRot[1][0];}; 
-     AnyDesVar RFootSubtalarJointRot11= {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot11= {Val = ..study.FootPar.RFootSubtalarJointRot[1][1];}; 
-     AnyDesVar RFootSubtalarJointRot12 = {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot12 = {Val = ..study.FootPar.RFootSubtalarJointRot[1][2];}; 
-     
-     AnyDesVar RFootSubtalarJointRot20 = {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot20 = {Val = ..study.FootPar.RFootSubtalarJointRot[2][0];}; 
-     AnyDesVar RFootSubtalarJointRot21= {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot21= {Val = ..study.FootPar.RFootSubtalarJointRot[2][1];}; 
-     AnyDesVar RFootSubtalarJointRot22 = {Val= 0; };
-     AnyDesMeasure mRFootSubtalarJointRot22 = {Val = ..study.FootPar.RFootSubtalarJointRot[2][2];}; 
-        
-     
-     
-//     
-     // LEFT
-     
-     
-    // Foot Scaling parameters
-     AnyDesVar LScaleMat00 = {Val= 0; };
-     AnyDesMeasure mLScaleMat00 = {Val = ..study.FootPar.LScaleMat[0][0];}; 
-     AnyDesVar LScaleMat01 = {Val= 0; };
-     AnyDesMeasure mLScaleMat01 = {Val = ..study.FootPar.LScaleMat[0][1];}; 
-     AnyDesVar LScaleMat02 = {Val= 0; };
-     AnyDesMeasure mLScaleMat02 = {Val = ..study.FootPar.LScaleMat[0][2];}; 
-     
-     AnyDesVar LScaleMat10 = {Val= 0; };
-     AnyDesMeasure mLScaleMat10 = {Val = ..study.FootPar.LScaleMat[1][0];}; 
-     AnyDesVar LScaleMat11 = {Val= 0; };
-     AnyDesMeasure mLScaleMat11 = {Val = ..study.FootPar.LScaleMat[1][1];}; 
-     AnyDesVar LScaleMat12 = {Val= 0; };
-     AnyDesMeasure mLScaleMat12 = {Val = ..study.FootPar.LScaleMat[1][2];}; 
-
-     AnyDesVar LScaleMat20 = {Val= 0; };
-     AnyDesMeasure mLScaleMat20 = {Val = ..study.FootPar.LScaleMat[2][0];}; 
-     AnyDesVar LScaleMat21 = {Val= 0; };
-     AnyDesMeasure mLScaleMat21 = {Val = ..study.FootPar.LScaleMat[2][1];}; 
-     AnyDesVar LScaleMat22 = {Val= 0; };
-     AnyDesMeasure mLScaleMat22 = {Val = ..study.FootPar.LScaleMat[2][2];}; 
-             
-
-     // AnkleJoint Pos
-     AnyDesVar LAnkleJointPos0 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointPos0 = {Val = ..study.FootPar.LAnkleJointPos[0];}; 
-     AnyDesVar LAnkleJointPos1 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointPos1 = {Val = ..study.FootPar.LAnkleJointPos[1];}; 
-     AnyDesVar LAnkleJointPos2 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointPos2 = {Val = ..study.FootPar.LAnkleJointPos[2];}; 
-
-     // AnkleJoint Rotation maxtrix
-     AnyDesVar LAnkleJointRot00 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot00 = {Val = ..study.FootPar.LAnkleJointRot[0][0];}; 
-     AnyDesVar LAnkleJointRot01= {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot01= {Val = ..study.FootPar.LAnkleJointRot[0][1];}; 
-     AnyDesVar LAnkleJointRot02 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot02 = {Val = ..study.FootPar.LAnkleJointRot[0][2];}; 
-     
-     AnyDesVar LAnkleJointRot10 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot10 = {Val = ..study.FootPar.LAnkleJointRot[1][0];}; 
-     AnyDesVar LAnkleJointRot11= {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot11= {Val = ..study.FootPar.LAnkleJointRot[1][1];}; 
-     AnyDesVar LAnkleJointRot12 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot12 = {Val = ..study.FootPar.LAnkleJointRot[1][2];}; 
-     
-     AnyDesVar LAnkleJointRot20 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot20 = {Val = ..study.FootPar.LAnkleJointRot[2][0];}; 
-     AnyDesVar LAnkleJointRot21= {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot21= {Val = ..study.FootPar.LAnkleJointRot[2][1];}; 
-     AnyDesVar LAnkleJointRot22 = {Val= 0; };
-     AnyDesMeasure mLAnkleJointRot22 = {Val = ..study.FootPar.LAnkleJointRot[2][2];}; 
-          
-//    // SubtalarJoint Pos 
-     AnyDesVar LSubtalarJointPos0 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointPos0 = {Val = ..study.FootPar.LSubtalarJointPos[0];}; 
-     AnyDesVar LSubtalarJointPos1 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointPos1 = {Val = ..study.FootPar.LSubtalarJointPos[1];}; 
-     AnyDesVar LSubtalarJointPos2 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointPos2 = {Val = ..study.FootPar.LSubtalarJointPos[2];}; 
-
-     // LSubtalarJoint Rotations
-     AnyDesVar LSubtalarJointRot00 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot00 = {Val = ..study.FootPar.LSubtalarJointRot[0][0];}; 
-     AnyDesVar LSubtalarJointRot01= {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot01= {Val = ..study.FootPar.LSubtalarJointRot[0][1];}; 
-     AnyDesVar LSubtalarJointRot02 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot02 = {Val = ..study.FootPar.LSubtalarJointRot[0][2];}; 
-     
-     AnyDesVar LSubtalarJointRot10 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot10 = {Val = ..study.FootPar.LSubtalarJointRot[1][0];}; 
-     AnyDesVar LSubtalarJointRot11= {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot11= {Val = ..study.FootPar.LSubtalarJointRot[1][1];}; 
-     AnyDesVar LSubtalarJointRot12 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot12 = {Val = ..study.FootPar.LSubtalarJointRot[1][2];}; 
-     
-     AnyDesVar LSubtalarJointRot20 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot20 = {Val = ..study.FootPar.LSubtalarJointRot[2][0];}; 
-     AnyDesVar LSubtalarJointRot21= {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot21= {Val = ..study.FootPar.LSubtalarJointRot[2][1];}; 
-     AnyDesVar LSubtalarJointRot22 = {Val= 0; };
-     AnyDesMeasure mLSubtalarJointRot22 = {Val = ..study.FootPar.LSubtalarJointRot[2][2];}; 
-
-     // Subtalar Rot in foot
-     AnyDesVar LFootSubtalarJointRot00 = {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointRot00 = {Val = ..study.FootPar.LFootSubtalarJointRot[0][0];}; 
-     AnyDesVar LFootSubtalarJointRot01= {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointRot01= {Val = ..study.FootPar.LFootSubtalarJointRot[0][1];}; 
-     AnyDesVar LFootSubtalarJointRot02 = {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointintRot02 = {Val = ..study.FootPar.LFootSubtalarJointRot[0][2];}; 
-     
-     AnyDesVar LFootSubtalarJointRot10 = {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointRot10 = {Val = ..study.FootPar.LFootSubtalarJointRot[1][0];}; 
-     AnyDesVar LFootSubtalarJointRot11= {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointRot11= {Val = ..study.FootPar.LFootSubtalarJointRot[1][1];}; 
-     AnyDesVar LFootSubtalarJointRot12 = {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointRot12 = {Val = ..study.FootPar.LFootSubtalarJointRot[1][2];}; 
-     
-     AnyDesVar LFootSubtalarJointRot20 = {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointRot20 = {Val = ..study.FootPar.LFootSubtalarJointRot[2][0];}; 
-     AnyDesVar LFootSubtalarJointRot21= {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointRot21= {Val = ..study.FootPar.LFootSubtalarJointRot[2][1];}; 
-     AnyDesVar LFootSubtalarJointRot22 = {Val= 0; };
-     AnyDesMeasure mLFootSubtalarJointRot22 = {Val = ..study.FootPar.LFootSubtalarJointRot[2][2];}; 
-             
-   };   
-   
-   
 
 
 
