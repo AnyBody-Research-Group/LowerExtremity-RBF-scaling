@@ -158,18 +158,15 @@ AnySeg Talus = {
   
   AnyRefNode SubTalarJoint = {
     AnyDrawRefFrame Drw = {Visible = Off;};  
-    sRel = {0.07, -0.851, 0.015};
-//    sRel = .Scale(.StdPar.SubTalarJoint);
+    sRel = .Scale(.StdPar.SubTalarJoint);
    #ifndef  EnableJointAxisScaling 
       #define    EnableJointAxisScaling 0
    #endif
     #if EnableJointAxisScaling  
-      ARel = {{-0.2553416, -0.2195078, -0.9416034}, {-0.01558827, 0.974695, -0.2229949}, {0.9667252, -0.04226191, -0.2523019}};
-
-//      ARel = RotMat(sRel,
-//                    sRel+( .PosteriorSubTalarAxisControlPoint.sRel - .AnteriorSubTalarAxisControlPoint.sRel ),
-//                    ..Shank.KneeJoint.sRel)
-//             * RotMat(90*pi/180,y)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+      ARel = RotMat(sRel,
+                    sRel+( .PosteriorSubTalarAxisControlPoint.sRel - .AnteriorSubTalarAxisControlPoint.sRel ),
+                    ..Shank.KneeJoint.sRel)
+             * RotMat(90*pi/180,y)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
     #else
       ARel = RotMat(.StdPar.SubTalarJoint,
                     .StdPar.SubTalarJoint +.StdPar.SubTalarJointAxis ,
@@ -209,18 +206,16 @@ AnySeg Talus = {
 
   AnyRefNode AnkleJoint = {
     AnyDrawRefFrame Drw = {Visible = Off;};        
-//    sRel = .Scale(.StdPar.AnkleJoint);
-    sRel = {0.072, -0.8275, 0.0125};
+    sRel = .Scale(.StdPar.AnkleJoint);
     //sRel = ..Shank.Scale(.StdPar.AnkleJoint);
     #ifndef  EnableJointAxisScaling 
       #define    EnableJointAxisScaling 0
     #endif
     #if EnableJointAxisScaling 
-        ARel = {{0.6882786, 0.2429565, -0.683553}, {-0.5012735, 0.8404018, -0.2060334}, {0.524402, 0.4844554, 0.7002182}};
-//      ARel = RotMat(sRel,
-//                    sRel+(.LateralAnkleAxisControlPoint.sRel-.MedialAnkleAxisControlPoint.sRel),
-//                    .Scale(..Shank.StdPar.KneeJoint))
-//                    * RotMat(90*pi/180,y)*RotMat(...Sign*-34*pi/180,z)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+      ARel = RotMat(sRel,
+                    sRel+(.LateralAnkleAxisControlPoint.sRel-.MedialAnkleAxisControlPoint.sRel),
+                    .Scale(..Shank.StdPar.KneeJoint))
+                    * RotMat(90*pi/180,y)*RotMat(...Sign*-34*pi/180,z)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
     #else
       ARel = RotMat(.StdPar.AnkleJoint,
                     .StdPar.AnkleJoint +.StdPar.AnkleJointAxis ,
@@ -317,18 +312,15 @@ AnySeg Foot = {
     
   AnyRefNode SubTalarJoint = {
     AnyDrawRefFrame Drw = {Visible = Off;};        
-    sRel = {0.07, -0.851, 0.015};
-//    sRel = .Scale(.StdPar.SubTalarJoint);
+    sRel = .Scale(.StdPar.SubTalarJoint);
    #ifndef  EnableJointAxisScaling 
       #define    EnableJointAxisScaling 0
    #endif
     #if EnableJointAxisScaling  
-      
-      ARel = {{-0.2553416, -0.2195078, -0.9416034}, {-0.01558827, 0.974695, -0.2229949}, {0.9667252, -0.04226191, -0.2523019}};
-//    ARel = RotMat(sRel,
-//                    sRel+(.PosteriorSubTalarAxisControlPoint.sRel - .AnteriorSubTalarAxisControlPoint.sRel ),
-//                    ..Shank.KneeJoint.sRel)
-//             * RotMat(90*pi/180,y)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
+    ARel = RotMat(sRel,
+                    sRel+(.PosteriorSubTalarAxisControlPoint.sRel - .AnteriorSubTalarAxisControlPoint.sRel ),
+                    ..Shank.KneeJoint.sRel)
+             * RotMat(90*pi/180,y)*RotMat(iffun(gtfun(...Sign,0.0),0.0,pi),y);
     #else
       ARel = RotMat(.StdPar.SubTalarJoint,
                     .StdPar.SubTalarJoint +.StdPar.SubTalarJointAxis ,
