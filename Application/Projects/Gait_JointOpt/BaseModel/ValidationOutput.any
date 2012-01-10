@@ -1,0 +1,436 @@
+AnyFolder Validation = {
+  #if RIGHT_LEG_TD_SIMPLE_MUSCLES + RIGHT_LEG_TD_MUS_3E > 0
+  AnyFolder &C3DRef = Main.ModelSetup.DynamicDataSet;
+  
+  AnyFolder EMG = {
+    
+    #if GrandChallageDataSet == 2012
+    AnyFolder &LegMusRef= ..HumanModel.BodyModel.Left.Leg.Mus;
+    #else
+    AnyFolder &LegMusRef= ..HumanModel.BodyModel.Right.Leg.Mus;
+    #endif
+      
+      #if GrandChallageDataSet == 2012
+      CreateEmgEnvelope RightSemimembranosus (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = semimem,
+      t = ...t ) 
+      = { AnyVar cActivity = .LegMusRef.Semimembranosus1.Activity; };
+      #else
+      CreateEmgEnvelope RightSemimembranosus (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = semime,
+      t = ...t ) 
+      = { AnyVar cActivity = .LegMusRef.Semimembranosus1.Activity; };
+      #endif
+      
+      CreateEmgEnvelope RightBicepsFemoris (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = bifem,
+      t = ...t )
+      = { AnyVar cActivity = .LegMusRef.BicepsFemorisCaputLongum1.Activity; };	
+    
+      CreateEmgEnvelope RightVastusMedialis (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = vasmed,
+      t = ...t )
+    = { 
+        AnySearchFun sf = { Search = "..LegMusRef.VastusMedialis*.Activity"; };
+        AnyVar cActivity = max(sf()); 
+      };
+      
+      CreateEmgEnvelope RightVastusLateralis (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = vaslat,
+      t = ...t )
+      = { 
+        AnySearchFun sf = { Search = "..LegMusRef.VastusLateralis*.Activity"; };
+        AnyVar cActivity = max(sf()); 
+      };
+      CreateEmgEnvelope RightRectusFemoris (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = rf,
+      t = ...t )
+    = { 
+        AnySearchFun sf = { Search = "..LegMusRef.RectusFemoris*.Activity"; };
+        AnyVar cActivity = max(sf()); 
+      };	
+      
+    CreateEmgEnvelope RightGastrocnemiusMedialis (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = medgas,
+      t = ...t )
+    = { 
+        AnySearchFun sf = { Search = "..LegMusRef.GastrocnemiusMedialis*.Activity"; };
+        AnyVar cActivity = max(sf()); 
+      };	
+      
+      CreateEmgEnvelope RightGastrocnemiusLateralis (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = latgas,
+      t = ...t )
+    = { 
+        AnySearchFun sf = { Search = "..LegMusRef.GastrocnemiusLateralis*.Activity"; };
+        AnyVar cActivity = max(sf()); 
+      };	
+
+      CreateEmgEnvelope RightTensorFasciaeLatae (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = tfl,
+      t = ...t )
+    = {
+        AnySearchFun sf = { Search = "..LegMusRef.TensorFasciaeLatae*.Activity"; };
+        AnyVar cActivity = max(sf());
+      };	
+      
+      CreateEmgEnvelope RightTibialisAnterior (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = tibant,
+      t = ...t )
+    = {
+        AnySearchFun sf = { Search = "..LegMusRef.TibialisAnterior*.Activity"; };
+        AnyVar cActivity = max(sf());
+      };
+      
+      CreateEmgEnvelope RightPeroneusLongus (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = peronl,
+      t = ...t )
+    = {
+        AnySearchFun sf = { Search = "..LegMusRef.PeroneusLongus*.Activity"; };
+        AnyVar cActivity = max(sf());
+      };
+
+      CreateEmgEnvelope RightSoleus (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = soleus,
+      t = ...t )
+    = {
+        AnySearchFun sf = { Search = "..LegMusRef.Soleus*.Activity"; };
+        AnyVar cActivity = max(sf());
+      };
+      
+      CreateEmgEnvelope RightAdductorMagnus (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = addmag,
+      t = ...t )
+    = {
+        AnySearchFun sf = { Search = "..LegMusRef.AdductorMagnus*.Activity"; };
+        AnyVar cActivity = max(sf());
+      };
+      
+      CreateEmgEnvelope RightGluteusMaximus (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = gmax,
+      t = ...t )
+    = {
+        AnySearchFun sf = { Search = "..LegMusRef.GluteusMaximus*.Activity"; };
+        AnyVar cActivity = max(sf());
+      };
+      
+      CreateEmgEnvelope RightGluteusMedius (
+      BandPassLowFreq = 30,
+      BandPassHighFreq = 200,
+      LowPassFreq = 6,
+      C3DFolder = ..C3DRef,
+      Label = gmed,
+      t = ...t )
+    = {
+        AnySearchFun sf = { Search = "..LegMusRef.GluteusMedius*.Activity"; };
+        AnyVar cActivity = max(sf());
+      };
+    
+    };
+    #endif
+  
+  #if GrandChallageDataSet == 2010
+
+  AnyFolder KneeForces = {
+    AnyFolder &KneeForceRef = .C3DRef.Analog.Data;
+    AnyVar Lbs2Newton = 4.44822;
+    AnyVar BodyWeight = 9.81*Main.Studies.HumanModel.Scaling.AnthroData.Body_Mass;
+   
+    
+    AnyFolder MedialContactForce = {
+      AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        AnyFolder &C3DHeader = ..C3DRef.Header;
+        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
+        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
+        AnyInt nAnalogSamples = (C3DHeader.LastFrameNo-C3DHeader.FirstFrameNo+1)*C3DHeader.NoAnalogSamplesPer3DFrame;
+        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+        Data = ..Lbs2Newton * ( {0.9871* ..KneeForceRef.s1}
+        + {0.9683* ..KneeForceRef.s2}
+        + {0.0387* ..KneeForceRef.s3}
+        + {0.0211* ..KneeForceRef.s4});
+      };    
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = ...InstrumentedRightKnee.Fm;
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+    };
+    AnyFolder LateralContactForce = {
+      AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        T = ..MedialContactForce.InterpFun.T;
+        Data = ..Lbs2Newton * ( {( 1- 0.9871)* ..KneeForceRef.s1}
+        + {(1 - 0.9683)* ..KneeForceRef.s2}
+        + {(1 - 0.0387)* ..KneeForceRef.s3}
+        + {(1 - 0.0211)* ..KneeForceRef.s4});
+      };  
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = ...InstrumentedRightKnee.Fl;
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+    }; 
+  };
+  
+  #endif
+  
+ #if GrandChallageDataSet == 2011
+
+  AnyFolder KneeForces = {
+//    AnyFolder &KneeForceRef = ..C3DFileData.Analog.Data;
+    AnyFolder &KneeForceRef = ..C3DRef.Analog.Data;
+    AnyVar Lbs2Newton = 4.44822;
+    AnyVar LBSinch2Nmm = 112.985;
+    AnyVar BodyWeight = 9.81*Main.Studies.HumanModel.Scaling.AnthroData.Body_Mass;
+   
+    
+    AnyFolder MedialContactForce = {
+      AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        AnyFolder &C3DHeader = ..C3DRef.Header;
+        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
+        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
+        
+        AnyInt nAnalogSamples = (C3DHeader.LastFrameNo-C3DHeader.FirstFrameNo+1)*C3DHeader.NoAnalogSamplesPer3DFrame;
+        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+        Data = (..Lbs2Newton * ( {-0.876* ..KneeForceRef.s1}
+        + {0.494* ..KneeForceRef.s3})) - (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.s5})) ;
+      };    
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = ...InstrumentedRightKnee.Fm;
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+    };
+    AnyFolder LateralContactForce = {
+      AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        T = ..MedialContactForce.InterpFun.T;
+        Data = (..Lbs2Newton * ( {0.876* ..KneeForceRef.s1}
+        + {0.505* ..KneeForceRef.s3})) + (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.s5})) ;
+      };  
+       
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = ...InstrumentedRightKnee.Fl;
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+     }; 
+    
+     AnyFolder TotalContactForce = {
+      AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        T = ..MedialContactForce.InterpFun.T;
+        Data = ((..Lbs2Newton * ( {0.876* ..KneeForceRef.s1}
+        + {0.505* ..KneeForceRef.s3})) + (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.s5})))+ ((..Lbs2Newton * ( {-0.876* ..KneeForceRef.s1}
+        + {0.494* ..KneeForceRef.s3})) - (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.s5}))) ;
+      };  
+       
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = (...InstrumentedRightKnee.Fm) + (...InstrumentedRightKnee.Fl);
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+
+       };
+    };
+  
+  #endif
+//  #if GrandChallageDataSet == 2012
+//
+//    AnyFolder KneeForces = {
+//    AnyFolder &KneeForceRef = ..C3DData.Analog.Data;
+//    AnyVar Lbs2Newton = 4.44822;
+//    AnyVar BodyWeight = 9.81*Main.Studies.HumanModel.Scaling.AnthroData.Body_Mass;
+//   
+//    
+//    AnyFolder MedialContactForce = {
+//      AnyFunInterpol InterpFun = 
+//      {
+//        Type = PiecewiseLinear;
+//        AnyFolder &C3DHeader = ..C3DRef.Header;
+//        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
+//        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
+//        AnyInt nAnalogSamples = (C3DHeader.LastFrameNo-C3DHeader.FirstFrameNo+1)*C3DHeader.NoAnalogSamplesPer3DFrame;
+//        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+//        Data = ..Lbs2Newton * ( {0.9871* ..KneeForceRef.ETibFx}
+//        + {0.9683* ..KneeForceRef.ETibFy}
+//        + {0.0387* ..KneeForceRef.ETibFz}
+//        + {0.0211* ..KneeForceRef.ETibTy});
+//      };    
+//      
+//      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+//      AnyVar cForce = ...InstrumentedLeftKnee.Fm;
+//      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+//    };
+//    AnyFolder LateralContactForce = {
+//      AnyFunInterpol InterpFun = 
+//      { 
+//        Type = PiecewiseLinear;
+//        T = ..MedialContactForce.InterpFun.T;
+//        Data = ..Lbs2Newton * ( {( 1- 0.9871)* ..KneeForceRef.ETibFx}
+//        + {(1 - 0.9683)* ..KneeForceRef.ETibFy}
+//        + {(1 - 0.0387)* ..KneeForceRef.ETibFz}
+//        + {(1 - 0.0211)* ..KneeForceRef.ETibTy});
+//      };  
+//      
+//      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+//      AnyVar cForce = ...InstrumentedLeftKnee.Fl;
+//      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+//    }; 
+//    
+//    AnyFolder TotalContactForce = {
+//      AnyVar mForceBodyWeight = ( .LateralContactForce.mForceBodyWeight + .MedialContactForce.mForceBodyWeight );
+//      AnyVar cForce = (...InstrumentedLeftKnee.Fm) + (...InstrumentedLeftKnee.Fl);
+//      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+//
+//   
+//     }; 
+//   };
+//   
+//  #endif
+
+ #if GrandChallageDataSet == 2012
+
+  AnyFolder KneeForces = {
+    AnyFolder &KneeForceRef = .C3DRef.Analog.Data;
+    AnyVar Lbs2Newton = 4.44822;
+    AnyVar LBSinch2Nmm = 112.985;
+    AnyVar BodyWeight = 9.81*Main.SubjectSpecificData.Anthropometrics.BodyMass;
+    
+   
+    
+    AnyFolder MedialContactForce = {
+      AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        AnyFolder &C3DHeader = ...C3DRef.Header;
+        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
+        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
+
+        AnyInt nAnalogSamples = (C3DHeader.LastFrameNo-C3DHeader.FirstFrameNo+1)*C3DHeader.NoAnalogSamplesPer3DFrame;
+        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+//        Data = (..Lbs2Newton * ( {-0.876* ..KneeForceRef.ETibFx}
+//        + {0.494* ..KneeForceRef.ETibFz})) - (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.ETibTy})) ;
+//      };    
+      Data = ( ( {-0.876* ..KneeForceRef.ETibFx}
+        + {0.494* ..KneeForceRef.ETibFz})) - (1000 * ( {0.0189* ..KneeForceRef.ETibTy})) ;
+      };    
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = ...InstrumentedKnee.Fm;
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+    };
+    
+    AnyFolder LateralContactForce = {
+       AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        AnyFolder &C3DHeader = ...C3DRef.Header;
+        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
+        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
+        
+        AnyInt nAnalogSamples = (C3DHeader.LastFrameNo-C3DHeader.FirstFrameNo+1)*C3DHeader.NoAnalogSamplesPer3DFrame;
+        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+//        Data = (..Lbs2Newton * ( {0.876* ..KneeForceRef.ETibFx}
+//        + {0.494* ..KneeForceRef.ETibFz})) + (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.ETibTy})) ;
+//      };
+       Data = ( ( {0.876* ..KneeForceRef.ETibFx}
+        + {0.494* ..KneeForceRef.ETibFz})) + (1000* ( {0.0189* ..KneeForceRef.ETibTy})) ;
+      };
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = ...InstrumentedKnee.Fl;
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+     }; 
+    
+     AnyFolder TotalContactForce = {
+     AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        AnyFolder &C3DHeader = ...C3DRef.Header;
+        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
+        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
+        
+        AnyInt nAnalogSamples = (C3DHeader.LastFrameNo-C3DHeader.FirstFrameNo+1)*C3DHeader.NoAnalogSamplesPer3DFrame;
+        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+//        
+//        Data = ((..Lbs2Newton * ( {-0.876* ..KneeForceRef.ETibFx}
+//        + {0.494* ..KneeForceRef.ETibFz})) - (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.ETibTy}))) +
+//      ((..Lbs2Newton * ( {0.876* ..KneeForceRef.ETibFx}
+//        + {0.494* ..KneeForceRef.ETibFz})) + (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.ETibTy}))) ;
+//       }; 
+             Data = ((( {-0.876* ..KneeForceRef.ETibFx}
+        + {0.494* ..KneeForceRef.ETibFz})) - (1000* ( {0.0189* ..KneeForceRef.ETibTy}))) +
+      ((( {0.876* ..KneeForceRef.ETibFx}
+        + {0.494* ..KneeForceRef.ETibFz})) + (1000 * ( {0.0189* ..KneeForceRef.ETibTy}))) ;
+       }; 
+       
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = (...InstrumentedKnee.Fm) + (...InstrumentedKnee.Fl);
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+
+       };
+    };
+    #endif
+
+};
+

@@ -12,8 +12,7 @@
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/ForcePlateType2AutoDetection.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOff.any"
 #include "KinOptModel\ClassTemplates.any"
-//#include "EmgProcessing.any"
-#include  "LegTDModel\MomentArmTemplate.any"
+#include "EmgProcessing.any"
 //#include "MomentArmTemplate.any"
 #include "EmulateC3DMacros.any"
 

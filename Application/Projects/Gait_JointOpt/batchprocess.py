@@ -9,17 +9,20 @@ from anypytools.abcutils import AnyBatchProcess
 
 import os
 
-folder = os.path.join(os.getcwd(),'Data/SC/Calibration Trials')
+folder = os.path.join(os.getcwd(),'Data/SC')
 
 abp = AnyBatchProcess(basepath = folder,
                       searchfile='Kinematics.main.any',
-                      num_processes = 1)
+                      num_processes = 3)
 
-macro =  ['load "Kinematics.main.any"', 
-          'operation Main.Load_JointTrialParameters',
-          'run',
-          'operation Main.JntParameterOptModel.KinematicStudy.Kinematics',
-          'run',' ','exit',' ']
+macro =  ['load "Kinematics.main.any"','exit',' ']
+
+
+#macro =  ['load "Kinematics.main.any"', 
+#          'operation Main.Load_JointTrialParameters',
+#          'run',
+#          'operation Main.JntParameterOptModel.KinematicStudy.Kinematics',
+#          'run',' ','exit',' ']
           
 abp.start(macro)
 

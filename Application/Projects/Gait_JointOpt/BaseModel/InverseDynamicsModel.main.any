@@ -20,7 +20,6 @@ Main = {
   #if IncludeLegTDModel  == 1
   AnyFolder AnyBodyGaitAppModel = {
     #include "LegTDModel\HumanModel.any"
-    //    #include "Calculations\CalculateSourcePointProjections.any"    
     
     AnyBodyStudy InverseDynamicStudy = 
     {
@@ -36,6 +35,10 @@ Main = {
         AnyFolder &Scaling = ..HumanModel.Scaling;
         AnyFolder &Mannequin = ..HumanModel.Mannequin;
       }; 
+      #include "LegTDModel\InstrumentedKnee.any"
+      // Includes Analog data (EMG and Kneeforces) 
+      #include "ValidationOutput.any"
+      
       AnyFolder EnvironmentModel = {
         AnyFolder DrawC3DMarkers = {}; 
         #include "Environment.any"         

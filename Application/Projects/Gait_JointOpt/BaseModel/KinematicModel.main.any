@@ -77,9 +77,10 @@ Main = {
        #include "KinOptModel\Interface.any"
 
      };
-          
+
      AnyFolder Environment = {
        #include "KinOptModel\Drivers.any"
+//        #include "Environment.any"         
      };
      
   
@@ -103,6 +104,7 @@ Main = {
 //    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
     AnyFolder &LegModel = .LegModel;
     AnyFolder &Environment = .Environment;
+    AnyFolder &Camera = Main.ModelSetup.Camera;
 
 
     #include "KinOptModel\JointAngleOutputs.any"

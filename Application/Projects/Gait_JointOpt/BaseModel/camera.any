@@ -1,18 +1,43 @@
 Main.JntParameterOptModel.Environment = {
 AnyFixedRefFrame GlobalRef =  {AnyRefNode Origo = {}; };
+
 };
+
+ModelSetup = {
+  
+  AnyFolder Camera = {
+  
+  #if IncludeHip & IncludeKnee & IncludeAnkle
+  AnySeg SteadyCamSeg = {
+    Mass = 0;
+    Jii = {0, 0, 0};
+  };
+  AnyKinEq StadyCamPosDriver = {
+     AnyKinLinear LinPos = {
+       AnyRefFrame &r1 = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis;
+       AnyRefFrame &r2 = ..SteadyCamSeg;
+     };
+  };
+  AnyKinEq StadyCamRotDriver = {
+     AnyKinRotational RotPos = {
+       Type = RotVector;
+       AnyRefFrame &r2 = ..SteadyCamSeg;
+     };
+  };
+  #endif
+  
 AnyCameraLookAt UserCam = 
 {
     AnyVar yRot = DesignVar(20);
-    AnyVar zRot = DesignVar(20);
-    AnyVar distance = DesignVar(1.5);
-    AnyVec3 LookAtOffset = {0,-0.5,0};
+    AnyVar zRot = DesignVar(160);
+    AnyVar distance = DesignVar(1.2);
+    AnyVec3 LookAtOffset = {0,0,-0.5};
     
     EyePoint = LookAtPoint+distance*{1,0,0}*RotMat(yRot*pi/180,y)*RotMat(-zRot*pi/180,z)*frame.Axes';//{1,0,0};
     LookAtPoint = frame.r+LookAtOffset*frame.Axes';
-    UpPoint = LookAtPoint+{0,1,0}*frame.Axes';
+    UpPoint = LookAtPoint+{0,0,1}*frame.Axes';
     #if IncludeHip & IncludeKnee & IncludeAnkle
-    AnyRefFrame &frame = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis;
+    AnyRefFrame &frame = .SteadyCamSeg;
     #else
     AnyRefFrame &frame = .Main.JntParameterOptModel.Environment.GlobalRef.Origo;
     #endif
@@ -34,4 +59,5 @@ AnyCameraLookAt UserCam =
         };
 
 };
-
+};
+};
