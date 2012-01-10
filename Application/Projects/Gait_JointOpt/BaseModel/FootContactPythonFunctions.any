@@ -1,0 +1,53 @@
+#ifdef UseHeelStrikesTimes
+
+AnyFolder ForcePlateEvents = {
+     
+ // Definition of python function to calculate foot ground contact events
+  AnyFunEx FootContactEvents = 
+  {
+    // Return type shoud be of same length as TrialForce*UnComp
+    AnyInt Return = {0, 0, 0, 0, 0};
+    AnyFunExMonoPy foot_contact_times =
+    {
+      ModuleFile = "heel_strike_events.py";
+      ArgList = {
+        AnyVector f1 = Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz1;
+        AnyVector f2 = Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz2;
+        AnyVector f3 = Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz3;
+        AnyMatrix RHeel = Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosFiltered;
+        AnyMatrix LHeel = Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosFiltered;
+        AnyMatrix Sacral = Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosFiltered;
+        AnyString folder = " ";
+        AnyInt avratio = Main.ModelSetup.DynamicDataSet.Header.NoAnalogSamplesPer3DFrame;
+      };
+    };
+  };
+  
+  
+ /// Foot-forceplate contact events:
+ /// Events[0]: Heel strike 1
+ /// Events[1]: Colateral Toe off
+ /// Events[2]: Colateral Heel strike  off
+ /// Events[3]: Toe off
+ /// Events[4]: Heel strike 2
+  AnyVector out = FootContactEvents(.DynamicDataSet.Analog.DataFiltered.Fz1,
+  .DynamicDataSet.Analog.DataFiltered.Fz2,
+  .DynamicDataSet.Analog.DataFiltered.Fz3,
+  .DynamicDataSet.Points.Markers.RHeel.PosFiltered,
+  .DynamicDataSet.Points.Markers.LHeel.PosFiltered,
+  .DynamicDataSet.Points.Markers.Sacral.PosFiltered,
+  TRIAL_PATH,
+  .DynamicDataSet.Header.NoAnalogSamplesPer3DFrame);
+  
+  #ifdef IncludeLegTDModel 
+  #include "<TRIAL_PATH>/HeelStrikeEvents.any"
+  #endif  
+  
+
+  
+};
+
+  #endif
+
+
+

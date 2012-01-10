@@ -1,0 +1,6 @@
+Main.FootPosModel.Right.Foot.Heel.sRelEdit = {-0.03261124, 0.01822189, 0.009871356};
+Main.FootPosModel.Right.Foot.Toe.sRelEdit = {0.2202686, 0.02915979, 0.01219584};
+Main.FootPosModel.Right.Foot.MidfootLateral.sRelEdit = {0.140407, -0.009360304, 0.08129175};
+Main.FootPosModel.Left.Foot.Heel.sRelEdit = {-0.03830329, 0.01729306, -0.01662844};
+Main.FootPosModel.Left.Foot.Toe.sRelEdit = {0.2195807, 0.02383148, -0.02239257};
+Main.FootPosModel.Left.Foot.MidfootLateral.sRelEdit = {0.1236178, -0.007600522, -0.07560409};
