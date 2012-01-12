@@ -15,21 +15,21 @@ abp = AnyBatchProcess(basepath = folder,
                       searchfile='Kinematics.main.any',
                       num_processes = 3)
 
-macro =  ['load "Kinematics.main.any"',
-		  'operation Main.Load_JointTrialParameters', 'run',
-		  'operation Main.LoadFootJointAxis', 'run',
-		  'operation Main.AnyBodyGaitAppModel.InverseDynamicStudy.InverseDynamics', 'run'
-		  'classoperation "Save data" --type="Deep" --file="%s"' %
+#macro =  ['load "Kinematics.main.any"',
+#		  'operation Main.Load_JointTrialParameters', 'run',
+#		  'operation Main.LoadFootJointAxis', 'run',
+#		  'operation Main.AnyBodyGaitAppModel.InverseDynamicStudy.InverseDynamics', 'run'
+#		  'classoperation "Save data" --type="Deep" --file="%s"' %
+#
+#
+#'exit',' ']
 
 
-'exit',' ']
-
-
-#macro =  ['load "Kinematics.main.any"', 
-#          'operation Main.Load_JointTrialParameters',
-#          'run',
-#          'operation Main.JntParameterOptModel.KinematicStudy.Kinematics',
-#          'run',' ','exit',' ']
+macro =  ['load "Kinematics.main.any"', 
+          'operation Main.Load_JointTrialParameters',
+          'run',
+          'operation Main.JntParameterOptModel.KinematicStudy.Kinematics',
+          'run',' ','exit',' ']
           
 abp.start(macro)
 
