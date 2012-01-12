@@ -50,15 +50,18 @@ def find_heelstrike_from_marker(marker, sacrummarker, beforetime, axis = None):
     sacrummarker = np.array(sacrummarker)
     
     dim = np.std(marker,0).argmax()  
-    data = -(marker[:,dim]-sacrummarker[:,dim])
+    data =  -(marker[:,dim]-sacrummarker[:,dim])
     
     pks,locs = findpeaks(data-np.min(data),0.2,axis = axis)
     lastpeak = locs[np.nonzero(locs<beforetime)][-1]
     
+    if axis is not None:
+        axis.plot(marker[:,0])        
+    
     return lastpeak
 
 
-def find_toeoff_from_marker( sacrummarker, aftertime, axis = None):
+def find_toeoff_from_marker( marker, sacrummarker, aftertime, axis = None):
     # find dimension of working 
     marker = np.array(marker)
     sacrummarker = np.array(sacrummarker)
@@ -69,6 +72,9 @@ def find_toeoff_from_marker( sacrummarker, aftertime, axis = None):
     pks,locs = findpeaks(data-np.min(data),0.2,axis = axis)
     firstpeak = locs[np.nonzero(locs>aftertime)][0]
     
+    if axis is not None:
+        axis.plot(marker[:,0])        
+        
     return firstpeak
             
         
@@ -92,36 +98,40 @@ def foot_contact_times(context, f1,f2,f3,RHeel,LHeel,RToe,LToe, Sacrum, folder, 
     HS_2 = find_heelstrike( forces[order[1]] ) / avratio
     TO_2 = find_toeoff(forces[order[1]]) /avratio 
     HS_3 = find_heelstrike(forces[order[2]]) /avratio
-    TO_3 = find_toeoff(forces[order[0]])/avratio
+    TO_3 = find_toeoff(forces[order[2]])/avratio
     
     #Try to find the left or right toe off before ToeOff from kinmatic data
     try:
         LeftTO_0 = find_toeoff_from_marker(LToe,Sacrum,HS_1)
     except:
-        LeftTO_0 = 0
+        LeftTO_0 = len(LToe)
     try:
         RightTO_0 = find_toeoff_from_marker(RToe,Sacrum,HS_1)
     except:
-        RightTO_0 = 0
-    TO_0 = np.max([LeftTO_0, RightTO_0])
-        
+        RightTO_0 = len(LToe)
+    TO_0 = np.min([LeftTO_0, RightTO_0])
+    
+    if TO_0 == len(LToe):
+        TO_0 = 0
     
     #Try to find the Left and right HeelStrike after ToeOff from kinmatic data
     try:
-        RightHS_4 = find_heelstrike_from_marker(RHeel,Sacrum,TO_3)
+        RightHS_4 = find_heelstrike_from_marker(RHeel,Sacrum,TO_3,axis = axis)
     except:
-        RightHS_4 = len(RHeel)
+        RightHS_4 = 0
     try:
-        LeftHS_4= find_heelstrike_from_marker(LHeel,Sacrum,TO_3)
+        LeftHS_4= find_heelstrike_from_marker(LHeel,Sacrum,TO_3,axis = axis)
     except:
-        LeftHS_4 = len(LHeel)
-    HS_4 = np.min([RightHS_4,LeftHS_4])
+        LeftHS_4 = 0
+    HS_4 = np.max([RightHS_4,LeftHS_4])
+    if HS_4 == 0:
+        HS_4 = len(RHeel)
        
-       
-    re = ( int(HS_1), int(TO_0), int(HS_2), int(TO_1) , int(HS_3), int(TO_2) , int(HS_4), int(TO_3) )
+    print TO_3
+    re = ( int(TO_0), int(HS_2), int(TO_1) , int(HS_3), int(TO_2) , int(HS_4))
       
     with open(os.path.join(folder,'HeelStrikeEvents.any'),'w') as f:
-        f.write( 'AnyVector Events ={%d,%d,%d,%d,%d,%d,%d,%d};'% ( HS_1,TO_0, HS_2,TO_1,HS_3,TO_2,HS_4,TO_3 ) )
+        f.write( 'AnyVector Events ={%d,%d,%d,%d,%d,%d};'% (TO_0, HS_2,TO_1,HS_3,TO_2,HS_4 ) )
         
     return re
     
@@ -164,9 +174,11 @@ if __name__ == "__main__":
 #    print 'Heelstrike: ' + str(find_heelstrike("",testdata.FzForce))
 #    print 'Toeoff: ' + str(find_toeoff("",testdata.FzForce))
 #    print 'ToeoffKIN: ' + str(find_heelstrike_from_marker("",testdata.HeelMarker,testdata.SacrumMarker,axis = ax, aftertime = 200))
-    ax.plot(RHeel)
-    ax.plot(LHeel)
-
+    time = np.linspace(0,len(RHeel), len(f1))
+    
+    ax.plot(time,np.array(f1)*0.005)
+    ax.plot(time,np.array(f2)*0.005)
+    ax.plot(time,np.array(f3)*0.005)
     plt.show()
     
     
