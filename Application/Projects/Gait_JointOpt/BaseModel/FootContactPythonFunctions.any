@@ -16,6 +16,8 @@ AnyFolder ForcePlateEvents = {
         AnyVector f3 = Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz3;
         AnyMatrix RHeel = Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosFiltered;
         AnyMatrix LHeel = Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosFiltered;
+        AnyMatrix RToe = Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosFiltered;
+        AnyMatrix LToe = Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosFiltered;
         AnyMatrix Sacral = Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosFiltered;
         AnyString folder = " ";
         AnyInt avratio = Main.ModelSetup.DynamicDataSet.Header.NoAnalogSamplesPer3DFrame;
@@ -35,6 +37,8 @@ AnyFolder ForcePlateEvents = {
   .DynamicDataSet.Analog.DataFiltered.Fz3,
   .DynamicDataSet.Points.Markers.RHeel.PosFiltered,
   .DynamicDataSet.Points.Markers.LHeel.PosFiltered,
+  .DynamicDataSet.Points.Markers.RToe.PosFiltered,
+  .DynamicDataSet.Points.Markers.LToe.PosFiltered,
   .DynamicDataSet.Points.Markers.Sacral.PosFiltered,
   TRIAL_PATH,
   .DynamicDataSet.Header.NoAnalogSamplesPer3DFrame);
