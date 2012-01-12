@@ -46,7 +46,7 @@ AnyFolder ModelSetup ={
   #ifdef IncludeLegTDModel 
     #ifdef UseHeelStrikesTimes
     AnyFloatVar  tStart = (Main.TrialSpecificData.StartFrameNo+ForcePlateEvents.Events[0])/Main.TrialSpecificData.FrameRate;
-    AnyFloatVar  tEnd = (Main.TrialSpecificData.StartFrameNo+ForcePlateEvents.Events[4])/Main.TrialSpecificData.FrameRate; 
+    AnyFloatVar  tEnd = (Main.TrialSpecificData.StartFrameNo+ForcePlateEvents.Events[5])/Main.TrialSpecificData.FrameRate; 
     #else
     AnyFloatVar  tStart = Main.TrialSpecificData.StartFrameNo/Main.TrialSpecificData.FrameRate;
     AnyFloatVar  tEnd = Main.TrialSpecificData.LastFrameNo/Main.TrialSpecificData.FrameRate; 
