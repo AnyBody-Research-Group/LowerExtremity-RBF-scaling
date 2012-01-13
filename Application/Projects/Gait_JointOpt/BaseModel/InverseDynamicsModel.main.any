@@ -72,8 +72,15 @@ Main = {
     
     
  };
-  
+  AnyOperationMacro SaveOutputToH5File = {
+     MacroStr = {
+     "classoperation  Main.AnyBodyGaitAppModel.InverseDynamicStudy.Output " + strquote("Save data") 
+     + "--type="+strquote("Deep") + " --file= " + strquote( H5_OUTPUT + Main.TrialSpecificData.TrialName + ".anydata.h5") };
+  };
+ 
   #endif
+  
+  
     
   
 };  // Main

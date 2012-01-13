@@ -9,27 +9,25 @@ from anypytools.abcutils import AnyBatchProcess
 
 import os
 
-folder = os.path.join(os.getcwd(),'Data/SC')
+folder = os.path.join(os.getcwd(),'Data/SC/Gait Trials')
 
 abp = AnyBatchProcess(basepath = folder,
                       searchfile='Kinematics.main.any',
-                      num_processes = 3)
+                      num_processes = 2)
 
-#macro =  ['load "Kinematics.main.any"',
-#		  'operation Main.Load_JointTrialParameters', 'run',
-#		  'operation Main.LoadFootJointAxis', 'run',
-#		  'operation Main.AnyBodyGaitAppModel.InverseDynamicStudy.InverseDynamics', 'run'
-#		  'classoperation "Save data" --type="Deep" --file="%s"' %
-#
-#
-#'exit',' ']
+macro =  ['load "Kinematics.main.any"',
+		  'operation Main.Load_JointTrialParameters', 'run',
+		  'operation Main.LoadFootJointAxis', 'run',
+		  'operation Main.AnyBodyGaitAppModel.InverseDynamicStudy.InverseDynamics', 'run'
+		  'operation Main.SaveOutputToH5File', 'run',
+             'exit']
 
 
-macro =  ['load "Kinematics.main.any"', 
-          'operation Main.Load_JointTrialParameters',
-          'run',
-          'operation Main.JntParameterOptModel.KinematicStudy.Kinematics',
-          'run',' ','exit',' ']
+#macro =  ['load "Kinematics.main.any"', 
+#          'operation Main.Load_JointTrialParameters',
+#          'run',
+#          'operation Main.JntParameterOptModel.KinematicStudy.Kinematics',
+#          'run','exit']
           
 abp.start(macro)
 
