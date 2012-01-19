@@ -2,7 +2,7 @@
 AnyFolder StickFigure = {
 
   
-  AnyIntVar FirstFrameDynamic = Main.TrialSpecificData.StartFrameNo - Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo;
+  AnyIntVar FirstFrameDynamic = Main.ModelSetup.FirstFrame;
   AnyIntVar FirstFrameStatic = Main.SubjectSpecificData.StaticFrameIndex; 
   
   

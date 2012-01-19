@@ -10,11 +10,11 @@ AnyFolder TrialSpecificData={
   // C3D files to load
   AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";
 
-  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
-  AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+  //#define USE_TRIAL_SPECIFIC_TIMES
+//  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+//  AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+//  AnyIntVar nStep = 100;
   
-  AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
-   
   // HeelStrike times
    #define UseHeelStrikesTimes   
   

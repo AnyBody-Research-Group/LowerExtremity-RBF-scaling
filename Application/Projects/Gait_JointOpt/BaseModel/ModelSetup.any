@@ -40,21 +40,18 @@ AnyFolder ModelSetup ={
     MarkerUseCamMaskOnOff = Off;
     SearchAndReplace = {{".",""}};
   };
-
-  AnyIntVar nStep = Main.TrialSpecificData.LastFrameNo-Main.TrialSpecificData.StartFrameNo+1;
-
-  #ifdef IncludeLegTDModel 
-    #ifdef UseHeelStrikesTimes
-    AnyFloatVar  tStart = (Main.TrialSpecificData.StartFrameNo+ForcePlateEvents.Events[0])/Main.TrialSpecificData.FrameRate;
-    AnyFloatVar  tEnd = (Main.TrialSpecificData.StartFrameNo+ForcePlateEvents.Events[5])/Main.TrialSpecificData.FrameRate; 
-    #else
-    AnyFloatVar  tStart = Main.TrialSpecificData.StartFrameNo/Main.TrialSpecificData.FrameRate;
-    AnyFloatVar  tEnd = Main.TrialSpecificData.LastFrameNo/Main.TrialSpecificData.FrameRate; 
-    #endif
+  #ifndef USE_TRIAL_SPECIFIC_TIMES
+    AnyIntVar LastFrame = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+    AnyIntVar FirstFrame = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+    AnyIntVar nStep = LastFrame - FirstFrame + 1;
   #else
-    AnyFloatVar  tStart = Main.TrialSpecificData.StartFrameNo/Main.TrialSpecificData.FrameRate;
-    AnyFloatVar  tEnd = Main.TrialSpecificData.LastFrameNo/Main.TrialSpecificData.FrameRate; 
+    AnyIntVar LastFrame = Main.TrialSpecificData.LastFrameNo;
+    AnyIntVar FirstFrame = Main.TrialSpecificData.StartFrameNo;
+    AnyIntVar nStep = LastFrame - FirstFrame + 1;
   #endif
+  
+  AnyFloatVar  tStart = FirstFrame/Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
+  AnyFloatVar  tEnd = LastFrame /Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate; 
   
   AnyFolder Files = {
     AnyStringVar RightHipParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.RightHipParametersTrial + "_OptimizedParameters.txt";
