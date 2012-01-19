@@ -6,7 +6,7 @@ AnyFolder ForcePlateEvents = {
   AnyFunEx FootContactEvents = 
   {
     // Return type shoud be of same length as TrialForce*UnComp
-    AnyInt Return = {0, 0, 0, 0, 0, 0};
+    AnyInt Return = {0, 0, 0, 0, 0, 0, 0, 0};
     AnyFunExMonoPy foot_contact_times =
     {
       ModuleFile = "heel_strike_events.py";
@@ -43,10 +43,6 @@ AnyFolder ForcePlateEvents = {
   .DynamicDataSet.Points.Markers.Sacral.PosFiltered,
   TRIAL_PATH,
   .DynamicDataSet.Header.NoAnalogSamplesPer3DFrame);
-  
-  #ifdef IncludeLegTDModel 
-  #include "<TRIAL_PATH>/HeelStrikeEvents.any"
-  #endif  
   
 
   
