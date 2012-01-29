@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np 
 
 folder = getcwd()
-emg_alias = { 'semimem': ['/Output/Validation/EMG/Semimembranosus/cActivity','/Output/Validation/EMG/Semimembranosus/mEMG'],
+emg_alias = {'semimem': ['/Output/Validation/EMG/Semimembranosus/cActivity','/Output/Validation/EMG/Semimembranosus/mEMG'],
           'bifem': ['/Output/Validation/EMG/BicepsFemoris/cActivity', '/Output/Validation/EMG/BicepsFemoris/mEMG'],
           'vasmed':['/Output/Validation/EMG/VastusMedialis/cActivity', '/Output/Validation/EMG/VastusMedialis/mEMG'],
           'vaslat':['/Output/Validation/EMG/VastusLateralis/cActivity', '/Output/Validation/EMG/VastusLateralis/mEMG'],
@@ -27,6 +27,10 @@ emg_alias = { 'semimem': ['/Output/Validation/EMG/Semimembranosus/cActivity','/O
           'gmed':['/Output/Validation/EMG/GluteusMedius/cActivity','/Output/Validation/EMG/GluteusMedius/mEMG'  ]}
     
     
+events =  '/Output/EnvironmentModel/ContactEvents/'
+    
+    
+    
     
 figEMG = plt.figure()
 ax = figEMG.add_subplot(111)
@@ -40,7 +44,7 @@ for (h5file, filename) in anydatah5(folder):
         print 'Left foot on middle forceplate'
     else:
         print 'Right foot on middle forceplate'
-    
+
 #    if data('Output.EnvironmentModel.ForcePlate1.ContactDetectionLimb1.InContactMuscle.S')
 #    sig = data[key]
 #    ax.plot(sig) 
