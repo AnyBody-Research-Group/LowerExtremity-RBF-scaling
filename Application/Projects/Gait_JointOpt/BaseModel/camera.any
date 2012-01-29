@@ -1,7 +1,3 @@
-Main.JntParameterOptModel.Environment = {
-AnyFixedRefFrame GlobalRef =  {AnyRefNode Origo = {}; };
-
-};
 
 ModelSetup = {
   

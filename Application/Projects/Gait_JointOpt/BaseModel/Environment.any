@@ -7,63 +7,56 @@ AnyFixedRefFrame GlobalRef ={
 };  
 
 
+#ifndef IncludeLegTDModel
+// The autodetection forceplates can not be used when the Human
+// model is not included. So we use the standard forceplate templates
+// here. It is not important what foot the are conected to because,
+// the are only used to graphical purposes, and to included 
+// ground reaction forces in the ouput structure. 
 
-ForcePlateType2AutoDetection ForcePlate1 (
+ForcePlateType2 ForcePlate1 (
 PlateName = Plate1,
 Folder = Main.ModelSetup.DynamicDataSet,
-Limb1 = ..HumanModel.BodyModel.Left.Leg.Seg.Foot,
-Limb2 = ..HumanModel.BodyModel.Right.Leg.Seg.Foot,
-VerticalDirection ="Z",
-HeightTolerance=0.05,
-VelThreshold=2.2,
+Limb = ..LegModel.Left.Seg.Foot,
 No=0,
 Fx=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fx1,
 Fy=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fy1,
 Fz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz1,
 Mx=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mx1,
 My=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.My1,
-Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz1,
-FootPresent = IncludeLegTDModel)
+Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz1)
 = {
 };
 
-ForcePlateType2AutoDetection ForcePlate2 (
+ForcePlateType2 ForcePlate2 (
 PlateName = Plate2,
 Folder = Main.ModelSetup.DynamicDataSet,
-Limb1 = ..HumanModel.BodyModel.Left.Leg.Seg.Foot,
-Limb2 = ..HumanModel.BodyModel.Right.Leg.Seg.Foot,
-VerticalDirection ="Z",
-HeightTolerance=0.05,
-VelThreshold=2.2,
+Limb = ..LegModel.Left.Seg.Foot,
 No=1,
 Fx=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fx2,
 Fy=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fy2,
 Fz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz2,
 Mx=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mx2,
 My=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.My2,
-Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz2,
-FootPresent = IncludeLegTDModel)
+Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz2)
 = {
 };
 
-ForcePlateType2AutoDetection ForcePlate3 (
+ForcePlateType2 ForcePlate3 (
 PlateName = Plate3,
 Folder = Main.ModelSetup.DynamicDataSet,
-Limb1 = ..HumanModel.BodyModel.Left.Leg.Seg.Foot,
-Limb2 = ..HumanModel.BodyModel.Right.Leg.Seg.Foot,
-VerticalDirection ="Z",
-HeightTolerance=0.05,
-VelThreshold=2.2,
+Limb = ..LegModel.Left.Seg.Foot,
 No=2,
 Fx=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fx3,
 Fy=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fy3,
 Fz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz3,
 Mx=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mx3,
 My=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.My3,
-Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz3,
-FootPresent = IncludeLegTDModel)
+Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz3)
 = {
 };
 
+
+#endif
 
 

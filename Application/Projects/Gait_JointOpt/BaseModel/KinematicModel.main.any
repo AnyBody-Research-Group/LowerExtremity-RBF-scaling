@@ -80,7 +80,7 @@ Main = {
 
      AnyFolder Environment = {
        #include "KinOptModel\Drivers.any"
-//        #include "Environment.any"         
+        #include "Environment.any"         
      };
      
   
@@ -103,7 +103,7 @@ Main = {
     
 //    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
     AnyFolder &LegModel = .LegModel;
-    AnyFolder &Environment = .Environment;
+    AnyFolder &EnvironmentModel = .Environment;
     AnyFolder &Camera = Main.ModelSetup.Camera;
 
 
@@ -145,7 +145,13 @@ Main = {
       + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.GaitParameters ) ;
       MacroStr = { LoadMcr };
     };
-    
+    #ifndef IncludeLegTDModel
+     AnyOperationMacro SaveKinOutputToH5File = {
+        MacroStr = {
+          "classoperation  Main.JntParameterOptModel.KinematicStudy.Output " + strquote("Save data") 
+        + "--type="+strquote("Deep") + " --file= " + strquote( H5_OUTPUT + Main.TrialSpecificData.TrialName +".kin"+ ".anydata.h5") };
+     };
+  #endif
 };
     
 

@@ -3,14 +3,16 @@
 #path BASE_MODEL_PATH "."
 #path PROJECT_PATH "../"
 #path AMMR_PATH "../../../../"
+#ifndef H5_OUTPUT
 #path H5_OUTPUT "../Output/"  
-
+#endif 
 
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClass.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTD.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTDWidgetV2.any"
 //#include "ForcePlateGrandChallenge.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/ForcePlateType2AutoDetection.any"
+#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/ForcePlateType2.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOff.any"
 #include "KinOptModel\ClassTemplates.any"
 #include "EmgProcessing.any"

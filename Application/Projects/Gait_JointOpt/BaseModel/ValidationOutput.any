@@ -11,7 +11,7 @@ AnyFolder Validation = {
     #endif
       
       #if GrandChallageDataSet == 2012
-      CreateEmgEnvelope RightSemimembranosus (
+      CreateEmgEnvelope Semimembranosus (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -20,7 +20,7 @@ AnyFolder Validation = {
       t = ...t ) 
       = { AnyVar cActivity = .LegMusRef.Semimembranosus1.Activity; };
       #else
-      CreateEmgEnvelope RightSemimembranosus (
+      CreateEmgEnvelope Semimembranosus (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -30,7 +30,7 @@ AnyFolder Validation = {
       = { AnyVar cActivity = .LegMusRef.Semimembranosus1.Activity; };
       #endif
       
-      CreateEmgEnvelope RightBicepsFemoris (
+      CreateEmgEnvelope BicepsFemoris (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -39,7 +39,7 @@ AnyFolder Validation = {
       t = ...t )
       = { AnyVar cActivity = .LegMusRef.BicepsFemorisCaputLongum1.Activity; };	
     
-      CreateEmgEnvelope RightVastusMedialis (
+      CreateEmgEnvelope VastusMedialis (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -51,7 +51,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf()); 
       };
       
-      CreateEmgEnvelope RightVastusLateralis (
+      CreateEmgEnvelope VastusLateralis (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -62,7 +62,7 @@ AnyFolder Validation = {
         AnySearchFun sf = { Search = "..LegMusRef.VastusLateralis*.Activity"; };
         AnyVar cActivity = max(sf()); 
       };
-      CreateEmgEnvelope RightRectusFemoris (
+      CreateEmgEnvelope RectusFemoris (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -74,7 +74,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf()); 
       };	
       
-    CreateEmgEnvelope RightGastrocnemiusMedialis (
+    CreateEmgEnvelope GastrocnemiusMedialis (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -86,7 +86,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf()); 
       };	
       
-      CreateEmgEnvelope RightGastrocnemiusLateralis (
+      CreateEmgEnvelope GastrocnemiusLateralis (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -98,7 +98,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf()); 
       };	
 
-      CreateEmgEnvelope RightTensorFasciaeLatae (
+      CreateEmgEnvelope TensorFasciaeLatae (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -110,7 +110,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf());
       };	
       
-      CreateEmgEnvelope RightTibialisAnterior (
+      CreateEmgEnvelope TibialisAnterior (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -122,7 +122,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf());
       };
       
-      CreateEmgEnvelope RightPeroneusLongus (
+      CreateEmgEnvelope PeroneusLongus (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -134,7 +134,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf());
       };
 
-      CreateEmgEnvelope RightSoleus (
+      CreateEmgEnvelope Soleus (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -146,7 +146,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf());
       };
       
-      CreateEmgEnvelope RightAdductorMagnus (
+      CreateEmgEnvelope AdductorMagnus (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -158,7 +158,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf());
       };
       
-      CreateEmgEnvelope RightGluteusMaximus (
+      CreateEmgEnvelope GluteusMaximus (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
@@ -170,7 +170,7 @@ AnyFolder Validation = {
         AnyVar cActivity = max(sf());
       };
       
-      CreateEmgEnvelope RightGluteusMedius (
+      CreateEmgEnvelope GluteusMedius (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
