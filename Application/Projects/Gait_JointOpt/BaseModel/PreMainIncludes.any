@@ -3,7 +3,7 @@
 #path BASE_MODEL_PATH "."
 #path PROJECT_PATH "../"
 #path AMMR_PATH "../../../../"
-#ifndef H5_OUTPUT
+#ifndef H5_OUTPUT 
 #path H5_OUTPUT "../Output/"  
 #endif 
 
