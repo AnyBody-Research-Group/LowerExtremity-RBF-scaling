@@ -149,7 +149,7 @@ Main = {
      AnyOperationMacro SaveKinOutputToH5File = {
         MacroStr = {
           "classoperation  Main.JntParameterOptModel.KinematicStudy.Output " + strquote("Save data") 
-        + "--type="+strquote("Deep") + " --file= " + strquote( H5_OUTPUT + Main.TrialSpecificData.TrialName +".kin"+ ".anydata.h5") };
+        + "--type="+strquote("Deep") + " --file= " + strquote( H5_OUTPUT +"/"+ Main.TrialSpecificData.TrialName +".kin"+ ".anydata.h5") };
      };
   #endif
 };
