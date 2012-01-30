@@ -428,7 +428,25 @@ AnyFolder Validation = {
       AnyVar cForce = (...InstrumentedKnee.Fm) + (...InstrumentedKnee.Fl);
       AnyVar cForceBodyWeight = cForce /.BodyWeight;
 
-       };
+    };
+     AnyFolder TotalContactForce2 = {
+     AnyFunInterpol InterpFun = 
+      {
+        Type = PiecewiseLinear;
+        AnyFolder &C3DHeader = ...C3DRef.Header;
+        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
+        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
+        AnyInt nAnalogSamples = SizesOf( Data)[1];
+        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+        Data = {..KneeForceRef.ETibFz};
+       }; 
+       
+      
+      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+      AnyVar cForce = (...InstrumentedKnee.Fm) + (...InstrumentedKnee.Fl);
+      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+
+    };    
     };
     #endif
 
