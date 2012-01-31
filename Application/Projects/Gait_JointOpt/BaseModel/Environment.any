@@ -7,7 +7,7 @@ AnyFixedRefFrame GlobalRef ={
 };  
 
 
-#ifdef IncludeLegTDModel1
+#ifdef IncludeLegTDModel
 ForcePlateType2AutoDetection ForcePlate1 (
 PlateName = Plate1,
 Folder = Main.ModelSetup.DynamicDataSet,
