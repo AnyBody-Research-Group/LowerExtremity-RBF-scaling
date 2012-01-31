@@ -10,13 +10,10 @@ AnyFolder TrialSpecificData={
   // C3D files to load
   AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";
   #define USE_TRIAL_SPECIFIC_TIMES
-  AnyIntVar  StartFrameNo = 50+Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+  AnyIntVar  StartFrameNo = 80+Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
   AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
-   
-  // HeelStrike times
-   #define UseHeelStrikesTimes
    
   
   //This is the initial position of the body it should only be touched it the kinematics does not work it first timestep
