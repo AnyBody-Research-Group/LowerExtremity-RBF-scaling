@@ -9,12 +9,55 @@ AnyFolder Validation = {
     #else
     AnyFolder &LegMusRef= ..HumanModel.BodyModel.Right.Leg.Mus;
     #endif
-      
+    
+
+    
+    AnyFolder MaxEMG = {
+      AnyFunEx GetMaxEMG = {
+        AnyFloat Return =  0.5;
+        AnyFunExMonoPy get_max_emg =  {
+          ModuleFile = "calc_max_emg.py";
+          ArgList = {
+            AnyString filenaeMax = " ";
+            AnyString filenameMin = " ";
+            AnyInt Order = 2;
+            AnyFloat BandPassLowFreq = 30;
+            AnyFloat BandPassHighFreq = 200;
+            AnyFloat LowPassFreq = 6;
+            AnyString Muscle = " ";
+          };
+        };
+      };
+   //  Oredered:{ "semimem", "bifem", "vasmed", "vaslat", "rf", "medgas", "latgas", "tfl", "tibant", "peronl", "soleus", "addmagnus", "gmax", "gmed", "sartorius"};
+//   AnyFloat semimem = GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "semimem");
+//   AnyFloat bifem = GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "bifem ");
+//   AnyFloat vasmed= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "vasmed");
+//   AnyFloat vaslat= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "vaslat");
+//   AnyFloat rf= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "rf");
+//   AnyFloat medgas= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "medgas");
+//   AnyFloat latgas= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "latgas");
+//   AnyFloat tfl= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "tfl");
+//   AnyFloat tibant= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "tibant");
+//   AnyFloat peronl= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "peronl");
+//   AnyFloat soleus= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "soleus");
+//   AnyFloat addmagnus= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "addmagnus");
+//   AnyFloat gmax= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "gmax");
+//   AnyFloat gmed= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "gmed");
+//   AnyFloat sartorius= GetMaxEMG(SUBJECT_PATH +"/Max Emg/SC_maxEMG.csv",2,30.0,200.0,6.0, "sartorius");
+  
+   AnyFloat semimem = 1; AnyFloat bifem = 1; AnyFloat vasmed= 1; AnyFloat vaslat= 1;
+   AnyFloat rf= 1; AnyFloat medgas= 1; AnyFloat latgas= 1;  AnyFloat tfl= 1;AnyFloat tibant= 1;
+   AnyFloat peronl= 1; AnyFloat soleus= 1; AnyFloat addmagnus= 1;AnyFloat gmax= 1; 
+   AnyFloat gmed= 1; AnyFloat sartorius= 1;
+};
+    
+    
       #if GrandChallageDataSet == 2012
       CreateEmgEnvelope Semimembranosus (
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.semimem, 
       C3DFolder = ..C3DRef,
       Label = semimem,
       t = ...t ) 
@@ -24,6 +67,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.semimem, 
       C3DFolder = ..C3DRef,
       Label = semime,
       t = ...t ) 
@@ -34,6 +78,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.bifem, 
       C3DFolder = ..C3DRef,
       Label = bifem,
       t = ...t )
@@ -43,6 +88,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.vasmed, 
       C3DFolder = ..C3DRef,
       Label = vasmed,
       t = ...t )
@@ -55,6 +101,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.vaslat, 
       C3DFolder = ..C3DRef,
       Label = vaslat,
       t = ...t )
@@ -66,6 +113,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.rf, 
       C3DFolder = ..C3DRef,
       Label = rf,
       t = ...t )
@@ -78,6 +126,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.medgas, 
       C3DFolder = ..C3DRef,
       Label = medgas,
       t = ...t )
@@ -90,6 +139,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.latgas, 
       C3DFolder = ..C3DRef,
       Label = latgas,
       t = ...t )
@@ -102,6 +152,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.tfl, 
       C3DFolder = ..C3DRef,
       Label = tfl,
       t = ...t )
@@ -114,6 +165,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.tibant, 
       C3DFolder = ..C3DRef,
       Label = tibant,
       t = ...t )
@@ -126,6 +178,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.peronl, 
       C3DFolder = ..C3DRef,
       Label = peronl,
       t = ...t )
@@ -138,6 +191,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.soleus, 
       C3DFolder = ..C3DRef,
       Label = soleus,
       t = ...t )
@@ -150,6 +204,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.addmagnus, 
       C3DFolder = ..C3DRef,
       Label = addmag,
       t = ...t )
@@ -162,6 +217,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.gmax, 
       C3DFolder = ..C3DRef,
       Label = gmax,
       t = ...t )
@@ -174,6 +230,7 @@ AnyFolder Validation = {
       BandPassLowFreq = 30,
       BandPassHighFreq = 200,
       LowPassFreq = 6,
+      NormFactor = .MaxEMG.gmed, 
       C3DFolder = ..C3DRef,
       Label = gmed,
       t = ...t )
