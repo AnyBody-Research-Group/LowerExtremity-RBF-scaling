@@ -130,6 +130,7 @@ AnyFolder Drivers = {
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RShankInferior.Weight};
     AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
   };
+  #ifndef EXCLUDE_RSHANKLATERAL
   AnyKinDriverMarker RShankLateral=    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RShankLateral ;
@@ -137,6 +138,7 @@ AnyFolder Drivers = {
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.Weight};
     AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
   };
+  #endif
 //  AnyKinDriverMarker RANK=    {
 //    CType = {Soft,Soft,Soft};
 //    AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RAnkleLateral ;
