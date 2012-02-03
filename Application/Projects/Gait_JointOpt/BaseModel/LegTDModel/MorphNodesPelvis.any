@@ -8,7 +8,7 @@ AnyFolder MorphSourcePoints = {
   AnyVec3 HipJointRightTDStandard = {0.035, -0.115, 0.088};  
   AnyVec3 HipJointLeftTDStandard = {0.035, -0.115, -0.088};  
 
-#if UseAnatomicalValuesLeftHip == 1 | UseAnatomicalValuesRightHip == 1  
+//#if UseAnatomicalValuesLeftHip == 1 | UseAnatomicalValuesRightHip == 1  
   // These are Marker positions on the unscaled pelvis
   AnyVec3 RightAsisMarker =  {0.1050608, -0.05008401, 0.1295}+{ 0.02,0.03,0.00};//+{-Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0],0,0};
 //+{ 0.01,0.01,0};
@@ -18,13 +18,13 @@ AnyFolder MorphSourcePoints = {
   
   AnyVec3 LeftPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,-0.03};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
   AnyVec3 RightPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,0.03};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
-#else
-  AnyVec3 RightAsisMarker =  {0.1050608, -0.05008401, 0.1295}+{-0.006,0.02,0.007};
-  AnyVec3 LeftAsisMarker =  {0.1050608, -0.05008401, -0.1295}+{-0.006,0.02,-0.007};
-  
-  AnyVec3 LeftPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{0.007,-0.01,-0.025};
-  AnyVec3 RightPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{0.007,-0.01,0.025};
-#endif
+//#else
+//  AnyVec3 RightAsisMarker =  {0.1050608, -0.05008401, 0.1295}+{-0.006,0.02,0.007};
+////  AnyVec3 LeftAsisMarker =  {0.1050608, -0.05008401, -0.1295}+{-0.006,0.02,-0.007};
+////  
+////  AnyVec3 LeftPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{0.007,-0.01,-0.025};
+////  AnyVec3 RightPSISMarker= {-0.03194569, 0.01086048, -0.00135}+{0.007,-0.01,0.025};
+//#endif
   
   
   AnyVec3 RightHipJointPoint = HipJointRightTDStandard;

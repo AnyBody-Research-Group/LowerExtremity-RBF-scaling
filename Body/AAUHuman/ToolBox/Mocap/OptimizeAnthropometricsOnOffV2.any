@@ -111,7 +111,7 @@
   
   
 
-  AnyFolder &ref2=  Main.Studies.ParameterIdentification ;
+  AnyFolder &ref2 =  Main.Studies.ParameterIdentification;
   
   ref2={
     AnyFolder &Lengths= Main.TrialSpecificData.Anthropometrics;

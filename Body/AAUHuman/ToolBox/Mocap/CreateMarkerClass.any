@@ -68,7 +68,7 @@
  
   #if Model1 == 1
   
-  AnyFolder &InsertionNode1 =Main.Studies.KinematicStudyForParameterIdentification.HumanModel.BodyModel.MarkerPlacement;
+  AnyFolder &InsertionNode1 =Main.Studies.HumanModel.BodyModel.MarkerPlacement;
   
   InsertionNode1 ={
     

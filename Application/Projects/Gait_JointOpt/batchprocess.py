@@ -24,7 +24,7 @@ macro =  ['load "Kinematics.main.any"',
           'operation Main.JntParameterOptModel.SaveKinOutputToH5File',
           'run',
           'exit']
-
+          
 
  abp = AnyBatchProcess(basepath = folder,
                        searchfile='InversDynamics.main.any',

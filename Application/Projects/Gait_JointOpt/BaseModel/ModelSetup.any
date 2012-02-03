@@ -41,8 +41,8 @@ AnyFolder ModelSetup ={
     SearchAndReplace = {{".",""}};
   };
   #ifndef USE_TRIAL_SPECIFIC_TIMES
-    AnyIntVar LastFrame = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
-    AnyIntVar FirstFrame = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+    AnyIntVar LastFrame = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo;
+    AnyIntVar FirstFrame = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo;
     AnyIntVar nStep = LastFrame - FirstFrame + 1;
   #else
     AnyIntVar LastFrame = Main.TrialSpecificData.LastFrameNo;

@@ -1026,7 +1026,7 @@ AnySeg Thigh = {
    ARel = RotMat(.StdPar.PatellaFemurJoint, 
                  .StdPar.PatellaFemurJoint + .PatellaFemurJointAxisStandard,
                  .StdPar.KneeJoint)
-				 *RotMat(...Sign*90*pi/180,y)*RotMat(...Sign*180*pi/180,z);;
+				 *RotMat(...Sign*90*pi/180,y)*RotMat(...Sign*180*pi/180,z);
    #endif  
     //AnyDrawRefFrame drw2 = { RGB = { 0.91796875, 0.76953125, 0.06640625 }; ScaleXYZ = { 0.1, 0.1, 0.1 }; };
   };
