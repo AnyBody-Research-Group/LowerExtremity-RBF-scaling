@@ -1,6 +1,5 @@
 #ifndef PREMAININCLUDES_ANY
-#path BASE_MODEL_PATH "."
-#path PROJECT_PATH "../Gait_JointOpt"
+#include "SetModelType.any"
 #endif
 
 Main = {

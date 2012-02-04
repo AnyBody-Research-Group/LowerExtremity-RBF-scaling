@@ -1,5 +1,4 @@
-#include "../../../../BaseModel/PreMainIncludes.any"
-
+#include "../../../../SetModelType.any"
 
 Main = {
  #include "TrialSpecificData.any" 
