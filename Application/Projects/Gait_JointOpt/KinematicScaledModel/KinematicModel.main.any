@@ -105,7 +105,7 @@ Main = {
     AnyFolder &LegModel = .LegModel;
     AnyFolder &EnvironmentModel = .Environment;
     AnyFolder &Camera = Main.ModelSetup.Camera;
-
+    AnyFolder &Markers = EnvironmentModel.Drivers;
 
     #include "KinOptModel\JointAngleOutputs.any"
     
@@ -154,14 +154,18 @@ Main = {
   #endif
 };
     
-
+   //TODO Rename JointTrialParameters to JointParameters
    AnyOperationSequence Load_JointTrialParameters = {
+     #ifndef USE_STATIC_MODEL
      AnyOperation &RHip =.JntParameterOptModel.Load_RightHipParameters ;
      AnyOperation &LHip =.JntParameterOptModel.Load_LeftHipParameters ;
      AnyOperation &RAnk =.JntParameterOptModel.Load_RightAnkleParameters ;
      AnyOperation &LAnk =.JntParameterOptModel.Load_LeftAnkleParameters ;
      AnyOperation &Gait = .JntParameterOptModel.Load_GaitParameters;
-     AnyOperation &InitCon = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
+     #else
+	 AnyOperation &AllAnatomicalParam =.JntParameterOptModel.Load_AnatomicalParameters;
+     #endif
+	 AnyOperation &InitCon = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
    };
   
 };  // Main

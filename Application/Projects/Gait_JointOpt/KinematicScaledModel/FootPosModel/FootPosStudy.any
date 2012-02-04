@@ -16,12 +16,12 @@ Main = {
      
     AnyOperationMacro Save_Marker_Widget_Values=  {
       MacroStr = { "classoperation Main " + strquote("Save Values") 
-        + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset"};    
+        + " --file=" + TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset"};    
     };
       
     AnyOperationMacro RunApplication=  {
       MacroStr = { "classoperation Main" + strquote("Load Values") 
-                    + " --file=" + TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset",
+                    + " --file=" + TEMP_FILE_PATH + "/" +Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset",
                    "operation Main.Load_JointTrialParameters","run",
                    "operation Main.FootPosModel.study.InitialConditions","run"};
     };
@@ -154,7 +154,7 @@ AnyFolder Left = {
        };
      };
      
-     AnyString anysetfile = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_Ankle_Joint_Parameters.anyset";
+     AnyString anysetfile = TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "_Ankle_Joint_Parameters.anyset";
 
      
      AnyInt ret0 = SaveAnySetValue(anysetfile,

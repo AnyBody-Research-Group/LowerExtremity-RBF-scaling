@@ -3,11 +3,14 @@
 
 AnyFixedRefFrame GlobalRef ={
   Origin={0,0,0};
+  AnyRefNode Origo = {};
   AnyDrawRefFrame drw={ScaleXYZ=0.4*{1,1,1};};
 };  
 
 
 #ifndef IncludeLegTDModel
+#if IncludeRight & IncludeLeft
+
 
 // The autodetection forceplates can not be used when the Human
 // model is not included. So we use the standard forceplate templates
@@ -32,7 +35,7 @@ Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz1)
 ForcePlateType2 ForcePlate2 (
 PlateName = Plate2,
 Folder = Main.ModelSetup.DynamicDataSet,
-Limb = ..LegModel.Left.Seg.Foot,
+Limb = ..LegModel.Right.Seg.Foot,
 No=1,
 Fx=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fx2,
 Fy=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fy2,
@@ -57,7 +60,7 @@ Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz3)
 = {
 };
 
-
+#endif
 #endif
 
 

@@ -7,6 +7,8 @@
 #define EnableJointAxisScaling 1
 #define HideStickModelGraphics 0
 #define UseRbfScaling 1
+#define IncludeLegTDModel 1
+
 
 #include "KinematicModel.main.any"
 

@@ -1,0 +1,458 @@
+  AnyFolder Macros = {};
+  
+  CreateMarker RAsis (
+  MarkerName=RAsis,
+  MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
+  OptX="Off", OptY="Off", OptZ="Off",  
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+  ) = {
+//    sRelOpt = { 0.1104314832245, -0.0381873163174 ,0.1454700654965}+{0.01,0.035,0.00};
+      sRelOpt = {0.1050608, -0.05008401, 0.1295}+{ 0.02,0.03,0.00};
+  };
+
+  CreateMarker LAsis (
+  MarkerName=LAsis,
+  MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
+  OptX="Off", OptY="Off", OptZ="Off",  
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+  ) = {
+//    sRelOpt = { 0.1104314832245, -0.0381873163174 ,-0.1454700654965}+{0.01,0.035,-0.00};
+    sRelOpt = {0.1050608, -0.05008401, -0.1295}+{ 0.02,0.03,-0.00};
+  };
+    
+  CreateMarker RPsis ( 
+  MarkerName=RPsis , 
+  MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
+  OptX="Off", OptY="Off", OptZ="On",  
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,  
+  Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel 
+  ) = {
+//    sRelOpt = { -0.07, -0.00, 0.040};
+  sRelOpt = {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,0.03};
+  };
+   
+  CreateMarker LPsis ( 
+  MarkerName=LPsis , 
+  MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
+  OptX="Off", OptY="Off", OptZ="On",  
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,  
+  Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel 
+  ) = {
+//    sRelOpt = { -0.07, -0.00, -0.040};
+  sRelOpt = {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,-0.03};
+  };  
+  
+  // /* 
+ //		LEG MARKERS
+ // */
+ 
+   // Hip
+ CreateMarkerTDWidget Sacral ( 
+  MarkerName=PrefixDef(Sacral),
+  MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
+  OptX="Off",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { -0.07, -0.00, 0.000};     //coordinates of the marker unscaled
+  };
+  
+ CreateMarkerTD Lumbar  (
+ MarkerName=PrefixDef(Lumbar),  
+ MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg , 
+ OptX="On",OptY="Off",OptZ="Off",  
+ WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+ Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+ ) = {
+   sRelOpt =  { -0.05, 0.05, 0.000 };
+ }; 
+	
+  // Thigh
+  CreateMarkerTD RThighLateral ( 
+  MarkerName=PrefixDef(RThighLateral),
+  MarkerPlacement =Right.Leg.Seg.Thigh, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { 0.02708723+0.04, -0.22500183,  0.11248938 -0.1 };     //coordinates of the marker unscaled
+  };
+  
+  //
+  CreateMarkerTD LThighLateral ( 
+  MarkerName=PrefixDef(LThighLateral),
+  MarkerPlacement =Left.Leg.Seg.Thigh, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt=  { 0.02708723+0.04, -0.22500183,  -0.11248938 +0.1 };
+  };
+  
+  //
+  CreateMarkerTD LThighSuperior ( 
+  MarkerName=PrefixDef(LThighSuperior),
+  MarkerPlacement =Left.Leg.Seg.Thigh, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.0905687 , -0.17195914+0.05, 0.00520705 -0.06};
+  };
+  
+  //
+  CreateMarkerTD LThighInferior ( 
+  MarkerName=PrefixDef(LThighInferior),
+  MarkerPlacement =Left.Leg.Seg.Thigh, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.07907758, -0.30765352, -0.01459529 -0.06 };
+  };
+
+ CreateMarkerTD RThighSuperior ( 
+  MarkerName=PrefixDef(RThighSuperior),
+  MarkerPlacement =Right.Leg.Seg.Thigh, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.0905687 , -0.17195914+0.05, -0.00520705+0.06};
+  };
+
+ CreateMarkerTD RThighInferior ( 
+  MarkerName=PrefixDef(RThighInferior),
+  MarkerPlacement =Right.Leg.Seg.Thigh, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+      sRelOpt=  { 0.07907758, -0.30765352, -0.01459529+0.06};
+  };
+  
+  // Patella
+ CreateMarkerTD LPatella ( 
+  MarkerName=PrefixDef(LPatella),
+  MarkerPlacement =Left.Leg.Seg.Patella, 
+  OptX="Off",OptY="On",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { 0.075,-0.005,-0.02}; //{0.0125-0.01, -0.0385-0.015, -0.04};
+ };
+//
+ CreateMarkerTD RPatella (  
+  MarkerName=PrefixDef(RPatella),
+  MarkerPlacement =Right.Leg.Seg.Patella, 
+  OptX="Off",OptY="On",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { 0.075,-0.005,0.02}; //{0.125-0.01, -0.385-0.015, 0.04};
+  };
+  
+//Shank
+ CreateMarkerTD RShankLateral ( 
+  MarkerName=PrefixDef(RShankLateral),
+  MarkerPlacement =Right.Leg.Seg.Shank, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = {0.00115436+0.04,  0.21063336,  0.04005241-0.05};
+  };
+
+ CreateMarkerTD LShankLateral ( 
+  MarkerName=PrefixDef(LShankLateral),
+  MarkerPlacement =Left.Leg.Seg.Shank, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { 0.00115436+0.04,  0.21063336,  -0.04005241+0.05};
+  };
+
+ CreateMarkerTD RShankSuperior ( 
+  MarkerName=PrefixDef(RShankSuperior),
+  MarkerPlacement =Right.Leg.Seg.Shank, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt =  { 0.04215119,  0.27685411+0.05, -0.012+0.05} ;
+  };  
+//
+ CreateMarkerTD LShankSuperior ( 
+  MarkerName=PrefixDef(LShankSuperior),
+  MarkerPlacement =Left.Leg.Seg.Shank, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt =  { 0.04215119,  0.27685411+0.05, 0.012-0.05 };
+  };  
+
+ CreateMarkerTD LShankInferior ( 
+  MarkerName=PrefixDef(LShankInferior),
+  MarkerPlacement =Left.Leg.Seg.Shank, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { 0.0241822 ,  0.13779799, 0.012-0.05} ;
+  };    
+  
+ CreateMarkerTD RShankInferior ( 
+  MarkerName=PrefixDef(RShankInferior),
+  MarkerPlacement =Right.Leg.Seg.Shank, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { 0.0241822 ,  0.13779799, -0.012+0.05};
+  };     
+  
+ // /*
+ //		UPPER BODY MARKERS
+ // */  
+ 
+//Trunk
+// CreateMarkerTD Sternum  (
+ CreateMarker Sternum  (
+ MarkerName=PrefixDef(Sternum),  
+ MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
+ OptX="On",OptY="On",OptZ="Off",  
+ WeightX=0.5,WeightY=0.5,WeightZ=0.0,
+ Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+ ) = {
+   sRelOpt = { 0.1, 0.40, 0};
+ };  
+ 
+// CreateMarkerTD Xiphoid  (
+ CreateMarker Xiphoid  (
+ MarkerName=PrefixDef(Xiphoid),  
+ MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
+ OptX="On",OptY="On",OptZ="Off",  
+ WeightX=0.5,WeightY=0.5,WeightZ=0.0,
+ Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+ ) = {
+   sRelOpt = { 0.16, 0.27, 0 };
+ };  
+ 
+// CreateMarkerTD Neck  (
+ CreateMarker Neck  (
+ MarkerName=PrefixDef(Neck),  
+ MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
+ OptX="Off",OptY="Off",OptZ="Off",  
+ WeightX=0.5,WeightY=0.5,WeightZ=0.5,
+ Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+ ) = {
+   sRelOpt = { -0.05,0.465,0 };
+ }; 
+ 
+// CreateMarkerTD Thoracic  (
+ CreateMarker Thoracic  (
+ MarkerName=PrefixDef(Thoracic),  
+ MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
+ OptX="On",OptY="On",OptZ="Off",  
+ WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+ Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+ ) = {
+   sRelOpt = { -0.09, 0.32, 0};
+ }; 
+ 
+
+ 
+//  CreateMarker  LShoulderCenter  (
+// MarkerName=LShoulderCenter,  
+// MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
+// OptX="Off",OptY="On",OptZ="On",  
+// WeightX=0.05,WeightY=1.0,WeightZ=1.0,
+// Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+// ) = {
+//   sRelOpt = { 0.03,0.40,-0.2 };
+// };  
+// 
+//  CreateMarker  RShoulderCenter (
+// MarkerName= RShoulderCenter,  
+// MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
+// OptX="Off",OptY="On",OptZ="On",  
+// WeightX=0.05,WeightY=1.0,WeightZ=1.0,
+// Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+// ) = {
+//   sRelOpt = { 0.03 ,0.40,0.2 };
+// };  
+// 
+ 
+ 
+//
+//   FOOT MARKERS
+//
+   
+  CreateMarkerTD RHeel ( 
+  MarkerName=PrefixDef(RHeel),
+  MarkerPlacement =Right.Leg.Seg.Foot, 
+  OptX="Off",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, 0.03 -0.008 };
+  };
+   
+  CreateMarkerTD LHeel ( 
+  MarkerName=PrefixDef(LHeel),
+  MarkerPlacement =Left.Leg.Seg.Foot, 
+  OptX="Off",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, -0.03 +0.008};
+  };
+   
+  CreateMarkerTD LToe (
+  MarkerName=PrefixDef(LToe),
+  MarkerPlacement =Left.Leg.Seg.Foot, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.23438048+0.015,  0.01647059+0.01, -0.029 +0.02 };
+  };
+  
+  CreateMarkerTD RToe ( 
+  MarkerName=PrefixDef(RToe),
+  MarkerPlacement =Right.Leg.Seg.Foot, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.23438048+0.025,  0.01647059+0.01, 0.029 -0.02};
+  };  
+  
+  CreateMarkerTD LMidfootLateral ( 
+  MarkerName=PrefixDef(LMidfootLateral),
+  MarkerPlacement =Left.Leg.Seg.Foot, 
+  OptX="On",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.10556638+0.03,  -0.02+0.015,  -0.085+0.02};
+  }; 
+
+  CreateMarkerTD RMidfootLateral ( 
+  MarkerName=PrefixDef(RMidfootLateral),
+  MarkerPlacement =Right.Leg.Seg.Foot, 
+  OptX="On",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.10556638+0.03,  -0.02+0.015,  0.085-0.02};
+  }; 
+  
+  CreateMarkerTD LMidfootSuperior ( 
+  MarkerName=PrefixDef(LMidfootSuperior),
+  MarkerPlacement =Left.Leg.Seg.Foot, 
+  OptX="On",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.10556638+0.03,  0.06959772+0.01,  -0.0322785+0.03};
+  }; 
+
+  CreateMarkerTD RMidfootSuperior ( 
+  MarkerName=PrefixDef(RMidfootSuperior),
+  MarkerPlacement = Right.Leg.Seg.Foot, 
+  OptX="On",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.10556638+0.03,  0.06959772+0.01,  0.0322785-0.03};
+  }; 
+  
+ 
+  CreateMarkerTD RMidfootMedial ( 
+  MarkerName=PrefixDef(RMidfootMedial),
+  MarkerPlacement =Right.Leg.Seg.Foot, 
+  OptX="On",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { 0.10556638+0.02,  -0.02+0.01,  0.085-0.11};
+  };
+   
+  CreateMarkerTD LMidfootMedial ( 
+  MarkerName=PrefixDef(LMidfootMedial ),
+  MarkerPlacement =Left.Leg.Seg.Foot, 
+  OptX="On",OptY="Off",OptZ="Off",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt = { 0.10556638 +0.02,  -0.02+0.01,  -0.085+0.12};
+  };
+   
+  CreateMarkerTD RHindfoot ( 
+  MarkerName=PrefixDef(RHindfoot ),
+  MarkerPlacement =Right.Leg.Seg.Foot, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+   sRelOpt= { 0.030+0.03,  -0.02+0.03,  0.085-0.03 };
+  };
+  
+  CreateMarkerTD LHindfoot( 
+  MarkerName=PrefixDef(LHindfoot),
+  MarkerPlacement =Left.Leg.Seg.Foot, 
+  OptX="On",OptY="On",OptZ="On",
+  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  )= {
+  sRelOpt= { 0.030+0.03,  -0.02+0.03,  -0.085+0.03};
+  };  
+  
+//  CreateMarkerTD RToeMedial ( 
+//  MarkerName=PrefixDef(RToeMedial ),
+//  MarkerPlacement =Right.Leg.Seg.Foot, 
+//  OptX="Off",OptY="Off",OptZ="Off",
+//  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+//  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+//  )= {
+//   sRelOpt= { 0.23438048,  0.01647059-0.01, 0.029-0.07 };
+//  }; 
+//
+//  CreateMarkerTD LToeMedial ( 
+//  MarkerName=PrefixDef(LToeMedial ),
+//  MarkerPlacement =Left.Leg.Seg.Foot, 
+//  OptX="On",OptY="On",OptZ="On",
+//  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+//  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+//  )= {
+//   sRelOpt= { 0.23438048,  0.01647059-0.01, -0.029+0.07 };
+//  }; 
+  
+//  CreateMarkerTD RToeLateral ( 
+//  MarkerName=PrefixDef(RToeLateral ),
+//  MarkerPlacement =Right.Leg.Seg.Foot, 
+//  OptX="On",OptY="On",OptZ="On",
+//  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+//  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+//  )= {
+//   sRelOpt= {0.23438048 -0.01,  0.01647059 -0.01, 0.029 +0.05};
+//  }; 
+//
+//  CreateMarkerTD LToeLateral ( 
+//  MarkerName=PrefixDef(LToeLateral ),
+//  MarkerPlacement = Left.Leg.Seg.Foot, 
+//  OptX="On",OptY="On",OptZ="On",
+//  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+//  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+//  )= {
+//   sRelOpt= { 0.23438048 -0.01,  0.01647059 -0.01, -0.029 -0.05};
+//  }; 
+//  
+  
+
+  

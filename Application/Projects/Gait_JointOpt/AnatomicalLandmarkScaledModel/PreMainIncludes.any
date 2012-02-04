@@ -1,0 +1,9 @@
+// The Anatomical based model uses the same files as the kin-scaled-model
+// but with an extra flag (USE_STATIC_MODEL) defined 
+#define USE_STATIC_MODEL
+
+#path TEMP_FILE_PATH "Tmp"
+#define PROJECT_FOLDER_NAME Anatomical_Landmark_Scaled_Model  
+
+#include "../KinematicScaledModel/PreMainIncludes.any"
+

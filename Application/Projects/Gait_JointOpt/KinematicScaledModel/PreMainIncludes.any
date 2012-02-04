@@ -1,10 +1,24 @@
 #ifndef PREMAININCLUDES_ANY
 #define PREMAININCLUDES_ANY
-#path PROJECT_PATH "../../"
-#path AMMR_PATH "../../../../../"
+
+#ifndef PROJECT_FOLDER_NAME 
+#define PROJECT_FOLDER_NAME Kinematic_Scaled_Model  
+#endif
+
+#path BASE_MODEL_PATH "."
+#path PROJECT_PATH "../.."
+
+#ifndef AMMR_PATH 
+#path AMMR_PATH "../../../../.."
+#endif
+
 #ifndef H5_OUTPUT 
-#path H5_OUTPUT "../../Output/"  
+#path H5_OUTPUT "../Output"  
 #endif 
+
+#ifndef TEMP_FILE_PATH
+#path TEMP_FILE_PATH "Tmp"
+#endif
 
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClass.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTD.any"
@@ -16,7 +30,7 @@
 #include "KinOptModel\ClassTemplates.any"
 #include "EmgProcessing.any"
 //#include "MomentArmTemplate.any"
-#include "EmulateC3DMacros.any"
+//#include "EmulateC3DMacros.any"
 
 
 #endif

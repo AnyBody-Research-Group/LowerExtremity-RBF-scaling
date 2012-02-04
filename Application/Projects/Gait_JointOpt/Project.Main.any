@@ -3,8 +3,9 @@
 #endif
 
 Main = {
-  AnyProject Project = {
-    #include "Data/TrialSelector.any"
+  AnyProject PROJECT_FOLDER_NAME = {
+    
+    #include "Subjects/TrialSelector.any"
     
     Tasks = {
     #ifdef PREMAININCLUDES_ANY

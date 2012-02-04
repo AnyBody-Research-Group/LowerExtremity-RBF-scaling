@@ -1,0 +1,135 @@
+////DESCRIPTION OF MODEL
+// This model is base on the GaitLowerExtremity model in the examples folder
+// see the GaitLowerExtremity.main.any for a discription of how to use this model
+
+// Only include if this is the Main file.
+#define MotionAndParameterOptimizationModel 1
+#define InverseDynamicModel 0
+#define IntialPositionStudy 0 
+
+#include "PreMainIncludes.any"
+
+
+#include "<PROJECT_PATH>/Project.Main.any"
+
+
+Main ={
+  AnyOperationMacro RunMotionAndParameterOptimizationSequence  = { 
+    MacroStr=({
+      "classoperation Main" + strquote("Update Values"),
+      "operation Main.Studies.ParameterIdentification.ParameterOptimization",
+      "run",
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Save design") + " --file=" + strquote(FilePathCompleteOf(Main.ModelSetup.FileNames.OptimizedParameters )), 
+      "operation Main.Studies.MotionOptimization.Kinematics",
+      "run"
+    });
+  };
+  AnyOperationMacro SaveWidgetValues = { 
+    MacroStr={
+      "classoperation Main" + " " + strquote("Save Values") + " --file=" + strquote(FilePathCompleteOf(Main.ModelSetup.FileNames.WidgetValues )) 
+    };
+  };
+  AnyOperationMacro LoadWidgetValues = { 
+    MacroStr={
+      "classoperation Main" + " " + strquote("Load Values") + " --file=" + strquote(FilePathCompleteOf(Main.ModelSetup.FileNames.WidgetValues )) 
+    };
+  };
+  AnyOperationMacro SaveResults = { 
+    MacroStr={
+      "classoperation Main.Studies.MotionOptimization.Output" + " " + strquote("Save data") + " --file=" + strquote(FilePathCompleteOf(Main.ModelSetup.FileNames.KinResults )) + " --type=Deep"
+    };
+  };
+  AnyOperationMacro LoadResults = { 
+    MacroStr={
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") + " --file=" + strquote(FilePathCompleteOf(Main.ModelSetup.FileNames.OptimizedParameters )),
+      "classoperation Main" + strformat("\x22")+ "Update Values" + strformat("\x22"),
+      "classoperation Main.Studies.MotionOptimization.Output" + " " + strquote("Load data") + " --file=" + strquote(FilePathCompleteOf(Main.ModelSetup.FileNames.KinResults )) 
+    };
+  };
+  
+
+  
+  #include "ModelSetup.any" 
+  #include "DrawSettings.any"
+
+    
+ AnyFolder Studies ={
+    
+    HumanModel={
+      AnyFolder &Mannequin=.KinematicStudyForParameterIdentification.Mannequin;
+      #include  "BodyPartsSetupKin.any"
+    };
+    #include "HumanModel.any"
+    
+    AnyBodyStudy KinematicStudyForParameterIdentification = {
+      
+      AnyFolder &C3DData=..ModelSetup.C3DFileData ;
+      AnyFolder HumanModel = {
+        AnyFolder &BodyModel=..HumanModel.BodyModel;  
+      };
+      AnyFolder &BodyModel=.HumanModel.BodyModel;  
+      
+      #include "Mannequin.any"  
+	  
+      AnyFolder EnvironmentModel ={
+        AnyFolder &BodyModelRef=..HumanModel.BodyModel;        
+        #include "Environment.any"
+      };
+
+      AnyFolder ModelEnvironmentConnection = {
+        AnyFolder Drivers={
+          AnyFolder &JntPos=..Mannequin.Posture;  
+          AnyFolder &JntVel=..Mannequin.PostureVel;
+          #include "ExtraDrivers.any"
+        };
+      };
+      
+      #include "JointAngleOutputs.any"
+      #include "UndefineBodyPartSetup.any"
+      InitialConditions.PosAnalysisOnlyOnOff=On;
+      Kinematics.PosAnalysisOnlyOnOff=On; //only run the position analysis 
+      nStep = 75; 
+      Gravity = { 0.0, -9.81, 0.0};
+      tStart = Main.ModelSetup.tStart; 
+      tEnd = Main.ModelSetup.tEnd; 
+      
+      InitialConditions.SolverType = KinSolOverDeterminate;
+      Kinematics.SolverType = KinSolOverDeterminate;
+      InitialConditions.KinematicTol=1e-3;//this is only used for generating the initial guess just have to be good enough to get started
+      Kinematics.KinematicTol=1e-3; //this is only used for generating the initial guess just have to be good enough to get started
+    };
+    
+    
+    AnyOptKinStudy ParameterIdentification =     {
+      AnyFolder &StudyRef = .KinematicStudyForParameterIdentification;
+      ParameterOptimization.ConvergenceTol=1e-2; //this has shown in pratice to work in a good way... the designvariables will not change much if the value was lowered.
+      //note that the full analysis with normal tolerances is done later...
+      Analysis =   {
+        AnyOperation &ref = .StudyRef.Kinematics;
+      };
+    };   
+
+        
+    AnyBodyStudy MotionOptimization = {      
+      AnyFolder &C3DData=..ModelSetup.C3DFileData ;
+      AnyFolder &BodyModel=.KinematicStudyForParameterIdentification.BodyModel;
+      AnyFolder &ModelOptimizationModel=.KinematicStudyForParameterIdentification;
+      AnyFolder &JointAngleOutput=.KinematicStudyForParameterIdentification.JointAngleOutputs;
+      AnyFolder &Markers = ModelOptimizationModel.ModelEnvironmentConnection.Drivers;
+      
+      InitialConditions.PosAnalysisOnlyOnOff=On;
+      Kinematics.PosAnalysisOnlyOnOff=On;
+      nStep=Main.ModelSetup.nStep; 
+      Gravity = { 0.0, -9.81,0};
+      tStart = Main.ModelSetup.tStart;
+      tEnd = Main.ModelSetup.tEnd;
+      
+      InitialConditions.SolverType = KinSolOverDeterminate;
+      Kinematics.SolverType = KinSolOverDeterminate;
+    };
+  };
+};
+#undef MotionAndParameterOptimizationModel 
+#undef InverseDynamicModel 
+#undef IntialPositionStudy 
+

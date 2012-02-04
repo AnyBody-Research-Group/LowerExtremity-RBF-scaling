@@ -2,58 +2,59 @@
 ModelSetup = {
   
   AnyFolder Camera = {
-  
-  #if IncludeHip & IncludeKnee & IncludeAnkle
-  AnySeg SteadyCamSeg = {
-    Mass = 0;
-    Jii = {0, 0, 0};
-  };
-  AnyKinEq StadyCamPosDriver = {
-     AnyKinLinear LinPos = {
-       AnyRefFrame &r1 = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis;
-       AnyRefFrame &r2 = ..SteadyCamSeg;
-     };
-  };
-  AnyKinEq StadyCamRotDriver = {
-     AnyKinRotational RotPos = {
-       Type = RotVector;
-       AnyRefFrame &r2 = ..SteadyCamSeg;
-     };
-  };
-  #endif
-  
-AnyCameraLookAt UserCam = 
-{
-    AnyVar yRot = DesignVar(20);
-    AnyVar zRot = DesignVar(160);
-    AnyVar distance = DesignVar(1.2);
-    AnyVec3 LookAtOffset = {0,0,-0.5};
     
-    EyePoint = LookAtPoint+distance*{1,0,0}*RotMat(yRot*pi/180,y)*RotMat(-zRot*pi/180,z)*frame.Axes';//{1,0,0};
-    LookAtPoint = frame.r+LookAtOffset*frame.Axes';
-    UpPoint = LookAtPoint+{0,0,1}*frame.Axes';
     #if IncludeHip & IncludeKnee & IncludeAnkle
-    AnyRefFrame &frame = .SteadyCamSeg;
-    #else
-    AnyRefFrame &frame = .Main.JntParameterOptModel.Environment.GlobalRef.Origo;
+    AnySeg SteadyCamSeg = {
+      Mass = 0;
+      Jii = {0, 0, 0};
+    };
+    AnyKinEq StadyCamPosDriver = {
+      AnyKinLinear LinPos = {
+        AnyRefFrame &r1 = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis;
+        AnyRefFrame &r2 = ..SteadyCamSeg;
+      };
+    };
+    AnyKinEq StadyCamRotDriver = {
+      AnyKinRotational RotPos = {
+        Type = RotVector;
+        AnyRefFrame &r2 = ..SteadyCamSeg;
+      };
+    };
     #endif
-    FocalDist = distance;
-    FocalHeight = distance;
-    Near = 0.001;
-    Far = 1000;
-    Perspective = Off;
-  
-  AnyScene Scene =   {
-    //BackgroundColor = {0.9, 0.9, 0.94};
+    
+    AnyCameraLookAt UserCam = 
+    {
+      AnyVar yRot = DesignVar(20);
+      AnyVar zRot = DesignVar(160);
+      AnyVar distance = DesignVar(1.2);
+      AnyVec3 LookAtOffset = {0,0,-0.5};
+      
+      EyePoint = LookAtPoint+distance*{1,0,0}*RotMat(yRot*pi/180,y)*RotMat(-zRot*pi/180,z)*frame.Axes';//{1,0,0};
+      LookAtPoint = frame.r+LookAtOffset*frame.Axes';
+      UpPoint = LookAtPoint+{0,0,1}*frame.Axes';
+      #if IncludeHip & IncludeKnee & IncludeAnkle
+      AnyRefFrame &frame = .SteadyCamSeg;
+      #else
+      AnyRefFrame &frame = .Main.JntParameterOptModel.Environment.GlobalRef.Origo;
+      #endif
+      FocalDist = distance;
+      FocalHeight = distance;
+      Near = 0.001;
+      Far = 1000;
+      Perspective = Off;
+      
+      AnyScene Scene =   {
+        //BackgroundColor = {0.9, 0.9, 0.94};
+      };
+      
+      AnyDrawCamera drw = {
+        ScaleXYZ = {0.1,0.1,0.1};
+        Opacity = 0;
+        RGB = {1,0,0};
+        Visible = Off;
+      };
+      
+    };
   };
-  
-        AnyDrawCamera drw = {
-          ScaleXYZ = {0.1,0.1,0.1};
-          Opacity = 0;
-          RGB = {1,0,0};
-          Visible = Off;
-        };
+};
 
-};
-};
-};

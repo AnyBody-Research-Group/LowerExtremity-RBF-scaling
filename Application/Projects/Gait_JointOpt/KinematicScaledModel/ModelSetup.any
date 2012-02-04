@@ -41,12 +41,12 @@ AnyFolder ModelSetup ={
     SearchAndReplace = {{".",""}};
   };
   #ifndef USE_TRIAL_SPECIFIC_TIMES
-    AnyIntVar LastFrame = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo;
-    AnyIntVar FirstFrame = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo;
+    AnyIntVar LastFrame = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+    AnyIntVar FirstFrame = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
     AnyIntVar nStep = LastFrame - FirstFrame + 1;
   #else
-    AnyIntVar LastFrame = Main.TrialSpecificData.LastFrameNo;
-    AnyIntVar FirstFrame = Main.TrialSpecificData.StartFrameNo;
+    AnyIntVar LastFrame = Main.TrialSpecificData.LastFrameNo-1;
+    AnyIntVar FirstFrame = Main.TrialSpecificData.StartFrameNo+1;
     AnyIntVar nStep = LastFrame - FirstFrame + 1;
   #endif
   
@@ -54,18 +54,18 @@ AnyFolder ModelSetup ={
   AnyFloatVar  tEnd = LastFrame /Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate; 
   
   AnyFolder Files = {
-    AnyStringVar RightHipParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.RightHipParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar LeftHipParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.LeftHipParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar LeftAnkleParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.LeftAnkleParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar GaitParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.GaitParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar AllParameters = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
+    AnyStringVar RightHipParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightHipParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftHipParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftHipParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftAnkleParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar GaitParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.GaitParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar AllParameters = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
     
-    AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";
-    AnyFileVar OptimizedMotionLeftLegTD = TEMP_FILE_PATH + Main.TrialSpecificData.TrialName + "-output-euler-leftlegtd.txt";
-    AnyFileVar OptimizedMotionRightLegTD = TEMP_FILE_PATH  + Main.TrialSpecificData.TrialName + "-output-euler-rightlegtd.txt";
+    AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";
+    AnyFileVar OptimizedMotionLeftLegTD = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "-output-euler-leftlegtd.txt";
+    AnyFileVar OptimizedMotionRightLegTD = TEMP_FILE_PATH  + "/" + Main.TrialSpecificData.TrialName + "-output-euler-rightlegtd.txt";
     
-    AnyFileVar AnkleJointParameters = TEMP_FILE_PATH + Main.SubjectSpecificData.TrialNameStatic + "_Ankle_Joint_Parameters.anyset";
+    AnyFileVar AnkleJointParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.TrialNameStatic + "_Ankle_Joint_Parameters.anyset";
 
   };
   

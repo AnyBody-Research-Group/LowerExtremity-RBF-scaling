@@ -1,7 +1,0 @@
-load "KinematicModel.Main.any"
-operation Main.JntParameterOptModel.KinematicStudy.Kinematics
-run
-load "InverseDynamicsModel.main.any"
-operation Main.AnyBodyGaitAppModel.InverseDynamicStudy.InverseDynamics
-run
-exit

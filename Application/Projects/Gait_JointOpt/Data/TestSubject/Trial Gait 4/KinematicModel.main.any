@@ -1,9 +1,0 @@
-#define MAIN_FILE_NAME "KinematicModel.main.any"
-#include "../../../BaseModel/PreMainIncludes.any"
-
-
-Main = {
-   #include "TrialSpecificData.any"
-   #include "../SubjectSpecificData.any"
-   #include "../../../BaseModel/KinematicModel.main.any"
-};  // Main
