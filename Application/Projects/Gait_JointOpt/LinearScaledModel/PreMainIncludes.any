@@ -2,7 +2,7 @@
 #define PREMAININCLUDES_ANY
 
 #ifndef PROJECT_FOLDER_NAME 
-#define PROJECT_FOLDER_NAME Kinematic_Scaled_Model  
+#define PROJECT_FOLDER_NAME Linear_Scaled_Model  
 #endif
 
 #path BASE_MODEL_PATH "."
