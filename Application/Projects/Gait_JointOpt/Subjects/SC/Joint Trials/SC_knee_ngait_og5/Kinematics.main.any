@@ -1,7 +1,8 @@
-#include "../../../../BaseModel/PreMainIncludes.any"
+#include "../../../../SetModelType.any"
 
 Main = {
+  
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"  
- #include "../../../../BaseModel/OptimizeGait.main.any"
+ #include "<BASE_MODEL_PATH>/OptimizeGait.main.any"
 }; 

@@ -1,10 +1,7 @@
-#include "../../../../BaseModel/PreMainIncludes.any"
-#define IncludeLegTDModel 1
-#define USE_STATIC_MODEL
+#include "../../../../SetModelType.any"
 
 Main = {
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"
  #include "<BASE_MODEL_PATH>/InverseDynamicsModel.main.any"
-
 };

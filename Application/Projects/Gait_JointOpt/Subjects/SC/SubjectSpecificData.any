@@ -1,6 +1,5 @@
 
 #path SUBJECT_PATH "."
-#path TEMP_FILE_PATH "Tmp/"
 
 
 // Switches whether or not to use the anatomically computed joint center or the joint center listed below
@@ -13,7 +12,7 @@ AnyFolder SubjectSpecificData = {
   #ifndef USE_TRIAL_SPECIFIC_PARAMETERS
   
   AnyStringVar TrialNameStatic = "SC_staticfor_again1";
-  AnyStringVar C3DFileNameStatic = BASE_MODEL_PATH +"../Data/SC/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
+  AnyStringVar C3DFileNameStatic = SUBJECT_PATH + "/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
   AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
   AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
   AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
@@ -49,8 +48,17 @@ AnyFolder SubjectSpecificData = {
      AnyVar KneeWidth = 0.0975;
      AnyVar AnkleWidth = 0.0753;
           
-     
-     
+    AnyVar ThighLengthIni= 0.4234534;  //rigth and left side is mirrored 
+    AnyVar ShankLengthIni= 0.4120814;
+    AnyVar FootLengthIni=0.21;
+    AnyVar PelvisWidthIni=0.16; //distance between hip joints
+    
+    AnyVar HeadHeightIni = 0.14;//height in neutral position from  C1HatNode to top of head
+    AnyVar TrunkHeightIni = 0.620233;//height in neautral position from  C1HatNode to L5SacrumJnt
+    AnyVar UpperArmLengthIni = 0.340079;
+    AnyVar LowerArmLengthIni =0.2690167;
+    AnyVar HandLengthIni = 0.182;
+    AnyVar HandBreadth = 0.085;     
  
  
  
@@ -63,4 +71,7 @@ AnyFolder SubjectSpecificData = {
       // AnyVec3 RightHip_sRel =  (OffsetRot*({ -13.7442, -121.3618,   84.6766}/1000.0+OffsetPos)')';
     // };
   };
+  Main.TrialSpecificData= {
+    AnyFolder &Anthropometrics = Main.SubjectSpecificData.Anthropometrics;
+  };  
 };

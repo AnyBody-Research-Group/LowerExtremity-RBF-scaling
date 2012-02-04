@@ -1,5 +1,4 @@
-#include "../../../../BaseModel/PreMainIncludes.any"
-#define IncludeLegTDModel 1
+#include "../../../../SetModelType.any"
 
 Main = {
  #include "TrialSpecificData.any" 
