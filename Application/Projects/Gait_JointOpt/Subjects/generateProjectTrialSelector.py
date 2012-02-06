@@ -39,9 +39,9 @@ def create_task_folder(folder,pattern, indent = 0):
     for mainfile in fnmatch.filter(os.listdir(folder), pattern):
         filename = os.path.basename(mainfile)            
         script += " "*(indent +2)+"AnyProjectTaskLoadModel  %s= { \n" % filename[0:-9].replace(' ','_')
-        script += " "*(indent +4)+'MainFile = PROJECT_PATH+"Data/"+"%s";\n'  % os.path.join(folder,mainfile)
+        script += " "*(indent +4)+'MainFile = PROJECT_PATH+"Subjects/"+"%s";\n'  % os.path.join(folder,mainfile)
 #        script += " "*(indent+4)+ 'Description.Title = "Load ";'
-        script += " "*(indent+4)+ 'Description.Files = PROJECT_PATH+"Data/"+"%s";\n' % os.path.join(folder, 'output_log.txt')
+        script += " "*(indent+4)+ 'Description.Files = PROJECT_PATH+"Subjects/"+"%s";\n' % os.path.join(folder, 'output_log.txt')
         script += " "*(indent +2)+"};\n"
     script += " "*indent +'};\n'
     return script

@@ -1,6 +1,6 @@
 #path TRIAL_PATH "."
 #define FULL_MARKERSET
-
+#define EXCLUDE_RSHANKLATERAL
 AnyFolder TrialSpecificData={
   
   /// Name of the C3D file to be analysed
@@ -10,7 +10,7 @@ AnyFolder TrialSpecificData={
   // C3D files to load
   AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";
   #define USE_TRIAL_SPECIFIC_TIMES
-  AnyIntVar  StartFrameNo = 80+Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+  AnyIntVar  StartFrameNo = 110+Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
   AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;

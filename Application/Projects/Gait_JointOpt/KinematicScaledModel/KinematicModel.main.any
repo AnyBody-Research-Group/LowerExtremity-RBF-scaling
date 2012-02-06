@@ -19,7 +19,7 @@
 #endif
 
 #ifndef UseDanamicLoadPosition 
-#define UseDanamicLoadPosition 0
+#define UseDanamicLoadPosition 1
 #endif
 
 #ifndef EnableJointAxisScaling 

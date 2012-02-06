@@ -155,6 +155,7 @@
   };
   
 //Shank
+#ifndef EXCLUDE_RSHANKLATERAL
  CreateMarkerTD RShankLateral ( 
   MarkerName=PrefixDef(RShankLateral),
   MarkerPlacement =Right.Leg.Seg.Shank, 
@@ -164,6 +165,7 @@
   )= {
    sRelOpt = {0.00115436+0.04,  0.21063336,  0.04005241-0.05};
   };
+#endif
 
  CreateMarkerTD LShankLateral ( 
   MarkerName=PrefixDef(LShankLateral),
