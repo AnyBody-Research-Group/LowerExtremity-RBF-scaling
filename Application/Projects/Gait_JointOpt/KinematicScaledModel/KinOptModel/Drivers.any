@@ -104,7 +104,11 @@ AnyFolder Drivers = {
       CType = {Soft,Soft,Soft};
       AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RPatella;
       AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RPatella.PosInterpol;
-      AnyFolder Weights = {AnyFunConst WFun ={Value = {0.0, 0.0, 10.0};};};
+      AnyFolder Weights = {AnyFunConst WFun ={Value = {
+            Main.SubjectSpecificData.MarkerWeights.PatellaX,
+            Main.SubjectSpecificData.MarkerWeights.PatellaY,
+            Main.SubjectSpecificData.MarkerWeights.PatellaZ
+            };};};
       WeightFun={&Weights.WFun };    
       Linear.Ref = 0; // Weights are in local coordinates
       AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
@@ -209,7 +213,11 @@ AnyFolder Drivers = {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Foot.RToe ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol;
-    AnyFolder Weights = {AnyFunConst WFun ={Value = {0.0, 0.0, 1.0};};};
+    AnyFolder Weights = {AnyFunConst WFun ={Value = {
+            Main.SubjectSpecificData.MarkerWeights.ToeX,
+            Main.SubjectSpecificData.MarkerWeights.ToeY,
+            Main.SubjectSpecificData.MarkerWeights.ToeZ
+        };};};
     WeightFun={&Weights.WFun };
     Linear.Ref = 0; // Weights are in local coordinates
     AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
@@ -250,7 +258,11 @@ AnyFolder Drivers = {
      CType = {Soft,Soft,Soft};
      AnyRefFrame &ref1 = ...LegModel.Left.Seg.Thigh.LPatella;
      AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LPatella.PosInterpol;
-     AnyFolder Weights = {AnyFunConst WFun ={Value = {0.0, 0.0, 10.0};};};
+     AnyFolder Weights = {AnyFunConst WFun ={Value = {
+            Main.SubjectSpecificData.MarkerWeights.PatellaX,
+            Main.SubjectSpecificData.MarkerWeights.PatellaY,
+            Main.SubjectSpecificData.MarkerWeights.PatellaZ
+          };};};
      WeightFun={&Weights.WFun };
      Linear.Ref = 0; // Weights are in local coordinates
      AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
@@ -341,7 +353,11 @@ AnyFolder Drivers = {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LToe ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol;
-    AnyFolder Weights = {AnyFunConst WFun ={Value = {0.0, 0.0, 1.0};};};
+    AnyFolder Weights = {AnyFunConst WFun ={Value = {
+            Main.SubjectSpecificData.MarkerWeights.ToeX,
+            Main.SubjectSpecificData.MarkerWeights.ToeY,
+            Main.SubjectSpecificData.MarkerWeights.ToeZ
+        };};};
     WeightFun={&Weights.WFun };
      Linear.Ref = 0; // Weights are in local coordinates
     AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };

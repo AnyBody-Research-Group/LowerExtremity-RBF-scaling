@@ -49,25 +49,17 @@
  // */
  
    // Hip
- CreateMarkerTDWidget Sacral ( 
-  MarkerName=PrefixDef(Sacral),
-  MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
-  OptX="Off",OptY="Off",OptZ="Off",
-  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
-  )= {
-   sRelOpt = { -0.07, -0.00, 0.000};     //coordinates of the marker unscaled
-  };
+// CreateMarkerTDWidget Sacral ( 
+//  MarkerName=PrefixDef(Sacral),
+//  MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
+//  OptX="On",OptY="Off",OptZ="Off",
+//  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+//  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+//  )= {
+//   sRelOpt = { -0.07, -0.00, 0.000};     //coordinates of the marker unscaled
+//  };
   
- CreateMarkerTD Lumbar  (
- MarkerName=PrefixDef(Lumbar),  
- MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg , 
- OptX="On",OptY="Off",OptZ="Off",  
- WeightX=1.0,WeightY=1.0,WeightZ=1.0,
- Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
- ) = {
-   sRelOpt =  { -0.05, 0.05, 0.000 };
- }; 
+
 	
   // Thigh
   CreateMarkerTD RThighLateral ( 
@@ -137,8 +129,10 @@
  CreateMarkerTD LPatella ( 
   MarkerName=PrefixDef(LPatella),
   MarkerPlacement =Left.Leg.Seg.Patella, 
-  OptX="Off",OptY="On",OptZ="Off",
-  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  OptX = "Off",OptY="Off",OptZ = "Off",
+  WeightX=Main.SubjectSpecificData.MarkerWeights.PatellaX, 
+  WeightY=Main.SubjectSpecificData.MarkerWeights.PatellaY, 
+  WeightZ=Main.SubjectSpecificData.MarkerWeights.PatellaZ, 
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
    sRelOpt = { 0.075,-0.005,-0.02}; //{0.0125-0.01, -0.0385-0.015, -0.04};
@@ -147,8 +141,10 @@
  CreateMarkerTD RPatella (  
   MarkerName=PrefixDef(RPatella),
   MarkerPlacement =Right.Leg.Seg.Patella, 
-  OptX="Off",OptY="On",OptZ="Off",
-  WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+  OptX="Off",OptY="Off",OptZ="Off",
+  WeightX=Main.SubjectSpecificData.MarkerWeights.PatellaX, 
+  WeightY=Main.SubjectSpecificData.MarkerWeights.PatellaY, 
+  WeightZ=Main.SubjectSpecificData.MarkerWeights.PatellaZ, 
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
    sRelOpt = { 0.075,-0.005,0.02}; //{0.125-0.01, -0.385-0.015, 0.04};
@@ -222,12 +218,24 @@
  // */  
  
 //Trunk
+
+ CreateMarkerTD Lumbar  (
+ MarkerName=PrefixDef(Lumbar),  
+ MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg , 
+ OptX="On",OptY="On",OptZ="On",  
+ WeightX=0.05,WeightY=0.05,WeightZ=0.05,
+ Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+ ) = {
+   sRelOpt =  { -0.05, 0.05, 0.000 };
+ }; 
+ 
+ 
 // CreateMarkerTD Sternum  (
  CreateMarker Sternum  (
  MarkerName=PrefixDef(Sternum),  
  MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
  OptX="On",OptY="On",OptZ="Off",  
- WeightX=0.5,WeightY=0.5,WeightZ=0.0,
+ WeightX=0.05,WeightY=0.05,WeightZ=0.05,
  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
  ) = {
    sRelOpt = { 0.1, 0.40, 0};
@@ -238,7 +246,7 @@
  MarkerName=PrefixDef(Xiphoid),  
  MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
  OptX="On",OptY="On",OptZ="Off",  
- WeightX=0.5,WeightY=0.5,WeightZ=0.0,
+ WeightX=0.05,WeightY=0.05,WeightZ=0.05,
  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
  ) = {
    sRelOpt = { 0.16, 0.27, 0 };
@@ -249,7 +257,7 @@
  MarkerName=PrefixDef(Neck),  
  MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
  OptX="Off",OptY="Off",OptZ="Off",  
- WeightX=0.5,WeightY=0.5,WeightZ=0.5,
+ WeightX=0.05,WeightY=0.05,WeightZ=0.05,
  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
  ) = {
    sRelOpt = { -0.05,0.465,0 };
@@ -260,7 +268,7 @@
  MarkerName=PrefixDef(Thoracic),  
  MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
  OptX="On",OptY="On",OptZ="Off",  
- WeightX=1.0,WeightY=1.0,WeightZ=1.0,
+ WeightX=0.05,WeightY=0.05,WeightZ=0.05,
  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
  ) = {
    sRelOpt = { -0.09, 0.32, 0};
@@ -301,7 +309,8 @@
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, 0.03 -0.008 };
+   sRelOpt= Main.SubjectSpecificData.MarkerPos.HeelMarker*{{1,0,0},{0,1,0},{0,0,-1}};
+//   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, 0.03 -0.008 };
   };
    
   CreateMarkerTD LHeel ( 
@@ -311,27 +320,34 @@
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, -0.03 +0.008};
+   sRelOpt= Main.SubjectSpecificData.MarkerPos.HeelMarker;
+//   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, -0.03 +0.008};
   };
    
   CreateMarkerTD LToe (
   MarkerName=PrefixDef(LToe),
   MarkerPlacement =Left.Leg.Seg.Foot, 
-  OptX="On",OptY="On",OptZ="On",
-  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+  OptX="Off",OptY="Off",OptZ="Off",
+  WeightX=Main.SubjectSpecificData.MarkerWeights.ToeX,
+  WeightY=Main.SubjectSpecificData.MarkerWeights.ToeY,
+  WeightZ=Main.SubjectSpecificData.MarkerWeights.ToeZ,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt= { 0.23438048+0.015,  0.01647059+0.01, -0.029 +0.02 };
+   sRelOpt= Main.SubjectSpecificData.MarkerPos.ToeMarker*{{1,0,0},{0,1,0},{0,0,-1}};
+//   sRelOpt= { 0.23438048+0.015,  0.01647059+0.01, -0.029 +0.02 };
   };
   
   CreateMarkerTD RToe ( 
   MarkerName=PrefixDef(RToe),
   MarkerPlacement =Right.Leg.Seg.Foot, 
-  OptX="On",OptY="On",OptZ="On",
-  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+  OptX="Off",OptY="Off",OptZ="Off",
+  WeightX=Main.SubjectSpecificData.MarkerWeights.ToeX,
+  WeightY=Main.SubjectSpecificData.MarkerWeights.ToeY,
+  WeightZ=Main.SubjectSpecificData.MarkerWeights.ToeZ,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt= { 0.23438048+0.025,  0.01647059+0.01, 0.029 -0.02};
+   sRelOpt= Main.SubjectSpecificData.MarkerPos.ToeMarker;
+//   sRelOpt= { 0.23438048+0.025,  0.01647059+0.01, 0.029 -0.02};
   };  
   
   CreateMarkerTD LMidfootLateral ( 
@@ -341,7 +357,8 @@
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt= { 0.10556638+0.03,  -0.02+0.015,  -0.085+0.02};
+   sRelOpt= Main.SubjectSpecificData.MarkerPos.MidfootLateralMarker*{{1,0,0},{0,1,0},{0,0,-1}};
+//   sRelOpt= { 0.10556638+0.03,  -0.02+0.015,  -0.085+0.02};
   }; 
 
   CreateMarkerTD RMidfootLateral ( 
@@ -351,13 +368,14 @@
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt= { 0.10556638+0.03,  -0.02+0.015,  0.085-0.02};
+   sRelOpt= Main.SubjectSpecificData.MarkerPos.MidfootLateralMarker;
+   //{ 0.10556638+0.03,  -0.02+0.015,  0.085-0.02};
   }; 
   
   CreateMarkerTD LMidfootSuperior ( 
   MarkerName=PrefixDef(LMidfootSuperior),
   MarkerPlacement =Left.Leg.Seg.Foot, 
-  OptX="On",OptY="Off",OptZ="Off",
+  OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
@@ -367,7 +385,7 @@
   CreateMarkerTD RMidfootSuperior ( 
   MarkerName=PrefixDef(RMidfootSuperior),
   MarkerPlacement = Right.Leg.Seg.Foot, 
-  OptX="On",OptY="Off",OptZ="Off",
+  OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
@@ -378,7 +396,7 @@
   CreateMarkerTD RMidfootMedial ( 
   MarkerName=PrefixDef(RMidfootMedial),
   MarkerPlacement =Right.Leg.Seg.Foot, 
-  OptX="On",OptY="Off",OptZ="Off",
+  OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
@@ -388,7 +406,7 @@
   CreateMarkerTD LMidfootMedial ( 
   MarkerName=PrefixDef(LMidfootMedial ),
   MarkerPlacement =Left.Leg.Seg.Foot, 
-  OptX="On",OptY="Off",OptZ="Off",
+  OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {

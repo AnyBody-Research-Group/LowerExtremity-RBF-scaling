@@ -33,8 +33,10 @@
     };
     
   ///////////// RefNodes /////////////////
+  AnyMat33 Mirror = {{1,0,0},{0,1,0},{0,0,.Sign}};
     AnyRefNode Heel = {
-      AnyVec3 sRelEdit = DesignVar({-0.02, 0.01525363, ..Sign*0.009840796});
+//      AnyVec3 sRelEdit = DesignVar({-0.02, 0.01525363, ..Sign*0.009840796});
+      AnyVec3 sRelEdit =  DesignVar(Main.SubjectSpecificData.MarkerPos.HeelMarker*.Mirror);
       sRel=.ScalingNode.sRel+ .Scale(sRelEdit*.ScalingNode.ARel');
       ARel = .ScalingNode.ARel;
       
@@ -50,7 +52,9 @@
       };
     };   
     AnyRefNode Toe = {
-      AnyVec3 sRelEdit = DesignVar({0.2366154, 0.02915979, ..Sign*0.03197031} );
+//      AnyVec3 sRelEdit = DesignVar({0.2366154, 0.02915979, ..Sign*0.03197031} );
+      AnyVec3 sRelEdit = DesignVar(Main.SubjectSpecificData.MarkerPos.ToeMarker*.Mirror);
+
       sRel=.ScalingNode.sRel+ .Scale(sRelEdit*.ScalingNode.ARel');
       AnyDrawWidgetLin DrwWidget = {
         RefFrame = &..ScalingNode;
@@ -64,7 +68,9 @@
       };
     };       
     AnyRefNode MidfootLateral = {
-      AnyVec3 sRelEdit = DesignVar({0.1410739, -0.01207495, ..Sign *0.08129175} );
+//      AnyVec3 sRelEdit = DesignVar({0.1410739, -0.01207495, ..Sign *0.08129175} );
+      AnyVec3 sRelEdit = DesignVar(Main.SubjectSpecificData.MarkerPos.MidfootLateralMarker*.Mirror);
+
       sRel=.ScalingNode.sRel+ .Scale(sRelEdit*.ScalingNode.ARel');
       AnyDrawWidgetLin DrwWidget = {
         RefFrame = &..ScalingNode;
