@@ -217,7 +217,9 @@
  //		UPPER BODY MARKERS
  // */  
  
-//Trunk
+
+ #ifndef EXLCUDE_TRUNK_MARKERS
+ //Trunk
 
  CreateMarkerTD Lumbar  (
  MarkerName=PrefixDef(Lumbar),  
@@ -296,7 +298,7 @@
 //   sRelOpt = { 0.03 ,0.40,0.2 };
 // };  
 // 
- 
+#endif 
  
 //
 //   FOOT MARKERS

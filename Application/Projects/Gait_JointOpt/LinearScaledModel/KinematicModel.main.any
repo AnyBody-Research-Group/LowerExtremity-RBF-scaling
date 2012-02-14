@@ -7,6 +7,10 @@
 #define InverseDynamicModel 0
 #define IntialPositionStudy 0 
 
+// Trunk marker are excluded in order to compare marker error with
+// the two other marker, which haven't got trunk markers. 
+#define EXLCUDE_TRUNK_MARKERS
+
 #include "PreMainIncludes.any"
 
 
