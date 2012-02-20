@@ -151,6 +151,74 @@ Main.Studies = {
       "operation Main.CalculateStaticCoordinateSystems.SC_ngait_og8",
       "run", 
       "operation Main.CalculateStaticCoordinateSystems.SC_ngait_og9",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_bouncy_og3",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_bouncy_og5",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_bouncy_og6",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_bouncy_og7",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_bouncy_og8",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_crouch_og3",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_crouch_og4",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_crouch_og5",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_crouch_og6",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_medialthrust3",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_medialthrust4",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_medialthrust5",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_medialthrust6",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_medialthrust8",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_mtpgait1",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_mtpgait2",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_mtpgait3",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_mtpgait4",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_mtpgait5",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_mtpgait6",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_smooth_og1",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_smooth_og2",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_smooth_og3",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_smooth_og4",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_smooth_og5",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_trunksway1",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_trunksway4",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_trunksway5",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_trunksway6",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_trunksway7",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_wpgait_l11",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_wpgait_s1",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_wpgait_s5",
+      "run",
+      "operation Main.CalculateStaticCoordinateSystems.SC_wpgait_s6",
       "run"
     };
   AnyOperationMacro SC_ngait_og5 = { 
@@ -203,17 +271,346 @@ Main.Studies = {
       "run"
     };
   };
-//  AnyOperationMacro XXXX = { 
-//    MacroStr={
-//      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
-//      +strquote("Set Value") + "--value="+strquote("XXXX"),
-//      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
-//      " --file=" + strquote(TEMP_FILE_PATH +"/"+"XXXX"+"-OptimizedParameters.txt"),
-//      "operation Main.Studies.StaticStudy.InitialConditions",
-//      "run"
-//    };
-//    };
-
+  AnyOperationMacro SC_bouncy_og3 = { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_bouncy_og3"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_bouncy_og3"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_bouncy_og5 = { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_bouncy_og5"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_bouncy_og5"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_bouncy_og6= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_bouncy_og6"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_bouncy_og6"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_bouncy_og7= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_bouncy_og7"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_bouncy_og7"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_bouncy_og8= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_bouncy_og8"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_bouncy_og8"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_crouch_og3= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_crouch_og3"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_crouch_og3"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_crouch_og4= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_crouch_og4"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_crouch_og4"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_crouch_og5= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_crouch_og5"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_crouch_og5"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_crouch_og6= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_crouch_og6"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_crouch_og6"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_medialthrust3= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_medialthrust3"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_medialthrust3"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_medialthrust4= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_medialthrust4"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_medialthrust4"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_medialthrust5= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_medialthrust5"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_medialthrust5"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_medialthrust6= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_medialthrust6"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_medialthrust6"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_medialthrust8= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_medialthrust8"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_medialthrust8"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_mtpgait1= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_mtpgait1"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_mtpgait1"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_mtpgait2= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_mtpgait2"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_mtpgait2"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_mtpgait3= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_mtpgait3"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_mtpgait3"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_mtpgait4= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_mtpgait4"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_mtpgait4"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_mtpgait5= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_mtpgait5"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_mtpgait5"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_mtpgait6= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_mtpgait6"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_mtpgait6"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_smooth_og1= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_smooth_og1"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_smooth_og1"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_smooth_og2= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_smooth_og2"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_smooth_og2"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_smooth_og3= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_smooth_og3"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_smooth_og3"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_smooth_og4= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_smooth_og4"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_smooth_og4"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_smooth_og5= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_smooth_og5"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_smooth_og5"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_trunksway1= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_trunksway1"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_trunksway1"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_trunksway4= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_trunksway4"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_trunksway4"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_trunksway5= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_trunksway5"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_trunksway5"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_trunksway6= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_trunksway6"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_trunksway6"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_trunksway7= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_trunksway7"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_trunksway7"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_wpgait_l11= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_wpgait_l11"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_wpgait_l11"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_wpgait_s1= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_wpgait_s1"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_wpgait_s1"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_wpgait_s5= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_wpgait_s5"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_wpgait_s5"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_wpgait_s6= { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_wpgait_s6"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_wpgait_s6"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
   
   };
   
