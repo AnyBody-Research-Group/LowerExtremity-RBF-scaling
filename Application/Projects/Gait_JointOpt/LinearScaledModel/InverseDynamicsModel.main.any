@@ -65,7 +65,7 @@ Main = {
 //  #else
 //      #include "InstrumentedRightKnee.any"
 //  #endif
-
+    #include "AnatomicalJointAngles.any"
       
       //Environment around the human
       AnyFolder EnvironmentModel ={

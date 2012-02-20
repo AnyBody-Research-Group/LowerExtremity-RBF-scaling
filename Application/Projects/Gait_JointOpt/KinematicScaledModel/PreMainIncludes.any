@@ -29,6 +29,7 @@
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOff.any"
 #include "KinOptModel\ClassTemplates.any"
 #include "EmgProcessing.any"
+#include "AnatomicalJointAnglesTemplate.any"
 //#include "MomentArmTemplate.any"
 //#include "EmulateC3DMacros.any"
 

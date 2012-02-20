@@ -1,0 +1,220 @@
+#include "PreMainIncludes.any"
+
+
+#include "../KinematicModel.main.any"
+
+
+
+Main.Studies = {
+  AnyBodyStudy StaticStudy = {      
+    AnyFolder &C3DData=..ModelSetup.C3DFileData ;
+    AnyFolder HumanModel = {
+      AnyFolder &BodyModel=..KinematicStudyForParameterIdentification.BodyModel;
+    };
+    AnyFolder &ModelOptimizationModel=.KinematicStudyForParameterIdentification;
+    AnyFolder &JointAngleOutput=.KinematicStudyForParameterIdentification.JointAngleOutputs;
+    AnyFolder &Markers = ModelOptimizationModel.ModelEnvironmentConnection.Drivers;
+    
+    #include "../AnatomicalJointAngles.any"
+    InitialConditions.PosAnalysisOnlyOnOff=On;
+    Kinematics.PosAnalysisOnlyOnOff=On;
+    nStep=1; 
+    Gravity = { 0.0, -9.81,0};
+    tStart = (Main.ModelSetup.C3DFileData.Header.FirstFrameNo+Main.SubjectSpecificData.StaticFrameIndex)/
+              Main.ModelSetup.C3DFileData.Header.VideoFrameRate;
+    tEnd = tStart;
+     
+    InitialConditions.SolverType = KinSolOverDeterminate;
+    Kinematics.SolverType = KinSolOverDeterminate;
+    
+    AnyFolder StaticPos = {
+      AnyVec3 RAsis = Main.ModelSetup.C3DFileData.Points.Markers.RAsis.PosInterpol(.t);
+      AnyVec3 LAsis = Main.ModelSetup.C3DFileData.Points.Markers.LAsis.PosInterpol(.t);
+      AnyVec3 RPsis = Main.ModelSetup.C3DFileData.Points.Markers.RPsis.PosInterpol(.t);
+      AnyVec3 LPsis = Main.ModelSetup.C3DFileData.Points.Markers.LPsis.PosInterpol(.t);
+      
+      AnyVec3 RKneeLateral = Main.ModelSetup.C3DFileData.Points.Markers.RKneeLateral.PosInterpol(.t);
+      AnyVec3 RKneeMedial = Main.ModelSetup.C3DFileData.Points.Markers.RKneeMedial.PosInterpol(.t);
+      AnyVec3 RAnkleLateral = Main.ModelSetup.C3DFileData.Points.Markers.RAnkleLateral.PosInterpol(.t);
+      AnyVec3 RAnkleMedial= Main.ModelSetup.C3DFileData.Points.Markers.RAnkleMedial.PosInterpol(.t);
+      AnyVec3 RToe = Main.ModelSetup.C3DFileData.Points.Markers.RToe.PosInterpol(.t);
+      AnyVec3 RHeel = Main.ModelSetup.C3DFileData.Points.Markers.RHeel.PosInterpol(.t);
+      
+      AnyVec3 LKneeLateral = Main.ModelSetup.C3DFileData.Points.Markers.LKneeLateral.PosInterpol(.t);
+      AnyVec3 LKneeMedial = Main.ModelSetup.C3DFileData.Points.Markers.LKneeMedial.PosInterpol(.t);
+      AnyVec3 LAnkleLateral = Main.ModelSetup.C3DFileData.Points.Markers.LAnkleLateral.PosInterpol(.t);
+      AnyVec3 LAnkleMedial= Main.ModelSetup.C3DFileData.Points.Markers.LAnkleMedial.PosInterpol(.t);
+      AnyVec3 LToe = Main.ModelSetup.C3DFileData.Points.Markers.LToe.PosInterpol(.t);
+      AnyVec3 LHeel = Main.ModelSetup.C3DFileData.Points.Markers.LHeel.PosInterpol(.t);
+      
+      // The Hip Joint positions are calcualted with the Harrington methods. Similar to the 
+      // stickfigure values in the other models
+      AnyVar PelvisDepth = vnorm((RAsis+LAsis)/2-(LPsis+RPsis)/2);
+      AnyVar AsisDist = vnorm(RAsis -LAsis);
+      AnyVec3 RHipJointGlobal = (RAsis+LAsis)/2+                                
+                          {(-0.24*PelvisDepth*1000-9.9)/1000,
+                           (-0.16*AsisDist*1000-0.04*vnorm(RAsis - RAnkleMedial)*1000-7.1)/1000,
+                           (0.28*PelvisDepth*1000+0.16*AsisDist*1000+7.9)/1000}
+                           *PelvisGlobal';
+                           
+      AnyVec3 LHipJointGlobal = (RAsis+LAsis)/2+                                
+                           {(-0.24*PelvisDepth*1000-9.9)/1000,
+                           (-0.16*AsisDist*1000-0.04*vnorm(LAsis - LAnkleMedial)*1000-7.1)/1000,
+                           -(0.28*PelvisDepth*1000+0.16*AsisDist*1000+7.9)/1000}
+                         *PelvisGlobal';
+      
+     AnyMat33 PelvisGlobal = RotMat((RAsis+LAsis)*0.5,
+                                     (RAsis+LAsis)*0.5+ ((RAsis+LAsis)*0.5-(RPsis+LPsis)*0.5 ),
+                                     RAsis)*RotMat(-pi/2,x);
+                                     
+     AnyMat33 RThighGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+                                     RKneeLateral,
+                                     RHipJointGlobal)*RotMat(pi/2,y);
+     AnyMat33 RShankGlobal = RotMat((RAnkleLateral + RAnkleMedial)/2,
+                                     RAnkleLateral,
+                                     (RKneeLateral+RKneeMedial)/2 )*RotMat(pi/2,y);
+     AnyMat33 RFootGlobal = RotMat(RHeel,
+                                   RHeel + {0,0,1},
+                                   RToe)*RotMat(-pi/2,z)*RotMat(pi,y);
+     
+     AnyMat33 LThighGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+                                     LKneeMedial,
+                                     LHipJointGlobal)*RotMat(pi/2,y);
+     AnyMat33 LShankGlobal = RotMat((LAnkleLateral + LAnkleMedial)/2,
+                                     LAnkleMedial,
+                                     (LKneeLateral+LKneeMedial)/2 )*RotMat(pi/2,y);
+     AnyMat33 LFootGlobal = RotMat(LHeel,
+                                   LHeel + {0,0,1},
+                                   LToe)*RotMat(-pi/2,z)*RotMat(pi,y);
+        
+     AnyFolder &BodyRef = .HumanModel.BodyModel;                              
+     AnyMat33 PelvisMarkerFrame = BodyRef.Trunk.SegmentsLumbar.PelvisSeg.Axes'*PelvisGlobal;                            
+     AnyMat33 RThighMarkerFrame = BodyRef.Right.Leg.Seg.Thigh.Axes'*RThighGlobal; 
+     AnyMat33 RShankMarkerFrame = BodyRef.Right.Leg.Seg.Shank.Axes'*RShankGlobal;                            
+     AnyMat33 RFootMarkerFrame = BodyRef.Right.Leg.Seg.Foot.Axes'*RFootGlobal; 
+     AnyMat33 LThighMarkerFrame = BodyRef.Left.Leg.Seg.Thigh.Axes'*LThighGlobal; 
+     AnyMat33 LShankMarkerFrame = BodyRef.Left.Leg.Seg.Shank.Axes'*LShankGlobal;                            
+     AnyMat33 LFootMarkerFrame = BodyRef.Left.Leg.Seg.Foot.Axes'*LFootGlobal;
+     
+     AnyFunEx SaveAnySetValue =  {
+       AnyInt Return = 0;
+       AnyFunExMonoPy save_anymat33= {
+        ModuleFile = "save_anyset_file.py";
+         ArgList = 
+         {
+           AnyString filename = "Test file name";
+           AnyString varname =  "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.StaticMarkerFrame";
+           AnyMat33 var = {{1.0,1.0,1.0},{2,2,2},{3,3,3}};
+         };
+       };
+     };
+     
+     AnyString anysetfile = DesignVar("SC_ngait_og5");
+     
+     AnyInt ret0 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.StaticMarkerFrame.ARel",
+                      PelvisMarkerFrame );
+     AnyInt ret1 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.StaticMarkerFrame.ARel",
+                      RThighMarkerFrame );
+     AnyInt ret2 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Shank.StaticMarkerFrame.ARel",
+                      RShankMarkerFrame );
+     AnyInt ret3 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Foot.StaticMarkerFrame.ARel",
+                      RFootMarkerFrame );
+     AnyInt ret4 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.StaticMarkerFrame.ARel",
+                      LThighMarkerFrame );
+     AnyInt ret5 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Shank.StaticMarkerFrame.ARel",
+                      LShankMarkerFrame );
+     AnyInt ret6 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Foot.StaticMarkerFrame.ARel",
+                      LFootMarkerFrame );
+   
+   };
+    
+  };
+};
+  
+
+
+  AnyOperationMacro CalculateStaticCoordinateSystems = { 
+    MacroStr={
+      "operation Main.CalculateStaticCoordinateSystems.SC_ngait_og5",
+      "run", 
+      "operation Main.CalculateStaticCoordinateSystems.SC_ngait_og6",
+      "run", 
+      "operation Main.CalculateStaticCoordinateSystems.SC_ngait_og7",
+      "run", 
+      "operation Main.CalculateStaticCoordinateSystems.SC_ngait_og8",
+      "run", 
+      "operation Main.CalculateStaticCoordinateSystems.SC_ngait_og9",
+      "run"
+    };
+  AnyOperationMacro SC_ngait_og5 = { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_ngait_og5"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_ngait_og5"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_ngait_og6 = { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_ngait_og6"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_ngait_og6"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_ngait_og7 = { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_ngait_og7"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_ngait_og7"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_ngait_og8 = { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_ngait_og8"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_ngait_og8"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  AnyOperationMacro SC_ngait_og9 = { 
+    MacroStr={
+      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+      +strquote("Set Value") + "--value="+strquote("SC_ngait_og9"),
+      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+      " --file=" + strquote(TEMP_FILE_PATH +"/"+"SC_ngait_og9"+"-OptimizedParameters.txt"),
+      "operation Main.Studies.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+//  AnyOperationMacro XXXX = { 
+//    MacroStr={
+//      "classoperation Main.Studies.StaticStudy.StaticPos.anysetfile " 
+//      +strquote("Set Value") + "--value="+strquote("XXXX"),
+//      "classoperation Main.Studies.ParameterIdentification" + " " + strquote("Load design") +
+//      " --file=" + strquote(TEMP_FILE_PATH +"/"+"XXXX"+"-OptimizedParameters.txt"),
+//      "operation Main.Studies.StaticStudy.InitialConditions",
+//      "run"
+//    };
+//    };
+
+  
+  };
+  
+  

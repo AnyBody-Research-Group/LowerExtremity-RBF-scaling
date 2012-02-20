@@ -7,22 +7,7 @@ AnyFolder Interface = {
       PelvisRef = {
         AnyRefNode DriveNode = {
           AnyVec3 HipJointMidPoint = (.RHipJoint.sRel + .LHipJoint.sRel)/2;
-
-#if UseAnatomicalValuesLeftHip == 1 | UseAnatomicalValuesRightHip == 1             
           sRel = (.RAsis.sRel + .LAsis.sRel)/2;
-#else
-#ifdef IncludeLegTDModel
-        AnyFolder &PelvisBonyLandMarks = Main.AnyBodyGaitAppModel.InverseDynamicStudy.PelvisStlVisualization.PelvisStlSeg.BonyLandmarks;
-#else
-        AnyFolder &PelvisBonyLandMarks = Main.JntParameterOptModel.KinematicStudy.PelvisStlVisualization.PelvisStlSeg.BonyLandmarks;
-#endif
-        AnyVec3 OffsetPos = Main.SubjectSpecificData.Anthropometrics.Pelvis.OffsetPos;
-        AnyMat33 OffsetRot = Main.SubjectSpecificData.Anthropometrics.Pelvis.OffsetRot;
-
-        AnyVec3 TmpRightAsisMarker = (OffsetRot*(PelvisBonyLandMarks.RAsis.sRel+OffsetPos)')';
-        AnyVec3 TmpLeftAsisMarker = (OffsetRot*(PelvisBonyLandMarks.LAsis.sRel+OffsetPos)')';          
-          sRel = (TmpRightAsisMarker  + TmpLeftAsisMarker)/2;
-#endif
           ARel = RotMat(sRel, HipJointMidPoint , .Sacral.sRel);
         };
       };
@@ -63,7 +48,15 @@ AnyFolder Interface = {
   
   #if IncludeRight == 1
   AnyFolder Right = {
-  
+
+    #if IncludeHip & IncludeKnee & IncludeAnkle
+    CreateJointMeasures ISBMeasures (
+    PELVIS_FRAME= ..Trunk.Seg.Pelvis,
+    THIGH_FRAME = ThighRef,
+    SHANK_FRAME =ShankRef,
+    FOOT_FRAME =FootRef  ) = { Sign = 1;};
+    #endif
+    
   #if IncludeHip == 1
   AnyKinMeasureOrg HipJointMeasure0 = {
     AnyKinRotational HipMeasure ={
@@ -88,8 +81,11 @@ AnyFolder Interface = {
 
   #endif
   
-  #if IncludeKnee == 1
+  #if IncludeKnee | IncludeHip 
   AnyFolder &ThighRef = ..Right.Seg.Thigh;
+  #endif
+  
+  #if IncludeKnee == 1
   ThighRef = {
     AnyRefNode DriveNodeKnee = {
      sRel = .KneeJoint.sRel;
@@ -118,9 +114,10 @@ AnyFolder Interface = {
   
   #endif
   
-  #if IncludeAnkle + IncludeKnee > 0
-  AnyFolder &ShankRef = ..Right.Seg.Shank;  
+  #if IncludeAnkle | IncludeKnee 
+  AnyFolder &ShankRef = ..Right.Seg.Shank; 
   #endif
+  
   
   
   
@@ -204,6 +201,14 @@ AnyFolder Interface = {
   #if IncludeLeft == 1
   AnyFolder Left = {
   
+    #if IncludeHip & IncludeKnee & IncludeAnkle
+    CreateJointMeasures ISBMeasures (
+    PELVIS_FRAME= ..Trunk.Seg.Pelvis,
+    THIGH_FRAME = ThighRef,
+    SHANK_FRAME =ShankRef,
+    FOOT_FRAME =FootRef  ) = {Sign = -1;};
+    #endif
+    
   #if IncludeHip == 1
   AnyKinMeasureOrg HipJointMeasure0 = {
     AnyKinRotational HipMeasure ={
@@ -228,8 +233,12 @@ AnyFolder Interface = {
 
   #endif
   
-  #if IncludeKnee == 1
+  #if IncludeKnee | IncludeHip 
   AnyFolder &ThighRef = ..Left.Seg.Thigh;
+  #endif
+  
+  
+  #if IncludeKnee == 1
   ThighRef = {
     AnyRefNode DriveNodeKnee = {
      sRel = .KneeJoint.sRel;
@@ -260,12 +269,13 @@ AnyFolder Interface = {
   AnyFolder &ShankRef = ..Left.Seg.Shank;
   #endif
   
-  #if IncludeAnkle == 1
-  
+  #if IncludeAnkle  
   AnyFolder &FootRef = ..Left.Seg.Foot;
   AnyFolder &TalusRef = ..Left.Seg.Talus;
+  #endif
   
- 
+  
+  #if IncludeAnkle  
    ShankRef = {
       AnyRefNode DriveNodeAnkle = {
        sRel = .AnkleJoint.sRel;
@@ -332,5 +342,26 @@ AnyFolder Interface = {
   
 };
   #endif  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 };

@@ -50,4 +50,5 @@
 #include "ForcePlateGrandChallenge.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOffV2.any"
 #include "EmgProcessing.any"
+#include "AnatomicalJointAnglesTemplate.any"
 #endif
