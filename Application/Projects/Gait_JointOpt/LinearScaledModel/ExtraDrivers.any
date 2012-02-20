@@ -13,7 +13,7 @@
           };             
           AnyKinEqSimpleDriver ThoraxExtension ={
             AnyKinMeasureOrg &ref1 = ...BodyModel.Interface.Trunk.PelvisThoraxExtension ;
-            DriverPos={0};
+            DriverPos={-0.3};
             DriverVel={0};
             Reaction.Type={Off};
           }; 
