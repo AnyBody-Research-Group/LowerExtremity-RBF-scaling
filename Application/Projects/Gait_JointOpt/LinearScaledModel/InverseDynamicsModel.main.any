@@ -17,6 +17,8 @@ Main = {
       "classoperation Main" + strformat("\x22")+ "Update Values" + strformat("\x22"),
       "operation Main.Studies.HumanModel.Calibration.CalibrationSequence",
       "run",
+      "operation Main.Studies.InverseDynamicStudy.StickFigureJointAngles.LoadStaticFrames",
+      "run",
       "operation Main.Studies.InverseDynamicStudy.InverseDynamics",
       "run"
     };
@@ -65,7 +67,7 @@ Main = {
 //  #else
 //      #include "InstrumentedRightKnee.any"
 //  #endif
-    #include "AnatomicalJointAngles.any"
+    #include "StickFigureJointAngles.any"
       
       //Environment around the human
       AnyFolder EnvironmentModel ={
