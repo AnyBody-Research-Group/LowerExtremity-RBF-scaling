@@ -1,0 +1,27 @@
+AnyFolder JointAnglesAndMoments = {
+
+  AnyFolder &LegModelRef = Main.JntParameterOptModel.LegModel;
+  AnyFolder &BodyModelRef = .HumanModel.BodyModel;
+
+
+    CreateJointAnglesAndMomentMeasures Right (
+    PELVIS_FRAME= LegModelRef.Trunk.Seg.Pelvis,
+    THIGH_FRAME = LegModelRef.Right.Seg.Thigh,
+    SHANK_FRAME = LegModelRef.Right.Seg.Shank,
+    FOOT_FRAME = LegModelRef.Right.Seg.Foot,
+    HIPMOMENT = BodyModelRef.Right.Leg.MomentMeasure.HipNetMoment.M,
+    KNEEMOMENT = BodyModelRef.Right.Leg.MomentMeasure.KneeNetMoment.M,
+    ANKLEMOMENT = BodyModelRef.Right.Leg.MomentMeasure.AnklePlantarFlexionNetMoment.M
+    ) = { Sign = 1;};
+  
+    CreateJointAnglesAndMomentMeasures Left (
+    PELVIS_FRAME= LegModelRef.Trunk.Seg.Pelvis,
+    THIGH_FRAME = LegModelRef.Left.Seg.Thigh,
+    SHANK_FRAME = LegModelRef.Left.Seg.Shank,
+    FOOT_FRAME = LegModelRef.Left.Seg.Foot,
+    HIPMOMENT = BodyModelRef.Left.Leg.MomentMeasure.HipNetMoment.M,
+    KNEEMOMENT = BodyModelRef.Left.Leg.MomentMeasure.KneeNetMoment.M,
+    ANKLEMOMENT = BodyModelRef.Left.Leg.MomentMeasure.AnklePlantarFlexionNetMoment.M
+    ) = { Sign = -1;};
+
+};
