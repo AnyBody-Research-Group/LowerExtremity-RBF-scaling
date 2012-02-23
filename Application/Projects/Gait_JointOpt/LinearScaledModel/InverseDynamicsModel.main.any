@@ -67,7 +67,7 @@ Main = {
 //  #else
 //      #include "InstrumentedRightKnee.any"
 //  #endif
-    #include "StickFigureJointAngles.any"
+    #include "JointAnglesAndMoments.any"
       
       //Environment around the human
       AnyFolder EnvironmentModel ={

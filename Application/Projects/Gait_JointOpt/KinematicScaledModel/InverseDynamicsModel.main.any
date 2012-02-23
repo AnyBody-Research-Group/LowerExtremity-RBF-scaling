@@ -62,8 +62,7 @@ Main = {
       
       
       #include "JointReactionForces.any"
-      
-      #include "StickFigureJointAngles.any"
+      #include "JointAnglesAndMoments.any"
 
       AnyOutputFile OutputFile = {
        FileName = Main.GeneralSettings.OutputFilename;
