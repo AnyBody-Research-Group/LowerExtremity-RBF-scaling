@@ -7,9 +7,9 @@
 Main = {
   #include "ModelSetup.any" 
   
-  AnyProject Project = {  };   
-
-  
+  AnyProject Project = {  
+  #include "<PROJECT_PATH>/Subjects/TrialSelector.any"
+  };   
   //  Run the operation InverseDynamicAnalysisSequence to calibrate the model and run inverse dynamic analysis.
   AnyOperationMacro InverseDynamicAnalysisSequence = { 
     MacroStr={
