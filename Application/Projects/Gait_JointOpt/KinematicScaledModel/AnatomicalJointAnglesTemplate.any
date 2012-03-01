@@ -17,6 +17,7 @@
     Weight =.Sign *{0,1,0}*180/pi;
   };
   AnyKinMeasureNormComb HipExternalRotation ={
+    
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
     Order = 1;
     Weight =-1*.Sign *{0,0,1}*180/pi;
@@ -61,6 +62,7 @@
 
   #var AnyInt Sign = 1;
   AnyKinMeasureNormComb HipFlexion = {
+    AnyVar M_Projected = ..PELVIS_FRAME.Axes'[2]*..HIPMOMENT';
     AnyKinRotational HipMeasure ={
       AnyRefFrame &PelvisRef = ...PELVIS_FRAME ;
       AnyRefFrame &ThighRef = ...THIGH_FRAME ;
@@ -71,17 +73,20 @@
     Weight ={1,0,0}*180/pi;
   };
   AnyKinMeasureNormComb HipAbduction = {
+    AnyVar M_Projected = .Sign*cross(..PELVIS_FRAME.Axes'[2],..THIGH_FRAME.Axes'[1])*..HIPMOMENT';
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
     Order = 1;
     Weight =.Sign *{0,1,0}*180/pi;
   };
   AnyKinMeasureNormComb HipExternalRotation ={
+    AnyVar M_Projected = -1*.Sign*..THIGH_FRAME.Axes'[1]*..HIPMOMENT';
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
     Order = 1;
     Weight =-1*.Sign *{0,0,1}*180/pi;
   };
 
   AnyKinMeasureNormComb KneeFlexion = {
+    AnyVar M_Projected = -..THIGH_FRAME.Axes'[2]*..KNEEMOMENT';
     AnyKinRotational KinRot ={
       AnyRefFrame &ThighRef = ...THIGH_FRAME;
       AnyRefFrame &ShankRef = ...SHANK_FRAME;
@@ -91,8 +96,22 @@
     Order = 1;
     Weight =-1*{1,0,0}*180/pi;
   };
+  AnyKinMeasureNormComb KneeAbduction = {
+    AnyVar M_Projected = .Sign*cross(..THIGH_FRAME.Axes'[2], ..SHANK_FRAME.Axes'[1])*..KNEEMOMENT';
+    AnyKinRotational &KinRot = .KneeFlexion.KinRot;
+    Order = 1;
+    Weight =.Sign *{0,1,0}*180/pi;
+  };
+  AnyKinMeasureNormComb KneeExternalRotation = {
+    AnyVar M_Projected = -1*.Sign*..SHANK_FRAME.Axes'[1]*..KNEEMOMENT';
+    AnyKinRotational &KinRot = .KneeFlexion.KinRot;
+    Order = 1;
+    Weight =-1*.Sign *{0,0,1}*180/pi;
+  };
   
-  AnyKinMeasureNormComb AnklePlantarFlexion = {   
+  
+  AnyKinMeasureNormComb AnklePlantarFlexion = {  
+    AnyVar M_Projected = ..SHANK_FRAME.Axes'[2]*..ANKLEMOMENT';
     AnyKinRotational KinRot ={
       AnyRefFrame &ShankRef = ...SHANK_FRAME;
       AnyRefFrame &FootRef = ...FOOT_FRAME;
@@ -103,11 +122,13 @@
     Weight =-1*{1,0,0}*180/pi;
   };
   AnyKinMeasureNormComb AnkleAbduction = {
+    AnyVar M_Projected = -1*.Sign*cross(..SHANK_FRAME.Axes'[2],..FOOT_FRAME.Axes'[0])*..ANKLEMOMENT';
     AnyKinRotational &KinRot =.AnklePlantarFlexion.KinRot; 
     Order = 1;
     Weight =-.Sign *{0,1,0}*180/pi;
   };
   AnyKinMeasureNormComb AnkleEversion ={
+    AnyVar M_Projected = -1*.Sign*..FOOT_FRAME.Axes'[0]*..ANKLEMOMENT';
     AnyKinRotational &KinRot =.AnklePlantarFlexion.KinRot; 
     Order = 1;
     Weight =-1*.Sign *{0,0,1}*180/pi;
