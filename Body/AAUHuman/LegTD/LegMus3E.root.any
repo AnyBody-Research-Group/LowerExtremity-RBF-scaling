@@ -99,11 +99,8 @@ HipNodeRef = {
 //    AnyDrawRefFrame drw={RGB={1,0,1};};
   };
   
-  
-  
-  
-  
-  AnyRefNode pecent_ossis_pubis={
+    
+  AnyRefNode pecent_ossis_pubisOLD={
     sRel=.P1_scaled.sRel; 
     ARel=.P1_scaled.ARel;
 //    AnyDrawRefFrame drw={RGB={0,1,0};ScaleXYZ={1,1,1}*0.5;};
@@ -122,6 +119,44 @@ HipNodeRef = {
     
     
   };
+  
+  /// One point on the wrapping cylinder surface
+  AnyRefNode CylSuface1 ={
+    sRel=.Scale( {0.028,0.02,..Sign*-0.02 });
+    AnyDrawRefFrame drw={RGB={1,0,1};ScaleXYZ={0.05,0.05,0.05}; };
+  };
+  
+  /// Second point on the wrapping cylinder surface
+  AnyRefNode CylSuface2 ={
+    sRel= .Scale( {  0.015,0.025,..Sign*0.005 } );
+    AnyDrawRefFrame drw={RGB={1,0,1};ScaleXYZ={0.05,0.05,0.05}; };
+  };  
+  
+  /// The third point on the cylinder suface
+  AnyRefNode CylCenterDir ={
+    sRel =.Scale({-0.04,-0.01, 0});
+    AnyDrawRefFrame drw={RGB={1,0,1};ScaleXYZ={0.05,0.05,0.05}; };
+  };  
+    
+  AnyRefNode pecent_ossis_pubis ={ 
+    AnyVec3 P1 = .CylSuface1.sRel ;
+    AnyVec3 P2 = .CylSuface2.sRel ;
+    AnyVec3 P3 = .CylCenterDir.sRel ;//..Scale({ 0.06,-0.09,0.08 });
+    AnyVar Radius = 0.05;
+    AnyVar Length = 0.2;
+    
+    ARel = RotMat(P1,P2,P3)*RotMat(pi/2,y);
+    sRel = P1+Radius*ARel'[1]-Length/2*ARel'[2] ;
+
+    AnyRefNode Translate = {
+    AnySurfCylinder cyl = { 
+      Radius = ..Radius;
+      Length= ..Length;
+      AnyDrawParamSurf drw={RGB={1,1,1};Visible = On; Opacity = 0.5;};
+    };
+    };
+    
+  };   
   
   // Origin points on the Pelvis
   
