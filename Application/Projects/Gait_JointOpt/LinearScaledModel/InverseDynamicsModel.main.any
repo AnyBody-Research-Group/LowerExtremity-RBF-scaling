@@ -82,11 +82,16 @@ Main = {
         #include "JointsAndDriversOptimized.any"      
       };
       
-      Gravity ={0.0, -9.81,0};
+      Gravity ={0.0, 0, -9.82};
       
       tStart = Main.ModelSetup.tStart;
       tEnd = Main.ModelSetup.tEnd;
       nStep = Main.ModelSetup.nStep;
+      
+      InverseDynamics.Criterion.Type = MR_MinMaxStrict;
+      InverseDynamics.Criterion.UpperBoundOnOff=Off;
+      InitialConditions.SolverType = KinSolDeterminate;
+      Kinematics.SolverType = KinSolDeterminate;   
     };
     
     
