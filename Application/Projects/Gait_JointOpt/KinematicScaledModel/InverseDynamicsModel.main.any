@@ -25,6 +25,8 @@ Main = {
     
     AnyBodyStudy InverseDynamicStudy = 
     {
+      AnyVec3 Gravity = {0.0,0.0,-9.82};
+
       tStart = Main.ModelSetup.tStart; 
       tEnd = Main.ModelSetup.tEnd;
       nStep = Main.ModelSetup.nStep;
@@ -53,22 +55,16 @@ Main = {
         #include "KinOptModel\JointsAndDriversOptimized.any"
       };
       
+      InverseDynamics.Criterion.Type = MR_MinMaxStrict;
       InverseDynamics.Criterion.UpperBoundOnOff=Off;
-      InitialConditions.SolverType = KinSolOff;
-      Kinematics.SolverType = KinSolOff;   
+      InitialConditions.SolverType = KinSolDeterminate;
+      Kinematics.SolverType = KinSolDeterminate;   
       InitialConditions.PosAnalysisOnlyOnOff=Off;
       Kinematics.PosAnalysisOnlyOnOff=Off;
-      InverseDynamics.Criterion.Power = Main.GeneralSettings.MuscleRecruitmentOrder;
       
       
       #include "JointReactionForces.any"
       #include "JointAnglesAndMoments.any"
-
-      AnyOutputFile OutputFile = {
-       FileName = Main.GeneralSettings.OutputFilename;
-       #include "OutputDefinition.any"
-       SepSign = Main.GeneralSettings.OutputSepSign;
-      };
      
    }; 
   #include "LegTDModel\LoadAnkleJointParameters.any"
