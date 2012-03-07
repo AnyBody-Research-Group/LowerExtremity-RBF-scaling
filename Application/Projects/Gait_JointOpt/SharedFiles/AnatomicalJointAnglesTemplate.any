@@ -1,0 +1,191 @@
+//    This file contains two template to measure anatomical joint angles 
+//    and projected moments for the anybody modelling system.
+// 
+//    The CreateJointMeasures template creates a folder with measures of 
+//    the anatomical joint angles. Angles are measured based on the 
+//    Grood&Suntay convention also recommended by ISB. 
+//    
+//    Inputs are AnyRefFrame derived classes which represent the antomical
+//    coordinate system for the segments.
+//
+//    EXAMPLE:
+//    CreateJointMeasures Right (
+//    PELVIS_FRAME= BodyModelRef.Trunk.SegmentsLumbar.PelvisSeg.StaticMarkerFrame,
+//    THIGH_FRAME = BodyModelRef.Right.Leg.Seg.Thigh.StaticMarkerFrame,
+//    SHANK_FRAME = BodyModelRef.Right.Leg.Seg.Shank.StaticMarkerFrame,
+//    FOOT_FRAME = BodyModelRef.Right.Leg.Seg.Foot.StaticMarkerFrame,
+//    ) = { Sign = 1;};
+//
+//
+//    The CreateJointAnglesAndMomentMeasures does the same CreateJointMeasures 
+//    template. Additionally it also takes the three moment vectors as input, and  
+//    calculate the moment vector projection onto the rotation axis. Note that the 
+//    first and last rotation axis is not necessaryly perpendicular with Grood&Suntay 
+//    convention so the projected moments may not make sense in physical way. However, 
+//    they are often used in littereature so they are worth knowing. 
+//
+//    EXAMPLE:
+//    CreateJointAnglesAndMomentMeasures Left (
+//    PELVIS_FRAME= BodyModelRef.Trunk.SegmentsLumbar.PelvisSeg.StaticMarkerFrame,
+//    THIGH_FRAME = BodyModelRef.Left.Leg.Seg.Thigh.StaticMarkerFrame,
+//    SHANK_FRAME = BodyModelRef.Left.Leg.Seg.Shank.StaticMarkerFrame,
+//    FOOT_FRAME = BodyModelRef.Left.Leg.Seg.Foot.StaticMarkerFrame,
+//    HIPMOMENT = BodyModelRef.Left.Leg.MomentMeasure.HipNetMoment.M,
+//    KNEEMOMENT = BodyModelRef.Left.Leg.MomentMeasure.KneeNetMoment.M,
+//    ANKLEMOMENT = BodyModelRef.Left.Leg.MomentMeasure.AnklePlantarFlexionNetMoment.M
+//   ) = { Sign = -1;};
+//
+//
+
+
+
+#class_template CreateJointMeasures (PELVIS_FRAME,THIGH_FRAME,SHANK_FRAME,FOOT_FRAME){
+
+  #var AnyInt Sign = 1;
+  AnyKinMeasureNormComb HipFlexion = {
+    AnyKinRotational HipMeasure ={
+      AnyRefFrame &PelvisRef = ...PELVIS_FRAME ;
+      AnyRefFrame &ThighRef = ...THIGH_FRAME ;
+      Type=RotAxesAngles;
+      Axis1 = z; Axis2 = x; Axis3 = y;
+    };
+    Order = 1;
+    Weight ={1,0,0}*180/pi;
+  };
+  AnyKinMeasureNormComb HipAbduction = {
+    AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
+    Order = 1;
+    Weight =.Sign *{0,1,0}*180/pi;
+  };
+  AnyKinMeasureNormComb HipExternalRotation ={
+    AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
+    Order = 1;
+    Weight =-1*.Sign *{0,0,1}*180/pi;
+  };
+
+  AnyKinMeasureNormComb KneeFlexion = {
+    AnyKinRotational KinRot ={
+      AnyRefFrame &ThighRef = ...THIGH_FRAME;
+      AnyRefFrame &ShankRef = ...SHANK_FRAME;
+      Type=RotAxesAngles;
+      Axis1 = z; Axis2 = x; Axis3 = y;
+    };
+    Order = 1;
+    Weight =-1*{1,0,0}*180/pi;
+  };
+  AnyKinMeasureNormComb KneeAbduction = {
+    AnyKinRotational &KinRot = .KneeFlexion.KinRot;
+    Order = 1;
+    Weight =.Sign *{0,1,0}*180/pi;
+  };
+  AnyKinMeasureNormComb KneeExternalRotation = {
+    AnyKinRotational &KinRot = .KneeFlexion.KinRot;
+    Order = 1;
+    Weight =-1*.Sign *{0,0,1}*180/pi;
+  };
+  
+  
+  AnyKinMeasureNormComb AnklePlantarFlexion = {  
+    AnyKinRotational KinRot ={
+      AnyRefFrame &ShankRef = ...SHANK_FRAME;
+      AnyRefFrame &FootRef = ...FOOT_FRAME;
+      Type=RotAxesAngles;
+      Axis1 = z; Axis2 = y; Axis3 = x;
+    };
+    Order = 1;
+    Weight =-1*{1,0,0}*180/pi;
+  };
+  AnyKinMeasureNormComb AnkleAbduction = {
+    AnyKinRotational &KinRot =.AnklePlantarFlexion.KinRot; 
+    Order = 1;
+    Weight =-.Sign *{0,1,0}*180/pi;
+  };
+  AnyKinMeasureNormComb AnkleEversion ={
+    AnyKinRotational &KinRot =.AnklePlantarFlexion.KinRot; 
+    Order = 1;
+    Weight =-1*.Sign *{0,0,1}*180/pi;
+  };  
+  
+  
+}; 
+
+#class_template CreateJointAnglesAndMomentMeasures (PELVIS_FRAME,THIGH_FRAME,SHANK_FRAME,FOOT_FRAME, HIPMOMENT, KNEEMOMENT, ANKLEMOMENT  ){
+
+  #var AnyInt Sign = 1;
+  AnyKinMeasureNormComb HipFlexion = {
+    AnyVar M_Projected = -..PELVIS_FRAME.Axes'[2]*..HIPMOMENT';
+    AnyKinRotational HipMeasure ={
+      AnyRefFrame &PelvisRef = ...PELVIS_FRAME ;
+      AnyRefFrame &ThighRef = ...THIGH_FRAME ;
+      Type=RotAxesAngles;
+      Axis1 = z; Axis2 = x; Axis3 = y;
+    };
+    Order = 1;
+    Weight ={1,0,0}*180/pi;
+  };
+  AnyKinMeasureNormComb HipAbduction = {
+    AnyVar M_Projected = -.Sign*cross(..PELVIS_FRAME.Axes'[2],..THIGH_FRAME.Axes'[1])*..HIPMOMENT';
+    AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
+    Order = 1;
+    Weight =.Sign *{0,1,0}*180/pi;
+  };
+  AnyKinMeasureNormComb HipExternalRotation ={
+    AnyVar M_Projected = .Sign*..THIGH_FRAME.Axes'[1]*..HIPMOMENT';
+    AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
+    Order = 1;
+    Weight =-1*.Sign *{0,0,1}*180/pi;
+  };
+
+  AnyKinMeasureNormComb KneeFlexion = {
+    AnyVar M_Projected = -..THIGH_FRAME.Axes'[2]*..KNEEMOMENT';
+    AnyKinRotational KinRot ={
+      AnyRefFrame &ThighRef = ...THIGH_FRAME;
+      AnyRefFrame &ShankRef = ...SHANK_FRAME;
+      Type=RotAxesAngles;
+      Axis1 = z; Axis2 = x; Axis3 = y;
+    };
+    Order = 1;
+    Weight =-1*{1,0,0}*180/pi;
+  };
+  AnyKinMeasureNormComb KneeAbduction = {
+    AnyVar M_Projected = .Sign*cross(..THIGH_FRAME.Axes'[2], ..SHANK_FRAME.Axes'[1])*..KNEEMOMENT';
+    AnyKinRotational &KinRot = .KneeFlexion.KinRot;
+    Order = 1;
+    Weight =.Sign *{0,1,0}*180/pi;
+  };
+  AnyKinMeasureNormComb KneeExternalRotation = {
+    AnyVar M_Projected = -1*.Sign*..SHANK_FRAME.Axes'[1]*..KNEEMOMENT';
+    AnyKinRotational &KinRot = .KneeFlexion.KinRot;
+    Order = 1;
+    Weight =-1*.Sign *{0,0,1}*180/pi;
+  };
+  
+  
+  AnyKinMeasureNormComb AnklePlantarFlexion = {  
+    AnyVar M_Projected = ..SHANK_FRAME.Axes'[2]*..ANKLEMOMENT';
+    AnyKinRotational KinRot ={
+      AnyRefFrame &ShankRef = ...SHANK_FRAME;
+      AnyRefFrame &FootRef = ...FOOT_FRAME;
+      Type=RotAxesAngles;
+      Axis1 = z; Axis2 = y; Axis3 = x;
+    };
+    Order = 1;
+    Weight =-1*{1,0,0}*180/pi;
+  };
+  AnyKinMeasureNormComb AnkleAbduction = {
+    AnyVar M_Projected = -1*.Sign*cross(..SHANK_FRAME.Axes'[2],..FOOT_FRAME.Axes'[0])*..ANKLEMOMENT';
+    AnyKinRotational &KinRot =.AnklePlantarFlexion.KinRot; 
+    Order = 1;
+    Weight =-.Sign *{0,1,0}*180/pi;
+  };
+  AnyKinMeasureNormComb AnkleEversion ={
+    AnyVar M_Projected = -1*.Sign*..FOOT_FRAME.Axes'[0]*..ANKLEMOMENT';
+    AnyKinRotational &KinRot =.AnklePlantarFlexion.KinRot; 
+    Order = 1;
+    Weight =-1*.Sign *{0,0,1}*180/pi;
+  };  
+  
+
+    
+  
+}; 

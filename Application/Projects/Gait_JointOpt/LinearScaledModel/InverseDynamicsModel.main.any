@@ -4,6 +4,8 @@
 #define LoadInverseDynamicModel 
 #define SaveAllResults 
 
+#define EXLCUDE_TRUNK_MARKERS
+
 Main = {
   #include "ModelSetup.any" 
   
@@ -17,7 +19,7 @@ Main = {
       "classoperation Main" + strformat("\x22")+ "Update Values" + strformat("\x22"),
       "operation Main.Studies.HumanModel.Calibration.CalibrationSequence",
       "run",
-      "operation Main.Studies.InverseDynamicStudy.StickFigureJointAngles.LoadStaticFrames",
+      "operation Main.Studies.InverseDynamicStudy.JointAnglesAndMoments.LoadStaticFrames",
       "run",
       "operation Main.Studies.InverseDynamicStudy.InverseDynamics",
       "run"
@@ -52,6 +54,9 @@ Main = {
     #include "HumanModel.any"
     
     AnyBodyStudy InverseDynamicStudy = {
+      #include "<SHARED_FILES_PATH>/InverseDynamicsSettings.any"
+      
+      
       AnyFolder &C3DData=..ModelSetup.C3DFileData ;
       AnyFolder HumanModel = {
          AnyFolder &BodyModel=..HumanModel.BodyModel;
@@ -81,17 +86,11 @@ Main = {
       AnyFolder ModelEnvironmentConnection = {
         #include "JointsAndDriversOptimized.any"      
       };
-      
-      Gravity ={0.0, 0, -9.82};
-      
+            
       tStart = Main.ModelSetup.tStart;
       tEnd = Main.ModelSetup.tEnd;
       nStep = Main.ModelSetup.nStep;
       
-      InverseDynamics.Criterion.Type = MR_MinMaxStrict;
-      InverseDynamics.Criterion.UpperBoundOnOff=Off;
-      InitialConditions.SolverType = KinSolDeterminate;
-      Kinematics.SolverType = KinSolDeterminate;   
     };
     
     

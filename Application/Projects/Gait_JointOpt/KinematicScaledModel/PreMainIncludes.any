@@ -8,6 +8,8 @@
 #path BASE_MODEL_PATH "."
 #path PROJECT_PATH "../.."
 
+#path SHARED_FILES_PATH "../SharedFiles"
+
 #ifndef AMMR_PATH 
 #path AMMR_PATH "../../../../.."
 #endif
@@ -28,8 +30,8 @@
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/ForcePlateType2.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOff.any"
 #include "KinOptModel\ClassTemplates.any"
-#include "EmgProcessing.any"
-#include "AnatomicalJointAnglesTemplate.any"
+#include "<SHARED_FILES_PATH>/EmgProcessing.any"
+#include "<SHARED_FILES_PATH>/AnatomicalJointAnglesTemplate.any"
 //#include "MomentArmTemplate.any"
 //#include "EmulateC3DMacros.any"
 

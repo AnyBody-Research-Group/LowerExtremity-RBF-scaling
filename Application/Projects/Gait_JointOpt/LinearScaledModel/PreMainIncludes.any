@@ -8,6 +8,7 @@
 #path BASE_MODEL_PATH "."
 #path PROJECT_PATH "../.."
 
+#path SHARED_FILES_PATH "../SharedFiles"
 
 #ifndef AMMR_PATH 
 #path AMMR_PATH "../../../../.."
@@ -49,6 +50,6 @@
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTDWidget.any"
 #include "ForcePlateGrandChallenge.any"
 #include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOffV2.any"
-#include "EmgProcessing.any"
-#include "AnatomicalJointAnglesTemplate.any"
+#include "<SHARED_FILES_PATH>/EmgProcessing.any"
+#include "<SHARED_FILES_PATH>/AnatomicalJointAnglesTemplate.any"
 #endif
