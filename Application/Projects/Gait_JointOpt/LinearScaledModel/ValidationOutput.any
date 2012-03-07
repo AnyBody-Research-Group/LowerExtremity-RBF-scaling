@@ -1,6 +1,6 @@
 AnyFolder Validation = {
-  #if RIGHT_LEG_TD_SIMPLE_MUSCLES + RIGHT_LEG_TD_MUS_3E > 0
   AnyFolder &C3DRef = Main.ModelSetup.C3DFileData;
+  #if RIGHT_LEG_TD_SIMPLE_MUSCLES + RIGHT_LEG_TD_MUS_3E > 0
   
   AnyFolder EMG = {
     
