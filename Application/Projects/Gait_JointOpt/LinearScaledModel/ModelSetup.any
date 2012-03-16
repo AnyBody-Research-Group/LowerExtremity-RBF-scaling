@@ -2,7 +2,6 @@
 
 AnyFolder ModelSetup ={
   
-   AnyVec3 Gravity=  {0.0,-9.82,0};
 AnyFolder &DynamicDataSet = C3DFileData ;
 AnyInputC3D C3DFileData =   {
     AnyString PrefixStr=""; //if the dataset makes use of a prefix name which goes in front of all markers and processed datanames write it here

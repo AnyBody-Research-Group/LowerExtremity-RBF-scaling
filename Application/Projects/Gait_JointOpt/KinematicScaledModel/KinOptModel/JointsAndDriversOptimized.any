@@ -1,7 +1,7 @@
 // This switch allows us to turn off the stick figure model. 
 // If the model is not turned off, 
 #if 0
-MechObjectExclude = ObjSearchRecursive("Main.JntParameterOptModel.LegModel","*","AnyMechObject");
+Main.AnyBodyGaitAppModel.InverseDynamicStudy.MechObjectExclude = ObjSearchRecursive("Main.JntParameterOptModel.LegModel","*","AnyMechObject");
 #else 
 
 AnyFolder JointsAndDriversKinOptModel = {
