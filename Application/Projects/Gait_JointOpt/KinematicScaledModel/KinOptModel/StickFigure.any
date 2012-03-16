@@ -188,6 +188,27 @@ AnyFolder StickFigure = {
          AnyRefNode RKneeMedial = {
            sRel = ..RKneeMedial.sRel_static;
          };
+         /// Defined based on ISB recommendation for HIP joint rotations
+         AnyRefNode HipISBCoord = {
+           AnyVec3 O = ..HipJoint.sRel_static ;
+           AnyVec3 Y = O - 0.5*(..RKneeLateral.sRel_static + ..RKneeMedial.sRel_static) ;
+           AnyVec3 X = cross(Y,..RKneeLateral.sRel_static -..RKneeMedial.sRel_static );
+           AnyVec3 Z = cross(X,Y);
+           sRel = O;
+           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+           AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+         };
+         /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
+         /// which align with the epicondyle line. 
+         AnyRefNode KneeISBCoord = {
+           AnyVec3 O = 0.5*(..RKneeMedial.sRel_static + ..RKneeLateral.sRel_static);
+           AnyVec3 Z = ..RKneeLateral.sRel_static - ..RKneeMedial.sRel_static;
+           AnyVec3 X = cross( ..HipJoint.sRel_static - O, Z);
+           AnyVec3 Y = cross(Z,X);
+           sRel = O;
+           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+           AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+         };         
        };
       #endif 
       #endif
@@ -326,6 +347,27 @@ AnyFolder StickFigure = {
          AnyRefNode RKneeMedial = {
            sRel = ..RKneeMedial.sRel_static;
          };
+         AnyRefNode AnkleISBCoord = {
+           AnyVec3 O = 0.5*(..RAnkleMedial.sRel_static + ..RAnkleLateral.sRel_static);
+           AnyVec3 Z = (..RAnkleLateral.sRel_static - ..RAnkleMedial.sRel_static) ;
+           AnyVec3 X = cross( 0.5*(..RKneeMedial.sRel_static+..RKneeLateral.sRel_static)-..RAnkleLateral.sRel_static,
+                             ..RAnkleLateral.sRel_static - ..RAnkleMedial.sRel_static);  
+           AnyVec3 Y = cross(Z,X); 
+           sRel = O;
+           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+         };
+         /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
+         /// which align with the epicondyle line. 
+         AnyRefNode KneeISBCoord = {
+           AnyVec3 O = 0.5*(..RKneeMedial.sRel_static + ..RKneeLateral.sRel_static);
+           AnyVec3 Z = ..RKneeLateral.sRel_static - ..RKneeMedial.sRel_static ;
+           AnyVec3 X = cross(Z,0.5*(..RAnkleLateral.sRel_static+..RAnkleMedial.sRel_static) - O);  
+           AnyVec3 Y = cross(Z,X); 
+           sRel = O;
+           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+         };
       };
       #endif
       #endif
@@ -438,6 +480,14 @@ AnyFolder StickFigure = {
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeCenter -.r0_static)')';
       };
+      AnyFolder RKneeMedial = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeMedial -.r0_static)')';
+      };
+      AnyFolder RKneeLateral = 
+      {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeLateral -.r0_static)')';
+      };
       AnyFolder RHeel = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRHeel -.r0_static)')';
       };
@@ -508,9 +558,20 @@ AnyFolder StickFigure = {
         AnyRefNode RAnkleLateral = {
            sRel = ..RAnkleLateral.sRel_static;
          };
-         AnyRefNode RAnkleMedial = {
-           sRel = ..RAnkleMedial.sRel_static;
-         };
+        AnyRefNode RAnkleMedial = {
+          sRel = ..RAnkleMedial.sRel_static;
+        };
+        AnyRefNode AnkleISBCoord = {
+          AnyVec3 O = 0.5*(..RAnkleMedial.sRel_static + ..RAnkleLateral.sRel_static);
+          AnyVec3 Y =  0.5*(..RKneeMedial.sRel_static + ..RKneeLateral.sRel_static)-
+                       0.5*(..RAnkleMedial.sRel_static + ..RAnkleLateral.sRel_static);
+          AnyVec3 X = cross( ..RKneeLateral.sRel_static-..RKneeMedial.sRel_static,
+                            0.5*(..RAnkleLateral.sRel_static + ..RAnkleMedial.sRel_static)-..RKneeLateral.sRel_static);  
+          AnyVec3 Z = cross(X,Y); 
+          sRel = O;
+          ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+        };
         
        };
       #endif
@@ -928,6 +989,28 @@ AnyFolder StickFigure = {
         AnyRefNode LKneeMedial = {
           sRel = ..LKneeMedial.sRel_static;
         };
+        /// Defined based on ISB recommendation for HIP joint rotations
+        AnyRefNode HipISBCoord = {
+          AnyVec3 O = ..HipJoint.sRel_static ;
+          AnyVec3 Y = O - 0.5*(..LKneeLateral.sRel_static + ..LKneeMedial.sRel_static) ;
+          AnyVec3 X = -1*cross(Y,..LKneeLateral.sRel_static -..LKneeMedial.sRel_static );
+          AnyVec3 Z = cross(X,Y);
+          sRel = O;
+          ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+        };
+        /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
+        /// which align with the epicondyle line. 
+        AnyRefNode KneeISBCoord = {
+          AnyVec3 O = 0.5*(..LKneeMedial.sRel_static + ..LKneeLateral.sRel_static);
+          AnyVec3 Z = -1*(..LKneeLateral.sRel_static - ..LKneeMedial.sRel_static);
+          AnyVec3 X = cross( ..HipJoint.sRel_static - O, Z);
+          AnyVec3 Y = cross(Z,X);
+          sRel = O;
+          ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+        };         
+        
       };
       #endif
       #endif
@@ -1062,6 +1145,29 @@ AnyFolder StickFigure = {
         AnyRefNode LAnkleMedial = {
           sRel = ..LAnkleMedial.sRel_static;
         };
+        AnyRefNode AnkleISBCoord = {
+          AnyVec3 O = 0.5*(..LAnkleMedial.sRel_static + ..LAnkleLateral.sRel_static);
+          AnyVec3 Z = -1*(..LAnkleLateral.sRel_static - ..LAnkleMedial.sRel_static) ;
+          AnyVec3 X = cross( 0.5*(..LKneeMedial.sRel_static+..LKneeLateral.sRel_static)-..LAnkleLateral.sRel_static,
+                            -1*(..LAnkleLateral.sRel_static - ..LAnkleMedial.sRel_static) );  
+          AnyVec3 Y = cross(Z,X); 
+          sRel = O;
+          ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+          AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+        };
+         /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
+         /// which align with the epicondyle line. 
+         AnyRefNode KneeISBCoord = {
+           AnyVec3 O = 0.5*(..LKneeMedial.sRel_static + ..LKneeLateral.sRel_static);
+           AnyVec3 Z = -1*(..LKneeLateral.sRel_static - ..LKneeMedial.sRel_static) ;
+           AnyVec3 X = cross(Z,0.5*(..LAnkleLateral.sRel_static+..LAnkleMedial.sRel_static) - O);  
+           AnyVec3 Y = cross(Z,X); 
+           sRel = O;
+           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+         };
+         
+
       };
       #endif
       #endif
@@ -1170,7 +1276,12 @@ AnyFolder StickFigure = {
       };  
       #endif
       
-
+      AnyFolder LKneeMedial = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLKneeMedial -.r0_static)')';
+      };
+      AnyFolder LKneeLateral = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLKneeLateral -.r0_static)')';
+      };
       AnyFolder LHeel = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLHeel -.r0_static)')';
       };
@@ -1246,6 +1357,17 @@ AnyFolder StickFigure = {
         AnyRefNode LAnkleMedial = {
           sRel = ..LAnkleMedial.sRel_static;
         };
+        AnyRefNode AnkleISBCoord = {
+         AnyVec3 O = 0.5*(..LAnkleMedial.sRel_static + ..LAnkleLateral.sRel_static);
+         AnyVec3 Y =  0.5*(..LKneeMedial.sRel_static + ..LKneeLateral.sRel_static)-
+                      0.5*(..LAnkleMedial.sRel_static + ..LAnkleLateral.sRel_static);
+         AnyVec3 X = -1*cross( ..LKneeLateral.sRel_static-..LKneeMedial.sRel_static,
+                           0.5*(..LAnkleLateral.sRel_static + ..LAnkleMedial.sRel_static)-..LKneeLateral.sRel_static);  
+         AnyVec3 Z = cross(X,Y); 
+         sRel = O;
+         ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
+         AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+       };
       };
       #endif
       #endif

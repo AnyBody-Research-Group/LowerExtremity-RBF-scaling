@@ -6,9 +6,11 @@ AnyFolder JointAnglesAndMoments = {
 
     CreateJointAnglesAndMomentMeasures Right (
     PELVIS_FRAME= LegModelRef.Trunk.Seg.Pelvis,
-    THIGH_FRAME = LegModelRef.Right.Seg.Thigh,
-    SHANK_FRAME = LegModelRef.Right.Seg.Shank,
-    FOOT_FRAME = LegModelRef.Right.Seg.Foot,
+    THIGH_HIP_FRAME = LegModelRef.Right.Seg.Thigh.HipISBCoord,
+    THIGH_KNEE_FRAME = LegModelRef.Right.Seg.Thigh.KneeISBCoord,
+    SHANK_KNEE_FRAME = LegModelRef.Right.Seg.Shank.KneeISBCoord,
+    SHANK_ANKLE_FRAME = LegModelRef.Right.Seg.Shank.AnkleISBCoord,
+    FOOT_ANKLE_FRAME = LegModelRef.Right.Seg.Foot.AnkleISBCoord,
     HIPMOMENT = BodyModelRef.Right.Leg.MomentMeasure.HipNetMoment.M,
     KNEEMOMENT = BodyModelRef.Right.Leg.MomentMeasure.KneeNetMoment.M,
     ANKLEMOMENT = BodyModelRef.Right.Leg.MomentMeasure.AnklePlantarFlexionNetMoment.M
@@ -16,9 +18,11 @@ AnyFolder JointAnglesAndMoments = {
   
     CreateJointAnglesAndMomentMeasures Left (
     PELVIS_FRAME= LegModelRef.Trunk.Seg.Pelvis,
-    THIGH_FRAME = LegModelRef.Left.Seg.Thigh,
-    SHANK_FRAME = LegModelRef.Left.Seg.Shank,
-    FOOT_FRAME = LegModelRef.Left.Seg.Foot,
+    THIGH_HIP_FRAME = LegModelRef.Left.Seg.Thigh.HipISBCoord,
+    THIGH_KNEE_FRAME = LegModelRef.Left.Seg.Thigh.KneeISBCoord,
+    SHANK_KNEE_FRAME = LegModelRef.Left.Seg.Shank.KneeISBCoord,
+    SHANK_ANKLE_FRAME = LegModelRef.Left.Seg.Shank.AnkleISBCoord,
+    FOOT_ANKLE_FRAME = LegModelRef.Left.Seg.Foot.AnkleISBCoord,
     HIPMOMENT = BodyModelRef.Left.Leg.MomentMeasure.HipNetMoment.M,
     KNEEMOMENT = BodyModelRef.Left.Leg.MomentMeasure.KneeNetMoment.M,
     ANKLEMOMENT = BodyModelRef.Left.Leg.MomentMeasure.AnklePlantarFlexionNetMoment.M
