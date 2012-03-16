@@ -8,7 +8,7 @@
   Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
   ) = {
 //    sRelOpt = { 0.1104314832245, -0.0381873163174 ,0.1454700654965}+{0.01,0.035,0.00};
-      sRelOpt = {0.1050608, -0.05008401, 0.1295}+{ 0.02,0.03,0.00};
+      sRelOpt = Main.SubjectSpecificData.MarkerPos.RAsisMarker;//{0.1050608, -0.05008401, 0.1295}+{ 0.02,0.03,0.00};
   };
 
   CreateMarker LAsis (
@@ -19,7 +19,7 @@
   Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
   ) = {
 //    sRelOpt = { 0.1104314832245, -0.0381873163174 ,-0.1454700654965}+{0.01,0.035,-0.00};
-    sRelOpt = {0.1050608, -0.05008401, -0.1295}+{ 0.02,0.03,-0.00};
+    sRelOpt = Main.SubjectSpecificData.MarkerPos.LAsisMarker;//{0.1050608, -0.05008401, -0.1295}+{ 0.02,0.03,-0.00};
   };
     
   CreateMarker RPsis ( 
@@ -30,7 +30,7 @@
   Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel 
   ) = {
 //    sRelOpt = { -0.07, -0.00, 0.040};
-  sRelOpt = {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,0.03};
+  sRelOpt = Main.SubjectSpecificData.MarkerPos.RPsisMarker;//{-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,0.03};
   };
    
   CreateMarker LPsis ( 
@@ -41,7 +41,7 @@
   Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel 
   ) = {
 //    sRelOpt = { -0.07, -0.00, -0.040};
-  sRelOpt = {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,-0.03};
+  sRelOpt = Main.SubjectSpecificData.MarkerPos.LPsisMarker;//{-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,-0.03};
   };  
   
   // /* 
