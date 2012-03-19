@@ -1,5 +1,7 @@
 #include "../../../../SetModelType.any"
 
+#define EXCLUDE_RSHANKLATERAL
+
 Main = {
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"  
