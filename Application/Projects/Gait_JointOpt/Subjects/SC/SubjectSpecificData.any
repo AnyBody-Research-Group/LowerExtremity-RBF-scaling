@@ -30,10 +30,10 @@ AnyFolder SubjectSpecificData = {
     AnyVec3 ToeMarker= {0.2684801, 0.02890321, 0.002888251};
     AnyVec3 MidfootLateralMarker = {0.1628627, -0.00255456, 0.07045269};  
   
-    AnyVec3 RAsisMarker = {0.1250608 , -0.02008401,  0.1295 };
-    AnyVec3 LAsisMarker = { 0.1250608 , -0.02008401, -0.1295};
-    AnyVec3 LPsisMarker = {-0.07194569,  0.01086048, -0.030 };
-    AnyVec3 RPsisMarker = {-0.07194569,  0.01086048, 0.03 };
+    AnyVec3 RAsisMarker = {0.1250608 , -0.025,  0.1295 };
+    AnyVec3 LAsisMarker = { 0.1250608 , -0.025, -0.1295};
+    AnyVec3 LPsisMarker = {-0.07194569,  0.0050, -0.030 };
+    AnyVec3 RPsisMarker = {-0.07194569,  0.0050, 0.03 };
 
   };
   AnyFolder MarkerWeights =  {
