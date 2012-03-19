@@ -63,38 +63,57 @@ Main.Studies = {
                            -(0.28*PelvisDepth*1000+0.16*AsisDist*1000+7.9)/1000}
                          *PelvisGlobal';
       
+     // See ISB recommendation for the definition of these anatomical coordinate systems                    
      AnyMat33 PelvisGlobal = RotMat((RAsis+LAsis)*0.5,
                                      (RAsis+LAsis)*0.5+ ((RAsis+LAsis)*0.5-(RPsis+LPsis)*0.5 ),
                                      RAsis)*RotMat(-pi/2,x);
-                                     
-     AnyMat33 RThighGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+     AnyMat33 RHipThighGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+                                     RHipJointGlobal,
+                                     RKneeLateral)*RotMat(-pi/2,z)*RotMat(-pi/2,y);
+     AnyMat33 RKneeThighGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
                                      RKneeLateral,
                                      RHipJointGlobal)*RotMat(pi/2,y);
-     AnyMat33 RShankGlobal = RotMat((RAnkleLateral + RAnkleMedial)/2,
+     AnyMat33 RKneeShankGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+                                     RKneeLateral,
+                                     (RAnkleLateral + RAnkleMedial)/2 )*RotMat(pi,x)*RotMat(pi/2,y);
+     AnyMat33 RAnkleShankGlobal = RotMat((RAnkleLateral + RAnkleMedial)/2,
                                      RAnkleLateral,
                                      (RKneeLateral+RKneeMedial)/2 )*RotMat(pi/2,y);
-     AnyMat33 RFootGlobal = RotMat(RHeel,
-                                   RHeel + {0,0,1},
-                                   RToe)*RotMat(-pi/2,z)*RotMat(pi,y);
+     AnyMat33 RAnkleFootGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+                                   (RAnkleLateral + RAnkleMedial)/2,
+                                   RKneeLateral)
+                                   *RotMat(pi/2,z)*RotMat(pi/2,y);
      
-     AnyMat33 LThighGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+     // See ISB recommendation for the definition of these anatomical coordinate systems                    
+     AnyMat33 LHipThighGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+                                     LHipJointGlobal,
+                                     LKneeMedial)*RotMat(-pi/2,z)*RotMat(-pi/2,y);
+     AnyMat33 LKneeThighGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
                                      LKneeMedial,
                                      LHipJointGlobal)*RotMat(pi/2,y);
-     AnyMat33 LShankGlobal = RotMat((LAnkleLateral + LAnkleMedial)/2,
+     AnyMat33 LKneeShankGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+                                     LKneeMedial,
+                                     (LAnkleLateral + LAnkleMedial)/2 )*RotMat(pi,x)*RotMat(pi/2,y);
+     AnyMat33 LAnkleShankGlobal = RotMat((LAnkleLateral + LAnkleMedial)/2,
                                      LAnkleMedial,
                                      (LKneeLateral+LKneeMedial)/2 )*RotMat(pi/2,y);
-     AnyMat33 LFootGlobal = RotMat(LHeel,
-                                   LHeel + {0,0,1},
-                                   LToe)*RotMat(-pi/2,z)*RotMat(pi,y);
+     AnyMat33 LAnkleFootGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+                                   (LAnkleLateral + LAnkleMedial)/2,
+                                   LKneeMedial)
+                                   *RotMat(pi/2,z)*RotMat(pi/2,y);
         
      AnyFolder &BodyRef = .HumanModel.BodyModel;                              
      AnyMat33 PelvisMarkerFrame = BodyRef.Trunk.SegmentsLumbar.PelvisSeg.Axes'*PelvisGlobal;                            
-     AnyMat33 RThighMarkerFrame = BodyRef.Right.Leg.Seg.Thigh.Axes'*RThighGlobal; 
-     AnyMat33 RShankMarkerFrame = BodyRef.Right.Leg.Seg.Shank.Axes'*RShankGlobal;                            
-     AnyMat33 RFootMarkerFrame = BodyRef.Right.Leg.Seg.Foot.Axes'*RFootGlobal; 
-     AnyMat33 LThighMarkerFrame = BodyRef.Left.Leg.Seg.Thigh.Axes'*LThighGlobal; 
-     AnyMat33 LShankMarkerFrame = BodyRef.Left.Leg.Seg.Shank.Axes'*LShankGlobal;                            
-     AnyMat33 LFootMarkerFrame = BodyRef.Left.Leg.Seg.Foot.Axes'*LFootGlobal;
+     AnyMat33 RHipThighMarkerFrame = BodyRef.Right.Leg.Seg.Thigh.Axes'*RHipThighGlobal;
+     AnyMat33 RKneeThighMarkerFrame = BodyRef.Right.Leg.Seg.Thigh.Axes'*RKneeThighGlobal; 
+     AnyMat33 RKneeShankMarkerFrame = BodyRef.Right.Leg.Seg.Shank.Axes'*RKneeShankGlobal;      
+     AnyMat33 RAnkleShankMarkerFrame = BodyRef.Right.Leg.Seg.Shank.Axes'*RAnkleShankGlobal;                            
+     AnyMat33 RAnkleFootMarkerFrame = BodyRef.Right.Leg.Seg.Foot.Axes'*RAnkleFootGlobal; 
+     AnyMat33 LHipThighMarkerFrame = BodyRef.Left.Leg.Seg.Thigh.Axes'*LHipThighGlobal; 
+     AnyMat33 LKneeThighMarkerFrame = BodyRef.Left.Leg.Seg.Thigh.Axes'*LKneeThighGlobal; 
+     AnyMat33 LKneeShankMarkerFrame = BodyRef.Left.Leg.Seg.Shank.Axes'*LKneeShankGlobal;  
+     AnyMat33 LAnkleShankMarkerFrame = BodyRef.Left.Leg.Seg.Shank.Axes'*LAnkleShankGlobal;                            
+     AnyMat33 LAnkleFootMarkerFrame = BodyRef.Left.Leg.Seg.Foot.Axes'*LAnkleFootGlobal;
      
      AnyFunEx SaveAnySetValue =  {
        AnyInt Return = 0;
@@ -115,23 +134,40 @@ Main.Studies = {
         "Main.Studies.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.StaticMarkerFrame.ARel",
                       PelvisMarkerFrame );
      AnyInt ret1 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
-        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.StaticMarkerFrame.ARel",
-                      RThighMarkerFrame );
+        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.HipStaticMarkerFrame.ARel",
+                      RHipThighMarkerFrame );
      AnyInt ret2 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
-        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Shank.StaticMarkerFrame.ARel",
-                      RShankMarkerFrame );
+        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.KneeStaticMarkerFrame.ARel",
+                      RKneeThighMarkerFrame );
+
+                      
      AnyInt ret3 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
-        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Foot.StaticMarkerFrame.ARel",
-                      RFootMarkerFrame );
+        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Shank.KneeStaticMarkerFrame.ARel",
+                      RKneeShankMarkerFrame );
      AnyInt ret4 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
-        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.StaticMarkerFrame.ARel",
-                      LThighMarkerFrame );
+        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Shank.AnkleStaticMarkerFrame.ARel",
+                      RAnkleShankMarkerFrame );
      AnyInt ret5 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
-        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Shank.StaticMarkerFrame.ARel",
-                      LShankMarkerFrame );
+        "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Foot.AnkleStaticMarkerFrame.ARel",
+                      RAnkleFootMarkerFrame );
+                      
      AnyInt ret6 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
-        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Foot.StaticMarkerFrame.ARel",
-                      LFootMarkerFrame );
+        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.HipStaticMarkerFrame.ARel",
+                      LHipThighMarkerFrame );
+     AnyInt ret7 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.KneeStaticMarkerFrame.ARel",
+                      LKneeThighMarkerFrame );
+                      
+                      
+     AnyInt ret8 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Shank.KneeStaticMarkerFrame.ARel",
+                      LKneeShankMarkerFrame );
+     AnyInt ret9 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Shank.AnkleStaticMarkerFrame.ARel",
+                      LAnkleShankMarkerFrame );
+     AnyInt ret10 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+        "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Foot.AnkleStaticMarkerFrame.ARel",
+                      LAnkleFootMarkerFrame );
    
    };
     

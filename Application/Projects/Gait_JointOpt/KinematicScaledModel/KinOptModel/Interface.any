@@ -52,9 +52,11 @@ AnyFolder Interface = {
     #if IncludeHip & IncludeKnee & IncludeAnkle
     CreateJointMeasures ISBMeasures (
     PELVIS_FRAME= ..Trunk.Seg.Pelvis,
-    THIGH_FRAME = ThighRef,
-    SHANK_FRAME =ShankRef,
-    FOOT_FRAME =FootRef  ) = { Sign = 1;};
+    THIGH_HIP_FRAME = ThighRef.HipISBCoord,
+    THIGH_KNEE_FRAME = ThighRef.KneeISBCoord,
+    SHANK_KNEE_FRAME =ShankRef.KneeISBCoord,
+    SHANK_ANKLE_FRAME =ShankRef.AnkleISBCoord,
+    FOOT_ANKLE_FRAME =FootRef.AnkleISBCoord  ) = {Sign = 1;};
     #endif
     
   #if IncludeHip == 1
@@ -204,9 +206,11 @@ AnyFolder Interface = {
     #if IncludeHip & IncludeKnee & IncludeAnkle
     CreateJointMeasures ISBMeasures (
     PELVIS_FRAME= ..Trunk.Seg.Pelvis,
-    THIGH_FRAME = ThighRef,
-    SHANK_FRAME =ShankRef,
-    FOOT_FRAME =FootRef  ) = {Sign = -1;};
+    THIGH_HIP_FRAME = ThighRef.HipISBCoord,
+    THIGH_KNEE_FRAME = ThighRef.KneeISBCoord,
+    SHANK_KNEE_FRAME =ShankRef.KneeISBCoord,
+    SHANK_ANKLE_FRAME =ShankRef.AnkleISBCoord,
+    FOOT_ANKLE_FRAME =FootRef.AnkleISBCoord  ) = {Sign = -1;};
     #endif
     
   #if IncludeHip == 1
