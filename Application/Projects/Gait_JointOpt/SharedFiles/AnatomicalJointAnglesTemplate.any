@@ -51,68 +51,61 @@
 #class_template CreateJointMeasures (PELVIS_FRAME,THIGH_HIP_FRAME,THIGH_KNEE_FRAME,SHANK_KNEE_FRAME,SHANK_ANKLE_FRAME,FOOT_ANKLE_FRAME){
 
   #var AnyInt Sign = 1;
-  AnyKinMeasureNormComb HipFlexion = {
+  
+  AnyKinMeasureLinComb HipFlexion = {
     AnyKinRotational HipMeasure ={
       AnyRefFrame &PelvisRef = ...PELVIS_FRAME ;
       AnyRefFrame &ThighRef = ...THIGH_HIP_FRAME ;
       Type=RotAxesAngles;
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
-    Order = 1;
-    Weight ={1,0,0}*180/pi;
+    Coef = {{1,0,0}}*180/pi;
   };
-  AnyKinMeasureNormComb HipAdduction = {
+  AnyKinMeasureLinComb HipAdduction = {
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
-    Order = 1;
-    Weight =.Sign *{0,1,0}*180/pi;
+    Coef = .Sign *{{0,1,0}}*180/pi;
+    
   };
-  AnyKinMeasureNormComb HipInternalRotation ={
+  AnyKinMeasureLinComb HipInternalRotation ={
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
-    Order = 1;
-    Weight =.Sign *{0,0,1}*180/pi;
+    Coef =.Sign *{{0,0,1}}*180/pi;
   };
 
-  AnyKinMeasureNormComb KneeFlexion = {
+  AnyKinMeasureLinComb KneeFlexion = {
     AnyKinRotational KinRot ={
       AnyRefFrame &ThighRef = ...THIGH_KNEE_FRAME;
       AnyRefFrame &ShankRef = ...SHANK_KNEE_FRAME;
       Type=RotAxesAngles;
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
-    Order = 1;
-    Weight =-1*{1,0,0}*180/pi;
+    Coef =-1*{{1,0,0}}*180/pi;
   };
-  AnyKinMeasureNormComb KneeAdduction = {
+  AnyKinMeasureLinComb KneeAdduction = {
     AnyKinRotational &KinRot = .KneeFlexion.KinRot;
-    Order = 1;
-    Weight =.Sign *{0,1,0}*180/pi;
+    Coef =.Sign *{{0,1,0}}*180/pi;
   };
-  AnyKinMeasureNormComb KneeInternalRotation = {
+  AnyKinMeasureLinComb KneeInternalRotation = {
     AnyKinRotational &KinRot = .KneeFlexion.KinRot;
-    Order = 1;
-    Weight =.Sign *{0,0,1}*180/pi;
+    Coef =.Sign *{{0,0,1}}*180/pi;
   };
   
   
-  AnyKinMeasureNormComb AnkleDorsiFlexion = {  
+  AnyKinMeasureLinComb AnkleDorsiFlexion = {  
     AnyKinRotational KinRot ={
       AnyRefFrame &ShankRef = ...SHANK_ANKLE_FRAME;
       AnyRefFrame &FootRef = ...FOOT_ANKLE_FRAME;
       Type=RotAxesAngles;
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
-    Order = 1;
-    Weight ={1,0,0}*180/pi;
+    Coef ={{1,0,0}}*180/pi;
   };
-  AnyKinMeasureNormComb AnkleInversion ={
+  AnyKinMeasureLinComb AnkleInversion ={
     AnyKinRotational &KinRot =.AnkleDorsiFlexion.KinRot; 
-    Order = 1;
-    Weight =.Sign*{0,1,0}*180/pi;
+    Coef  =.Sign*{{0,1,0}}*180/pi;
   };    
-  AnyKinMeasureNormComb AnkleInternalRotation = {
+  AnyKinMeasureLinComb AnkleInternalRotation = {
     AnyKinRotational &KinRot =.AnkleDorsiFlexion.KinRot; 
-    Order = 1;
-    Weight = .Sign*{0,0,1}*180/pi;
+    Coef  = .Sign*{{0,0,1}}*180/pi;
   };
   
 
@@ -123,7 +116,7 @@
 #class_template CreateJointAnglesAndMomentMeasures (PELVIS_FRAME,THIGH_HIP_FRAME,THIGH_KNEE_FRAME,SHANK_KNEE_FRAME,SHANK_ANKLE_FRAME,FOOT_ANKLE_FRAME, HIPMOMENT, KNEEMOMENT, ANKLEMOMENT  ){
 
   #var AnyInt Sign = 1;
-  AnyKinMeasureNormComb HipFlexion = {
+  AnyKinMeasureLinComb HipFlexion = {
     AnyVar M_Projected = -..PELVIS_FRAME.Axes'[2]*..HIPMOMENT';
     AnyKinRotational HipMeasure ={
       AnyRefFrame &PelvisRef = ...PELVIS_FRAME ;
@@ -131,23 +124,20 @@
       Type=RotAxesAngles;
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
-    Order = 1;
-    Weight ={1,0,0}*180/pi;
+    Coef = {{1,0,0}}*180/pi;
   };
-  AnyKinMeasureNormComb HipAdduction = {
+  AnyKinMeasureLinComb HipAdduction = {
     AnyVar M_Projected = .Sign*cross(..PELVIS_FRAME.Axes'[2],..THIGH_HIP_FRAME.Axes'[1])*..HIPMOMENT';
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
-    Order = 1;
-    Weight =.Sign *{0,1,0}*180/pi;
+    Coef =.Sign *{{0,1,0}}*180/pi;
   };
-  AnyKinMeasureNormComb HipInternalRotation ={
+  AnyKinMeasureLinComb HipInternalRotation ={
     AnyVar M_Projected = -1*.Sign*..THIGH_HIP_FRAME.Axes'[1]*..HIPMOMENT';
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
-    Order = 1;
-    Weight =.Sign *{0,0,1}*180/pi;
+    Coef =.Sign *{{0,0,1}}*180/pi;
   };
 
-  AnyKinMeasureNormComb KneeFlexion = {
+  AnyKinMeasureLinComb KneeFlexion = {
     AnyVar M_Projected = ..THIGH_KNEE_FRAME.Axes'[2]*..KNEEMOMENT';
     AnyKinRotational KinRot ={
       AnyRefFrame &ThighRef = ...THIGH_KNEE_FRAME;
@@ -155,24 +145,21 @@
       Type=RotAxesAngles;
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
-    Order = 1;
-    Weight =-1*{1,0,0}*180/pi;
+    Coef =-1*{{1,0,0}}*180/pi;
   };
-  AnyKinMeasureNormComb KneeAdduction = {
+  AnyKinMeasureLinComb KneeAdduction = {
     AnyVar M_Projected = .Sign*cross(..THIGH_KNEE_FRAME.Axes'[2], ..SHANK_KNEE_FRAME.Axes'[1])*..KNEEMOMENT';
     AnyKinRotational &KinRot = .KneeFlexion.KinRot;
-    Order = 1;
-    Weight =.Sign *{0,1,0}*180/pi;
+    Coef  =.Sign *{{0,1,0}}*180/pi;
   };
-  AnyKinMeasureNormComb KneeInternalRotation = {
+  AnyKinMeasureLinComb KneeInternalRotation = {
     AnyVar M_Projected = -1*.Sign*..SHANK_KNEE_FRAME.Axes'[1]*..KNEEMOMENT';
     AnyKinRotational &KinRot = .KneeFlexion.KinRot;
-    Order = 1;
-    Weight =.Sign *{0,0,1}*180/pi;
+    Coef  =.Sign *{{0,0,1}}*180/pi;
   };
   
   
-  AnyKinMeasureNormComb AnkleDorsiFlexion = {  
+  AnyKinMeasureLinComb AnkleDorsiFlexion = {  
     AnyVar M_Projected = -1*..SHANK_ANKLE_FRAME.Axes'[2]*..ANKLEMOMENT';
     AnyKinRotational KinRot ={
       AnyRefFrame &ShankRef = ...SHANK_ANKLE_FRAME;
@@ -180,20 +167,17 @@
       Type=RotAxesAngles;
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
-    Order = 1;
-    Weight ={1,0,0}*180/pi;
+    Coef  ={{1,0,0}}*180/pi;
   };
-  AnyKinMeasureNormComb AnkleInversion ={
+  AnyKinMeasureLinComb AnkleInversion ={
     AnyVar M_Projected = .Sign*cross(..SHANK_ANKLE_FRAME.Axes'[2],..FOOT_ANKLE_FRAME.Axes'[1])*..ANKLEMOMENT';
     AnyKinRotational &KinRot =.AnkleDorsiFlexion.KinRot; 
-    Order = 1;
-    Weight =.Sign*{0,1,0}*180/pi;
+    Coef  =.Sign*{{0,1,0}}*180/pi;
   };    
-  AnyKinMeasureNormComb AnkleInternalRotation = {
+  AnyKinMeasureLinComb AnkleInternalRotation = {
     AnyVar M_Projected = -1*.Sign*..FOOT_ANKLE_FRAME.Axes'[1]*..ANKLEMOMENT';
     AnyKinRotational &KinRot =.AnkleDorsiFlexion.KinRot; 
-    Order = 1;
-    Weight = .Sign*{0,0,1}*180/pi;
+    Coef  = .Sign*{{0,0,1}}*180/pi;
   };
   
 
