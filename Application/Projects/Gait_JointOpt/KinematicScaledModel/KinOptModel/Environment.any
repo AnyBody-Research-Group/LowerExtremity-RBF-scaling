@@ -9,7 +9,7 @@ AnyFixedRefFrame GlobalRef ={
 
 
 #ifndef IncludeLegTDModel
-#if IncludeRight & IncludeLeft
+#if IncludeRight & IncludeLeft & IncludeAnkle 
 
 
 // The autodetection forceplates can not be used when the Human

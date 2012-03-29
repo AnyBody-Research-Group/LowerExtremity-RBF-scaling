@@ -139,6 +139,19 @@ Main = {
       + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightAnkleParameters ) ;
       MacroStr = { LoadMcr };
     };
+    AnyOperationMacro Load_LeftKneeParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftKneeParameters ) ;
+      MacroStr = { LoadMcr };
+    };
+    AnyOperationMacro Load_RightKneeParameters = 
+    {
+      AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightKneeParameters ) ;
+      MacroStr = { LoadMcr };
+    };
+    
     AnyOperationMacro Load_GaitParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
@@ -161,7 +174,9 @@ Main = {
      AnyOperation &LHip =.JntParameterOptModel.Load_LeftHipParameters ;
      AnyOperation &RAnk =.JntParameterOptModel.Load_RightAnkleParameters ;
      AnyOperation &LAnk =.JntParameterOptModel.Load_LeftAnkleParameters ;
-     AnyOperation &Gait = .JntParameterOptModel.Load_GaitParameters;
+     AnyOperation &RKnee =.JntParameterOptModel.Load_RightKneeParameters ;
+     AnyOperation &LKnee =.JntParameterOptModel.Load_LeftKneeParameters ;
+//     AnyOperation &Gait = .JntParameterOptModel.Load_GaitParameters;
      #else
 	 AnyOperation &AllAnatomicalParam =.JntParameterOptModel.Load_AnatomicalParameters;
      #endif

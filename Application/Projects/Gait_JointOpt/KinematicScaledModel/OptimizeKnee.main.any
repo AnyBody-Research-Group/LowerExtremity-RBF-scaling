@@ -35,7 +35,7 @@ Main.JntParameterOptModel  = {
     Kinematics.SolverType = KinSolOverDeterminate;   
     InitialConditions.PosAnalysisOnlyOnOff=On;
     Kinematics.PosAnalysisOnlyOnOff=On;
-    Kinematics.KinematicTol = 1e-5;
+    Kinematics.KinematicTol = 1e-6;
   };  
 
  }; 

@@ -58,6 +58,8 @@ AnyFolder ModelSetup ={
     AnyStringVar LeftHipParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftHipParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar LeftAnkleParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftAnkleParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftKneeParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftKneeParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar RightKneeParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightKneeParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar GaitParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.GaitParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar AllParameters = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
     
