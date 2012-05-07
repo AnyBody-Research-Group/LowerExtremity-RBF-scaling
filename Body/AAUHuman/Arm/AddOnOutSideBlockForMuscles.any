@@ -179,7 +179,6 @@ ThoraxSegRef ={
 
 
 PelvisSegRef={
-  AnyFunTransform3D &Scale=..Scaling.GeometricalScaling.Pelvis.ScaleFunction;
   AnyRefNode O_latissimus_dorsi_5  = {
     sRel = .Scale({0.03, 0.05, ...Sign*0.09}); 
   };

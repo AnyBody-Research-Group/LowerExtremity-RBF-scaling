@@ -71,6 +71,32 @@ AnyKinMeasureOrg KneeFlexion = {
 }; 
 
 
+/// This Folder contains measures which are compliant with the ISB definition of 
+/// of joint angles. However, with one exception, that 0 deg hip flexion is 
+/// the natural upright postion. 
+AnyFolder ISB_JointMeasures = {  
+  AnyKinMeasureOrg HipFlexion = {    
+    AnyKinRotational HipMeasure ={      
+      AnyRefNode &PelvisNode = ....HipNodeRef.RotNode;      
+      AnyRefNode &ThighNode = ....Seg.Thigh.HipJoint.RotNode;      
+      PelvisNode={
+        AnyDrawRefFrame drw={RGB={1,0,0};Visible = On;}; 
+      }; 
+      ThighNode={
+        AnyDrawRefFrame drw={RGB={0,1,0};Visible = On;};
+      };      
+      Axis1 = z; Axis2 = x;  Axis3 = y;
+      Type=RotAxesAngles;    
+    };    MeasureOrganizer={0};  
+  };  
+  AnyKinMeasureOrg HipAbduction = {
+    AnyKinRotational &HipJoint =.HipFlexion.HipMeasure;     
+    MeasureOrganizer={1};  };  
+  AnyKinMeasureOrg HipExternalRotation ={    
+    AnyKinRotational &HipJoint =.HipFlexion.HipMeasure;     
+    MeasureOrganizer={2};  
+  };
+};
 AnyKinMeasureOrg HipFlexion = {
   //create new rotated node 
   AnyFolder &HipNodeRef=..HipNodeRef;

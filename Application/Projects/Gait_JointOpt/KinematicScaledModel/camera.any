@@ -24,10 +24,10 @@ ModelSetup = {
     
     AnyCameraLookAt UserCam = 
     {
-      AnyVar yRot = DesignVar(20);
-      AnyVar zRot = DesignVar(160);
-      AnyVar distance = DesignVar(1.2);
-      AnyVec3 LookAtOffset = {0,0,-0.5};
+      AnyVar yRot = DesignVar(88);
+      AnyVar zRot = DesignVar(0);
+      AnyVar distance = DesignVar(0.5);
+      AnyVec3 LookAtOffset = {0,0,-0.0};
       
       EyePoint = LookAtPoint+distance*{1,0,0}*RotMat(yRot*pi/180,y)*RotMat(-zRot*pi/180,z)*frame.Axes';//{1,0,0};
       LookAtPoint = frame.r+LookAtOffset*frame.Axes';

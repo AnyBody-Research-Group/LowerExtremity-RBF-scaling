@@ -45,7 +45,7 @@ Main = {
         AnyFolder DrawC3DMarkers = {}; 
         #include "Environment.any"         
        };
-      
+      AnyFolder &camera = Main.ModelSetup.Camera;
       //Connection between environment and the human    
       AnyFolder ModelEnvironmentConnection = {
         //Drivers for the model

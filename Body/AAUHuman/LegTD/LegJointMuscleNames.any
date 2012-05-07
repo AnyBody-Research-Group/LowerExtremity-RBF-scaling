@@ -1,0 +1,17 @@
+
+//This file can be used for making shortcuts to the joint muscle data
+
+
+ AnyFolder &HipFlexionPos = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.PosMuscle;
+ AnyFolder &HipFlexionNeg = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.NegMuscle;
+ AnyFolder &HipAbductionPos = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.PosMuscle;
+ AnyFolder &HipAbductionNeg = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.NegMuscle;
+ AnyFolder &HipExternalRotationPos = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.PosMuscle;
+ AnyFolder &HipExternalRotationNeg = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.NegMuscle;
+ AnyFolder &KneeFlexionPos = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.PosMuscle;
+ AnyFolder &KneeFlexionNeg = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.NegMuscle;
+ AnyFolder &AnklePlantarFlexionPos = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.PosMuscle;
+ AnyFolder &AnklePlantarFlexionNeg = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.NegMuscle;
+ AnyFolder &SubTalarFlexionPos = ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.PosMuscle;
+ AnyFolder &SubTalarFlexionNeg= ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.NegMuscle;
+

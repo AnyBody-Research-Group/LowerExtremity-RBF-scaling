@@ -3,7 +3,7 @@
 Right = {
 
   AnyFolder Leg = {  
-    
+    #include "../../LegTD/CadaverParameters.any"
     #include "..\..\LegTD\LegNoMuscles.root.any"
     
       //Reference to folder which contains the interface of the right side
@@ -25,12 +25,10 @@ Right = {
       //This is a sign variable which indicates that this is the right side
       AnyVar Sign =1;
       
-      //-------------------------------------------------------
-      // Interface references that specifies what the leg "Leg/Leg.any" should connect to 
-      //-------------------------------------------------------
-      // INPUT
-      
-      AnyRefFrame &HipNodeRef= ..Trunk.SegmentsLumbar.PelvisSeg.HipJointRightTD;
+      /// Reference to the coordinate system in pelvis where the hip LegTD data is 
+      /// added. This is done, since the leg muscles on the pelvis are given in their 
+      /// own coordinate system
+      AnyRefFrame &HipNodeRef = ..Trunk.SegmentsLumbar.PelvisSeg.Right;
       
       AnyFolder BonesOpacity = {
         AnyVar Foot = Main.DrawSettings.BonesOpacity.RightFoot;
@@ -42,189 +40,19 @@ Right = {
 
       
       AnyFolder MomentMeasure={
-        AnyForceMomentMeasure KneeJointReactionMoments = 
-        {
-          AnyForceBase &Force = ..Jnt.Knee.Constraints.Reaction;
-          AnyRefFrame &Thighknee = ..Seg.Thigh.KneeJoint;
-          AnyVec3 Mlocal = M*Thighknee.Axes;
-        };
+        #if TRUNK_SIMPLE_MUSCLES == 1
+          #define LEG_WITH_PSOAS_MUSCLES 
+          AnyFolder &TrunkMuscles = ...Trunk.MusclesSpineRight;
+        #endif
         
-        AnyForceMomentMeasure AnkleJointReactionMoments = 
-        {
-          AnyForceBase &Force = ..Jnt.Ankle.Constraints.Reaction;
-          AnyRefFrame &Shankankle = ..Seg.Shank.AnkleJoint;
-          AnyVec3 Mlocal = M*Shankankle.Axes;
-        };
-        AnyForceMomentMeasure2 HipNetMoment = {
-          AnyRefNode &ref1 = ..HipNodeRef.RotNode;
-          AnySeg &seg1=..Seg.Shank;      
-          AnySeg &seg2=..Seg.Foot;      
-          AnySeg &seg3=..Seg.Thigh;   
-          AnySeg &seg4=..Seg.Patella;
-          AnySeg &seg5=..Seg.Talus;
-          
-          AnyFolder &HipFlexionPos = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &HipFlexionNeg = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &HipAbductionPos = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.PosMuscle;
-          AnyFolder &HipAbductionNeg = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.NegMuscle;
-          AnyFolder &HipExternalRotationPos = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.PosMuscle;
-          AnyFolder &HipExternalRotationNeg = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.NegMuscle;
-          AnyFolder &KneeFlexionPos = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &KneeFlexionNeg = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &AnklePlantarFlexionPos = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &AnklePlantarFlexionNeg = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &SubTalarFlexionPos = ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.PosMuscle;
-          AnyFolder &SubTalarFlexionNeg= ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.NegMuscle;
-          
-          AnyReacForce &jnt1=..Jnt.Hip.Constraints.Reaction;
-          AnyReacForce &jnt2=..Jnt.Knee.Constraints.Reaction;
-          AnyReacForce &jnt3=..Jnt.Ankle.Constraints.Reaction;
-          AnyReacForce &jnt4=..Jnt.SubTalar.Constraints.Reaction;
-          AnyReacForce &jnt5=..Jnt.PatellaFemur.Constraints.Reaction;
-          AnyReacForce &jnt6=..Jnt.PatellaMovement.Reaction;
-
-                               
-          AnyDrawVector DrawVector= 
-          {
-            AnyRefNode &ref1 = ...Seg.Thigh.HipJoint.RotNode;
-            Vec = 0.01*.M;
-            PointAway = On;
-            DrawCoord = Off;
-            
-            Line.RGB =  {1,0,0};//Main.DrawSettings.NetMomentVector.RGB;
-            Line.Thickness = 0.02;//Main.DrawSettings.NetMomentVector.Thickness;
-            Line.End.Thickness = 2*Line.Thickness ;//*Main.DrawSettings.NetMomentVector.Thickness;
-            Line.End.Length = 4*Line.Thickness ;//Main.DrawSettings.NetMomentVector.Thickness;
-          };           
-          
-        };
-                        
-        AnyForceMomentMeasure2 KneeNetMoment = {
-          AnyRefNode &ref1 = ..Seg.Thigh.KneeJoint.RotNode;
-          AnySeg &seg1=..Seg.Shank;      
-          AnySeg &seg2=..Seg.Foot; 
-          AnySeg &seg3=..Seg.Talus;
-          
-          AnyReacForce &jnt1=..Jnt.Knee.Constraints.Reaction;
-          AnyReacForce &jnt2=..Jnt.Ankle.Constraints.Reaction;
-          AnyReacForce &jnt3=..Jnt.SubTalar.Constraints.Reaction;
-          AnyReacForce &jnt4=..Jnt.PatellaMovement.Reaction;
-          
-          AnyFolder &HipFlexionPos = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &HipFlexionNeg = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &HipAbductionPos = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.PosMuscle;
-          AnyFolder &HipAbductionNeg = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.NegMuscle;
-          AnyFolder &HipExternalRotationPos = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.PosMuscle;
-          AnyFolder &HipExternalRotationNeg = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.NegMuscle;
-          AnyFolder &KneeFlexionPos = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &KneeFlexionNeg = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &AnklePlantarFlexionPos = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &AnklePlantarFlexionNeg = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &SubTalarFlexionPos = ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.PosMuscle;
-          AnyFolder &SubTalarFlexionNeg= ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.NegMuscle;
-          
-          //    AnyRefNode &ref2 = ..Seg.Shank.KneeJoint.RotNode;
-          //    
-          //    AnyVec3 Mlocal=M*ref2.Axes;
-          //    AnyVar MKneeFlexion=Mlocal[2];
-          
-          
-        //  AnyDrawVector DrawVector= 
-        //  {
-        //    AnyRefNode &ref1 = ...Seg.Thigh.KneeJoint.RotNode;
-        //    Vec = Main.DrawSettings.NetMomentVector.ScaleFactor*.M;
-        //    PointAway = On;
-        //    DrawCoord = Off;
-        //    
-        //    Line.RGB =  Main.DrawSettings.NetMomentVector.RGB;
-        //    Line.Thickness = Main.DrawSettings.NetMomentVector.Thickness;
-        //    Line.End.Thickness = 2*Main.DrawSettings.NetMomentVector.Thickness;
-        //    Line.End.Length = 4*Main.DrawSettings.NetMomentVector.Thickness;
-        //  };    
-        };        
-                        
-        AnyForceMomentMeasure2 SubTalarEversionNetMoment = {
-          AnyRefNode &ref1=..Seg.Talus.SubTalarJoint;
-          AnySeg &seg1=..Seg.Foot; 
-          
-          AnyFolder &HipFlexionPos = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &HipFlexionNeg = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &HipAbductionPos = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.PosMuscle;
-          AnyFolder &HipAbductionNeg = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.NegMuscle;
-          AnyFolder &HipExternalRotationPos = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.PosMuscle;
-          AnyFolder &HipExternalRotationNeg = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.NegMuscle;
-          AnyFolder &KneeFlexionPos = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &KneeFlexionNeg = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &AnklePlantarFlexionPos = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &AnklePlantarFlexionNeg = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &SubTalarFlexionPos = ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.PosMuscle;
-          AnyFolder &SubTalarFlexionNeg= ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.NegMuscle;
-
-          AnyReacForce &jnt1=..Jnt.SubTalar.Constraints.Reaction;
-          
-          //    //Make transformation to the anklejoint.rotnode coordinate system
-          //    AnyVec3 Mlocal=M*ref1.Axes;
-          //    
-          //    AnyRefNode &ref2=..Seg.Foot.AnkleJoint.RotNode;
-          //    AnyVar MSubTalarEversion=Mlocal[2];
-          //    
-        //  AnyDrawVector DrawVector= 
-        //  { 
-        //    AnyRefNode &ref1=...Seg.Shank.AnkleJoint.RotNode;
-        //    Vec = Main.DrawSettings.NetMomentVector.ScaleFactor*.M;
-        //    PointAway = On;
-        //    DrawCoord = Off;
-        //    Line.RGB =  Main.DrawSettings.NetMomentVector.RGB;
-        //    Line.Thickness = Main.DrawSettings.NetMomentVector.Thickness;
-        //    Line.End.Thickness = 2*Main.DrawSettings.NetMomentVector.Thickness;
-        //    Line.End.Length = 4*Main.DrawSettings.NetMomentVector.Thickness;
-        //  };
-        };
-        AnyForceMomentMeasure2 AnklePlantarFlexionNetMoment = {
-          AnyRefNode &ref1=..Seg.Shank.AnkleJoint;
-          AnySeg &seg1=..Seg.Foot; 
-          AnySeg &seg2=..Seg.Talus;
-          AnyFolder &HipFlexionPos = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &HipFlexionNeg = ..JointMuscles.HipJnt.HipFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &HipAbductionPos = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.PosMuscle;
-          AnyFolder &HipAbductionNeg = ..JointMuscles.HipJnt.HipAbduction.dof0.Muscle.NegMuscle;
-          AnyFolder &HipExternalRotationPos = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.PosMuscle;
-          AnyFolder &HipExternalRotationNeg = ..JointMuscles.HipJnt.HipExternalRotation.dof0.Muscle.NegMuscle;
-          AnyFolder &KneeFlexionPos = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &KneeFlexionNeg = ..JointMuscles.KneeJnt.KneeFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &AnklePlantarFlexionPos = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.PosMuscle;
-          AnyFolder &AnklePlantarFlexionNeg = ..JointMuscles.AnkleJnt.AnklePlantarFlexion.dof0.Muscle.NegMuscle;
-          AnyFolder &SubTalarFlexionPos = ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.PosMuscle;
-          AnyFolder &SubTalarFlexionNeg= ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.NegMuscle;
-
-          AnyReacForce &jnt1=..Jnt.Ankle.Constraints.Reaction;
-          AnyReacForce &jnt2=..Jnt.SubTalar.Constraints.Reaction;
-          
-          //    //Make transformation to the anklejoint.rotnode coordinate system
-          //    AnyVec3 Mlocal=M*ref1.Axes;
-          //    
-          //    AnyRefNode &ref2=..Seg.Foot.AnkleJoint.RotNode;
-          //    AnyVar MPlantarFlexion=Mlocal[2];
-          //    
-        //  AnyDrawVector DrawVector= 
-        //  { 
-        //    AnyRefNode &ref1=...Seg.Shank.AnkleJoint.RotNode;
-        //    Vec = Main.DrawSettings.NetMomentVector.ScaleFactor*.M;
-        //    PointAway = On;
-        //    DrawCoord = Off;
-        //    Line.RGB =  Main.DrawSettings.NetMomentVector.RGB;
-        //    Line.Thickness = Main.DrawSettings.NetMomentVector.Thickness;
-        //    Line.End.Thickness = 2*Main.DrawSettings.NetMomentVector.Thickness;
-        //    Line.End.Length = 4*Main.DrawSettings.NetMomentVector.Thickness;
-        //  };
-        };
-
+        #define LEG_WITH_JOINT_MUSCLES
+        #include "..\..\LegTD\LegMoments.any"
+        #undef LEG_WITH_JOINT_MUSCLES
         
-        
+        #ifdef LEG_WITH_PSOAS_MUSCLES 
+        #undef LEG_WITH_PSOAS_MUSCLES 
+        #endif
       };
-      
-      
-      
       
     };//End Leg
     

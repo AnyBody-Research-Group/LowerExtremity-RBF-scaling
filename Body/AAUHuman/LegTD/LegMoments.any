@@ -100,7 +100,7 @@ AnyForceMomentMeasure2 KneeNetMomentMuscle = {
 };
 
 AnyForceMomentMeasure2 HipNetMomentMuscle = {
-  AnyRefNode &ref = ..HipNodeRef.RotNode;
+  AnyRefNode &ref = ..HipNodeRef.HipJoint.RotNode;
   
   AnySeg &seg1=..Seg.Shank;      
   AnySeg &seg2=..Seg.Foot;      
@@ -219,7 +219,7 @@ AnyForceMomentMeasure2 KneeNetMoment = {
 };
 
 AnyForceMomentMeasure2 HipNetMoment = {
-  AnyRefNode &ref1 = ..HipNodeRef.RotNode;
+  AnyRefNode &ref1 = ..HipNodeRef.HipJoint.RotNode;
   AnySeg &seg1=..Seg.Shank;      
   AnySeg &seg2=..Seg.Foot;      
   AnySeg &seg3=..Seg.Thigh;   
