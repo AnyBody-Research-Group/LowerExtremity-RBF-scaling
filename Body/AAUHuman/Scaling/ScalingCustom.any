@@ -38,6 +38,11 @@ HumanModel = {
 
 AnyFolder Scaling = {
 
+  AnyFolder &StandardParameters = Scaling.StandardParameters;
+  AnyFolder &MassScaling = Scaling.MassScaling;
+  AnyFolder &StrengthScaling = Scaling.StrengthScaling;
+  AnyFolder &FiberLengthScaling = Scaling.FiberLengthScaling;
+
   AnyFolder GeometricalScaling = {
     
     // Seleccion of the appropriate law depending on the included leg
@@ -47,7 +52,7 @@ AnyFolder Scaling = {
     
     AnyFolder Foot  = { 
     #ifndef CUSTOM_SCALING_Foot
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Foot.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Foot.ScaleFunction;
     #else
       AnyMessage scaling_message_Foot = 
       {
@@ -60,7 +65,7 @@ AnyFolder Scaling = {
     
     AnyFolder Shank = {
     #ifndef CUSTOM_SCALING_Shank
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Shank.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Shank.ScaleFunction;
     #else
       AnyMessage scaling_message_Shank = 
       {
@@ -73,7 +78,7 @@ AnyFolder Scaling = {
     
     AnyFolder Thigh = {
     #ifndef CUSTOM_SCALING_Thigh
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Thigh.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Thigh.ScaleFunction;
     #else
       AnyMessage scaling_message_Thigh = 
       {
@@ -90,7 +95,7 @@ AnyFolder Scaling = {
         
         AnyFolder Foot  = {
         #ifndef CUSTOM_SCALING_Right_Foot
-          AnyFunTransform3DLin &ScaleFunction = Scaling.Right.Foot.ScaleFunction;
+          AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Right.Foot.ScaleFunction;
         #else
           AnyMessage scaling_message_Right_Foot = 
           {
@@ -103,7 +108,7 @@ AnyFolder Scaling = {
         
         AnyFolder Talus  = {
         #ifndef CUSTOM_SCALING_Right_Talus
-          AnyFunTransform3DLin &ScaleFunction = Scaling.Right.Talus.ScaleFunction;
+          AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Right.Talus.ScaleFunction;
         #else
           AnyMessage scaling_message_Right_Talus = 
           {
@@ -116,7 +121,7 @@ AnyFolder Scaling = {
         
         AnyFolder Shank = {
         #ifndef CUSTOM_SCALING_Right_Shank
-          AnyFunTransform3DLin &ScaleFunction = Scaling.Right.Shank.ScaleFunction;
+          AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Right.Shank.ScaleFunction;
         #else
           AnyMessage scaling_message_Right_Shank = 
           {
@@ -129,7 +134,7 @@ AnyFolder Scaling = {
         
         AnyFolder Thigh = {
         #ifndef CUSTOM_SCALING_Right_Thigh
-          AnyFunTransform3DLin &ScaleFunction = Scaling.Right.Thigh.ScaleFunction;
+          AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Right.Thigh.ScaleFunction;
         #else
           AnyMessage scaling_message_Right_Thigh = 
           {
@@ -148,7 +153,7 @@ AnyFolder Scaling = {
       AnyFolder Left ={
         AnyFolder Foot  = {
         #ifndef CUSTOM_SCALING_Left_Foot
-          AnyFunTransform3DLin &ScaleFunction = Scaling.Left.Foot.ScaleFunction;
+          AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Left.Foot.ScaleFunction;
         #else
           AnyMessage scaling_message_Left_Foot = 
           {
@@ -160,7 +165,7 @@ AnyFolder Scaling = {
         };
         AnyFolder Talus  = {
         #ifndef CUSTOM_SCALING_Left_Talus
-          AnyFunTransform3DLin &ScaleFunction = Scaling.Left.Talus.ScaleFunction;
+          AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Left.Talus.ScaleFunction;
         #else
           AnyMessage scaling_message_Left_Talus = 
           {
@@ -172,7 +177,7 @@ AnyFolder Scaling = {
         };
         AnyFolder Shank = {
         #ifndef CUSTOM_SCALING_Left_Shank
-          AnyFunTransform3DLin &ScaleFunction = Scaling.Left.Shank.ScaleFunction;
+          AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Left.Shank.ScaleFunction;
         #else
           AnyMessage scaling_message_Left_Shank = 
           {
@@ -184,7 +189,7 @@ AnyFolder Scaling = {
         };        
         AnyFolder Thigh = {
         #ifndef CUSTOM_SCALING_Left_Thigh
-          AnyFunTransform3DLin &ScaleFunction = Scaling.Left.Thigh.ScaleFunction;
+          AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Left.Thigh.ScaleFunction;
         #else
           AnyMessage scaling_message_Left_Thigh = 
           {
@@ -207,7 +212,7 @@ AnyFolder Scaling = {
     
     AnyFolder PelvisSeg = {
     #ifndef CUSTOM_SCALING_PelvisSeg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.PelvisSeg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.PelvisSeg.ScaleFunction;
     #else
       AnyMessage scaling_message_PelvisSeg = 
       {
@@ -220,7 +225,7 @@ AnyFolder Scaling = {
     
     AnyFolder Trunk = {
     #ifndef CUSTOM_SCALING_Trunk
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Trunk.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Trunk.ScaleFunction;
     #else
       AnyMessage scaling_message_Trunk = 
       {
@@ -233,7 +238,7 @@ AnyFolder Scaling = {
     
     AnyFolder Head = {
     #ifndef CUSTOM_SCALING_Head
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Head.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Head.ScaleFunction;
     #else
       AnyMessage scaling_message_Head = 
       {
@@ -247,7 +252,7 @@ AnyFolder Scaling = {
     
     AnyFolder SkullSeg = {
     #ifndef CUSTOM_SCALING_SkullSeg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.SkullSeg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.SkullSeg.ScaleFunction;
     #else
       AnyMessage scaling_message_SkullSeg = 
       {
@@ -259,7 +264,7 @@ AnyFolder Scaling = {
     };
     AnyFolder ThoraxSeg = {
     #ifndef CUSTOM_SCALING_ThoraxSeg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.ThoraxSeg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.ThoraxSeg.ScaleFunction;
     #else
       AnyMessage scaling_message_ThoraxSeg = 
       {
@@ -272,7 +277,7 @@ AnyFolder Scaling = {
     
     AnyFolder C1Seg = {
     #ifndef CUSTOM_SCALING_C1Seg
-        AnyFunTransform3DLin &ScaleFunction = Scaling.C1Seg.ScalingFunction;
+        AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.C1Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_C1Seg = 
       {
@@ -285,7 +290,7 @@ AnyFolder Scaling = {
 
     AnyFolder C2Seg = {
     #ifndef CUSTOM_SCALING_C2Seg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.C2Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.C2Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_C2Seg = 
       {
@@ -298,7 +303,7 @@ AnyFolder Scaling = {
     
     AnyFolder C3Seg = {
     #ifndef CUSTOM_SCALING_C3Seg
-        AnyFunTransform3DLin &ScaleFunction = Scaling.C3Seg.ScalingFunction;
+        AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.C3Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_C3Seg = 
       {
@@ -311,7 +316,7 @@ AnyFolder Scaling = {
     
     AnyFolder C4Seg = {
     #ifndef CUSTOM_SCALING_C4Seg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.C4Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.C4Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_C4Seg = 
       {
@@ -324,7 +329,7 @@ AnyFolder Scaling = {
     
     AnyFolder C5Seg = {
     #ifndef CUSTOM_SCALING_C5Seg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.C5Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.C5Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_C5Seg = 
       {
@@ -336,7 +341,7 @@ AnyFolder Scaling = {
     };
     AnyFolder C6Seg = {
     #ifndef CUSTOM_SCALING_C6Seg    
-      AnyFunTransform3DLin &ScaleFunction = Scaling.C6Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.C6Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_C6Seg = 
       {
@@ -348,7 +353,7 @@ AnyFolder Scaling = {
     };
     AnyFolder C7Seg = {
     #ifndef CUSTOM_SCALING_C7Seg    
-      AnyFunTransform3DLin &ScaleFunction = Scaling.C7Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.C7Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_C7Seg = 
       {
@@ -360,7 +365,7 @@ AnyFolder Scaling = {
     };
     AnyFolder Cervical = {
     #ifndef CUSTOM_SCALING_Cervical
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Cervical.ScaleFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Cervical.ScaleFunction;
     #else
       AnyMessage scaling_message_Cervical = 
       {
@@ -373,7 +378,7 @@ AnyFolder Scaling = {
     
     AnyFolder L1Seg = {
     #ifndef CUSTOM_SCALING_L1Seg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.L1Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.L1Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_L1Seg = 
       {
@@ -386,7 +391,7 @@ AnyFolder Scaling = {
 
     AnyFolder L2Seg = {
     #ifndef CUSTOM_SCALING_L2Seg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.L2Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.L2Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_L2Seg = 
       {
@@ -399,7 +404,7 @@ AnyFolder Scaling = {
 
     AnyFolder L3Seg = {
     #ifndef CUSTOM_SCALING_L3Seg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.L3Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.L3Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_L3Seg = 
       {
@@ -411,7 +416,7 @@ AnyFolder Scaling = {
     };
     AnyFolder L4Seg = {
     #ifndef CUSTOM_SCALING_L4Seg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.L4Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.L4Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_L4Seg = 
       {
@@ -423,7 +428,7 @@ AnyFolder Scaling = {
     };
     AnyFolder L5Seg = {
     #ifndef CUSTOM_SCALING_L5Seg
-      AnyFunTransform3DLin &ScaleFunction = Scaling.L5Seg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.L5Seg.ScaleFunction;
     #else
       AnyMessage scaling_message_L5Seg = 
       {
@@ -435,7 +440,7 @@ AnyFolder Scaling = {
     };
     AnyFolder SacrumSeg = {
     #ifndef CUSTOM_SCALING_SacrumSeg    
-      AnyFunTransform3DLin &ScaleFunction = Scaling.SacrumSeg.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.SacrumSeg.ScaleFunction;
     #else
       AnyMessage scaling_message_SacrumSeg = 
       {
@@ -448,7 +453,7 @@ AnyFolder Scaling = {
     
     AnyFolder Lumbar = {
     #ifndef CUSTOM_SCALING_Lumbar
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Lumbar.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Lumbar.ScaleFunction;
     #else
       AnyMessage scaling_message_Lumbar = 
       {
@@ -461,7 +466,7 @@ AnyFolder Scaling = {
     
     AnyFolder Clavicula = {
     #ifndef CUSTOM_SCALING_Clavicula
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Clavicula.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Clavicula.ScaleFunction;
     #else
       AnyMessage scaling_message_Clavicula = 
       {
@@ -474,7 +479,7 @@ AnyFolder Scaling = {
     
     AnyFolder Scapula = {
     #ifndef CUSTOM_SCALING_Scapula
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Scapula.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Scapula.ScaleFunction;
     #else
       AnyMessage scaling_message_Scapula = 
       {
@@ -487,7 +492,7 @@ AnyFolder Scaling = {
     
     AnyFolder Humerus = {
     #ifndef CUSTOM_SCALING_Humerus
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Humerus.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Humerus.ScaleFunction;
     #else
       AnyMessage scaling_message_Humerus = 
       {
@@ -500,7 +505,7 @@ AnyFolder Scaling = {
     
     AnyFolder Ulna = {
     #ifndef CUSTOM_SCALING_Ulna
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Ulna.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Ulna.ScaleFunction;
     #else
       AnyMessage scaling_message_Ulna = 
       {
@@ -513,7 +518,7 @@ AnyFolder Scaling = {
     
     AnyFolder Radius = {
     #ifndef CUSTOM_SCALING_Radius
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Radius.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Radius.ScaleFunction;
     #else
       AnyMessage scaling_message_Radius = 
       {
@@ -526,7 +531,7 @@ AnyFolder Scaling = {
     
     AnyFolder Hand = {
     #ifndef CUSTOM_SCALING_Hand
-      AnyFunTransform3DLin &ScaleFunction = Scaling.Hand.ScalingFunction;
+      AnyFunTransform3D &ScaleFunction = ..Scaling.GeometricalScaling.Hand.ScaleFunction;
     #else
       AnyMessage scaling_message_Hand = 
       {

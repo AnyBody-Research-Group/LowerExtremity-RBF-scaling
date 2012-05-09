@@ -1484,108 +1484,246 @@ AnyViaPointMuscle GluteusMediusPosterior6 = {
   };
 };
 
+
+
+
+
+
+#ifdef GLUTEUS_MAX_WRAPPING_BETA
+
+// changed to shortest path muscles!!!!!! AA 27,04,2012
+
+AnyShortestPathMuscle GluteusMaximusSuperior1 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior1Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior1Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylSuperior.cyl;
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior1Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusSuperior2 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior2Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior2Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylSuperior.cyl;
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior2Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusSuperior3 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior3Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior3Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylSuperior.cyl; 
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior3Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusSuperior4 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior4Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior4Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylSuperior.cyl; 
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior4Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusSuperior5 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior5Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior5Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylSuperior.cyl; 
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior5Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusSuperior6 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior6Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior6Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylSuperior.cyl; 
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior6Node;
+  SPLine.StringMesh = 100;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"};
+};
+
+AnyShortestPathMuscle GluteusMaximusInferior1 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior1Par;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylInferior.cyl; 
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior1Node;
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior1Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusInferior2 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior2Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior2Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylInferior.cyl; 
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior2Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusInferior3 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior3Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior3Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylInferior.cyl; 
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior3Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusInferior4 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior4Par;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylInferior.cyl; 
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior4Node;
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior4Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusInferior5 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior5Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior5Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylInferior.cyl;
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior5Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
+};
+
+AnyShortestPathMuscle GluteusMaximusInferior6 = {
+  AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior6Par;
+  AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior6Node;
+  AnySurface &srf = ..HipNodeRef.LegAttachmentNodes.GluteusCylInferior.cyl; 
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior6Node;
+  SPLine.StringMesh = 45;
+  SPLine.InitWrapPosVectors = {{0,0,0},{-0.5, 0.5 ,0}};
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
+};
+
+
+#else
+
 AnyViaPointMuscle GluteusMaximusSuperior1 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior1Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior1Node;
-      AnyRefNode &via1=..HipNodeRef.LegAttachmentNodes.GluteusMaxViaNode3;
-      AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior1Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
-    };
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior1Node;
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusSuperior2 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior2Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior2Node;
-      AnyRefNode &via1=..HipNodeRef.LegAttachmentNodes.GluteusMaxViaNode2 ;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior2Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusSuperior3 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior3Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior3Node;
-  AnyRefNode &via1=..HipNodeRef.LegAttachmentNodes.GluteusMaxViaNode1 ;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior3Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusSuperior4 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior4Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior4Node;
-      AnyRefNode &via1=..HipNodeRef.LegAttachmentNodes.GluteusMaxViaNode3 ;
-      AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior4Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
-    };
+  AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior4Node;
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusSuperior5 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior5Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior5Node;
-    AnyRefNode &via1=..HipNodeRef.LegAttachmentNodes.GluteusMaxViaNode2 ;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior5Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusSuperior6 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusSuperior6Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusSuperior6Node;
-  AnyRefNode &via1=..HipNodeRef.LegAttachmentNodes.GluteusMaxViaNode1 ;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusSuperior6Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"};
-    
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"};
+  
 };
 
 AnyViaPointMuscle GluteusMaximusInferior1 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior1Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior1Node;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior1Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusInferior2 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior2Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior2Node;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior2Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusInferior3 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior3Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior3Node;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior3Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusInferior4 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior4Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior4Node;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior4Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusInferior5 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior5Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior5Node;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior5Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
 };
 
 AnyViaPointMuscle GluteusMaximusInferior6 = {
   AnyMuscleModel &MusMdl = ..MusPar.GluteusMaximusInferior6Par;
   AnyRefNode &Org = ..HipNodeRef.LegAttachmentNodes.GluteusMaximusInferior6Node;
   AnyRefNode &Ins = ..Seg.Thigh.GluteusMaximusInferior6Node;
-    AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
-    };
+  AnyDrawMuscle DrwMus = {#include "../DrawSettings/MusDrawSettings.any"  
+  };
 };
 
+#endif
 
 
 AnyViaPointMuscle TensorFasciaeLatae1 = {

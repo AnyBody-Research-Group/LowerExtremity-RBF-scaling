@@ -1,17 +1,8 @@
 /*
-This is the root file for the leg model, it is using the simple Muscle model without
-Force-Lenght-Velocity relationships.
+/***************** Leg.root.any *******************************
+This file is the root file of the LegTD model using the constant strength muscle model 
 
-The data for this model orginates from different sources. The model is partly based on the leg
-model of Scott Delp. But modification has been made along the way.
-
-The model contains the following files:
-"StandardParameters.any" for overall parameters on which the model is based
-"Seg.any" segments on the leg.
-"Jnt.any" joint definitions for the leg.
-"Muscle.any" muscle definitons for the leg.
-"MusParSimple.any" muscle parameters for constant strength model.
-"SegmentsTrunk.any" definition of pelvis segment.
+Please find a description of the model in the seg.any file.
 */
 
   // Add all muscle nodes etc. to the pelvis segment

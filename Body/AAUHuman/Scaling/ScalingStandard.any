@@ -186,7 +186,7 @@ AnyFolder Scaling = {
     
     AnyFolder &PelvisSeg = Pelvis;    
     AnyFolder &SkullSeg = Head;
-    AnyFolder &ThoraxSeg = Cervical;
+    AnyFolder &ThoraxSeg = Trunk;
     
     AnyFolder &C1Seg = Cervical;
     AnyFolder &C2Seg = Cervical;

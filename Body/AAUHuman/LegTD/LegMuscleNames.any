@@ -193,6 +193,8 @@ AnyFolder &SubTalarFlexionPos = ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Mu
 AnyFolder &SubTalarFlexionNeg= ..JointMuscles.AnkleJnt.SubTalarEversion.dof0.Muscle.NegMuscle;
 
 #ifdef LEG_WITH_PSOAS_MUSCLES 
+// if there is muscles on trunk, then also include the Psoas muscles
+// since they have a moment around hip.
 AnyFolder &mus159= .TrunkMuscles.PsoasMajor.PMT12I_TM;
 AnyFolder &mus160= .TrunkMuscles.PsoasMajor.PML1I_TM;
 AnyFolder &mus161= .TrunkMuscles.PsoasMajor.PML1T_TM;

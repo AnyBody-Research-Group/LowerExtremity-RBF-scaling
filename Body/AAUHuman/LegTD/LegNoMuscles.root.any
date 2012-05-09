@@ -1,11 +1,8 @@
 /*
 This is the root file for the leg model without muscles
+/***************** LegNoMuscle.root.any *******************************
 
-The model contains the following files:
-"StandardParameters.any" for overall parameters on which the model is based
-"Seg.any" segments on the leg.
-"Jnt.any" joint definitions for the leg.
-"SegmentsTrunk.any" definition of pelvis segment.
+Please find a description of the model in the seg.any file.
 */
 
 // Add all muscle nodes etc. to the pelvis segment

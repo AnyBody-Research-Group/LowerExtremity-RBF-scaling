@@ -1,52 +1,78 @@
-// Axes of Rotation and Centers of Rotation of the Ankle and Subtalar joint changed with respect to a improved anatomical position
-// Some muscle insertion and via point translated (addtional translation vectors)
-// Sebastian Dendorfer March 2008
+/***************** Seg.any *******************************
+This files construct all segments in the LegTD model. 
 
-// New muscles added, muscles devided into more muscle parts (with a total of 58 muscle parts). 
-// Pelvis, Patella and Talus segment added.
-// All data according to the Klein Horsman dataset, defined in a global coordinate system with 
-// its origin in the hipjoint.
-// Karin Gorter, september-december 2007
+This model is based on the cadaver dataset published in:
+M.D. Klein Horsman, H.F.J.M. Koopman, F.C.T. van der Helm,
+L. Poliacu Pros? H.E.J. Veeger Morphological muscle and 
+joint parameters for musculoskeletal modelling of the lower
+extremity Clinical Biomechanics, Volume 22, Issue 2, 
+February 2007, Pages 239-247, ISSN 0268-0033
 
-// Translation vectors added to some of the foot and tibia insertion points or viapoints, 
-// to obtain a reasonable fit with the
-// anatomical position (and viapoints 9-13 for the Extensor Hallucis Longus commented out 
-// for the same reason). Karin Gorter, november 2007
+Klein Horsman,M.D.; Koopman,H.F.J.M.; van der Helm,F.C.T.;
+Pros?L.Poliacu; Veeger,H.E.J. (2007). The dataset is also 
+know as also know as the Twente Lower Extremity Model (TLEM).
 
-//ISB2002
-//ISB recommendation on definition of joint coordinate systems of various joints for the reporting of human joint motion-partI: ankle,hip and spine
-//Journal of biomechanics 35 (2002) 543-548
-//Letter to the editor
+The implementation in AnyBody retains the coordinate system of 
+the original dataset, to allow direct comparison with the
+published data. Thus, all segment have their same technical
+coordinate which correspond to the lab coordinate system during
+the cadaver study. The lab coordinate system was fixed at the 
+hip joint center and alligned with the anatomical coordinate
+system of the pelvis during the cadaver session. 
 
-// Definitions of segments in the right lower extremity.
+The first implementation in AnyScript was done by Karin Gorter
+in 2007. Some bug fixes and and structural changes have been 
+added implemention. These also include correction due to errors 
+in the original dataset. 
 
-// Mark de Zee
+Brief change log:
+-------------------------------------------------
+Sep.  Translation vectors added to some of the foot and tibia 
+2007  insertion points or viapoints, to obtain a reasonable fit
+      with the anatomical position (and viapoints 9-13 for the
+      Extensor Hallucis Longus commented out for the same reason).
 
-// Added origin, via nodes, insertion of sartorius and 
-// gracilis 26-6-02
-// revised muscle via nodes as commented 26-6-02
-// revised muscle via nodes as commented 27-6-02
-// Mark Thompson
+Mar.  Axes of Rotation and Centers of Rotation of the Ankle and 
+2008  Subtalar joint changed with respect to a improved anatomical
+      position. Some muscle insertion and via point translated
+      (addtional translation vectors) 
+      Sebastian Dendorfer March 2008
+      
+Sep.  Added via points to the medial and lateral gastroc
+2011
+      
+Apr.  Restructring of the file. All hardcoded values have been moved 
+2012  to the file 'CadaverParameters.any'. Added an option to redine 
+      the ankle and knee joint to be defined by bony landmarks
+      instead of the original joint definitions. This new definition
+      of joint parameters is used in by some applications in AMMR1.5.
+      Moments of inertia have been changed to follow the main axis of
+      thigh and shank. Added coordinate system based on the ISB 
+      definition of coordinate systems in the G. Wu, S. Siegler, 
+      P. Allard, C. Kirtley, A. Leardini, D. Rosenbaum, M. Whittle, 
+      D. D'Lima, L. Cristofolini, H. Witte, O. Schmid, I. Stokes. 
+      J. Biomech.35(4):543-548, 2002
+      
+*/
 
-/// The Talus segment represents the part between the ankle joint and the subtalar joint. 
+
+/// The Talus segment represents the part between the ankle joint
+/// and the subtalar joint. 
 AnySeg Talus = {
   AnyFolder &StdPar = ..CadaverParameters.Talus;
   
   JaboutCoMOnOff = On;
-//  AnyVar LengthStandard = vnorm(SubTalarJointStandard-AnkleJointStandard,2);
-//  AnyVar MassStandard= StdPar.Mass;
   AnyVar  MassS=..MassScaling.Talus.MassScale;
   
   r0=.Shank.AnkleJoint.sRel*.Shank.Axes0'+.Shank.r0-AnkleJoint.sRel*Axes0'; 
   
   AnyFunTransform3D &Scale =..GeoScaling.Talus.ScaleFunction;  
   
-  
   AnyRefNode ScalingNode={
-//    AnyMat33 Rotation=RotMat(.StdPar.AnkleJoint,.StdPar.SubTalarJoint,.MedialMalleousStandard)*RotMat(...Sign*50*pi/180,x);
-    AnyMat33 Rotation=RotMat(.StdPar.AnkleJoint,.StdPar.SubTalarJoint,.StdPar.AnkleJoint+.StdPar.AnkleJointAxis)*RotMat(-pi/2,x);
+    AnyMat33 Rotation=RotMat(.AnkleJoint.sRelUnscaled,.SubTalarJoint.sRelUnscaled,.StdPar.MedialMalleolus )*RotMat(...Sign*50*pi/180,x);
     ARel=Rotation;
     sRel=.Scale(.StdPar.SubTalarJoint);
+    //AnyDrawRefFrame drw = {};
   };
   
   sCoM = (AnkleJoint.sRel + SubTalarJoint.sRel)/2;
@@ -61,45 +87,46 @@ AnySeg Talus = {
     #include "../DrawSettings/BML.any"
   };
   
-
   AnyRefNode SubTalarJoint = {
+    AnyVec3 KneeJointInNeutralConfig = (..Thigh.KneeJoint.sRelUnscaled *..Thigh.StdPar.RotNeutral'+..Thigh.StdPar.PosNeutral-.StdPar.PosNeutral)*.StdPar.RotNeutral;
+    AnyVec3 sRelUnscaled = .StdPar.SubTalarJoint;
+    AnyMat33 ARelUnscaled = RotMat( sRelUnscaled , sRelUnscaled + .StdPar.SubTalarJointAxis, KneeJointInNeutralConfig )*RotMat(pi/2,y);
+    
     sRel = .Scale(.StdPar.SubTalarJoint);
-    ARel = RotMat( sRel, sRel + (.StdPar.SubTalarJointAxis ), .StdPar.KneeJoint)*RotMat(pi/2,y);
+    ARel = RotMat( sRel, sRel + (.StdPar.SubTalarJointAxis ), KneeJointInNeutralConfig )*RotMat(pi/2,y);
     #include "../DrawSettings/JointAxesProximal.any"
-//    AnyDrawRefFrame TEST_REMOVE = {RGB = {0,0,1};};
   };
 
   AnyRefNode AnkleJoint = {
-  // This switch is used to change the joint axis to follow the bony landmarks instead of the original dataset
-  #ifdef BONY_LANDMARK_DEFINED_JOINTAXIS
-    AnyVec3 KneeJointInNeutralConfig = (..Thigh.StdPar.KneeJoint*..Thigh.StdPar.RotNeutral'+..Thigh.StdPar.PosNeutral-.StdPar.PosNeutral)*.StdPar.RotNeutral;
+    // Switch to change the joint definition to follow bony landmarks instead of the original dataset 
+    // Default is the orginal dataset. 
+    #ifdef BONY_LANDMARK_DEFINED_JOINTAXIS
+    AnyVec3 KneeJointInNeutralConfig = (..Thigh.KneeJoint.sRelUnscaled *..Thigh.StdPar.RotNeutral'+..Thigh.StdPar.PosNeutral-.StdPar.PosNeutral)*.StdPar.RotNeutral;
     AnyVec3 sRelUnscaled = 0.5*(.StdPar.LateralAnkleAxisMarker+.StdPar.MedialAnkleAxisMarker);
     AnyMat33 ARelUnscaled = RotMat(sRelUnscaled ,sRelUnscaled + ...Sign*( .StdPar.LateralAnkleAxisMarker -.StdPar.MedialAnkleAxisMarker ), KneeJointInNeutralConfig )*RotMat(pi/2,y);
     /// Ankle joint is defined from the two malleolus bony landmarks
     sRel = 0.5*(.Scale(.StdPar.LateralAnkleAxisMarker)+.Scale(.StdPar.MedialAnkleAxisMarker));
     /// Ankle joint axis is defined from the two malleolus bony landmarks
     ARel = RotMat(sRel,sRel+ ...Sign*( .Scale(.StdPar.LateralAnkleAxisMarker) -.Scale(.StdPar.MedialAnkleAxisMarker) ), KneeJointInNeutralConfig )*RotMat(pi/2,y);
-
-  #else
+    
+    #else
     AnyVec3 KneeJointInNeutralConfig = (..Thigh.StdPar.KneeJoint*..Thigh.StdPar.RotNeutral'+..Thigh.StdPar.PosNeutral-.StdPar.PosNeutral)*.StdPar.RotNeutral;
     AnyVec3 sRelUnscaled = .StdPar.AnkleJoint;
     AnyMat33 ARelUnscaled = RotMat( sRelUnscaled , sRelUnscaled +...Sign*.StdPar.AnkleJointAxis, KneeJointInNeutralConfig )*RotMat(pi/2,y);
     /// Control point for the Ankle joint. Found by projecting the malleolus bony landmarks onto the 
     /// ankle axis from the cadaver data set. Thus, scaling that moves the control points will also scale the ankle joint axis
     AnyVec3 LateralControlPoint = .Scale( .StdPar.AnkleJoint +
-      (.StdPar.LateralMalleolus - .StdPar.AnkleJoint)*.StdPar.AnkleJointAxis'*.StdPar.AnkleJointAxis  );
+    (.StdPar.LateralMalleolus - .StdPar.AnkleJoint)*.StdPar.AnkleJointAxis'*.StdPar.AnkleJointAxis  );
     /// Control point for the Ankle joint. Found by projecting the malleolus bony landmarks onto the 
     /// ankle axis from the cadaver data set. Thus, scaling that moves the control points will also scale the ankle joint axis
     AnyVec3 MedialControlPoint = .Scale( .StdPar.AnkleJoint +
-      (.StdPar.MedialMalleolus - .StdPar.AnkleJoint)*.StdPar.AnkleJointAxis'*.StdPar.AnkleJointAxis );
-    
+    (.StdPar.MedialMalleolus - .StdPar.AnkleJoint)*.StdPar.AnkleJointAxis'*.StdPar.AnkleJointAxis );
+    /// Ankle Joint defined directly from the cadaver dataset. 
     sRel = .Scale( .StdPar.AnkleJoint );
     /// Ankle Joint orientation is calculated based on the direction between the two control points.   
     ARel = RotMat( sRel, sRel +...Sign*(LateralControlPoint-MedialControlPoint ), KneeJointInNeutralConfig )*RotMat(pi/2,y);
-  #endif
-    
-//    #include "../DrawSettings/JointAxesDistal.any"   
-//    AnyDrawRefFrame TEST_REMOVE = {RGB = {0,0,1};};
+    #endif
+    //    #include "../DrawSettings/JointAxesDistal.any"   
   };
       
   #include "../DrawSettings/Nodes.any"
@@ -112,13 +139,12 @@ AnySeg Talus = {
     AnyFunTransform3D &Scale =.Scale;  
     Opacity = ...BonesOpacity.Talus; 
   };  
-}; 
-// end of Talus segment
+}; // end of Talus segment
 
 
 
 
-AnySeg Foot = {
+AnySeg Foot = { 
   AnyFolder &StdPar = ..CadaverParameters.Foot;
   
   JaboutCoMOnOff = On;
@@ -142,7 +168,6 @@ AnySeg Foot = {
     sRel=.Scale(.StdPar.HeelNode);
   };
   
-  
   AnyVar LengthStandard = vnorm(StdPar.SubTalarJoint-StdPar.ToeJoint,2);
   sCoM = Scale(StdPar.CoM); 
   AnyVar Length = ( (BigToeNode.sRel[0]-HeelNode.sRel[0])^2 + (BigToeNode.sRel[1]-HeelNode.sRel[1])^2 + (BigToeNode.sRel[2]-HeelNode.sRel[2])^2 )^0.5;
@@ -151,11 +176,11 @@ AnySeg Foot = {
   // Moments of inertia in kg/m^2, Klein Horsman dataset
   AnyVar Ixx = 0.25*Mass*Radius*Radius + 1/12*Mass*Length*Length;
   AnyVar Iyy = 0.5*Mass*Radius*Radius;
-  AnyVar Izz = Ixx;   AnyMat33 JM=ScalingNode.ARel*{{Iyy,0,0},{0,Ixx,0},{0,0,Izz}}*ScalingNode.ARel';
+  AnyVar Izz = Ixx;
+  AnyMat33 JM=ScalingNode.ARel*{{Iyy,0,0},{0,Ixx,0},{0,0,Izz}}*ScalingNode.ARel';
   Jii = {JM[0][0], JM[1][1], JM[2][2]};
   Jij = {JM[1][0], JM[2][1], JM[2][0]};
   
-  //Node place on the calcaneus where 
   AnyRefNode HeelContactNodeLow = {
     sRel = .Scale(.StdPar.HeelContactNodeLow); 
   };
@@ -166,7 +191,6 @@ AnySeg Foot = {
     sRel = .Scale(.StdPar.SubTalarJoint);
     ARel = RotMat( sRel, sRel + .StdPar.SubTalarJointAxis, .StdPar.KneeJoint)*RotMat(pi/2,y);
     #include "../DrawSettings/JointAxesProximal.any"
-//   AnyDrawRefFrame REMOVE = {RGB = {0,0,1};};
   };
 
   /// This coordinate system is placed according the International Society of Biomechanics' (ISB)
@@ -214,7 +238,6 @@ AnySeg Foot = {
     ARel = .ScalingNode.ARel;//*RotMat(0.5*pi,z);//*RotMat(10*pi/180,y);
   };
   
-  
   AnyRefNode GroundJoint2 = {
     sRel = .Scale(.StdPar.GroundJoint);// Estimation, between Heel and Toetip
     ARel = .ScalingNodeOld.ARel*RotMat(0.5*pi,z);//*RotMat(10*pi/180,y);
@@ -224,31 +247,27 @@ AnySeg Foot = {
     sRel = .Scale(.StdPar.ToeJoint); 
   };
   
-  //point used for contact with environment   
   AnyRefNode HeelNode = {
     sRel = .Scale(.StdPar.HeelNode ); // Estimation, Bony Landmark Heel
     ARel = {{0, 1, 0}, {-1, 0, 0}, {0, 0, 1}}; 
   };
   
-  //point used for contact with environment 
   AnyRefNode ToeLateralContactNode = {
     sRel = .Scale(.StdPar.ToeLateralContactNode ); // Estimation, Bony landmark, distal 5th metatarsal
     ARel = {{0, 1, 0}, {-1, 0, 0}, {0, 0, 1}};
   };
   
-  //point used for contact with environment  
   AnyRefNode ToeMedialContactNode = {
     sRel = .Scale(.StdPar.ToeMedialContactNode ); // Estimation, Bony landmark, distal 1st metatarsal
     ARel = {{0, 1, 0}, {-1, 0, 0}, {0, 0, 1}}; 
   };
   
-  //Big toe , Estimations
+  //Big toe , Estimation
   AnyRefNode BigToeNode = {
-    //    AnyDrawRefFrame drw={};
     sRel = .Scale(.StdPar.BigToeNode); 
   };
   
-  //Metatarsal joint centers , Estimations
+  //Metatarsal joint centers , Estimation
   AnyRefNode MetatarsalJoint1Node = {
     sRel = .Scale(.StdPar.MetatarsalJoint1Node ); 
   };
@@ -270,17 +289,11 @@ AnySeg Foot = {
     sRel =.Scale( .StdPar.MetatarsalJoint5Node ); 
   };
   
-  //MalleousLateralNode described by the coordinates of the Malleous Bony landmark on the Fibula: ankle lateral side. Klein Horsman
+  // Bony landmarks transformed into foot coordinatesystem in the neutral configuration of the model.
+  AnyRefNode MalleousLateralNode = {sRel = .Scale( (..Shank.StdPar.LateralMalleolus *..Shank.StdPar.RotNeutral'+..Shank.StdPar.PosNeutral-.StdPar.PosNeutral)*.StdPar.RotNeutral); }; 
   
-  AnyRefNode MalleousLateralNode = {sRel = .Scale( .StdPar.LateralMalleolusInNeutralConf );}; 
-  
-  
-  //The new Nodes and ViaNodes, based on the Klein Horsman dataset, are inserted here.
   
   //Insertion points on Phalanges: 
-  
-  
-  
   AnyRefNode ExtensorDigitorumLongus1Node = {sRel = .Scale( .StdPar.ExtensorDigitorumLongus1Node );};
   AnyRefNode ExtensorDigitorumLongus2Node = {sRel = .Scale( .StdPar.ExtensorDigitorumLongus2Node );};
   AnyRefNode ExtensorDigitorumLongus3Node = {sRel = .Scale( .StdPar.ExtensorDigitorumLongus3Node );};
@@ -298,7 +311,6 @@ AnySeg Foot = {
   //  AnyRefNode ExtensorHallucisLongusViaNode12 = {sRel = .Scale( .StdPar.ExtensorHallucisLongusViaNode12 );};
   //  AnyRefNode ExtensorHallucisLongusViaNode13 = {sRel = .Scale( .StdPar.ExtensorHallucisLongusViaNode13 );};
   
-  
   AnyRefNode FlexorDigitorumLongus1Node = {sRel = .Scale( .StdPar.FlexorDigitorumLongus1Node );};
   AnyRefNode FlexorDigitorumLongus2Node = {sRel = .Scale( .StdPar.FlexorDigitorumLongus2Node );};
   AnyRefNode FlexorDigitorumLongus3Node = {sRel = .Scale( .StdPar.FlexorDigitorumLongus3Node );};
@@ -314,9 +326,7 @@ AnySeg Foot = {
   AnyRefNode FlexorHallucisLongusViaNode8 = {sRel = .Scale( .StdPar.FlexorHallucisLongusViaNode8 );};
   
   //Insertion points on Hindfoot: 
-  AnyRefNode TendonCalcaneousNode = {
-    sRel = .Scale( .StdPar.TendonCalcaneousNode );};
-  
+  AnyRefNode TendonCalcaneousNode = {sRel = .Scale( .StdPar.TendonCalcaneousNode );};
   
   AnyRefNode GastrocnemiusLateralis1Node = {sRel = .Scale( .StdPar.GastrocnemiusLateralis1Node );};
   AnyRefNode GastrocnemiusMedialis1Node =  {sRel = .Scale( .StdPar.GastrocnemiusMedialis1Node );};
@@ -331,7 +341,6 @@ AnySeg Foot = {
   AnyRefNode SoleusLateralis3Node =  {sRel = .Scale( .StdPar.SoleusLateralis3Node );};
   
   //Insertion points on Midfoot:
-  
   AnyRefNode PeroneusBrevis1Node = {sRel = .Scale( .StdPar.PeroneusBrevis1Node );};
   AnyRefNode PeroneusBrevis2Node = {sRel = .Scale( .StdPar.PeroneusBrevis2Node );};
   AnyRefNode PeroneusBrevis3Node = {sRel = .Scale( .StdPar.PeroneusBrevis3Node );};
@@ -371,9 +380,11 @@ AnySeg Foot = {
   };
 };// End of foot
 
+
+
 AnySeg Shank = {
   AnyFolder &StdPar = ..CadaverParameters.Shank;
-
+  
   JaboutCoMOnOff = On;
   r0=.Thigh.KneeJoint.sRel*.Thigh.Axes0'+.Thigh.r0-KneeJoint.sRel*Axes0';
   
@@ -387,14 +398,9 @@ AnySeg Shank = {
   
   Mass = MassS*StdPar.Mass;
   AnyVar LengthStandard = vnorm(StdPar.KneeJoint-StdPar.AnkleJoint,2);
-  sCoM =Scale(StdPar.CoM);  // center of mass with respect to the global frame, Klein Horsman
+  sCoM =Scale(StdPar.CoM);  
   
-  //This node is placed according to "ISB2002" (se top of the file)
-  AnyRefNode ISBCoordinateSystemNode={
-    ARel=RotMat(.IntraMallolar.sRel,.LateralMalleolus.sRel,.IntraTibialEpicondyle.sRel)*RotMat(0.5*pi,y);
-    sRel=.IntraMallolar.sRel;
-  };
-  
+ 
   /// This coordinate system is placed based on the bony landmarks of tibial plateau.
   /// O: Center of the two tibial epicondyles
   /// Z: A vector going through the lateral and medial tibial epicondyle pointing to the right
@@ -429,14 +435,12 @@ AnySeg Shank = {
     ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
   };
 
-
-
   //Scaling node this node is used for the scaling of the segment
   AnyRefNode ScalingNode={
     AnyMat33 Rotation=RotMat( .AnkleJoint.sRelUnscaled,.KneeJoint.sRelUnscaled,.StdPar.MedialTibialEpicondyle)*RotMat(-0.5*pi,z)*RotMat(0.5*pi,y)*RotMat(0.5*(...Sign-1)*pi,y);
     ARel=Rotation;
     sRel=.Scale(.AnkleJoint.sRelUnscaled);    
-    };
+  };
   
   AnyVar Length = ( (KneeJoint.sRel[0]-AnkleJoint.sRel[0])^2 + (KneeJoint.sRel[1]-AnkleJoint.sRel[1])^2 + (KneeJoint.sRel[2]-AnkleJoint.sRel[2])^2 )^0.5;
   AnyVar Radius = (Mass/(3.1416*Length*..StandardParameters.Shank.Density))^0.5;
@@ -446,7 +450,10 @@ AnySeg Shank = {
   AnyVar Iyy = 0.5*Mass*Radius*Radius;
   AnyVar Izz = Ixx; 
   
-  Jii = {Ixx, Iyy, Izz};
+  //AnyDrawSeg drw = {NodesVisible = Off;Opacity = 0.4;};
+  AnyMat33 JM=ScalingNode.ARel*{{Ixx,0,0},{0,Iyy,0},{0,0,Izz}}*ScalingNode.ARel';
+  Jii = {JM[0][0], JM[1][1], JM[2][2]};
+  Jij = {JM[1][0], JM[2][1], JM[2][0]};
   
 
   AnyRefNode AnkleJoint = {
@@ -462,7 +469,7 @@ AnySeg Shank = {
    
    #else
     AnyVec3 sRelUnscaled =  .StdPar.AnkleJoint;
-    AnyMat33 ARelUnscaled =   RotMat( sRelUnscaled , sRelUnscaled +...Sign*(LateralControlPoint-MedialControlPoint ),.KneeJoint.sRel)*RotMat(pi/2,y);
+    AnyMat33 ARelUnscaled =   RotMat( sRelUnscaled , sRelUnscaled +...Sign*(LateralControlPoint-MedialControlPoint ),.KneeJoint.sRelUnscaled)*RotMat(pi/2,y);
     /// Control point for the Ankle joint. Found by projecting the malleolus bony landmarks onto the 
     /// ankle axis from the cadaver data set. Thus, scaling the control points will also scale the ankle joint axis
     AnyVec3 LateralControlPoint =  .StdPar.AnkleJoint +
@@ -476,7 +483,6 @@ AnySeg Shank = {
     ARel = RotMat( sRel, sRel +...Sign*(.Scale(LateralControlPoint)-.Scale(MedialControlPoint) ),.KneeJoint.sRel)*RotMat(pi/2,y);
    #endif
 //    #include "../DrawSettings/JointAxesDistal.any"   
-//    AnyDrawRefFrame TEST_REMOVE = {RGB = {0,0,1};};
   };
   
   
@@ -486,9 +492,9 @@ AnySeg Shank = {
     /// Bony Landmarks transformed transformed to the shank coordinate system in the neutral configuration
     AnyVec3 MedialFemuralCondyleInNeutralConf = (..Thigh.StdPar.EpicondylusFemorisMedialis *..Thigh.StdPar.RotNeutral'+..Thigh.StdPar.PosNeutral-.StdPar.PosNeutral)*.StdPar.RotNeutral;
   
-   // This switch is used to control two definition of the joint axis. One specified by the original cadaver data set (default),
-   // and one where the joint is defined to through the bony landmarks. 
-   #ifdef BONY_LANDMARK_DEFINED_JOINTAXIS
+    // This switch is used to control two definition of the joint axis. One specified by the original cadaver data set (default),
+    // and one where the joint is defined to through the bony landmarks. 
+    #ifdef BONY_LANDMARK_DEFINED_JOINTAXIS
     AnyVec3 sRelUnscaled = 0.5*(LateralFemuralCondyleInNeutralConf + MedialFemuralCondyleInNeutralConf );
     AnyMat33 ARelUnscaled =  RotMat(sRelUnscaled ,sRelUnscaled+ ...Sign*(LateralFemuralCondyleInNeutralConf - MedialFemuralCondyleInNeutralConf ), .AnkleJoint.sRelUnscaled)*RotMat(pi,z)*RotMat(-pi/2,y);
    /// Knee joint is defined from the two epicondyle bony landmarks
@@ -510,9 +516,8 @@ AnySeg Shank = {
     sRel = .Scale(.StdPar.KneeJoint);
     /// Knee Joint orientation is calculated based on the direction between the two control points.   
     ARel = RotMat( sRel, sRel +...Sign*(.Scale(LateralControlPoint)-.Scale(MedialControlPoint) ),.AnkleJoint.sRel)*RotMat(pi,z)*RotMat(-pi/2,y);
-   #endif
+    #endif
     #include "../DrawSettings/JointAxesDistal.any" 
-//    AnyDrawRefFrame TEST_REMOVE = {RGB = {0,0,1};};
 };
   
   
@@ -547,20 +552,16 @@ AnySeg Shank = {
     #include "../DrawSettings/BML.any"
     AnyDrawNode drw={RGB={1,0,0};ScaleXYZ={1,1,1}*0.003;};
   };
-  
   AnyRefNode IntraMallolar = {
     sRel =0.5* (.MedialMalleolus.sRel+.LateralMalleolus.sRel);
     #include "../DrawSettings/BML.any"
   };
   
   
-  // The new Nodes and ViaNodes, based on the Klein Horsman dataset, are inserted here.
-  
   // The node below is a reference node for the patella tendon to define the movement of 
   // the patella. The tendon will be regarded as being stiff, so the length will not change. 
   // This is defined by an AnyKinPLine in the file Jnt.any.
   // The Origin lies on the Patella segment. 
-  
   AnyRefNode Insertion_patella_tendon = {
     sRel = .Scale( .StdPar.Insertion_patella_tendon  );
   };
@@ -568,10 +569,8 @@ AnySeg Shank = {
   //Origin points on the Tibia:
 
   ////// Added by MSA 08/09/2011
-  AnyRefNode GastrocnemiusLateralis1ViaNode = {sRel = .Scale( .StdPar.GastrocnemiusLateralis1ViaNode );/*AnyDrawRefFrame drw ={};*/};
-  
-  AnyRefNode GastrocnemiusMedialis1ViaNode = {sRel = .Scale( .StdPar.GastrocnemiusMedialis1ViaNode );/*AnyDrawRefFrame drw ={};*/};  
-  
+  AnyRefNode GastrocnemiusLateralis1ViaNode = {sRel = .Scale( .StdPar.GastrocnemiusLateralis1ViaNode );};
+  AnyRefNode GastrocnemiusMedialis1ViaNode = {sRel = .Scale( .StdPar.GastrocnemiusMedialis1ViaNode );};  
   //////
   
   //Origin points on the Tibia:
@@ -654,9 +653,6 @@ AnySeg Shank = {
   AnyRefNode TibialisAnterior2Node = {sRel = .Scale( .StdPar.TibialisAnterior2Node );};
   AnyRefNode TibialisAnterior3Node = {sRel = .Scale( .StdPar.TibialisAnterior3Node );};
   AnyRefNode TibialisAnteriorViaNode1 = {sRel =.Scale( .StdPar.TibialisAnteriorViaNode1 );};
-  // Due to an inaccurate measurement of a reference pin the global coordinate of this via point could not be reconstructed. 
-  // The shown coordinate is estimated as the anatomical correct position.  Klein Horsman
-  // A translation vector is added to fit the anatomical position of the foot even more accurately. Karin Gorter, 1 nov 2007
   
   AnyRefNode TibialisPosteriorMedialis1Node = {sRel = .Scale( .StdPar.TibialisPosteriorMedialis1Node );};
   AnyRefNode TibialisPosteriorMedialis2Node = {sRel = .Scale( .StdPar.TibialisPosteriorMedialis2Node );};
@@ -731,7 +727,6 @@ AnySeg Shank = {
   //  AnyRefNode TensorFasciaeLatae1Node = {sRel = .Scale( .StdPar.TensorFasciaeLatae1Node );};
   //  AnyRefNode TensorFasciaeLatae2Node = {sRel = .Scale( .StdPar.TensorFasciaeLatae2Node );};
   
-  
   //New positions are based on bone 
   AnyRefNode TensorFasciaeLatae1Node = {sRel = .Scale( .StdPar.TensorFasciaeLatae1Node );};
   AnyRefNode TensorFasciaeLatae2Node = {sRel = .Scale( .StdPar.TensorFasciaeLatae2Node );};
@@ -739,8 +734,6 @@ AnySeg Shank = {
   AnyRefNode Popliteus1Node = {sRel = .Scale( .StdPar.Popliteus1Node );};
   AnyRefNode Popliteus2Node = {sRel = .Scale( .StdPar.Popliteus2Node );};
   AnyRefNode PopliteusViaNode1 = {sRel = .Scale( .StdPar.PopliteusViaNode1 );};
-  
-  
   
   AnyDrawSurf DrwSurf3 = {
     FileName = "tibia";
@@ -750,12 +743,13 @@ AnySeg Shank = {
     Opacity = ...BonesOpacity.Shank;
     Face=-1;
   };  
-  
 }; // End of Shank
+
+
 
 AnySeg Thigh = {
   AnyFolder &StdPar = ..CadaverParameters.Thigh;
-  
+ 
   JaboutCoMOnOff = On;
   r0=..HipNodeRef.HipJoint.sRel*....Trunk.SegmentsLumbar.PelvisSeg.Axes0'+    ....Trunk.SegmentsLumbar.PelvisSeg.r0-    HipJoint.sRel*Axes0';
   
@@ -784,7 +778,6 @@ AnySeg Thigh = {
     ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
   };
   
-  
   /// This coordinate system is placed based on the bony landmarks of femur.
   /// O: Center of the two femural epicondyles
   /// Z: A vector going through the lateral and medial femural epicondyle pointing to the right
@@ -812,129 +805,28 @@ AnySeg Thigh = {
   
   //Moments of inertia in kg/m^ of the Femur, Klein Horsman dataset
   AnyVar Length = ( (KneeJoint.sRel[0]-HipJoint.sRel[0])^2 + (KneeJoint.sRel[1]-HipJoint.sRel[1])^2 + (KneeJoint.sRel[2]-HipJoint.sRel[2])^2 )^0.5;
-  
   AnyVar Radius = (Mass/(3.1416*Length*..StandardParameters.Thigh.Density))^0.5;
-  
   AnyVar Ixx = 0.25*Mass*Radius*Radius + 1/12*Mass*Length*Length;
   AnyVar Iyy = 0.5*Mass*Radius*Radius;
   AnyVar Izz = Ixx;
-  Jii = {Ixx, Iyy, Izz};  
-  
-  //AnyDrawRefFrame drw ={};
-  
-  AnyRefNode RectusVastiiWrapSurf = {
-
-  AnyMatrix p = .StdPar.RectusVastiiWrapLandmarks;
-  AnyFloat lengthscalefactor = 1.4;
-  AnyFunTransform3D &Scale = .Scale;
-    AnyMat33 transform = RotMat(pi*(1-...Sign)*0.5, y);
-  
-  #include "../ToolBox/WrappingSurfaces/WrappingCylinder5PointFit.any"
-  cyl = {
-//    AnyDrawParamSurf drw={RGB={1,0,0};};
-  };
-};
-  
-  AnyRefNode RectusAndVastiiSurf ={
-    sRel = .Scale({0.073,-0.37,...Sign*-0.02});
-    AnyVar Ci = iffun(ltfun(...Sign,0), 1, 0);   
-    ARel = RotMat(...Sign*-24/180*pi,y)*RotMat(...Sign*5/180*pi,x)*RotMat(Ci*pi,x);
-    AnySurfCylinder WrapSurfold = 
-    {
-      Radius = 0.03;
-      Length = 0.1;
-      //CapRatio = 0.1;
-//      AnyDrawParamSurf drv = {
-//          Opacity = 1;
-//      }; 
-
-    };
-
+  AnyMat33 JM=ScalingNode.ARel*{{Ixx,0,0},{0,Iyy,0},{0,0,Izz}}*ScalingNode.ARel';
+  Jii = {JM[0][0], JM[1][1], JM[2][2]};
+  Jij = {JM[1][0], JM[2][1], JM[2][0]};
    
-//    AnyRefNode Q1 = {
-//      AnyVar h = .WrapSurfold.Length*0;
-//      AnyVar theta = pi*-0.33;
-//      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-//    };
-//        
-//    AnyRefNode Q2 = {
-//      AnyVar h = .WrapSurfold.Length*0.77;
-//      AnyVar theta = pi*-0.33;
-//      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-//    };
-//    
-//    AnyRefNode Q3 = {
-//      AnyVar h = .WrapSurfold.Length*0.35;
-//      AnyVar theta = pi*-0.1;
-//      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-//    };
-//    
-//    AnyRefNode Q4 = {
-//      AnyVar h = .WrapSurfold.Length*0.50;
-//      AnyVar theta = pi*0.25;
-//      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-//    };
-//    
-//    
-//    AnyRefNode Q5 = {
-//      AnyVar h = .WrapSurfold.Length*0.60;
-//      AnyVar theta = pi*-0.0;
-//      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-//    };
-    
-//        AnyRefNode Q1 = {
-//      AnyVar h = .WrapSurf.Length*0;
-//      AnyVar theta = pi*-0.33;
-//      sRel = ..Scale({.WrapSurf.Radius*cos(theta)*....Sign, .WrapSurf.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-////      AnyFloat rglob = ( sRel*.ARel'+.sRel )*..ARel'+..sRel;
-//    };
-//    
-//    AnyRefNode Q2 = {
-//      AnyVar h = .cyl2.Length;
-//      AnyVar theta = pi*0.12;
-//      sRel = ...Scale({.cyl2.Radius*cos(theta)*....Sign, .cyl2.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'-.sRel )*..ARel'-..sRel;
-//    };
-//    
-//    AnyRefNode Q3 = {
-//      AnyVar h = .cyl2.Length*0.4;
-//      AnyVar theta = pi*-0.03;
-//      sRel = ...Scale({.cyl2.Radius*cos(theta)*....Sign, .cyl2.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'+.sRel )*..ARel'+..sRel;
-//    };
-//    
-//    AnyRefNode Q4 = {
-//      AnyVar h = .cyl2.Length*0.37;
-//      AnyVar theta = pi*0.15;
-//      sRel = ...Scale({.cyl2.Radius*cos(theta)*....Sign, .cyl2.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'+.sRel )*..ARel'+..sRel;
-//    };
-//    
-//    AnyRefNode Q5 = {
-//      AnyVar h = .cyl2.Length*0.34;
-//      AnyVar theta = pi*0.32;
-//      sRel = ...Scale({.cyl2.Radius*cos(theta)*....Sign, .cyl2.Radius*sin(theta), h});
-//      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-//      AnyFloat rglob = ( sRel*.ARel'+.sRel )*..ARel'+..sRel;
-//    };
-// 
-    //AnyDrawRefFrame drw={};
-  };  
+  AnyRefNode RectusVastiiWrapSurf = {
+    AnyMatrix p = .StdPar.RectusVastiiWrapLandmarks;
+    AnyFloat lengthscalefactor = 1.4;
+    AnyFloat radiusscalefactor = 1;
 
+    AnyFunTransform3D &Scale = .Scale;
+    AnyMat33 transform = RotMat(pi*(1-...Sign)*0.5, y);
+    
+    #include "../ToolBox/WrappingSurfaces/WrappingCylinder5PointFit.any"
+    cyl = {
+      // AnyDrawParamSurf drw={RGB={1,0,0};};
+    };
+  };
+  
   
    AnyRefNode KneeJoint= {
     /// This can be used for controlling varus valgus the varible can be linked to a design varible and changed,
@@ -963,7 +855,6 @@ AnySeg Thigh = {
     ARel = RotMat( sRel, sRel +...Sign*(.Scale(LateralControlPoint)-.Scale(MedialControlPoint) ),.HipJoint.sRel)*RotMat(pi/2,y)*RotMat(AxisRot,x);
     #endif
     #include "../DrawSettings/JointAxesDistal.any" 
-//    AnyDrawRefFrame TEST_REMOVE = {RGB = {0,0,1};};
   };  
   
 
@@ -974,7 +865,6 @@ AnySeg Thigh = {
     /// The orientation of the HipJoint coordinate system follows ISB recommendation. The y axis follows the 
     /// long axis of the thigh, and the knee axis lies in the z-y plane
     ARel = RotMat(sRel, .KneeJoint.sRel, sRel+ .KneeJoint.ARel'[2])*RotMat(-pi/2,x)*RotMat(pi/2,z);
-//    AnyDrawRefFrame TEST_REMOVE = {RGB = {0,0,1};};
   };
   
    AnyRefNode PatellaFemurJoint = {
@@ -993,7 +883,6 @@ AnySeg Thigh = {
     #include "../DrawSettings/JointAxesDistal.any" 
   };    
   
-  
   AnyRefNode EpicondylusFemorisMedialis = {
     sRel=.Scale(.StdPar.EpicondylusFemorisMedialis);// Coordinates of the Medial Femur Epicondyle bony landmark, Klein Horsman
     #include "../DrawSettings/BML.any"
@@ -1005,10 +894,7 @@ AnySeg Thigh = {
     sRel=0.5*(.EpicondylusFemorisMedialis.sRel+.EpicondylusFemorisLateralis.sRel)  ;    
   };
   
-  // The new Nodes and ViaNodes, based on the Klein Horsman dataset, are inserted here.
-  
   // Origin points on the Femur (all Vastus muscles have their insertion point situated on the Patella) :
-  
   AnyRefNode BicepsFemorisCaputBreve1Node = {sRel = .Scale( .StdPar.BicepsFemorisCaputBreve1Node );};
   AnyRefNode BicepsFemorisCaputBreve2Node = {sRel = .Scale( .StdPar.BicepsFemorisCaputBreve2Node );};
   AnyRefNode BicepsFemorisCaputBreve3Node = {sRel = .Scale( .StdPar.BicepsFemorisCaputBreve3Node );};
@@ -1050,7 +936,6 @@ AnySeg Thigh = {
   AnyRefNode VastusMedialisSuperior6Node = {sRel = .Scale( .StdPar.VastusMedialisSuperior6Node );}; 
   
   // Insertion points on the Femur (all these muscles orininate from the Pelvis):
-  
   AnyRefNode AdductorBrevisProximal1Node = {sRel = .Scale( .StdPar.AdductorBrevisProximal1Node );};
   AnyRefNode AdductorBrevisProximal2Node = {sRel = .Scale( .StdPar.AdductorBrevisProximal2Node );};
   AnyRefNode AdductorBrevisMid1Node = {sRel = .Scale( .StdPar.AdductorBrevisMid1Node );};
@@ -1072,7 +957,6 @@ AnySeg Thigh = {
   AnyRefNode AdductorMagnusMid5Node = {sRel = .Scale( .StdPar.AdductorMagnusMid5Node );};
   AnyRefNode AdductorMagnusMid6Node = {sRel = .Scale( .StdPar.AdductorMagnusMid6Node );};
   
-  
   AnyRefNode AdductorMagnusProximal1Node = {sRel = .Scale( .StdPar.AdductorMagnusProximal1Node );};
   AnyRefNode AdductorMagnusProximal2Node = {sRel = .Scale( .StdPar.AdductorMagnusProximal2Node );};
   AnyRefNode AdductorMagnusProximal3Node = {sRel = .Scale( .StdPar.AdductorMagnusProximal3Node );};
@@ -1087,12 +971,12 @@ AnySeg Thigh = {
   
   AnyRefNode GemellusSuperior1Node = {sRel = .Scale( .StdPar.GemellusSuperior1Node );};
   
-  AnyRefNode GluteusMaximusSuperior1Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior1Node );};//changed SD{sRel = .Scale( .StdPar.REPLACEME );};
-  AnyRefNode GluteusMaximusSuperior2Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior2Node );};//changed SD{sRel = .Scale( .StdPar.REPLACEME );};
-  AnyRefNode GluteusMaximusSuperior3Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior3Node );};//changed SD{sRel = .Scale( .StdPar.REPLACEME );};
-  AnyRefNode GluteusMaximusSuperior4Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior4Node );};//changed SD{sRel = .Scale( .StdPar.REPLACEME );};
-  AnyRefNode GluteusMaximusSuperior5Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior5Node );};//changed SD{sRel = .Scale( .StdPar.REPLACEME );};
-  AnyRefNode GluteusMaximusSuperior6Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior6Node );};//changed SD{sRel = .Scale( .StdPar.REPLACEME );};
+  AnyRefNode GluteusMaximusSuperior1Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior1Node );};
+  AnyRefNode GluteusMaximusSuperior2Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior2Node );};
+  AnyRefNode GluteusMaximusSuperior3Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior3Node );};
+  AnyRefNode GluteusMaximusSuperior4Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior4Node );};
+  AnyRefNode GluteusMaximusSuperior5Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior5Node );};
+  AnyRefNode GluteusMaximusSuperior6Node = {sRel = .Scale( .StdPar.GluteusMaximusSuperior6Node );};
   
   AnyRefNode GluteusMaximusInferior1Node = {sRel = .Scale( .StdPar.GluteusMaximusInferior1Node );};
   AnyRefNode GluteusMaximusInferior2Node = {sRel = .Scale( .StdPar.GluteusMaximusInferior2Node );};
@@ -1197,8 +1081,7 @@ AnySeg Thigh = {
   AnyRefNode &IliopubicEminenceEndNode  =IliacusMid1Node;
   
   
-    //Ligament insertion nodes from Klein-Horseman
-  
+  //Ligament insertion nodes from Klein-Horseman
   AnyRefNode IlioFemAntIns  = {sRel = .Scale( .StdPar.IlioFemAntIns );};
   AnyRefNode IlioFemAntIns2  = {sRel = .Scale( .StdPar.IlioFemAntIns2 );}; 
   AnyRefNode IlioFemLatIns  = {sRel = .Scale( .StdPar.IlioFemLatIns );};
@@ -1210,25 +1093,19 @@ AnySeg Thigh = {
 
   
   AnyRefNode GastroWrapSurf = {
-//      AnyFloat p = {  {0.03802474, -0.3987409, -0.02664068}
-//        , {0.01436095, -0.3961885, 0.032769}
-//        , {0.03590405, -0.3946574, -0.01904269}
-//        , {0.0368983, -0.3771516, 0.02046008}
-//        , {0.0217725, -0.4147686, 0.02682398}               
-//      };
-      AnyMatrix p = .StdPar.GastroWrapLandmarks;
-      AnyFloat lengthscalefactor = 1.5;
-      AnyFunTransform3D &Scale = .Scale;
-      AnyMat33 transform = RotMat(pi+pi*(...Sign-1)*0.5, y);
-      
-      #include "../ToolBox/WrappingSurfaces/WrappingCylinder5PointFit.any"
-      cyl = {
-//        AnyDrawParamSurf drw={RGB={1,0,0};};
-      };
-    };
+    AnyMatrix p = .StdPar.GastroWrapLandmarks;
+    AnyFloat lengthscalefactor = 1.5;
+    AnyFloat radiusscalefactor = 1;
 
-  
-  
+    AnyFunTransform3D &Scale = .Scale;
+    AnyMat33 transform = RotMat(pi+pi*(...Sign-1)*0.5, y);
+    
+    #include "../ToolBox/WrappingSurfaces/WrappingCylinder5PointFit.any"
+    cyl = {
+      //        AnyDrawParamSurf drw={RGB={1,0,0};};
+    };
+  };
+
   AnyDrawSurf Drw3 = {
     FileName = "femur"; //new, higher quality stl file, correct position
     ScaleXYZ = {1.0, 1.0, ...Sign*1.0};
@@ -1238,73 +1115,7 @@ AnySeg Thigh = {
     Face=-1;
   };
   
-  // This cylinder describes the wrapping surface of the femur 
-  // epicondyle for the Gastrocnemius lateralis en medialis. 
-  AnyRefNode CylCenter = { 
-    sRel = .Scale({0.0606, -0.4022, ...Sign*-0.0175}); 
-    //    AnyDrawRefFrame drws = {};
-    AnyVar Ci = iffun(ltfun(...Sign,0), 1, 0);
-    ARel = RotMat(...Sign*-2.46*pi/180,x) * RotMat(...Sign*-21.70*pi/180,y)*RotMat(Ci*pi,x) ;
-    
-    AnySurfCylinder WrapSurfold = {
-      AnyVec3 UnscaledRadius = {0.0,0.0246,0.0}; 
-      AnyVec3 ScaledRadius = ..Scale(UnscaledRadius);
-      Radius = ScaledRadius[1];
-      
-      Length = 0.1; // not correct, random input
-//            AnyDrawParamSurf drv = {
-//              Opacity = 1;
-//            }; 
-    };
-
-
-    
-    AnyRefNode Q1 = {
-      AnyVar h = .WrapSurfold.Length*0;
-      AnyVar theta = pi*0.95;
-      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-    };
-        
-    AnyRefNode Q2 = {
-      AnyVar h = .WrapSurfold.Length*0.64;
-      AnyVar theta = .Q1.theta;
-      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-    };
-    
-    AnyRefNode Q3 = {
-      AnyVar h = .WrapSurfold.Length*0.08;
-      AnyVar theta = pi*0.90;
-      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-    };
-    
-    AnyRefNode Q4 = {
-      AnyVar h = .WrapSurfold.Length*0.45;
-      AnyVar theta = pi*0.60;
-      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-    };
-    
-    
-    AnyRefNode Q5 = {
-      AnyVar h = .WrapSurfold.Length*0.55;
-      AnyVar theta = pi*1.2;
-      sRel = ..Scale({.WrapSurfold.Radius*cos(theta)*....Sign, .WrapSurfold.Radius*sin(theta), h});
-      AnyDrawNode drw ={ScaleXYZ = 0.005*{1,1,1};};
-      AnyFloat rglob = ( sRel*.ARel'+.sRel );
-    };
-
-  
-  
-  };
-};
-// End of Thigh
+};// End of Thigh
 
 
 AnySeg Patella = {
@@ -1328,7 +1139,6 @@ AnySeg Patella = {
     ARel=Rotation;
     sRel=.StdPar.PatellaFemurJoint;
   };
-  
 
   AnyRefNode PatellaFemurJoint = {
     /// Control point for the PatellaFemurJoint. Found by projecting the EpicondylusFemoris bony landmarks onto the 
@@ -1345,7 +1155,7 @@ AnySeg Patella = {
     ARel = RotMat( sRel, sRel +...Sign*(LateralControlPoint-MedialControlPoint ),.StdPar.HipJoint)*RotMat(pi/2,y);
     #include "../DrawSettings/JointAxesDistal.any" 
     
-//    AnyDrawRefFrame drw = {RGB = {0,0,1};};
+    //    AnyDrawRefFrame drw = {RGB = {0,0,1};};
   };   
   
   
@@ -1406,7 +1216,6 @@ AnySeg Patella = {
   AnyRefNode VastusMedialisSuperior5Node = {sRel = .Scale( .StdPar.VastusMedialisSuperior5Node );};
   AnyRefNode VastusMedialisSuperior6Node = {sRel = .Scale( .StdPar.VastusMedialisSuperior6Node );};
   
-}; 
-//// end of Patella
+};// end of Patella
 
 

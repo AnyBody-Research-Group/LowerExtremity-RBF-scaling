@@ -30,7 +30,20 @@ AnyFolder CadaverParameters = {
                 , {0.02387076, 0.00901901, 0.0004294329}               
                } * TF';
 
-    
+    AnyMatrix GluteusSuperiorWrapLandmarks = {{-0.0491935, -0.05903219, -0.09090909},
+                  {0.05341255, 0.06010718, 0.1645861},
+                  {0.05341255, 0.1190172, 0.1371159},
+                  {0.1144926, 0.05071183, 0.1444377},
+                  {0.002109526, -0.05837251, 0.06430871}}* TF';
+
+    AnyMatrix GluteusInferiorWrapLandmarks = {{-0.009838699, -0.05903219, -0.09090909},
+                  {-0.009838699, 0.04357385, 0.1909987},
+                  {-0.009838699, 0.1046539, 0.1687674},
+                  {0.0551613, 0.04357385, 0.1909987},
+                  {-0.009838699, -0.06880919, 0.07227611}}* TF';
+                
+                
+               
     //JOINT PARAMETERS    
     AnyVec3 HipJoint = {0,0,0}*TF';
     
@@ -91,10 +104,6 @@ AnyFolder CadaverParameters = {
     AnyVec3 GluteusMaximusInferior5Node = {-0.0938, -0.0082, -0.0665}*TF';
     AnyVec3 GluteusMaximusInferior6Node = {-0.0865, -0.0200, -0.0680}*TF';
     
-    //via points added based on moment arms curves and text book info 
-    AnyVec3 GluteusMaxViaNode1 =  {-0.0391, -0.07, -0.0407}*TF';  
-    AnyVec3 GluteusMaxViaNode2 =  {-0.03501, -0.06, -0.005}*TF';  
-    AnyVec3 GluteusMaxViaNode3 =  {-0.0291, -0.04,0.017}*TF';    
     
     AnyVec3 GluteusMediusAnterior1Node = {0.0040, 0.0948, 0.0446}*TF';
     AnyVec3 GluteusMediusAnterior2Node = {0.0143, 0.0903, 0.0456}*TF';
@@ -314,6 +323,26 @@ AnyFolder CadaverParameters = {
     
     AnyVec3 GemellusSuperior1Node = {-0.0211, -0.0012, 0.0372}*TF';
     
+    
+    #ifdef GLUTEUS_MAX_WRAPPING_BETA
+
+    //changed SC 04/05/2012 (for gluteus wrapping)
+    AnyVec3 GluteusMaximusSuperior1Node = {-0.0185, -0.0834 -0.01, 0.0181}*TF';
+    AnyVec3 GluteusMaximusSuperior2Node = {-0.0132, -0.0952 -0.01, 0.0192}*TF';
+    AnyVec3 GluteusMaximusSuperior3Node = {-0.0096, -0.1075 -0.01, 0.0199}*TF';
+    AnyVec3 GluteusMaximusSuperior4Node = {-0.0068, -0.1202 -0.01, 0.0201}*TF';
+    AnyVec3 GluteusMaximusSuperior5Node = {-0.0039, -0.1328 -0.01, 0.0197}*TF';
+    AnyVec3 GluteusMaximusSuperior6Node = {-0.0002, -0.1452 -0.01, 0.0187}*TF';
+    
+    AnyVec3 GluteusMaximusInferior1Node = {0.003, -0.1576 -0.01, 0.0187}*TF';
+    AnyVec3 GluteusMaximusInferior2Node = {0.006, -0.1700 -0.01, 0.0187}*TF';
+    AnyVec3 GluteusMaximusInferior3Node = {0.009, -0.1824 -0.01, 0.0187}*TF';
+    AnyVec3 GluteusMaximusInferior4Node = {0.003, -0.1576 -0.01, 0.0187}*TF';
+    AnyVec3 GluteusMaximusInferior5Node = {0.006, -0.1700 -0.01, 0.0187}*TF';
+    AnyVec3 GluteusMaximusInferior6Node = {0.009, -0.1824 -0.01, 0.0187}*TF';
+    
+    #else
+    
     AnyVec3 GluteusMaximusSuperior1Node = {-0.0185, -0.0834, 0.0181}*TF';//changed SD {-0.0404, 0.0570, 0.0747}*TF';
     AnyVec3 GluteusMaximusSuperior2Node = {-0.0132, -0.0952, 0.0192}*TF';//changed SD {-0.0431, 0.0263, 0.0774}*TF';
     AnyVec3 GluteusMaximusSuperior3Node = {-0.0096, -0.1075, 0.0199}*TF';//changed SD {-0.0473, -0.0044, 0.0799}*TF';
@@ -327,6 +356,8 @@ AnyFolder CadaverParameters = {
     AnyVec3 GluteusMaximusInferior4Node = {-0.0561, -0.0716, 0.0407}*TF';
     AnyVec3 GluteusMaximusInferior5Node = {-0.0507, -0.0847, 0.0375}*TF';
     AnyVec3 GluteusMaximusInferior6Node = {-0.0366, -0.1078, 0.0338}*TF';
+    
+    #endif
     
     AnyVec3 GluteusMediusAnterior1Node = {-0.0303, -0.0025, 0.0590}*TF';
     AnyVec3 GluteusMediusAnterior2Node = {-0.0225, -0.0044, 0.0619}*TF';

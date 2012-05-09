@@ -109,6 +109,8 @@ AnyRefNode P3_scaled={
 AnyRefNode IliacusWrapSurf = {
   AnyFloat p = .StdPar.IliacusWrapLandmarks;
   AnyFloat lengthscalefactor = 1.4;
+  AnyFloat radiusscalefactor = 1;
+
   AnyFunTransform3DLin &Scale = .Scale;
   AnyInt Sign = ..Sign;
   AnyMat33 transform = RotMat(-pi * (Sign + 1) / 2, y);
@@ -330,12 +332,104 @@ AnyRefNode IschioFemOrig = {sRel = .Scale( .StdPar.IschioFemOrig );};
 //end ligament origin nodes
 
 
-//via points added based on moment arms curves and text book info 
-AnyRefNode GluteusMaxViaNode1 =  {  sRel = .Scale( .StdPar.GluteusMaxViaNode1 ); }; 
-AnyRefNode GluteusMaxViaNode2 =  {  sRel = .Scale( .StdPar.GluteusMaxViaNode2 ); }; 
-AnyRefNode GluteusMaxViaNode3 =  {  sRel = .Scale( .StdPar.GluteusMaxViaNode3 );    };   
 
+
+#ifdef GLUTEUS_MAX_WRAPPING_BETA
+
+
+//Added SC 04/05/2012 (for gluteus wrapping)
+
+//  Unscaled original cylinder for matrix p
+
+//  AnyRefNode GluteusCylSuperior = { 
+//    sRel = .Scale({-0.05, -0.06, ..Sign*-0.10}); 
+//    AnyDrawRefFrame drws = {};
+//    ARel = RotMat(..Sign*-25*pi/180,x)*RotMat(..Sign*20*pi/180,y);
+//        
+//    AnySurfCylinder cyl = {
+//      Radius = 0.065;//ScaledRadius[1];
+//      Length = ...Sign*0.3; 
+//      AnyDrawParamSurf drv = {
+//        Opacity = 0.1;
+//      }; 
+//    };
+//  }; 
+  
+//  AnyRefNode Q1 = { sRel = .Scale({-0.05, -0.06, 0.10}); AnyDrawRefFrame drws = {}; };
+//  AnyRefNode Q2 = { sRel = .Q1.sRel + {0, 0, -0.3}*.GluteusCylSuperior.ARel'; AnyDrawRefFrame drws = {}; };
+//  AnyRefNode Q3 = { sRel = .Q1.sRel + {0, 0.065, -0.3}*.GluteusCylSuperior.ARel'; AnyDrawRefFrame drws = {}; };
+//  AnyRefNode Q4 = { sRel = .Q1.sRel + {0.065, 0, -0.3}*.GluteusCylSuperior.ARel'; AnyDrawRefFrame drws = {}; };
+//  AnyRefNode Q5 = { sRel = .Q1.sRel + {0, -0.065, -0.15}*.GluteusCylSuperior.ARel'; AnyDrawRefFrame drws = {}; };
+  
+  
+  
+  AnyRefNode GluteusCylSuperior = {
+    
+//    AnyMatrix p = {{-0.0491935, -0.05903219, ..Sign*-0.09090909},
+//                  {0.05341255, 0.06010718, ..Sign*0.1645861},
+//                  {0.05341255, 0.1190172, ..Sign*0.1371159},
+//                  {0.1144926, 0.05071183, ..Sign*0.1444377},
+//                  {0.002109526, -0.05837251, ..Sign*0.06430871}};
+    AnyMatrix p = .StdPar.GluteusSuperiorWrapLandmarks;
+    AnyFloat lengthscalefactor = 1;
+    AnyFloat radiusscalefactor = 1;
+
+    AnyFunTransform3D &Scale = .Scale;
+    AnyMat33 transform = RotMat(pi*(1-..Sign-2)*0.5, y);
+    
+    #include "../ToolBox/WrappingSurfaces/WrappingCylinder5PointFit.any"
+    cyl = {
+      //AnyDrawParamSurf draw={Opacity = 0.1;};
+    };
+  };
+  
+  
+  
+  
+//  Unscaled original cylinder for matrix p
+
+//    AnyRefNode GluteusCylInferior = { 
+//    sRel = .Scale({-0.01, -0.06, ..Sign*-0.10}); 
+//    AnyDrawRefFrame drws = {};
+//    ARel = RotMat(..Sign*-20*pi/180,x);
+//        
+//    AnySurfCylinder cyl = {
+//      Radius = 0.065;//ScaledRadius[1];
+//      Length = ...Sign*0.3; 
+//      AnyDrawParamSurf drv = {
+//        Opacity = 0.1;
+//      }; 
+//    };
+//  }; 
+  
+//  AnyRefNode Q1 = { sRel = .Scale({-0.01, -0.06, 0.10}); AnyDrawRefFrame drws = {}; };
+//  AnyRefNode Q2 = { sRel = .Q1.sRel + {0, 0, -0.3}*.GluteusCylInferior.ARel'; AnyDrawRefFrame drws = {}; };
+//  AnyRefNode Q3 = { sRel = .Q1.sRel + {0, 0.065, -0.3}*.GluteusCylInferior.ARel'; AnyDrawRefFrame drws = {}; };
+//  AnyRefNode Q4 = { sRel = .Q1.sRel + {0.065, 0, -0.3}*.GluteusCylInferior.ARel'; AnyDrawRefFrame drws = {}; };
+//  AnyRefNode Q5 = { sRel = .Q1.sRel + {0, -0.065, -0.15}*.GluteusCylInferior.ARel'; AnyDrawRefFrame drws = {}; };
+  
+  
+  
+  AnyRefNode GluteusCylInferior = {
+    
+//    AnyMatrix p = {{-0.009838699, -0.05903219, ..Sign*-0.09090909},
+//                  {-0.009838699, 0.04357385, ..Sign*0.1909987},
+//                  {-0.009838699, 0.1046539, ..Sign*0.1687674},
+//                  {0.0551613, 0.04357385, ..Sign*0.1909987},
+//                  {-0.009838699, -0.06880919, ..Sign*0.07227611}};
+    AnyMatrix p = .StdPar.GluteusInferiorWrapLandmarks;
+    AnyFloat lengthscalefactor = 1;
+    AnyFloat radiusscalefactor = 1;
+   
+    AnyFunTransform3D &Scale = .Scale;
+    AnyMat33 transform = RotMat(pi*(1-..Sign-2)*0.5, y);
+    
+    #include "../ToolBox/WrappingSurfaces/WrappingCylinder5PointFit.any"
+    cyl = {
+      //AnyDrawParamSurf draw={Opacity = 0.1;};
+    };
+  };
+
+  #endif
 
 }; // End HipLegData
-
-
