@@ -219,7 +219,10 @@ AnyFolder Scaling = {
             .MorphSourcePoints.ShankCPoint13,
             .MorphSourcePoints.ShankCPoint14,
             .MorphSourcePoints.ShankCPoint15,
-            .MorphSourcePoints.ShankCPoint16
+            .MorphSourcePoints.ShankCPoint16,
+            .MorphSourcePoints.ShankCPoint17,
+            .MorphSourcePoints.ShankCPoint18,
+            .MorphSourcePoints.ShankCPoint19
           };
           Points1 = {.MorphTargetPoints.KneeCenterPoint,  
             .MorphTargetPoints.KneeMedialPoint,
@@ -247,7 +250,10 @@ AnyFolder Scaling = {
             .MorphTargetPoints.ShankCPoint13,
             .MorphTargetPoints.ShankCPoint14,
             .MorphTargetPoints.ShankCPoint15,
-            .MorphTargetPoints.ShankCPoint16
+            .MorphTargetPoints.ShankCPoint16,
+            .MorphTargetPoints.ShankCPoint17,
+            .MorphTargetPoints.ShankCPoint18,
+            .MorphTargetPoints.ShankCPoint19   
           };  
         };
         #endif        
@@ -287,6 +293,10 @@ AnyFolder Scaling = {
             .MorphSourcePoints.ThighCPoint18,
             .MorphSourcePoints.ThighCPoint19,
             .MorphSourcePoints.ThighCPoint20,
+            .MorphSourcePoints.ThighCPoint21,
+            .MorphSourcePoints.ThighCPoint22,
+            .MorphSourcePoints.ThighCPoint23,
+            .MorphSourcePoints.ThighCPoint24,
             .MorphSourcePoints.KneeCenterPoint,
             .MorphSourcePoints.KneeMedialPoint,
             .MorphSourcePoints.KneeLateralPoint,
@@ -314,6 +324,10 @@ AnyFolder Scaling = {
             .MorphTargetPoints.ThighCPoint18,
             .MorphTargetPoints.ThighCPoint19,
             .MorphTargetPoints.ThighCPoint20,
+            .MorphTargetPoints.ThighCPoint21,
+            .MorphTargetPoints.ThighCPoint22,
+            .MorphTargetPoints.ThighCPoint23,
+            .MorphTargetPoints.ThighCPoint24,
             .MorphTargetPoints.KneeCenterPoint,
             .MorphTargetPoints.KneeMedialPoint,
             .MorphTargetPoints.KneeLateralPoint,
@@ -323,7 +337,6 @@ AnyFolder Scaling = {
         #endif
       };
     }; // Right
-    
     #else
     #endif
     
@@ -436,7 +449,10 @@ AnyFolder Scaling = {
             .MorphSourcePoints.ShankCPoint13,
             .MorphSourcePoints.ShankCPoint14,
             .MorphSourcePoints.ShankCPoint15,
-            .MorphSourcePoints.ShankCPoint16
+            .MorphSourcePoints.ShankCPoint16,
+            .MorphSourcePoints.ShankCPoint17,
+            .MorphSourcePoints.ShankCPoint18,
+            .MorphSourcePoints.ShankCPoint19
           };
           Points1 = {.MorphTargetPoints.KneeCenterPoint,  
             .MorphTargetPoints.KneeMedialPoint,
@@ -464,7 +480,10 @@ AnyFolder Scaling = {
             .MorphTargetPoints.ShankCPoint13,
             .MorphTargetPoints.ShankCPoint14,
             .MorphTargetPoints.ShankCPoint15,
-            .MorphTargetPoints.ShankCPoint16
+            .MorphTargetPoints.ShankCPoint16,
+            .MorphTargetPoints.ShankCPoint17,
+            .MorphTargetPoints.ShankCPoint18,
+            .MorphTargetPoints.ShankCPoint19
           };  
         };
         #endif        
@@ -505,6 +524,10 @@ AnyFolder Scaling = {
             .MorphSourcePoints.ThighCPoint18,
             .MorphSourcePoints.ThighCPoint19,
             .MorphSourcePoints.ThighCPoint20,
+            .MorphSourcePoints.ThighCPoint21,
+            .MorphSourcePoints.ThighCPoint22,
+            .MorphSourcePoints.ThighCPoint23,
+            .MorphSourcePoints.ThighCPoint24,
             .MorphSourcePoints.KneeCenterPoint,
             .MorphSourcePoints.KneeMedialPoint,
             .MorphSourcePoints.KneeLateralPoint,
@@ -532,6 +555,10 @@ AnyFolder Scaling = {
             .MorphTargetPoints.ThighCPoint18,
             .MorphTargetPoints.ThighCPoint19,
             .MorphTargetPoints.ThighCPoint20,
+            .MorphTargetPoints.ThighCPoint21,
+            .MorphTargetPoints.ThighCPoint22,
+            .MorphTargetPoints.ThighCPoint23,
+            .MorphTargetPoints.ThighCPoint24,
             .MorphTargetPoints.KneeCenterPoint,
             .MorphTargetPoints.KneeMedialPoint,
             .MorphTargetPoints.KneeLateralPoint,
@@ -731,6 +758,25 @@ AnyFolder Scaling = {
         Offset = {0,0,0};
       };
     };
+    
+    AnyFolder &PelvisSeg = Pelvis;    
+    AnyFolder &SkullSeg = Head;
+    AnyFolder &ThoraxSeg = Cervical;
+    
+    AnyFolder &C1Seg = Cervical;
+    AnyFolder &C2Seg = Cervical;
+    AnyFolder &C3Seg = Cervical;
+    AnyFolder &C4Seg = Cervical;
+    AnyFolder &C5Seg = Cervical;
+    AnyFolder &C6Seg = Cervical;
+    AnyFolder &C7Seg = Cervical;
+    
+    AnyFolder &L1Seg = Lumbar;
+    AnyFolder &L2Seg = Lumbar;
+    AnyFolder &L3Seg = Lumbar;
+    AnyFolder &L4Seg = Lumbar;
+    AnyFolder &L5Seg = Lumbar;
+    AnyFolder &SacrumSeg = Lumbar;
     
   };
   

@@ -17,7 +17,7 @@
   // Insert driveNode in Pelvis Segment
   PelvisRef = {
         AnyRefNode DriveNode = {
-          AnyVec3 HipJointMidPoint = (.HipJointRightTD.sRel + .HipJointLeftTD.sRel)/2;
+          AnyVec3 HipJointMidPoint = (.Right.HipJoint.sRel + .Left.HipJoint.sRel)/2;
           sRel = 0.5* (.Scale(.MorphNodes.SourceLeftAsisMarker.sRel)+.Scale(.MorphNodes.SourceRightAsisMarker.sRel) );
           
           ARel = RotMat(sRel, HipJointMidPoint , .MorphNodes.SourcePSISMidPointMarker.sRel);
@@ -31,7 +31,7 @@
       sRel = .HipJoint.sRel;
       ARel = RotMat(.HipJoint.sRel,
                     .KneeJoint.sRel ,
-                    .HipJoint.sRel + (.LateralKneeAxisControlPoint.sRel - .MedialKneeAxisControlPoint.sRel) );
+                    .HipJoint.sRel + .KneeJoint.ARel'[2] );
     };
     
   };
@@ -87,7 +87,7 @@
       sRel = .HipJoint.sRel;
       ARel = RotMat(.HipJoint.sRel,
                     .KneeJoint.sRel ,
-                    .HipJoint.sRel + (.LateralKneeAxisControlPoint.sRel - .MedialKneeAxisControlPoint.sRel) );
+                    .HipJoint.sRel + (-1)*.KneeJoint.ARel'[2]  );
     };
     
   };

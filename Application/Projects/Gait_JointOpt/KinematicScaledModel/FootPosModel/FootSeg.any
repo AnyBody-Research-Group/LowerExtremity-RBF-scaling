@@ -6,7 +6,9 @@
       
       
       
-    FileName = AMMR_PATH + "/Body/AAUHuman/LegTD/" + iffun(gtfun(..Sign,0),"subtalar.stl","subtalarMirrored.stl");
+    FileName = AMMR_PATH + "/Body/AAUHuman/LegTD/" + "subtalar.stl";
+    
+    ScaleXYZ = {1,1,..Sign*1};
     RGB = {0.4,0.5,0.5};
     AnyFunTransform3D &scale = .Scale;
     };

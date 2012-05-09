@@ -1,95 +1,98 @@
 
-AnyVar ShankLengthStandard = vnorm(StdPar.KneeJoint - StdPar.AnkleJoint );
+AnyVar ShankLengthStandard = vnorm(ShankRef.KneeJoint.sRelUnscaled - ShankRef.AnkleJoint.sRelUnscaled );
 AnyVar LengthScale = vnorm(.KinOptRef.Shank.KneeJoint.sRel - .KinOptRef.Shank.AnkleJoint.sRel) /
 					 ShankLengthStandard ;
 
-AnyVar BoxSizeKnee =0.05;
-AnyVar BoxSizeAnkle=0.05;
+AnyVar BoxSizeKnee =0.08;
+AnyVar BoxSizeAnkle=0.08;
       
-AnyFolder StdPar = {
-  #include "<AMMR_PATH>\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
-};
-
+AnyFolder &ShankRef = .LegTDRef.Shank;
 
 AnyFolder MorphSourcePoints = { 
   
-  AnyMat33 ARelAnkle = RotMat(.StdPar.AnkleJoint,
-  .StdPar.AnkleJoint +.StdPar.AnkleJointAxis ,
-  .StdPar.KneeJoint)  *RotMat(..Sign*90*pi/180,y);
+  AnyVec3 KneeJointUnscaled = .ShankRef.KneeJoint.sRelUnscaled;
+  AnyVec3 AnkleJointUnscaled = .ShankRef.AnkleJoint.sRelUnscaled;
   
-  AnyMat33 ARelKnee = RotMat(.StdPar.KneeJoint,
-  .StdPar.KneeJoint + .StdPar.KneeJointAxis, 
-  .StdPar.AnkleJoint)* RotMat(-..Sign*90*pi/180,y);
+  AnyMat33 ARelAnkle = RotMat(AnkleJointUnscaled,
+  AnkleJointUnscaled +..Sign*ShankRef.AnkleJoint.ARelUnscaled'[2],
+  KneeJointUnscaled)  *RotMat(..Sign*90*pi/180,y);
+  
+  AnyMat33 ARelKnee = RotMat(KneeJointUnscaled,
+  KneeJointUnscaled+ ..Sign*.ShankRef.KneeJoint.ARelUnscaled'[2], 
+  AnkleJointUnscaled)* RotMat(-..Sign*90*pi/180,y);
   
   //Calc EpicondylusFemorisMedialis projection on knee joint z axis.
-  AnyVar EpiMedAxisProj = (.StdPar.EpicondylusFemorisMedialis-.StdPar.KneeJoint ) * ARelKnee *{0,0,1}' ;
+  AnyVar EpiMedAxisProj = (.ShankRef.KneeJoint.MedialFemuralCondyleInNeutralConf-KneeJointUnscaled) * ARelKnee *{0,0,1}' ;
   
   //Calc EpicondylusFemorisMedialis projection on knee joint z axis.
-  AnyVar EpiLatAxisProj = (.StdPar.EpicondylusFemorisLateralis-.StdPar.KneeJoint ) * ARelKnee *{0,0,1}';
+  AnyVar EpiLatAxisProj = (.ShankRef.KneeJoint.LateralFemuralCondyleInNeutralConf-KneeJointUnscaled) * ARelKnee *{0,0,1}';
   
-  // Calc Patella tendon origin projection on knee joint x axis 
-  AnyVar PatellaProj = (.StdPar.PatellaTendonOrigin -.StdPar.KneeJoint ) * ARelKnee *{1,0,0}';
+//  // Calc Patella tendon origin projection on knee joint x axis 
+//  AnyVar PatellaProj = (.ShankRef.StdPar.PatellaTendonOrigin -KneeJointUnscaled) * ARelKnee *{1,0,0}';
   
   //Calc MalleousMedialis projection on Ankle joint z axis.
-  AnyVar MedMallAxisProj = ( .StdPar.MedialMalleolus - .StdPar.AnkleJoint ) * ARelAnkle *{0,0,1}' ;
+  AnyVar MedMallAxisProj = ( .ShankRef.StdPar.MedialAnkleAxisMarker - AnkleJointUnscaled ) * ARelAnkle *{0,0,1}' ;
   
   //Calc MalleousLateralis projection on Ankle joint z axis.
-  AnyVar LatMallAxisProj = ( .StdPar.LateralMalleolus - .StdPar.AnkleJoint ) * ARelAnkle *{0,0,1}';
+  AnyVar LatMallAxisProj = ( .ShankRef.StdPar.LateralAnkleAxisMarker - AnkleJointUnscaled ) * ARelAnkle *{0,0,1}';
   
   // Center Ankle source control point.
-  AnyVec3 AnkleCenterPoint = .StdPar.AnkleJoint;
+  AnyVec3 AnkleCenterPoint = AnkleJointUnscaled;
   
   // Lateral Ankle source control point, found by projecting the lateral Malleolus to the ankle axis.
-  AnyVec3 AnkleLateralPoint = .StdPar.AnkleJoint + (ARelAnkle * LatMallAxisProj * {0,0,1}' )';
+  AnyVec3 AnkleLateralPoint = AnkleJointUnscaled + (ARelAnkle * LatMallAxisProj * {0,0,1}' )';
   
   // Medial Ankle source control point, found by projecting the lateral Malleolus to the ankle axis.
-  AnyVec3 AnkleMedialPoint = .StdPar.AnkleJoint + (ARelAnkle * MedMallAxisProj * {0,0,1}' )';
+  AnyVec3 AnkleMedialPoint = AnkleJointUnscaled + (ARelAnkle * MedMallAxisProj * {0,0,1}' )';
   
   // Anterior ankle control source point. Placed 5 cm anterior to the ankle axis.
-  AnyVec3 AnkleAnteriorPoint = .StdPar.AnkleJoint + (ARelAnkle * 0.05 * {1,0,0}')';
+  AnyVec3 AnkleAnteriorPoint = AnkleJointUnscaled + (ARelAnkle * 0.05 * {1,0,0}')';
   
   // Lateral knee source control point, found by projecting the lateral Epicondyle to the knee axis.
-  AnyVec3 KneeLateralPoint = .StdPar.KneeJoint + (ARelKnee * EpiLatAxisProj * {0,0,1}' )';
+  AnyVec3 KneeLateralPoint = KneeJointUnscaled + (ARelKnee * EpiLatAxisProj * {0,0,1}' )';
   
   // Medial knee source control point, found by projecting the medial Epicondyle to the knee axis.
-  AnyVec3 KneeMedialPoint = .StdPar.KneeJoint + (ARelKnee * EpiMedAxisProj * {0,0,1}' )';
+  AnyVec3 KneeMedialPoint = KneeJointUnscaled + (ARelKnee * EpiMedAxisProj * {0,0,1}' )';
   
   // Anterior knee control source point. Placed 5 cm anterior to the knee axis.
   AnyVec3 test2 =  (ARelKnee * 0.05 * {1,0,0}' )'; 
-  AnyVec3 KneeAnteriorPoint = .StdPar.KneeJoint + (ARelKnee * 0.05 * {1,0,0}' )';  
+  AnyVec3 KneeAnteriorPoint = KneeJointUnscaled + (ARelKnee * 0.05 * {1,0,0}' )';  
   
   // Center knee control source point. 
-  AnyVec3 KneeCenterPoint = .StdPar.KneeJoint;  
+  AnyVec3 KneeCenterPoint = KneeJointUnscaled ;  
   
   // Set of control points above the knee to avoid weird RBF behavior
-  AnyVec3 KneeBelowAnteriorPoint = KneeAnteriorPoint + 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
-  AnyVec3 KneeBelowLateralPoint = KneeLateralPoint + 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
-  AnyVec3 KneeBelowMedialPoint = KneeMedialPoint + 0.1*(.StdPar.AnkleJoint-.StdPar.KneeJoint);
+  AnyVec3 KneeBelowAnteriorPoint = KneeAnteriorPoint + 0.1*(AnkleJointUnscaled -KneeJointUnscaled );
+  AnyVec3 KneeBelowLateralPoint = KneeLateralPoint + 0.1*(AnkleJointUnscaled -KneeJointUnscaled );
+  AnyVec3 KneeBelowMedialPoint = KneeMedialPoint + 0.1*(AnkleJointUnscaled -KneeJointUnscaled );
   
   
   // Rotation matrix for the scalingNode coordinate system
   AnyMat33 scaleRot = ..LegTDRef.Shank.ScalingNode.Rotation;
   
-  AnyVec3 ShankCPoint1 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint2 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint3 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint4 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint5 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint6 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint7 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint8 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint1 = KneeJointUnscaled + (scaleRot*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint2 = KneeJointUnscaled + (scaleRot*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint3 = KneeJointUnscaled + (scaleRot*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint4 = KneeJointUnscaled + (scaleRot*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint5 = KneeJointUnscaled + (scaleRot*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint6 = KneeJointUnscaled + (scaleRot*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint7 = KneeJointUnscaled + (scaleRot*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint8 = KneeJointUnscaled + (scaleRot*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
   
-  AnyVec3 ShankCPoint9 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint10 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint11 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint12 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint13 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint14 = .StdPar.KneeJoint + (scaleRot*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint15 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint16 = .StdPar.KneeJoint + (scaleRot*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint9 = KneeJointUnscaled + (scaleRot*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint10 = KneeJointUnscaled + (scaleRot*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint11 = KneeJointUnscaled + (scaleRot*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint12 = KneeJointUnscaled + (scaleRot*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint13 = KneeJointUnscaled + (scaleRot*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint14 = KneeJointUnscaled + (scaleRot*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint15 = KneeJointUnscaled + (scaleRot*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint16 = KneeJointUnscaled + (scaleRot*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
     
 
-  
+  AnyVec3 ShankCPoint17 = KneeJointUnscaled + (scaleRot*{0, -2/5*.ShankLengthStandard, 0}')';
+  AnyVec3 ShankCPoint18 = KneeJointUnscaled + (scaleRot*{0, -3/5*.ShankLengthStandard, 0}')';
+  AnyVec3 ShankCPoint19 = KneeJointUnscaled + (scaleRot*{0, -4/5*.ShankLengthStandard, 0}')';
+
   
   
   
@@ -178,20 +181,32 @@ AnyFolder MorphSourcePoints = {
         AnyRefNode SourceShankCPoint16  = {
           sRel = ...ShankCPoint16; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
         };
-      
+        AnyRefNode SourceShankCPoint17  = {
+          sRel = ...ShankCPoint17; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint18 = {
+          sRel = ...ShankCPoint18; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode SourceShankCPoint19  = {
+          sRel = ...ShankCPoint19; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        };
     };
   };//ShankRef
   
 };// SourceMorphNode
 
 AnyFolder MorphTargetPoints = {
-  AnyVec3 EpicondylusFemorisLateralisStandard = { 0.0317, -0.3996, ..Sign*0.0547};
+//  AnyVec3 EpicondylusFemorisLateralisStandard = { 0.0317, -0.3996, ..Sign*0.0547};
   
-  
+  AnyVec3 KneeJointUnscaled = .ShankRef.KneeJoint.sRelUnscaled;
+  AnyVec3 AnkleJointUnscaled = .ShankRef.AnkleJoint.sRelUnscaled;
+  // Calculate the Patella tendon origin in Thigh coordinate system in neutral configurations
+  AnyVec3 PatellaTendonOriginUnscaled = (..LegTDRef.Patella.StdPar.Origin_patella_tendon *..LegTDRef.Patella.StdPar.RotNeutral'+..LegTDRef.Patella.StdPar.PosNeutral-.ShankRef.StdPar.PosNeutral)*.ShankRef.StdPar.RotNeutral;
+
   AnyFolder &ShankMorphNodes = ..KinOptRef.Shank.MorphNodes;
-  AnyMat33 ShankControlPointRot = RotMat( .StdPar.KneeJoint,
-  .StdPar.AnkleJoint,
-  .StdPar.PatellaTendonOrigin);
+  AnyMat33 ShankControlPointRot = RotMat( KneeJointUnscaled ,
+  AnkleJointUnscaled ,
+  PatellaTendonOriginUnscaled );
   
   AnyVec3 test1 =  ShankMorphNodes.AnteriorKneeControlPoint.sRel;
   AnyVec3 test2 =  (ShankControlPointRot * test1')';
@@ -208,36 +223,40 @@ AnyFolder MorphTargetPoints = {
   AnyFolder &scalingnode = ..LegTDRef.Shank.ScalingNode;
   //scalingnode = { AnyDrawRefFrame drw ={};};
   
-  AnyVec3 KneeCenterPoint = .StdPar.KneeJoint;
-  AnyVec3 KneeMedialPoint = .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.MedialKneeControlPoint.sRel')';
-  AnyVec3 KneeLateralPoint = .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.LateralKneeControlPoint.sRel')';
-  AnyVec3 KneeAnteriorPoint = .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.AnteriorKneeControlPoint.sRel')';
-  AnyVec3 AnkleCenterPoint = .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.AnkleCenterControlPoint.sRel')';
-  AnyVec3 AnkleMedialPoint = .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.MedialAnkleControlPoint.sRel')';
-  AnyVec3 AnkleLateralPoint = .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.LateralAnkleControlPoint.sRel')';
-  AnyVec3 AnkleAnteriorPoint= .StdPar.KneeJoint+ (ShankControlPointRot * ShankMorphNodes.AnteriorAnkleControlPoint.sRel')';
+  AnyVec3 KneeCenterPoint = KneeJointUnscaled;
+  AnyVec3 KneeMedialPoint = KneeJointUnscaled+ (ShankControlPointRot * ShankMorphNodes.MedialKneeControlPoint.sRel')';
+  AnyVec3 KneeLateralPoint = KneeJointUnscaled+ (ShankControlPointRot * ShankMorphNodes.LateralKneeControlPoint.sRel')';
+  AnyVec3 KneeAnteriorPoint = KneeJointUnscaled+ (ShankControlPointRot * ShankMorphNodes.AnteriorKneeControlPoint.sRel')';
+  AnyVec3 AnkleCenterPoint = KneeJointUnscaled+ (ShankControlPointRot * ShankMorphNodes.AnkleCenterControlPoint.sRel')';
+  AnyVec3 AnkleMedialPoint = KneeJointUnscaled+ (ShankControlPointRot * ShankMorphNodes.MedialAnkleControlPoint.sRel')';
+  AnyVec3 AnkleLateralPoint = KneeJointUnscaled+ (ShankControlPointRot * ShankMorphNodes.LateralAnkleControlPoint.sRel')';
+  AnyVec3 AnkleAnteriorPoint= KneeJointUnscaled+ (ShankControlPointRot * ShankMorphNodes.AnteriorAnkleControlPoint.sRel')';
   
   AnyVec3 KneeBelowAnteriorPoint = KneeAnteriorPoint + 0.1*(AnkleCenterPoint-KneeCenterPoint);
   AnyVec3 KneeBelowLateralPoint = KneeLateralPoint + 0.1*(AnkleCenterPoint-KneeCenterPoint);
   AnyVec3 KneeBelowMedialPoint = KneeMedialPoint + 0.1*(AnkleCenterPoint-KneeCenterPoint);
     
-  AnyVec3 ShankCPoint1 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint2 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint3 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint4 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint5 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint6 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint7 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
-  AnyVec3 ShankCPoint8 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint1 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint2 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint3 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint4 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, 1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint5 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint6 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint7 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*-.BoxSizeKnee}')';
+  AnyVec3 ShankCPoint8 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{-.BoxSizeKnee, -1/5*.ShankLengthStandard, ..Sign*.BoxSizeKnee}')';
 
-  AnyVec3 ShankCPoint9 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint10 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint11 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint12 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint13 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint14 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint15 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
-  AnyVec3 ShankCPoint16 = .StdPar.KneeJoint + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint9 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint10 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint11 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint12 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -4/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint13 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint14 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint15 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*-.BoxSizeAnkle}')';
+  AnyVec3 ShankCPoint16 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{-.BoxSizeAnkle, -6/5*.ShankLengthStandard, ..Sign*.BoxSizeAnkle}')';
+  
+  AnyVec3 ShankCPoint17 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{0, -2/5*.ShankLengthStandard, 0}')';
+  AnyVec3 ShankCPoint18 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{0, -3/5*.ShankLengthStandard, 0}')';
+  AnyVec3 ShankCPoint19 = KneeJointUnscaled + (scaleRot*LMFScaleMat*{0, -4/5*.ShankLengthStandard, 0}')';
   
   AnyFolder &ShankRef = ..LegTDRef.Shank;
   ShankRef.MorphNodes  = {
@@ -321,6 +340,15 @@ AnyFolder MorphTargetPoints = {
         };
         AnyRefNode TargetShankCPoint16   = {
           sRel = ...ShankCPoint16 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint17   = {
+          sRel = ...ShankCPoint17 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint18   = {
+          sRel = ...ShankCPoint18 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+        };
+        AnyRefNode TargetShankCPoint19   = {
+          sRel = ...ShankCPoint19 ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
         };
     
   };//ShankMorphNodes
