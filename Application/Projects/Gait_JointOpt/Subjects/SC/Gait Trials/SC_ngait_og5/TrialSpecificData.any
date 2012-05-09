@@ -17,7 +17,7 @@ AnyFolder TrialSpecificData={
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
    
   // Use heel strike HeelStrike times
-  #define UseHeelStrikesTimes
+//  #define UseHeelStrikesTimes
   
   //This is the initial position of the body it should only be touched it the kinematics does not work it first timestep
   //then these variable can be used to create a better guess, otherwise leave them unchanged
