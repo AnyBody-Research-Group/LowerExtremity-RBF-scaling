@@ -1,5 +1,0 @@
-  AnyFolder Left={
-    AnyFolder &Side=...HumanModel.Left;
-    #include "..\..\Leg\LegMoments.any"
-
-  };
