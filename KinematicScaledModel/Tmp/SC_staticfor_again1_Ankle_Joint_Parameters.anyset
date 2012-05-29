@@ -1,0 +1,14 @@
+Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Right.Foot.ScaleFunction.ScaleMat={{0.977063,0.017082,-0.012072},{0.017082,0.987278,0.008990},{-0.012072,0.008990,0.993646}};
+Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Left.Foot.ScaleFunction.ScaleMat={{0.978185,0.016246,0.011481},{0.016246,0.987901,-0.008551},{0.011481,-0.008551,0.993957}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.sRel={-0.474342,0.210566,0.087806};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel={{-0.112833,-0.096328,-0.988934},{-0.987935,-0.095388,0.122010},{-0.106086,0.990768,-0.084403}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel={-0.473883,0.210711,0.080369};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel={{-0.910854,-0.291843,-0.291843},{-0.412728,0.644071,0.644071},{0.000000,0.707107,-0.707107}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.sRel={-0.473883,0.210711,0.080369};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel={{-0.910854,-0.291843,-0.291843},{-0.412728,0.644071,0.644071},{0.000000,0.707107,-0.707107}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.sRel={-0.157422,0.195448,0.087972};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.ARel={{0.121339,-0.084399,-0.989016},{-0.990215,-0.079476,-0.114704},{-0.068923,0.993257,-0.093217}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.sRel={-0.161464,0.195815,0.069471};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel={{0.900588,0.307360,-0.307360},{-0.434673,0.636812,-0.636812},{-0.000000,0.707107,0.707107}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.sRel={-0.161464,0.195815,0.069471};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.ARel={{0.900588,0.307360,-0.307360},{-0.434673,0.636812,-0.636812},{-0.000000,0.707107,0.707107}};

@@ -1,0 +1,93 @@
+AnyFolder JointReactionForces = {
+  //////////////////////////////////
+  AnyForceMomentMeasure RightHipForces = 
+  {
+    AnyForceBase &force =
+    Main.Studies.HumanModel.BodyModel.Right.Leg.Jnt.Hip.Constraints.Reaction;
+    AnyRefFrame &hip =
+    Main.Studies.HumanModel.BodyModel.Right.Leg.Jnt.Hip.PelvisNode;
+  };
+  
+  AnyVec3 RightHipForceInThighCoordinateSystem =
+  RightHipForces.F*Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.ScalingNode.Axes;
+  
+  AnyVec3 RightHipForceInThighCoordinateSystemPerBodyWeight = RightHipForceInThighCoordinateSystem/(Main.SubjectSpecificData.Anthropometrics.BodyMass*9.82);
+
+//  AnyVec3 RightHipForceInPelvisCoordinateSystem =
+//  RightHipForces.F*Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.Axes;
+  
+  
+  AnyForceMomentMeasure RightKneeForces = 
+  {
+    AnyForceBase &force =
+    Main.Studies.HumanModel.BodyModel.Right.Leg.Jnt.Knee.Constraints.Reaction;
+    AnyRefFrame &knee =
+    Main.Studies.HumanModel.BodyModel.Right.Leg.Jnt.Knee.ThighNode;
+  };
+  
+  AnyVec3 RightKneeForceInShankCoordinateSystem =
+  RightKneeForces.F*Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Shank.ScalingNode.Axes;
+  
+  AnyVec3 RightKneeForceInShankCoordinateSystemPerBodyWeight = RightKneeForceInShankCoordinateSystem/(Main.SubjectSpecificData.Anthropometrics.BodyMass*9.82);
+  
+  AnyForceMomentMeasure RightAnkleForces = 
+  {
+    AnyForceBase &force =
+    Main.Studies.HumanModel.BodyModel.Right.Leg.Jnt.Ankle.Constraints.Reaction;
+    AnyRefFrame &ankle =
+    Main.Studies.HumanModel.BodyModel.Right.Leg.Jnt.Ankle.ShankNode;
+  };
+  
+  AnyVec3 RightAnkleForceInFootCoordinateSystem =
+  RightAnkleForces.F*Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Foot.ScalingNode.Axes;
+  
+  AnyVec3 RightAnkleForceInFootCoordinateSystemPerBodyWeight = RightAnkleForceInFootCoordinateSystem/(Main.SubjectSpecificData.Anthropometrics.BodyMass*9.82);
+  
+  
+  //////////////////////////////////////////////////////////////////////////////////////
+  
+  AnyForceMomentMeasure LeftHipForces = 
+  {
+    AnyForceBase &force =
+    Main.Studies.HumanModel.BodyModel.Left.Leg.Jnt.Hip.Constraints.Reaction;
+    AnyRefFrame &hip =
+    Main.Studies.HumanModel.BodyModel.Left.Leg.Jnt.Hip.PelvisNode;
+  };
+  
+  AnyVec3 LeftHipForceInThighCoordinateSystem =
+  LeftHipForces.F*Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.ScalingNode.Axes;
+  
+  AnyVec3 LeftHipForceInThighCoordinateSystemPerBodyWeight = LeftHipForceInThighCoordinateSystem/(Main.SubjectSpecificData.Anthropometrics.BodyMass*9.82);
+
+//  AnyVec3 LeftHipForceInPelvisCoordinateSystem =
+//  LeftHipForces.F*Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.Axes;
+  
+  
+  AnyForceMomentMeasure LeftKneeForces = 
+  {
+    AnyForceBase &force =
+    Main.Studies.HumanModel.BodyModel.Left.Leg.Jnt.Knee.Constraints.Reaction;
+    AnyRefFrame &knee =
+    Main.Studies.HumanModel.BodyModel.Left.Leg.Jnt.Knee.ThighNode;
+  };
+  
+  AnyVec3 LeftKneeForceInShankCoordinateSystem =
+  LeftKneeForces.F*Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Shank.ScalingNode.Axes;
+  
+  AnyVec3 LeftKneeForceInShankCoordinateSystemPerBodyWeight = LeftKneeForceInShankCoordinateSystem/(Main.SubjectSpecificData.Anthropometrics.BodyMass*9.82);
+  
+  AnyForceMomentMeasure LeftAnkleForces = 
+  {
+    AnyForceBase &force =
+    Main.Studies.HumanModel.BodyModel.Left.Leg.Jnt.Ankle.Constraints.Reaction;
+    AnyRefFrame &ankle =
+    Main.Studies.HumanModel.BodyModel.Left.Leg.Jnt.Ankle.ShankNode;
+  };
+  
+  AnyVec3 LeftAnkleForceInFootCoordinateSystem =
+  LeftAnkleForces.F*Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Foot.ScalingNode.Axes;
+  
+  AnyVec3 LeftAnkleForceInFootCoordinateSystemPerBodyWeight = LeftAnkleForceInFootCoordinateSystem/(Main.SubjectSpecificData.Anthropometrics.BodyMass*9.82);
+  
+  
+};

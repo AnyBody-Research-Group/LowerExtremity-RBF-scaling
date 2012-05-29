@@ -1,0 +1,12 @@
+// Select Model Type to load
+#ifndef MODEL_TYPE
+//#path MODEL_TYPE "KinematicScaledModel"
+#path MODEL_TYPE "AnatomicalLandmarkScaledModel"
+//#path MODEL_TYPE "LinearScaledModel"
+
+#endif
+
+
+#include "<MODEL_TYPE>/PreMainIncludes.any"
+
+

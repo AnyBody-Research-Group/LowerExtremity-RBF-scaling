@@ -1,0 +1,39 @@
+          AnyKinEqSimpleDriver NeckDrv={
+            AnyKinMeasureOrg &ref1= ...BodyModel.Interface.Trunk.NeckJoint; 
+            DriverPos={0};DriverVel={0}; Reaction.Type={Off};
+          }; 
+          
+#ifdef EXLCUDE_TRUNK_MARKERS
+
+          AnyKinEqSimpleDriver ThoraxRotation={
+            AnyKinMeasureOrg &ref1 = ...HumanModel.BodyModel.Interface.Trunk.PelvisThoraxRotation;
+            DriverPos={0};
+            DriverVel={0};
+            Reaction.Type={Off};
+          };             
+          AnyKinEqSimpleDriver ThoraxExtension ={
+            AnyKinMeasureOrg &ref1 = ...BodyModel.Interface.Trunk.PelvisThoraxExtension ;
+            DriverPos={-0.3};
+            DriverVel={0};
+            Reaction.Type={Off};
+          }; 
+          AnyKinEqSimpleDriver ThoraxLateralBending ={
+            AnyKinMeasureOrg &ref1 = ...BodyModel.Interface.Trunk.PelvisThoraxLateralBending;
+            DriverPos={0};
+            DriverVel={0};
+            Reaction.Type={Off};
+          }; 
+#endif
+          
+         //          AnyKinEqSimpleDriver RightEversionBrace={
+//            AnyKinMeasureOrg &ref1= ...HumanModel.BodyModel.Interface.Right.SubTalarEversion; 
+//            DriverPos={0};
+//            DriverVel={0};
+//            Reaction.Type={On};
+//          };
+//          AnyKinEqSimpleDriver LefEversionBrace={
+//            AnyKinMeasureOrg &ref1= ...HumanModel.BodyModel.Interface.Left.SubTalarEversion; 
+//            DriverPos={0};
+//            DriverVel={0};
+//            Reaction.Type={On};
+//          };
