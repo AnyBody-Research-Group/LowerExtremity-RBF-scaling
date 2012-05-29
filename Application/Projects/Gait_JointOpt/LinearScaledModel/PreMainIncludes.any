@@ -1,5 +1,7 @@
 #ifndef PREMAININCLUDES_ANY
 #define PREMAININCLUDES_ANY
+#include "../libdef.any"
+
 
 #ifndef PROJECT_FOLDER_NAME 
 #define PROJECT_FOLDER_NAME Linear_Scaled_Model  
@@ -10,9 +12,6 @@
 
 #path SHARED_FILES_PATH "../SharedFiles"
 
-#ifndef AMMR_PATH 
-#path AMMR_PATH "../../../../.."
-#endif
 
 #ifndef H5_OUTPUT 
 #path H5_OUTPUT "../Output"  
@@ -44,12 +43,12 @@
 //#define Patella_shift 
 
 
-#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClass.any"
-#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/ForcePlateType2AutoDetection.any"
-#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTD.any"
-#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/CreateMarkerClassTDWidget.any"
+#include "<ANYBODY_PATH_TOOLBOX>/Mocap/CreateMarkerClass.any"
+#include "<ANYBODY_PATH_TOOLBOX>/Mocap/ForcePlateType2AutoDetection.any"
+#include "<ANYBODY_PATH_TOOLBOX>/Mocap/CreateMarkerClassTD.any"
+
 #include "ForcePlateGrandChallenge.any"
-#include "<AMMR_PATH>/Body/AAUHuman/ToolBox/Mocap/OptimizeAnthropometricsOnOffV2.any"
+#include "<ANYBODY_PATH_TOOLBOX>/Mocap/OptimizeAnthropometricsOnOffV2.any"
 #include "<SHARED_FILES_PATH>/EmgProcessing.any"
 #include "<SHARED_FILES_PATH>/AnatomicalJointAnglesTemplate.any"
 #endif

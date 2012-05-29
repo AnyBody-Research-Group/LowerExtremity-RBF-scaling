@@ -9,16 +9,16 @@ Morten Lund and Michael Skipper Andersen April 2011
 AnyFolder Scaling = {
   
   AnyFolder StandardParameters = {
-    #include"<AMMR_PATH>\Body\AAUHuman\BodyModels\Include\BodyParameters.any"
+    #include"<ANYBODY_PATH_BODY>\BodyModels\Include\BodyParameters.any"
     
-    #include "<AMMR_PATH>\Body\AAUHuman\Trunk\StandardParameters.any"
-    #include "<AMMR_PATH>\Body\AAUHuman\Arm\StandardParameters.any"  
+    #include "<ANYBODY_PATH_BODY>\Trunk\StandardParameters.any"
+    #include "<ANYBODY_PATH_BODY>\Arm\StandardParameters.any"  
     
     #if RIGHT_LEG_TD + LEFT_LEG_TD == 0
-    #include "<AMMR_PATH>\Body\AAUHuman\Leg\StandardParameters.any"
+    #include "<ANYBODY_PATH_BODY>\Leg\StandardParameters.any"
     #else
-    AnyFolder Right ={#include "<AMMR_PATH>\Body\AAUHuman\LegTD\StandardParameters.any"};
-    AnyFolder Left ={#include "<AMMR_PATH>\Body\AAUHuman\LegTD\StandardParameters.any"}; 
+    AnyFolder Right ={#include "<ANYBODY_PATH_BODY>\LegTD\StandardParameters.any"};
+    AnyFolder Left ={#include "<ANYBODY_PATH_BODY>\LegTD\StandardParameters.any"}; 
     #endif
     
   };

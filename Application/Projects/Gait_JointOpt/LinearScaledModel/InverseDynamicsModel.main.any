@@ -16,7 +16,7 @@ Main = {
   AnyOperationMacro InverseDynamicAnalysisSequence = { 
     MacroStr={
       "classoperation Main.Studies.LoadParametersOptimizationResults" + " " + strquote("Load design") + " --file=" + strquote(FilePathCompleteOf(Main.ModelSetup.FileNames.OptimizedParameters )),
-      "classoperation Main" + strformat("\x22")+ "Update Values" + strformat("\x22"),
+//      "classoperation Main" + strformat("\x22")+ "Update Values" + strformat("\x22"),
       "operation Main.Studies.HumanModel.Calibration.CalibrationSequence",
       "run",
       "operation Main.Studies.InverseDynamicStudy.JointAnglesAndMoments.LoadStaticFrames",
@@ -73,7 +73,7 @@ Main = {
 //      #include "InstrumentedRightKnee.any"
 //  #endif
     #include "JointAnglesAndMoments.any"
-      
+      #include "JointReactionForces.any"
       //Environment around the human
       AnyFolder EnvironmentModel ={
         

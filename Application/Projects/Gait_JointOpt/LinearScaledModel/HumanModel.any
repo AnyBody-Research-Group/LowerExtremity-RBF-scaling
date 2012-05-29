@@ -5,7 +5,7 @@ AnyFolder HumanModel={
 
   
     // This file creates the body model from the selected list.
-    #include  "<AMMR_PATH>\Body\AAUHuman\BodyModels\GenericBodyModel\BodyModel.any"
+    #include  "<ANYBODY_PATH_BODY>/BodyModels/GenericBodyModel/BodyModel.any"
 
  
  AnyFolder StrengthParameters={
@@ -20,7 +20,7 @@ AnyFolder HumanModel={
 
  // #include "..\..\..\Body\AAUHuman\Scaling\ScalingUniform.any"
   //#include "..\..\..\Body\AAUHuman\Scaling\ScalingLengthMass.any" 
-  #include "<AMMR_PATH>\Body\AAUHuman\Scaling\ScalingLengthMassFat.any" 
+  #include "<ANYBODY_PATH_BODY>/Scaling/ScalingLengthMassFat.any" 
   
  
   Scaling = {
