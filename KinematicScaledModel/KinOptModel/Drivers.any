@@ -1,7 +1,7 @@
 AnyFolder Drivers = {
   
   AnySwitchVar ShowMarker = On;
-  
+  AnyVar MarkerSize = 0.01;
   #if IncludeHip == 1
   // PELVIS DRIVERS
   AnyKinDriverMarker LAsis =    {
@@ -9,7 +9,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Trunk.Seg.Pelvis.LAsis;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LAsis.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LAsis.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   
   AnyKinDriverMarker RAsis =    {
@@ -17,7 +17,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Trunk.Seg.Pelvis.RAsis ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RAsis.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RAsis.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
 
   };
   #ifdef FULL_MARKERSET
@@ -26,8 +26,7 @@ AnyFolder Drivers = {
       AnyRefFrame &ref1 = ...LegModel.Trunk.Seg.Pelvis.Sacral;
       AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosInterpol;
       //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.Weight};
-      AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
-  
+      AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
     };
   #endif
 
@@ -36,7 +35,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Trunk.Seg.Pelvis.RPsis;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RPsis.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RPsis.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
 
   };
   AnyKinDriverMarker LPsis =    {
@@ -44,7 +43,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Trunk.Seg.Pelvis.LPsis;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LPsis.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LPsis.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
 
   };
   
@@ -52,13 +51,13 @@ AnyFolder Drivers = {
 //    CType = {Soft,Soft,Soft};
 //    AnyRefFrame &ref1 = ...LegModel.Trunk.Seg.Pelvis.PREF1;
 //    AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.PREF1.PosInterpol;
-//    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+//    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
 //};  
 //  AnyKinDriverMarker PREF2 =    {
 //    CType = {Soft,Soft,Soft};
 //    AnyRefFrame &ref1 = ...LegModel.Trunk.Seg.Pelvis.PREF2;
 //    AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.PREF2.PosInterpol;
-//    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+//    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
 //  };  
   
   #endif
@@ -71,7 +70,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RThighSuperior;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RThighSuperior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RThighSuperior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
 
 //  // Medial knee
@@ -80,7 +79,7 @@ AnyFolder Drivers = {
 //    AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RKneeMedial;
 //    AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RTHL.PosInterpol;
 //    WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RTHL.Weight};
-//    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+//    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
 //  };
   
   
@@ -89,14 +88,15 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RThighInferior ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RThighInferior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RThighInferior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
+
   AnyKinDriverMarker RThighLateral =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RThighLateral ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RThighLateral.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RThighLateral.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   
     #ifdef FULL_MARKERSET
@@ -111,7 +111,7 @@ AnyFolder Drivers = {
             };};};
       WeightFun={&Weights.WFun };    
       Linear.Ref = 0; // Weights are in local coordinates
-      AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+      AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
     };  
     #endif
     
@@ -125,14 +125,14 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RTUB;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RShankSuperior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RShankSuperior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   AnyKinDriverMarker RShankInferior=    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RShankInferior ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RShankInferior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RShankInferior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   #ifndef EXCLUDE_RSHANKLATERAL
   AnyKinDriverMarker RShankLateral=    {
@@ -140,14 +140,14 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RShankLateral ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RShankLateral.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   #endif
 //  AnyKinDriverMarker RANK=    {
 //    CType = {Soft,Soft,Soft};
 //    AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RAnkleLateral ;
 //    AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RANK.PosInterpol;
-//    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+//    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
 //  };
 
 //  AnyKinDriverMarker RMMA = {
@@ -167,14 +167,14 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Foot.RHeel;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   AnyKinDriverMarker RMidfootMedial =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Foot.RMidfootMedial ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootMedial.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootMedial.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   
   AnyKinDriverMarker RMidfootLateral =    {
@@ -182,7 +182,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Foot.RMidfootLateral ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   
   AnyKinDriverMarker RMidfootSuperior =    {
@@ -190,22 +190,34 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Foot.RMidfootSuperior ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootSuperior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootSuperior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };  
   #ifdef FULL_MARKERSET
   AnyKinDriverMarker RToeMedial=    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Foot.RToeMedial;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RToeMedial.PosInterpol;
-    //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RToeMedial.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyFolder Weights = {AnyFunConst WFun ={Value = {
+            Main.SubjectSpecificData.MarkerWeights.ToeX,
+            Main.SubjectSpecificData.MarkerWeights.ToeY,
+            Main.SubjectSpecificData.MarkerWeights.ToeZ
+        };};};
+    WeightFun={&Weights.WFun };
+    Linear.Ref = 0; // Weights are in local coordinates
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   AnyKinDriverMarker RToeLateral=    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Foot.RToeLateral;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RToeLateral.PosInterpol;
-    //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RToeLateral.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyFolder Weights = {AnyFunConst WFun ={Value = {
+            Main.SubjectSpecificData.MarkerWeights.ToeX,
+            Main.SubjectSpecificData.MarkerWeights.ToeY,
+            Main.SubjectSpecificData.MarkerWeights.ToeZ
+        };};};
+    WeightFun={&Weights.WFun };
+    Linear.Ref = 0; // Weights are in local coordinates
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };  
   #endif
   
@@ -220,7 +232,7 @@ AnyFolder Drivers = {
         };};};
     WeightFun={&Weights.WFun };
     Linear.Ref = 0; // Weights are in local coordinates
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   #endif
   #endif
@@ -234,7 +246,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Thigh.LThighInferior;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LThighInferior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LThighInferior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   
   
@@ -243,7 +255,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Thigh.LThighLateral ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LThighLateral.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LThighLateral.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   
   AnyKinDriverMarker LThighSuperior =    {
@@ -251,7 +263,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Thigh.LThighSuperior ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LThighSuperior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LThighSuperior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };  
    #ifdef FULL_MARKERSET
    AnyKinDriverMarker LPatella =    {
@@ -265,7 +277,7 @@ AnyFolder Drivers = {
           };};};
      WeightFun={&Weights.WFun };
      Linear.Ref = 0; // Weights are in local coordinates
-     AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+     AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
    };
    #endif
   #endif
@@ -280,21 +292,21 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Shank.LTUB;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LShankSuperior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LShankSuperior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   AnyKinDriverMarker LShankInferior=    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Shank.LShankInferior ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LShankInferior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LShankInferior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   AnyKinDriverMarker LShankLateral =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Shank.LShankLateral ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LShankLateral.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LShankLateral.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   
   #endif
@@ -306,21 +318,21 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LHeel;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   AnyKinDriverMarker LMidfootLateral =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LMidfootLateral ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   AnyKinDriverMarker LMidfootMedial =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LMidfootMedial ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootMedial.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootMedial.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };  
   
   AnyKinDriverMarker LMidfootSuperior =    {
@@ -328,7 +340,7 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LMidfootSuperior ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootSuperior.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootSuperior.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   #ifdef FULL_MARKERSET
   AnyKinDriverMarker LToeMedial =    {
@@ -336,14 +348,14 @@ AnyFolder Drivers = {
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LToeMedial ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LToeMedial.PosInterpol;
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LToeMedial.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   AnyKinDriverMarker LToeLateral =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Left.Seg.Foot.LToeLateral ;
     AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LToeLateral.PosInterpol;    
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.LToeLateral.Weight};
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };  
 #endif
   
@@ -360,7 +372,7 @@ AnyFolder Drivers = {
         };};};
     WeightFun={&Weights.WFun };
      Linear.Ref = 0; // Weights are in local coordinates
-    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = 0.005;  Line = Off;  };
+    AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
   
   #endif

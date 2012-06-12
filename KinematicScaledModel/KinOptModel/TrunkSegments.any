@@ -7,8 +7,8 @@ AnyFolder Seg = {
     Axes0 = ....StickFigure.Posture.Trunk.Pelvis.InitialPos.Axes0;
     
     Mass = 10.6;
-    Jii = {0.03, 0.03, 0.02};
-    sCoM = {-0.06,-0.03,0};
+    Jii = {0.02, 0.025, 0.015};
+    sCoM = {-0.09,-0.03,0};
     JaboutCoMOnOff = On;
         
     AnyRefNode RHipJoint = {
@@ -24,9 +24,23 @@ AnyFolder Seg = {
 AnyDrawSeg drwSeg = 
 {
   RGB = {0, 0.76953125, 0};
-  InertiaScale=0.5;
+  InertiaScale=1.1;
+  NodesVisible = Off;
 };
-#endif
+AnyDrawLine l1 = {
+p0 = .sCoM;
+p1 = .RHipJoint.sRel;
+Line.Thickness = 0.01;
+GlobalCoord = Off;
+Line.RGB = {0, 0.76953125, 0};
+};
+AnyDrawLine l2 = {
+p0 = .sCoM;
+p1 = .LHipJoint.sRel;
+Line.Thickness = 0.01;
+GlobalCoord = Off;
+Line.RGB = {0, 0.76953125, 0};
+};#endif
    
     
   };

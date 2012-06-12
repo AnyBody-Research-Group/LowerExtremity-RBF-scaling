@@ -7,7 +7,7 @@ AnyFixedRefFrame GlobalRef ={
   AnyDrawRefFrame drw={ScaleXYZ=0.4*{1,1,1};};
 };  
 
-
+#ifndef EXCLUDE_FORCEPLATE
 #ifndef IncludeLegTDModel
 #if IncludeRight & IncludeLeft & IncludeAnkle 
 
@@ -60,6 +60,7 @@ Mz=Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Mz3)
 = {
 };
 
+#endif
 #endif
 #endif
 

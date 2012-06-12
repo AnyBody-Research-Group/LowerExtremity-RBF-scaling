@@ -439,7 +439,9 @@
 //  MarkerName=PrefixDef(RToeMedial ),
 //  MarkerPlacement =Right.Leg.Seg.Foot, 
 //  OptX="Off",OptY="Off",OptZ="Off",
-//  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+//  WeightX=Main.SubjectSpecificData.MarkerWeights.ToeX,
+//  WeightY=Main.SubjectSpecificData.MarkerWeights.ToeY,
+//  WeightZ=Main.SubjectSpecificData.MarkerWeights.ToeZ,
 //  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
 //  )= {
 //   sRelOpt= { 0.23438048,  0.01647059-0.01, 0.029-0.07 };
@@ -449,7 +451,9 @@
 //  MarkerName=PrefixDef(LToeMedial ),
 //  MarkerPlacement =Left.Leg.Seg.Foot, 
 //  OptX="On",OptY="On",OptZ="On",
-//  WeightX=0.2,WeightY=0.2,WeightZ=0.2,
+//  WeightX=Main.SubjectSpecificData.MarkerWeights.ToeX,
+//  WeightY=Main.SubjectSpecificData.MarkerWeights.ToeY,
+//  WeightZ=Main.SubjectSpecificData.MarkerWeights.ToeZ,
 //  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
 //  )= {
 //   sRelOpt= { 0.23438048,  0.01647059-0.01, -0.029+0.07 };

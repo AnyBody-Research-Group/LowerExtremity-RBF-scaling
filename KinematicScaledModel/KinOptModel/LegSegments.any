@@ -3,7 +3,7 @@ AnyFolder Seg = {
   #if IncludeKnee + IncludeHip > 0
   
   AnySeg Thigh = {
-   AnyDrawRefFrame drw ={RGB={1,0,0}; ScaleXYZ = {0.1,0.1,0.1};Visible = On;};
+   AnyDrawRefFrame drw ={RGB={1,0,0}; ScaleXYZ = 0.12*{1,1,1};Visible = On;};
    #include "MorphNodesThigh.any"  
     
     Mass = 50.5; 
@@ -71,7 +71,7 @@ AnyFolder Seg = {
   #if IncludeKnee + IncludeAnkle > 0 
   
   AnySeg Shank = {
-   AnyDrawRefFrame drw ={RGB={1,0,1}; ScaleXYZ = {0.1,0.1,0.1};Visible = On;};
+   AnyDrawRefFrame drw ={RGB={1,0,1}; ScaleXYZ = 0.12*{1,1,1}; Visible = On;};
  
    #include "MorphNodesShank.any"
 
@@ -197,7 +197,7 @@ AnyFolder Seg = {
   
   
   AnySeg Foot = {
-    AnyDrawRefFrame drw ={RGB={1,0,0};ScaleXYZ ={0.1,0.1,0.1};Visible = Off;};
+    AnyDrawRefFrame drw ={RGB={1,0,0};ScaleXYZ =0.12*{1,1,1};Visible = On;};
 
 //    #include "MorphNodesFoot.any"
     

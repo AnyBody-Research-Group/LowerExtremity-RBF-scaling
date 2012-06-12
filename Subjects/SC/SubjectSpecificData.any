@@ -21,7 +21,7 @@ AnyFolder SubjectSpecificData = {
   AnyStringVar LeftKneeParametersTrial = "SC_knee_2legsquat1";
   AnyStringVar GaitParametersTrial = "SC_knee_ngait_og5";
 
-  AnyIntVar StaticFrameIndex = 100;
+  AnyIntVar StaticFrameIndex = 1;
   #endif
   
   
@@ -39,7 +39,7 @@ AnyFolder SubjectSpecificData = {
   AnyFolder MarkerWeights =  {
     AnyVar PatellaX = 0.0;
     AnyVar PatellaY = 0.0;
-    AnyVar PatellaZ = 10;
+    AnyVar PatellaZ = 1;
 
     AnyVar ToeX = 1.0;
     AnyVar ToeY = 0.0;

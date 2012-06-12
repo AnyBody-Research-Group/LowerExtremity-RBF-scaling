@@ -207,7 +207,7 @@ AnyFolder StickFigure = {
            AnyVec3 Y = cross(Z,X);
            sRel = O;
            ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-           AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+//           AnyDrawRefFrame drw = {RGB = {1,0,0}; };
          };         
        };
       #endif 
@@ -355,7 +355,7 @@ AnyFolder StickFigure = {
            AnyVec3 Y = cross(Z,X); 
            sRel = O;
            ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+//           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
          };
          /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
          /// which align with the epicondyle line. 
@@ -366,7 +366,7 @@ AnyFolder StickFigure = {
            AnyVec3 Y = cross(Z,X); 
            sRel = O;
            ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+//           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
          };
       };
       #endif
@@ -514,9 +514,9 @@ AnyFolder StickFigure = {
         AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;
       };
       AnyFolder SubtalarJoint = {
-        AnyVar zRot = 45*pi/180;
-        AnyVar yRot = (1)*30*pi/180;
-        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0.005,-0.001,(1)*-0.015};
+        AnyVar zRot = 42*pi/180;
+        AnyVar yRot = (1)*20*pi/180;
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0.005,-0.01,(1)*0.0};
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
       };
       AnyFolder RAnkleLateral = 
@@ -570,7 +570,7 @@ AnyFolder StickFigure = {
           AnyVec3 Z = cross(X,Y); 
           sRel = O;
           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+//          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
         };
         
        };
@@ -997,7 +997,7 @@ AnyFolder StickFigure = {
           AnyVec3 Z = cross(X,Y);
           sRel = O;
           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+//          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
         };
         /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
         /// which align with the epicondyle line. 
@@ -1008,7 +1008,7 @@ AnyFolder StickFigure = {
           AnyVec3 Y = cross(Z,X);
           sRel = O;
           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+//          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
         };         
         
       };
@@ -1153,7 +1153,7 @@ AnyFolder StickFigure = {
           AnyVec3 Y = cross(Z,X); 
           sRel = O;
           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-          AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+//          AnyDrawRefFrame drw = {RGB = {1,0,1}; };
         };
          /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
          /// which align with the epicondyle line. 
@@ -1164,7 +1164,7 @@ AnyFolder StickFigure = {
            AnyVec3 Y = cross(Z,X); 
            sRel = O;
            ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+//           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
          };
          
 
@@ -1309,9 +1309,9 @@ AnyFolder StickFigure = {
         AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;        
       };
       AnyFolder SubtalarJoint = {
-        AnyVar zRot = 45*pi/180;
-        AnyVar yRot = (-1)*30*pi/180;
-        AnyVec3 sRel_static = .AnkleJoint.sRel_static +{0.005,-0.001,(-1)*-0.015};
+        AnyVar zRot = 42*pi/180;
+        AnyVar yRot = (-1)*20*pi/180;
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0.005,-0.01,(-1)*0.0};
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
         
       };
@@ -1366,7 +1366,7 @@ AnyFolder StickFigure = {
          AnyVec3 Z = cross(X,Y); 
          sRel = O;
          ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-         AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+//         AnyDrawRefFrame drw = {RGB = {1,0,0}; };
        };
       };
       #endif
