@@ -1,11 +1,10 @@
-AnyDesEvalStudy SetStickFigureValues  = 
+AnyDesEvalStudy AnatomicalStickFigureValues  = 
 {
-  Main.JntParameterOptModel  = {
     AnyOperationSequence Load_AnatomicalParameters= {
-      AnyOperation &ref1 = ...UpdateDesign;
-      AnyOperation &ref2 = ....KinematicStudy.InitialConditions;
+      AnyOperation &ref1 = .UpdateDesign;
+      AnyOperation &ref2 = ..KinematicStudy.InitialConditions;
     };
-  };
+  
     
   #define LINK_SREL(name,LegModel,SfVar) AnyDesVar name##_X = { Val = LegModel[0];}; AnyDesMeasure name##SF_X = {Val = SfVar[0];}; AnyDesVar name##_Y = { Val = LegModel[1];}; AnyDesMeasure name##SF_Y = {Val = SfVar[1];}; AnyDesVar name##_Z = { Val = LegModel[2];};   AnyDesMeasure name##SF_Z = {Val = SfVar[2];}  
   
@@ -17,13 +16,16 @@ AnyDesEvalStudy SetStickFigureValues  =
 #if IncludeHip == 1 
   AnyFolder &mPelvis = .LegModel.Trunk.Seg.Pelvis;
   AnyFolder &sPelvis = .StickFigure.Posture.Trunk.Pelvis;
-  LINK_SREL(PelvisRHipJoint,.mPelvis.RHipJoint.sRel, .sPelvis.RHipJoint.sRel_static);
-  LINK_SREL(PelvisLHipJoint,.mPelvis.LHipJoint.sRel, .sPelvis.LHipJoint.sRel_static);
 #endif  
- 
+
 
 // Right Leg
 #if IncludeRight 
+
+#if IncludeHip == 1
+  LINK_SREL(PelvisRHipJoint,.mPelvis.RHipJoint.sRel, .sPelvis.RHipJoint.sRel_static);
+#endif
+
 
   #if IncludeKnee + IncludeHip > 0
    AnyFolder &mRThigh = .LegModel.Right.Seg.Thigh;
@@ -63,6 +65,10 @@ AnyDesEvalStudy SetStickFigureValues  =
 
 
 #if IncludeLeft 
+
+#if IncludeHip == 1
+  LINK_SREL(PelvisLHipJoint,.mPelvis.LHipJoint.sRel, .sPelvis.LHipJoint.sRel_static);
+#endif
 
   #if IncludeKnee + IncludeHip > 0
    AnyFolder &mLThigh = .LegModel.Left.Seg.Thigh;

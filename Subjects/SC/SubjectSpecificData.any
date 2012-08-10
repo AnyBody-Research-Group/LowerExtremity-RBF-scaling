@@ -19,16 +19,16 @@ AnyFolder SubjectSpecificData = {
   AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
   AnyStringVar RightKneeParametersTrial = "SC_knee_2legsquat1";
   AnyStringVar LeftKneeParametersTrial = "SC_knee_2legsquat1";
-  AnyStringVar GaitParametersTrial = "SC_knee_ngait_og5";
+  AnyStringVar MultiJointParametersTrial = "SC_HipKneeAnkle_2legsquat1";
 
-  AnyIntVar StaticFrameIndex = 1;
+  AnyIntVar StaticFrameIndex = 29;
   #endif
   
   
   AnyFolder MarkerPos = {
     AnyVec3 HeelMarker = {-0.03104974, 0.01352436, 0.0146257};
     AnyVec3 ToeMarker= {0.2684801, 0.02890321, 0.002888251};
-    AnyVec3 MidfootLateralMarker = {0.1628627, -0.00255456, 0.07045269};  
+    AnyVec3 MidfootLateralMarker = {0.16528627, -0.00255456, 0.07045269};  
   
     AnyVec3 RAsisMarker = {0.1250608 , -0.025,  0.1295 };
     AnyVec3 LAsisMarker = { 0.1250608 , -0.025, -0.1295};
@@ -65,7 +65,7 @@ AnyFolder SubjectSpecificData = {
       #endif    
 
      #define MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
-     AnyVar KneeWidth = 0.0975;
+     AnyVar KneeWidth = 0.0834;
      AnyVar AnkleWidth = 0.0753;
           
     AnyVar ThighLengthIni= 0.4234534;  //rigth and left side is mirrored 

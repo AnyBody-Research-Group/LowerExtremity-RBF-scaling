@@ -18,8 +18,7 @@ Main = {
     ParameterOptimization.ConvergenceTol = 1e-6;
     Analysis = { AnyOperation &Operation = ..OptimizeParameters.KinematicStudyForParameterOptimization.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
-    #include "KinOptModel/DesignVars_AnkleTrial.any"
-    #include "KinOptModel/DesignVars_GaitTrial.any"
+    #include "KinOptModel/DesignVars_All.any"
     
   AnyBodyStudy KinematicStudyForParameterOptimization = 
   {

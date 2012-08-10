@@ -16,8 +16,9 @@ AnyFolder ModelSetup ={
     SearchAndReplace = {{".",""}};
     MarkerRGB = {1,1,0};
 //    MarkerLabels = {"Sternum","Neck","RShoulder","LShoulder","Xiphoid","Thoracic","RAsis","LAsis","RPsis","LPsis","Lumbar","RElbow","RWrist","RRadius","RUlna","LElbow","LWrist","LUlna","LRadius","LThighSuperior","LThighInferior","LThighLateral","LPatella","LShankSuperior","LShankInferior","LShankLateral","RThighSuperior","RThighInferior","RThighLateral","RPatella","RShankLateral","RShankSuperior","RShankInferior","RHeel","RToe","RMidfootMedial","RMidfootLateral","RHindfoot","RMidfootSuperior","RToeMedial","RToeMedial","RToeLateral","LHeel","LToe","LMidfootMedial","LMidfootLateral","LHindfoot","LMidfootSuperior","LToeMedial","LToeLateral","LShoulderCenter","Sacral"};
-
-
+    #ifdef FIX_FOR_PARAMETER_OPT_BUG 
+    MarkerInterPolType = PiecewiseLinear;
+    #endif
     Filter = 
     {
     AutomaticInitialConditionOnOff = On;
@@ -39,6 +40,10 @@ AnyFolder ModelSetup ={
     MarkerUseAllPointsOnOff = On;
     MarkerUseCamMaskOnOff = Off;
     SearchAndReplace = {{".",""}};
+    #ifdef FIX_FOR_PARAMETER_OPT_BUG 
+    MarkerInterPolType = PiecewiseLinear;
+    #endif
+
   };
   #ifndef USE_TRIAL_SPECIFIC_TIMES
     AnyIntVar LastFrame = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
@@ -60,7 +65,7 @@ AnyFolder ModelSetup ={
     AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar LeftKneeParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftKneeParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar RightKneeParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightKneeParametersTrial + "_OptimizedParameters.txt";
-    AnyStringVar GaitParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.GaitParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar MultiJointParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.MultiJointParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar AllParameters = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
     
     AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";

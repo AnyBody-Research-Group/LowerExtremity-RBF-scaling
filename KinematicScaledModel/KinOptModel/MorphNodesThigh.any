@@ -1,6 +1,7 @@
  AnyRefNode MorphNodes = {
    AnySwitch ShowNodes = Off;
    
+ AnyDrawRefFrame drw = {};
  
    AnyVar MarkerRadius = 0.010;
    sRel = .KneeJoint.sRel;
@@ -73,19 +74,10 @@
     // Anterior target morph node. Found by projecting the patella marker onto 
     // x-axis of the kneeJoint. 
     AnyRefNode AnteriorKneeControlPoint = {
-       //sRel = (.sPatellaMarker*{0,1,0}' - .MarkerRadius) * {0,1,0};
-       //sRel = (.sPatellaMarker*.sKneeAxisX' - .MarkerRadius) * .sKneeAxisX;
-       sRel = 0.1*.KneeScaleFactor * .sKneeAxisX;
+       sRel = 0.05*.KneeScaleFactor * .sKneeAxisX;
        AnyDrawNode drw = { ScaleXYZ = {0.005, 0.005, 0.005};RGB={1,1,1}; Visible = ..ShowNodes;};
     };   
     
-
-    
-      AnyDrawRefFrame drwMorphNodeFrame = 
-      {
-        ScaleXYZ = {0.1, 0.1, 0.1};Visible = Off;
-      };
-      
      
 
      

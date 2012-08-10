@@ -5,8 +5,8 @@ AnyVar ls = LengthScale;
 
 
 AnyFolder MorphSourcePoints = {
-  AnyVec3 HipJointRightTDStandard = {0.035, -0.115, 0.088};  
-  AnyVec3 HipJointLeftTDStandard = {0.035, -0.115, -0.088};  
+  AnyVec3 HipJointRightTDStandard = PelvisRef.Right.HipJoint.sRel0;  
+  AnyVec3 HipJointLeftTDStandard = PelvisRef.Left.HipJoint.sRel0; 
 
 //#if UseAnatomicalValuesLeftHip == 1 | UseAnatomicalValuesRightHip == 1  
   // These are Marker positions on the unscaled pelvis
@@ -51,58 +51,52 @@ AnyFolder MorphSourcePoints = {
     AnyRefNode MorphNodes = {
       AnySwitch ShowNodes = Off;
       AnyRefNode SourceRightAsisMarker = {
-        sRel = ...RightAsisMarker ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
-        AnyDrawRefFrame drw={};
+        sRel = ...RightAsisMarker ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };      
       AnyRefNode SourceLeftAsisMarker  = {
-        sRel = ...LeftAsisMarker  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
-        AnyDrawRefFrame drw={};        
+        sRel = ...LeftAsisMarker  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };
       AnyRefNode SourceRightHipJointPoint  = {
-        sRel = ...RightHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...RightHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };
       AnyRefNode SourceLeftHipJointPoint  = {
-        sRel = ...LeftHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...LeftHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };
 //      AnyRefNode SourceSacrumMarker = {
-//        sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
-//        AnyDrawRefFrame drw={};        
+//        sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
 //      }; 
       AnyRefNode SourceLeftPSISMarker = {
-        sRel = ...LeftPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
-        AnyDrawRefFrame drw={};        
+        sRel = ...LeftPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       }; 
       AnyRefNode SourceRightPSISMarker = {
-        sRel = ...RightPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
-        AnyDrawRefFrame drw={};        
+        sRel = ...RightPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       }; 
       AnyRefNode SourcePSISMidPointMarker = {
-        sRel = ...PSISMidPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
-        //AnyDrawRefFrame drw={};        
+        sRel = ...PSISMidPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       }; 
       AnyRefNode SourceCBox1 = {
-        sRel = ...CBox1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...CBox1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       }; 
       AnyRefNode SourceCBox2 = {
-        sRel = ...CBox2; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...CBox2; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };         
       AnyRefNode SourceCBox3 = {
-        sRel = ...CBox3; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...CBox3; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };         
       AnyRefNode SourceCBox4 = {
-        sRel = ...CBox4; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...CBox4; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };         
       AnyRefNode SourceCBox5 = {
-        sRel = ...CBox5; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...CBox5; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };         
       AnyRefNode SourceCBox6 = {
-        sRel = ...CBox6; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...CBox6; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };         
       AnyRefNode SourceCBox7 = {
-        sRel = ...CBox7; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...CBox7; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };   
       AnyRefNode SourceCBox8 = {
-        sRel = ...CBox8; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+        sRel = ...CBox8; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
       };
     };
   };//PelvisRef
@@ -216,49 +210,49 @@ AnyVec3 TmpRightPSISMarker = (OffsetRot*(PelvisBonyLandMarks.RPsis.sRel+OffsetPo
   AnyFolder &PelvisRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg;
   PelvisRef.MorphNodes = {
     AnyRefNode TargetRightAsisMarker = {
-      sRel = ...RightAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...RightAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };      
     AnyRefNode TargetLeftAsisMarker  = {
-      sRel = ...LeftAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...LeftAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };
     AnyRefNode TargetRightHipJointPoint  = {
-      sRel = ...RightHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...RightHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };
     AnyRefNode TargetLeftHipJointPoint  = {
-      sRel = ...LeftHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...LeftHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };
 //    AnyRefNode TargetSacrumMarker = {
-//      sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//      sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
 //    };   
     AnyRefNode TargetLeftPSISMarker = {
-      sRel = ...LeftPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...LeftPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };   
     AnyRefNode TargetRightPSISMarker = {
-      sRel = ...RightPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...RightPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };   
     AnyRefNode TargetCBox1 = {
-      sRel = ...CBox1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...CBox1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     }; 
     AnyRefNode TargetCBox2 = {
-      sRel = ...CBox2; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...CBox2; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };         
     AnyRefNode TargetCBox3 = {
-      sRel = ...CBox3; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...CBox3; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };         
     AnyRefNode TargetCBox4 = {
-      sRel = ...CBox4; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...CBox4; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };         
     AnyRefNode TargetCBox5 = {
-      sRel = ...CBox5; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...CBox5; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };         
     AnyRefNode TargetCBox6 = {
-      sRel = ...CBox6; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...CBox6; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };         
     AnyRefNode TargetCBox7 = {
-      sRel = ...CBox7; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...CBox7; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };   
     AnyRefNode TargetCBox8 = {
-      sRel = ...CBox8; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+      sRel = ...CBox8; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
     };
   };
 };
@@ -289,19 +283,19 @@ AnyVec3 TmpRightPSISMarker = (OffsetRot*(PelvisBonyLandMarks.RPsis.sRel+OffsetPo
 //    AnyRefNode MorphNodes = {
 //      AnySwitch ShowNodes = Off;
 //      AnyRefNode SourceRightAsisMarker = {
-//        sRel = ...RightAsisMarker ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//        sRel = ...RightAsisMarker ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
 //      };      
 //      AnyRefNode SourceLeftAsisMarker  = {
-//        sRel = ...LeftAsisMarker  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//        sRel = ...LeftAsisMarker  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
 //      };
 //      AnyRefNode SourceRightHipJointPoint  = {
-//        sRel = ...RightHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//        sRel = ...RightHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
 //      };
 //      AnyRefNode SourceLeftHipJointPoint  = {
-//        sRel = ...LeftHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//        sRel = ...LeftHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
 //      };
 //      AnyRefNode SourceSacrumMarker = {
-//        sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//        sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
 //        //AnyDrawRefFrame drw = {};
 //      };   
 //    };
@@ -347,19 +341,19 @@ AnyVec3 TmpRightPSISMarker = (OffsetRot*(PelvisBonyLandMarks.RPsis.sRel+OffsetPo
 //  AnyFolder &PelvisRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg;
 //  PelvisRef.MorphNodes = {
 //    AnyRefNode TargetRightAsisMarker = {
-//      sRel = ...RightAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//      sRel = ...RightAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
 //    };      
 //    AnyRefNode TargetLeftAsisMarker  = {
-//      sRel = ...LeftAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//      sRel = ...LeftAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
 //    };
 //    AnyRefNode TargetRightHipJointPoint  = {
-//      sRel = ...RightHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//      sRel = ...RightHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
 //    };
 //    AnyRefNode TargetLeftHipJointPoint  = {
-//      sRel = ...LeftHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//      sRel = ...LeftHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
 //    };
 //    AnyRefNode TargetSacrumMarker = {
-//      sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.01, 0.01, 0.01}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//      sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
 //    };       
 //  };
 //};

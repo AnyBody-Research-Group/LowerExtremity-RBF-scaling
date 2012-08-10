@@ -1,12 +1,13 @@
-#define IncludeHip 0
+#define IncludeHip 1
 #define IncludeKnee 1
-#define IncludeAnkle 0
+#define IncludeAnkle 1
 
-#define UseDanamicLoadPosition 1
+#define UseDanamicLoadPosition 0
 #define EnableJointAxisScaling 1
 
 #define HideStickModelGraphics 0
 
+#define EXCLUDE_FORCEPLATE
 #include "KinematicModel.main.any"
 
 
@@ -18,13 +19,13 @@ Main.JntParameterOptModel  = {
     Analysis = { AnyOperation &Operation = .KinematicStudyForParameterOptimization.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
 
-    #include "KinOptModel/DesignVars_All.any"
+    #include "KinOptModel/DesignVars_MultiJoint.any"
     
   AnyBodyStudy KinematicStudyForParameterOptimization = 
   {
-    tStart = Main.ModelSetup.tStart;
-    tEnd = Main.ModelSetup.tEnd;
-    nStep = 70;
+    tStart = Main.ModelSetup.tStart+5;
+    tEnd = Main.ModelSetup.tEnd-4;
+    nStep = 70;   
     Gravity = {0, 0, 0};
     
     AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
@@ -35,7 +36,8 @@ Main.JntParameterOptModel  = {
     Kinematics.SolverType = KinSolOverDeterminate;   
     InitialConditions.PosAnalysisOnlyOnOff=On;
     Kinematics.PosAnalysisOnlyOnOff=On;
-    Kinematics.KinematicTol = 1e-6;
+    Kinematics.KinematicTol = 1e-5;
+    
   };  
 
  }; 
@@ -45,9 +47,14 @@ Main = {
     
     AnyOperationMacro Run_Kinematic_Optimization = 
     {
-      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters" 
       + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters) ;
-      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
+      MacroStr = { "operation Main.JntParameterOptModel.AnatomicalStickFigureValues.Load_AnatomicalParameters","run",
+                   "operation Main.JntParameterOptModel.LoadSavaDesignParameters.Load_RightHipParameters","run",
+                   "operation Main.JntParameterOptModel.LoadSavaDesignParameters.Load_LeftHipParameters","run",
+                   "operation Main.JntParameterOptModel.LoadSavaDesignParameters.Load_RightAnkleParameters","run",
+                   "operation Main.JntParameterOptModel.LoadSavaDesignParameters.Load_LeftAnkleParameters","run",
+                   "operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
                   "run",
                   SaveMcr};
     };

@@ -1,7 +1,6 @@
 #path MODEL_TYPE "../../../../KinematicScaledModel"
 #include "<MODEL_TYPE>/PreMainIncludes.any"
 
-
 Main = {
   
  #include "TrialSpecificData.any" 

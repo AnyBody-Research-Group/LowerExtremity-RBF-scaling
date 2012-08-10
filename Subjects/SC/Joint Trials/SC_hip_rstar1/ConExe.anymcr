@@ -1,5 +1,5 @@
 load "Kinematics.main.any"
-operation Main.JntParameterOptModel.Load_AnatomicalParameters
+operation Main.JntParameterOptModel.AnatomicalStickFigureValues.Load_AnatomicalParameters
 run
 operation Main.Run_Kinematic_Optimization  
 run

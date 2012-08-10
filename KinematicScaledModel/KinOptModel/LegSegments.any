@@ -95,11 +95,13 @@ AnyFolder Seg = {
       
       #ifdef RightLeg 
       sRel = {0, 0,  -0.06341919};
+//      sRel = .....StickFigure.Posture.Right.Shank.KneeJoint.sRel_static;
       AnyMat33 Rotation = .....StickFigure.Posture.Right.Shank.KneeJoint.ARel_static
         *RotMat(xRot,x)*RotMat(yRot,y);    
       #endif
       #ifdef LeftLeg
-      sRel = {0, 0, -0.01040184};//.....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
+      sRel = {0, 0, -0.01040184};
+//      sRel = .....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
       AnyMat33 Rotation = .....StickFigure.Posture.Left.Shank.KneeJoint.ARel_static
         *RotMat(xRot,x)*RotMat(yRot,y); 
       #endif
@@ -109,7 +111,7 @@ AnyFolder Seg = {
 
     
     AnyRefNode AnkleJoint = {
-      AnyDrawRefFrame drw ={Visible = Off;};
+//      AnyDrawRefFrame drw ={};
       AnyMat33 InitialRotation = RotMat(sRel, sRel+{0,0,1}, .KneeJoint.sRel)
       * RotMat(90*pi/180,y);
       
@@ -117,9 +119,11 @@ AnyFolder Seg = {
       AnyFloat yRot = 0;      
       #ifdef RightLeg 
       sRel = {0, -0.4277873, 0};
+//      sRel = .....StickFigure.Posture.Right.Shank.AnkleJoint.sRel_static;
       #endif
       #ifdef LeftLeg
       sRel = {0, -0.4213269, 0};
+//      sRel = .....StickFigure.Posture.Left.Shank.AnkleJoint.sRel_static;
       #endif
       AnyMat33 Rotation = InitialRotation * RotMat(xRot,x)*RotMat(yRot,y);
       
@@ -161,33 +165,37 @@ AnyFolder Seg = {
     sCoM = {0,0, 0};
     Jii = {0.0002, 0.003, 0.00295};
     JaboutCoMOnOff = On;
-    
+      AnyDrawRefFrame drw ={ScaleXYZ = 0.1*{1,1,1};};
     AnyRefNode AnkleJoint = {
-      AnyDrawRefFrame drw ={Visible = Off;};
+//      AnyDrawRefFrame drw ={};
       #ifdef RightLeg 
       sRel = {0.0, 0.0, 0.0};
+//      sRel = .....StickFigure.Posture.Right.Talus.AnkleJoint.sRel_static;
       ARel = .....StickFigure.Posture.Right.Talus.AnkleJoint.ARel_static;
       #endif
       
       #ifdef LeftLeg
       sRel = {0.0, 0.0, 0.0};
+//      sRel = .....StickFigure.Posture.Left.Talus.AnkleJoint.sRel_static;
       ARel = .....StickFigure.Posture.Left.Talus.AnkleJoint.ARel_static;
       #endif  
     };
 
     AnyRefNode SubtalarJoint = {
-      AnyDrawRefFrame drw ={Visible = Off;};
+//      AnyDrawRefFrame drw ={Visible = Off;};
       AnyFloat yRot = 0;
-      #ifdef RightLeg 
-      sRel = {0, -0.007250511, -0.000996076};
+      #ifdef RightLeg
+      sRel = {0.0, -0.01, 0};
+//      sRel =  .....StickFigure.Posture.Right.Talus.SubtalarJoint.sRel_static;
       ARel = .....StickFigure.Posture.Right.Talus.SubtalarJoint.ARel_static
       *RotMat(yRot,y);
       #endif
       
       #ifdef LeftLeg
-      sRel =   {1.084202e-019, -0.01806928, 0.00406008};
+      sRel =   {0, -0.01, 0};
+//      sRel =   .....StickFigure.Posture.Left.Talus.SubtalarJoint.sRel_static;
       ARel = .....StickFigure.Posture.Left.Talus.SubtalarJoint.ARel_static
-      *RotMat(yRot,y);
+      * RotMat(yRot,y);
       #endif  
     };  
   
@@ -218,22 +226,24 @@ AnyFolder Seg = {
     Jii = {0.0002, 0.003, 0.00295};
     JaboutCoMOnOff = On;   
     
-
     AnyRefNode SubtalarJoint = {
-      AnyDrawRefFrame drw ={Visible = Off;};
+//      AnyDrawRefFrame drw ={};
       AnyFloat yRot = 0;
       AnyFloat zRot = 0;
       #ifdef RightLeg 
+//      sRel = .....StickFigure.Posture.Right.Foot.SubtalarJoint.sRel_static;
       sRel = {0.078530296, 0.02519825, 0.005506492};
-      ARel = .....StickFigure.Posture.Right.Foot.SubtalarJoint.ARel_static
+      AnyMat33 Rotation = .....StickFigure.Posture.Right.Foot.SubtalarJoint.ARel_static
       *RotMat(yRot,y)*RotMat(zRot,z);
       #endif
       
       #ifdef LeftLeg
       sRel = {0.07336435, 0.0103326, 0.007378342};
-      ARel = .....StickFigure.Posture.Left.Foot.SubtalarJoint.ARel_static
+//      sRel = .....StickFigure.Posture.Left.Foot.SubtalarJoint.sRel_static;
+      AnyMat33 Rotation = .....StickFigure.Posture.Left.Foot.SubtalarJoint.ARel_static
       *RotMat(yRot,y)*RotMat(zRot,z);
       #endif  
+      ARel = Rotation;
     };    
     #if HideStickModelGraphics == 0
     //  Draw foot stick lines

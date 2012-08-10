@@ -1,7 +1,7 @@
 #define IncludeRight 1
 #define IncludeLeft 1
-#define IncludeKnee 1
-#define IncludeHip 1
+#define IncludeKnee 0
+#define IncludeHip 0
 #define IncludeAnkle 1
 #define UseDanamicLoadPosition 0
 #define HideStickModelGraphics 0

@@ -5,9 +5,9 @@ AnyFolder Validation = {
   AnyFolder EMG = {
     
     #if GrandChallageDataSet == 2012
-    AnyFolder &LegMusRef= ..HumanModel.BodyModel.Left.Leg.Mus;
+    AnyFolder &LegMusRef= ...HumanModel.BodyModel.Left.Leg.Mus;
     #else
-    AnyFolder &LegMusRef= ..HumanModel.BodyModel.Right.Leg.Mus;
+    AnyFolder &LegMusRef= ...HumanModel.BodyModel.Right.Leg.Mus;
     #endif
     
 

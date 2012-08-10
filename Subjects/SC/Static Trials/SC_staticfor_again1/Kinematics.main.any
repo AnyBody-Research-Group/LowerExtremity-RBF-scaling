@@ -1,5 +1,6 @@
 #include "../../../../SetModelType.any"
 #define EXCLUDE_FORCEPLATE
+#define UseDanamicLoadPosition 0
 Main = {
  #include "TrialSpecificData.any" 
  #include "../../SubjectSpecificData.any"  

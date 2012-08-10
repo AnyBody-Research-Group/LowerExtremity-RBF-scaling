@@ -37,7 +37,7 @@ AnyFolder MorphSourcePoints = {
   
   AnyVec3 KneeMedialPoint = KneeJointUnscaled + (ARelKnee * EpiCondyleMedAxisProj * {0,0,1}' )';
   
-  AnyVec3 KneeAnteriorPoint = KneeJointUnscaled + (ARelKnee * 0.1 * {1,0,0}' )';    
+  AnyVec3 KneeAnteriorPoint = KneeJointUnscaled + (ARelKnee * 0.05 * {1,0,0}' )';    
   
   AnyVec3 KneeCenterPoint = KneeJointUnscaled ;
  
@@ -191,7 +191,8 @@ AnyFolder MorphTargetPoints = {
   AnyVar ls = .LengthScale;
   AnyVar ms = .MassScale;
     
-  AnyMat33 LMFScaleMat =  {{(ms/ls)^0.5,0,0},{0, ls, 0},{0, 0, (ms/ls)^0.5 }};              
+//  AnyMat33 LMFScaleMat =  {{(ms/ls)^0.5,0,0},{0, ls, 0},{0, 0, (ms/ls)^0.5 }};
+  AnyMat33 LMFScaleMat =  {{1,0,0},{0, ls, 0},{0, 0, 1}};
   // Rotation matrix for the scalingNode coordinate system
   AnyMat33 scaleRot = ..LegTDRef.Thigh.ScalingNode.Rotation;
   
@@ -236,6 +237,13 @@ AnyFolder MorphTargetPoints = {
   AnyFolder &ThighRef = ..LegTDRef.Thigh;
   ThighRef = {
     MorphNodes = {
+      AnyRefNode TEST = {
+        sRel = ...KneeCenterPoint;
+        ARel = ...ThighControlPointRot ;
+        AnyDrawRefFrame drw = {RGB = {1,0,1};};
+      };
+      
+      
         AnyRefNode TargetCenterHipPoint = {
           sRel = ...CenterHipPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
         };  

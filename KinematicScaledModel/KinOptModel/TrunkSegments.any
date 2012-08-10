@@ -21,20 +21,27 @@ AnyFolder Seg = {
     
     
 #if HideStickModelGraphics == 0
-AnyDrawSeg drwSeg = 
-{
-  RGB = {0, 0.76953125, 0};
-  InertiaScale=1.1;
-  NodesVisible = Off;
+
+   AnyDrawRefFrame drw ={RGB={0,0.76953125,0}; ScaleXYZ = 0.12*{1,1,1};Visible = On;};
+
+AnyRefNode Ellipsoid = {
+    sRel = {-0.09,-0.03,0};
+    AnySurfEllipsoid elip =     {
+      Radius = {0.09, 0.06, 0.1};
+      AnyDrawParamSurf drw =       {
+         RGB = {0, 0.76953125, 0};
+      };
+    };
 };
-AnyDrawLine l1 = {
+
+AnyDrawLine DrwLine1 = {
 p0 = .sCoM;
 p1 = .RHipJoint.sRel;
 Line.Thickness = 0.01;
 GlobalCoord = Off;
 Line.RGB = {0, 0.76953125, 0};
 };
-AnyDrawLine l2 = {
+AnyDrawLine DrwLine2 = {
 p0 = .sCoM;
 p1 = .LHipJoint.sRel;
 Line.Thickness = 0.01;

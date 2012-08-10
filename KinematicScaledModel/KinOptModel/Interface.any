@@ -134,7 +134,7 @@ AnyFolder Interface = {
        sRel = .AnkleJoint.sRel;
        ARel = .AnkleJoint.ARel;
        //ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .KneeJoint.sRel);
-      AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,1};};
+//      AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,1};};
      };     
    };
    
@@ -142,12 +142,12 @@ AnyFolder Interface = {
     AnyRefNode DriveNodeAnkle= {
       sRel = .AnkleJoint.sRel;
       ARel = .AnkleJoint.ARel;//RotMat(sRel, sRel+{0,0,1}*.AnkleJoint.ARel',.RKneeCenter.sRel)*RotMat(pi/2,y);
-      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
+//      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
     };
     AnyRefNode DriveNodeSubtalar= {
       sRel = .SubtalarJoint.sRel;
       ARel = .SubtalarJoint.ARel*RotMat(-pi/2,y);
-      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
+//      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
     };
   };
 
@@ -155,18 +155,9 @@ AnyFolder Interface = {
    AnyRefNode DriveNodeSubtalar = {
      sRel = .SubtalarJoint.sRel;
      ARel = .SubtalarJoint.ARel*RotMat(-pi/2,y); //AnkleJoint.ARel*RotMat(11*pi/180,z);
-//      ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .RToe.sRel);
-     AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,0};};
-//     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
+//     AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,0};};
    };     
    
-//   AnyRefNode DriveNode = {
-//     sRel = .AnkleJoint.sRel;
-//     //ARel = .AnkleJoint.ARel*RotMat(11*pi/180,z);
-//     ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .RToe.sRel);
-//     AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,0};};
-////     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
-//   };     
  };
  
  TalusRef = {
@@ -284,8 +275,7 @@ AnyFolder Interface = {
       AnyRefNode DriveNodeAnkle = {
        sRel = .AnkleJoint.sRel;
        ARel = .AnkleJoint.ARel;
-       //ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .KneeJoint.sRel);
-      AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,1};};
+//      AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,1};};
      };     
    };
    
@@ -293,12 +283,12 @@ AnyFolder Interface = {
     AnyRefNode DriveNodeAnkle= {
       sRel = .AnkleJoint.sRel;
       ARel = RotMat(sRel, sRel+{0,0,1}*.AnkleJoint.ARel',.LKneeCenter.sRel)*RotMat(pi/2,y);
-      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
+//      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
     };
     AnyRefNode DriveNodeSubtalar= {
       sRel = .SubtalarJoint.sRel;
       ARel = .SubtalarJoint.ARel*RotMat(pi/2,y);
-      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
+//      AnyDrawRefFrame drw ={Visible = Off;RGB = {0,1,0};};
     };
   };
 
@@ -306,18 +296,9 @@ AnyFolder Interface = {
    AnyRefNode DriveNodeSubtalar = {
      sRel = .SubtalarJoint.sRel;
      ARel = .SubtalarJoint.ARel*RotMat(pi/2,y);//AnkleJoint.ARel*RotMat(11*pi/180,z);
-//     ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .RToe.sRel);
-     AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,0};};
-//     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
+//     AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,0};};
    };     
    
-//   AnyRefNode DriveNode = {
-//     sRel = .AnkleJoint.sRel;
-//     //ARel = .AnkleJoint.ARel*RotMat(11*pi/180,z);
-//     ARel = RotMat(sRel,sRel+{0,0,1}*.AnkleJoint.ARel', .LToe.sRel);
-//     AnyDrawRefFrame drw ={Visible = Off;RGB = {1,0,0};};
-////     ARel = RotMat(.AnkleJoint.,.AnkleJoint.sRel,.KneeJoint.sRel,)
-//   };     
  };
 
  

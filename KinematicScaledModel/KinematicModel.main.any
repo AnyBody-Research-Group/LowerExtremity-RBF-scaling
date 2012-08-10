@@ -84,37 +84,25 @@ Main = {
      };
      
   
-  AnyOptKinStudy LoadSavaDesignParameters = 
+  AnyDesEvalStudy LoadSavaDesignParameters = 
   { 
-    Analysis = { AnyOperation &Operation = ..KinematicStudy.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
-    #include "KinOptModel/DesignVars_HipTrial.any"
-    #include "KinOptModel/DesignVars_GaitTrial.any"
-    #include "KinOptModel/DesignVars_AnkleTrial.any"
-  };  
-       
-     
-  AnyBodyStudy KinematicStudy = 
-  {
-    tStart = Main.ModelSetup.tStart;
-    tEnd = Main.ModelSetup.tEnd;
-    nStep = Main.ModelSetup.nStep;
-    Gravity = {0, 0, 0};
+    #include "KinOptModel/DesignVars_All.any"
+    #include "KinOptModel/DesignMeasure_All.any"
     
-//    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
-    AnyFolder &LegModel = .LegModel;
-    AnyFolder &EnvironmentModel = .Environment;
-    AnyFolder &Camera = Main.ModelSetup.Camera;
-    AnyFolder &Markers = EnvironmentModel.Drivers;
-
-    #include "KinOptModel\JointAngleOutputs.any"
+    AnyOperationMacro Load_CurrentTrial = 
+    {
+      AnyString Mcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters ) ;
+      MacroStr = { Mcr};
+    };
+    AnyOperationMacro Save_CurrentTrial  = 
+    {
+      AnyString Mcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
+      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters ) ;
+      MacroStr = { Mcr};
+    };
     
-      InitialConditions.SolverType = KinSolOverDeterminate;
-      Kinematics.SolverType = KinSolOverDeterminate;   
-      InitialConditions.PosAnalysisOnlyOnOff=On;
-      Kinematics.PosAnalysisOnlyOnOff=On;     
-  };
-  
     AnyOperationMacro Load_RightHipParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
@@ -152,12 +140,37 @@ Main = {
       MacroStr = { LoadMcr };
     };
     
-    AnyOperationMacro Load_GaitParameters = 
+    AnyOperationMacro Load_MultiJointParameters = 
     {
       AnyString LoadMcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
-      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.GaitParameters ) ;
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.MultiJointParameters ) ;
       MacroStr = { LoadMcr };
-    };
+    };    
+  };  
+       
+     
+  AnyBodyStudy KinematicStudy = 
+  {
+    tStart = Main.ModelSetup.tStart;
+    tEnd = Main.ModelSetup.tEnd;
+    nStep = Main.ModelSetup.nStep;
+    Gravity = {0, 0, 0};
+    
+//    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
+    AnyFolder &LegModel = .LegModel;
+    AnyFolder &EnvironmentModel = .Environment;
+    AnyFolder &Camera = Main.ModelSetup.Camera;
+    AnyFolder &Markers = EnvironmentModel.Drivers;
+
+    #include "KinOptModel\JointAngleOutputs.any"
+    
+      InitialConditions.SolverType = KinSolOverDeterminate;
+      Kinematics.SolverType = KinSolOverDeterminate;   
+      InitialConditions.PosAnalysisOnlyOnOff=On;
+      Kinematics.PosAnalysisOnlyOnOff=On;     
+  };
+  
+
     #ifndef IncludeLegTDModel
      AnyOperationMacro SaveKinOutputToH5File = {
         MacroStr = {
@@ -169,16 +182,15 @@ Main = {
     
    //TODO Rename JointTrialParameters to JointParameters
    AnyOperationSequence Load_JointTrialParameters = {
+     AnyOperation &AllAnatomicalParam =.JntParameterOptModel.AnatomicalStickFigureValues.Load_AnatomicalParameters;
      #ifndef USE_STATIC_MODEL
-     AnyOperation &RHip =.JntParameterOptModel.Load_RightHipParameters ;
-     AnyOperation &LHip =.JntParameterOptModel.Load_LeftHipParameters ;
-     AnyOperation &RAnk =.JntParameterOptModel.Load_RightAnkleParameters ;
-     AnyOperation &LAnk =.JntParameterOptModel.Load_LeftAnkleParameters ;
-     AnyOperation &RKnee =.JntParameterOptModel.Load_RightKneeParameters ;
-     AnyOperation &LKnee =.JntParameterOptModel.Load_LeftKneeParameters ;
-//     AnyOperation &Gait = .JntParameterOptModel.Load_GaitParameters;
-     #else
-	 AnyOperation &AllAnatomicalParam =.JntParameterOptModel.Load_AnatomicalParameters;
+     AnyOperation &RHip =.JntParameterOptModel.LoadSavaDesignParameters.Load_RightHipParameters ;
+     AnyOperation &LHip =.JntParameterOptModel.LoadSavaDesignParameters .Load_LeftHipParameters ;
+     AnyOperation &RAnk =.JntParameterOptModel.LoadSavaDesignParameters.Load_RightAnkleParameters ;
+     AnyOperation &LAnk =.JntParameterOptModel.LoadSavaDesignParameters.Load_LeftAnkleParameters ;
+//     AnyOperation &RKnee =.JntParameterOptModel.LoadSavaDesignParameters.Load_RightKneeParameters ;
+//     AnyOperation &LKnee =.JntParameterOptModel.LoadSavaDesignParameters.Load_LeftKneeParameters ;
+     AnyOperation &MultJoint = .JntParameterOptModel.LoadSavaDesignParameters.Load_MultiJointParameters;
      #endif
 	 AnyOperation &InitCon = Main.JntParameterOptModel.KinematicStudy.InitialConditions;
    };

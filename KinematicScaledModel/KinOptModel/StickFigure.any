@@ -90,9 +90,7 @@ AnyFolder StickFigure = {
     // However, to correspond with the LegTD model the knee center is chosen 
     // to be a little closer to the lateral side.
     AnyVec3 sRKneeCenter = (0.6013*sRKneeLateral + 0.3987*sRKneeMedial);
-   
     #else
-    
     AnyVec3 sRAnkleCenter = (sRAnkleLateral + sRAnkleMedial)/2;  
     AnyVec3 sRKneeCenter = (sRKneeLateral + sRKneeMedial)/2;
   #endif
@@ -101,19 +99,17 @@ AnyFolder StickFigure = {
       
       //The origin of the  reference frame is found by projecting the 
       // hip-kneeCenter vector to the y axis of the thigh (u2)
-     // AnyVec3 r0_static = ..Trunk.RHipJoint.r0_static;//.sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*u2'*u2;
-      AnyVec3 r0_static = .sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*u2'*u2;
-      
+      AnyVec3 r0_static = .sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*(u2/vnorm(u2))'*(u2/vnorm(u2));
       
       // Basis for the thigh coordinate system. 
       // u3 is define by a line though mediala and lateral epicondily makers
       // u1 is a vector pependicular to u3 and HipJoint-sRKneeCenter
       // u2 is the remaining orthonormal direction (cross product of u3, and u1) (y axis of thigh)
-      AnyVec3 u3 = (.sRKneeLateral - .sRKneeCenter ) / vnorm(.sRKneeLateral - .sRKneeCenter );
-      AnyVec3 u1 = cross(..Trunk.RHipJoint.r0_static -.sRKneeCenter, u3)/vnorm( cross(..Trunk.RHipJoint.r0_static -.sRKneeCenter, u3));
+      AnyVec3 u3 = (.sRKneeLateral - .sRKneeCenter );
+      AnyVec3 u1 = cross(..Trunk.RHipJoint.r0_static -.sRKneeCenter, u3);
       AnyVec3 u2 = cross(u3,u1);
       
-      AnyMatrix Axes0_static= {u1, u2, u3}';
+      AnyMatrix Axes0_static= {u1/vnorm(u1), u2/vnorm(u2), u3/vnorm(u3)}';
       
       #if IncludeKnee + IncludeHip > 0    
       CreateLoadPositions InitialPos ( DynamicPos = UseDanamicLoadPosition )= {
@@ -196,7 +192,6 @@ AnyFolder StickFigure = {
            AnyVec3 Z = cross(X,Y);
            sRel = O;
            ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-           AnyDrawRefFrame drw = {RGB = {1,0,0};Visible =Off; };
          };
          /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
          /// which align with the epicondyle line. 
@@ -217,43 +212,20 @@ AnyFolder StickFigure = {
     };
     
     AnyFolder Shank = {
-      
-//      // Initial Segment position
-//      AnyVec3 r0_static = .sRKneeCenter;   
-//      
-//      // Vector defining the point of projection of knee joint center on the line passing though 
-//      // medial and lateral ankle markers ( represented by u3)
-//      AnyVec3 sTmp = (r0_static-.sRAnkleCenter )*u3'*u3 + .sRAnkleCenter;
-//      
-//      // Basis for the thigh coordinate system. 
-//      // u3 is define by a line though mediala and lateral epicondily makers
-//      // u2 is a direction defined by the RThighLateral marker rejekted from u3
-//      // u1 is the remaining orthonormal direction (cross product of u2, and u3) 
-//      AnyVec3 u3 = (.sRAnkleLateral - .sRAnkleCenter) / vnorm(.sRAnkleLateral - .sRAnkleCenter);
-//      AnyVec3 u2 = (r0_static - sTmp ) /vnorm( r0_static - sTmp) ;
-//      AnyVec3 u1 = cross(u2, u3);
-//      
-      
-      
-      
-      
+
       //The origin of the  reference frame is found by projecting the 
       // kneeCenter-ankleCenter vector onto the y axis of the shank (u2)
-      AnyVec3 r0_static = .sRAnkleCenter+ ( .sRKneeCenter- .sRAnkleCenter )*u2'*u2;      
+      AnyVec3 r0_static = .sRAnkleCenter+ ( .sRKneeCenter- .sRAnkleCenter )*(u2/vnorm(u2))'*(u2/vnorm(u2));      
       
       // Basis for the thigh coordinate system. 
       // u3 is define by a line though mediala and lateral malleolus makers
       // u1 is a vector pependicular to u3 and the sRKneeCenter-sRAnkleCenter vector
       // u2 is the remaining orthonormal direction (cross product of u3, and u1) (y axis of shank)
-      AnyVec3 u3 = (.sRAnkleLateral - .sRAnkleCenter) / vnorm(.sRAnkleLateral - .sRAnkleCenter);
-      AnyVec3 u1 = cross(.sRKneeCenter - .sRAnkleCenter, u3)/vnorm( cross(.sRKneeCenter - .sRAnkleCenter, u3 ));
+      AnyVec3 u3 = (.sRAnkleLateral - .sRAnkleCenter) ;
+      AnyVec3 u1 = cross(.sRKneeCenter - .sRAnkleCenter, u3);
       AnyVec3 u2 = cross(u3,u1);
-      
-      
-            
-      
-      
-      AnyMatrix Axes0_static = {u1, u2, u3}';
+
+      AnyMatrix Axes0_static = {u1/vnorm(u1), u2/vnorm(u2), u3/vnorm(u3)}';
       
       #if IncludeKnee + IncludeAnkle > 0
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition )  = {
@@ -378,13 +350,11 @@ AnyFolder StickFigure = {
     AnyFolder Talus = {
       AnyVec3 r0_static = .sRAnkleCenter;
       
-//      AnyVec3 u3 = (.sRAnkleLateral -.sRAnkleCenter ) / vnorm(.sRAnkleLateral - .sRAnkleCenter);
-//      AnyVec3 u1 = cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static)
-//          /vnorm( cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static) );
-//      AnyVec3 u2 = cross(u3,u1);
+      AnyVec3 u3 = (.sRAnkleLateral -.sRAnkleCenter );
+      AnyVec3 u2 = cross(u3,.Foot.SubtalarJoint.ARel_static'[0]*.Foot.Axes0_static');
+      AnyVec3 u1 = cross(u2,u3);
       
-      //AnyMat33 Axes0_static = {u1, u2, u3}';
-      AnyMat33 Axes0_static = .Foot.Axes0_static;
+      AnyMat33 Axes0_static = {u1/vnorm(u1), u2/vnorm(u2), u3/vnorm(u3)}';
       
       #if IncludeAnkle == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -411,7 +381,7 @@ AnyFolder StickFigure = {
         // Transform subtalarjoint out of foot coordianates and into talus coordinates
         AnyVec3 sRel_static= (..Foot.r0_static+ ..Foot.SubtalarJoint.sRel_static*..Foot.Axes0_static'-.r0_static)*.Axes0_static;
         AnyMat33 ARel_static = .Axes0_static'*(..Foot.Axes0_static*..Foot.SubtalarJoint.ARel_static)  ;   
-      };
+      };    
       AnyFolder RAnkleLateral = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRAnkleLateral -.r0_static)')';
@@ -443,20 +413,12 @@ AnyFolder StickFigure = {
       // Initial Segment position
       AnyVec3 r0_static = .sRHeel; 
       
-//      // Vector defining the point of projection of AnkleJoint on the 
-//      // line between RHeel and RToe (represented by u1)
-//      AnyVec3 sTmp = (.sRAnkleCenter - r0_static) *u1'*u1+ r0_static;
-//      
-//      AnyVec3 u1 = (.sRToe-.sRHeel) /vnorm( .sRToe-.sRHeel );
-//      AnyVec3 u2 = (.sRAnkleCenter - sTmp) /vnorm(.sRAnkleCenter -sTmp);
-//      AnyVec3 u3 = cross(u1,u2);
-
      // Foot Cordianate system changed to follow the lab, with x axis pointing to toe node
       AnyVec3 u2 = {0,0,1};
-      AnyVec3 u3 = cross(.sRToe-.sRHeel,u2)/vnorm(cross(.sRToe-.sRHeel,u2));
+      AnyVec3 u3 = cross(.sRToe-.sRHeel,u2);
       AnyVec3 u1 = cross(u2,u3);
       
-      AnyMatrix Axes0_static = {u1, u2, u3}';
+      AnyMatrix Axes0_static = {u1/vnorm(u1), u2/vnorm(u2), u3/vnorm(u3)}';
       
       #if IncludeAnkle == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -511,14 +473,18 @@ AnyFolder StickFigure = {
       };
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sRAnkleCenter -.r0_static)')';
-        AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;
+        AnyMat33 ARel_static = .Axes0_static'*..Talus.Axes0_static;
       };
       AnyFolder SubtalarJoint = {
         AnyVar zRot = 42*pi/180;
-        AnyVar yRot = (1)*20*pi/180;
-        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0.005,-0.01,(1)*0.0};
+        AnyVar yRot = (1)*25*pi/180;
+        AnyVar zPos = (1)*0.00;
+        AnyVar yPos = -0.01;
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static +yPos *cross(.AnkleJoint.ARel_static'[2],ARel_static'[0]) + zPos* .AnkleJoint.ARel_static'[2];
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
       };
+     
+      
       AnyFolder RAnkleLateral = 
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRAnkleLateral -.r0_static)')';
@@ -864,10 +830,11 @@ AnyFolder StickFigure = {
                                 Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[2][..FirstFrameStatic]};
 
   #ifndef USE_STATIC_MODEL
+    // In principle the ankle center can be any point along the revolute knee joint axis, thus
+    // selecting the middle point between the lateral and medial malleous makes sense anatomically. 
+    // However, to correspond with the LegTD model the ankle center is chosen 
+    // to be a little closer to the medial side.
     AnyVec3 sLAnkleCenter = (0.4796*sLAnkleLateral + 0.5204*sLAnkleMedial);                         
-    
-                              
-                            
     // In principle the knee center can be any point along the revolute knee joint axis, thus
     // selecting the middle point between the epicondyle makes sense anatomically. 
     // However, to correspond with the LegTD model the knee center is chosen 
@@ -880,39 +847,21 @@ AnyFolder StickFigure = {
     
     
     AnyFolder Thigh = {
-     
-      
-      
-            //The origin of the  reference frame is found by projecting the 
+      //The origin of the  reference frame is found by projecting the 
       // hip-kneeCenter vector to the y axis of the thigh (u2)
-     // AnyVec3 r0_static = ..Trunk.RHipJoint.r0_static;//.sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*u2'*u2;
-      AnyVec3 r0_static = .sLKneeCenter+ ( ..Trunk.LHipJoint.r0_static-.sLKneeCenter)*u2'*u2;
+      // AnyVec3 r0_static = ..Trunk.RHipJoint.r0_static;//.sRKneeCenter+ ( ..Trunk.RHipJoint.r0_static-.sRKneeCenter)*u2'*u2;
+      AnyVec3 r0_static = .sLKneeCenter+ ( ..Trunk.LHipJoint.r0_static-.sLKneeCenter)*(u2/vnorm(u2))'*(u2/vnorm(u2));
       
       
       // Basis for the thigh coordinate system. 
       // u3 is define by a line though mediala and lateral epicondily makers
       // u1 is a vector pependicular to u3 and HipJoint-sRKneeCenter
       // u2 is the remaining orthonormal direction (cross product of u3, and u1) (y axis of thigh)
-      AnyVec3 u3 = (.sLKneeCenter -.sLKneeLateral ) / vnorm(.sLKneeLateral - .sLKneeCenter );
-      AnyVec3 u1 = cross(..Trunk.LHipJoint.r0_static -.sLKneeCenter, u3)/vnorm( cross(..Trunk.LHipJoint.r0_static -.sLKneeCenter, u3));
+      AnyVec3 u3 = (.sLKneeCenter -.sLKneeLateral ) ;
+      AnyVec3 u1 = cross(..Trunk.LHipJoint.r0_static -.sLKneeCenter, u3);
       AnyVec3 u2 = cross(u3,u1);
-          
-      
-      
-      
-//      // Vector defining the point of projection of 'RThighLateral' marker on the line passing though 
-//      // medial and lateral epicondyle markers ( represented by u3)
-//      AnyVec3 sTmp = (r0_static -.sLKneeCenter )*u3'*u3 + .sLKneeCenter ;
-//      
-//      // Basis for the thigh coordinate system. 
-//      // u3 is define by a line though mediala and lateral epicondily makers
-//      // u2 is a direction of define by the RThighLateral marker rejekted from u3
-//      // u1 is the remaining orthonormal direction (cross product of u2, and u3) 
-//      AnyVec3 u3 = (.sLKneeCenter -.sLKneeLateral ) / vnorm(.sLKneeLateral - .sLKneeCenter );
-//      AnyVec3 u2 = (r0_static-sTmp)/vnorm(r0_static-sTmp);
-//      AnyVec3 u1 = cross(u2, u3);
-      
-      AnyMatrix Axes0_static= {u1, u2, u3}';
+     
+      AnyMatrix Axes0_static= {u1/vnorm(u1), u2/vnorm(u2), u3/vnorm(u3)}';
       
       #if IncludeKnee + IncludeHip > 0    
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -1019,44 +968,20 @@ AnyFolder StickFigure = {
     };
     
     AnyFolder Shank = {
-//      
-////      // Initial Segment position
-//      AnyVec3 r0_static = .sLKneeCenter;   
-//      
-//      
-//      // Point of projection of knee joint center on the line passing though 
-//      // medial and lateral ankle markers ( represented by u3)
-//      AnyVec3 sTmp = (r0_static-.sLAnkleCenter )*u3'*u3 + .sLAnkleCenter;
-//      
-//      // Basis for the thigh coordinate system. 
-//      // u3 is define by a line though mediala and lateral malleolus makers
-//      // u2 is a unit vector from the sTmp point to the kneeCenter
-//      // u1 is the remaining orthonormal direction (cross product of u2, and u3) 
-//      AnyVec3 u3 = -(.sLAnkleLateral - .sLAnkleCenter) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
-//      AnyVec3 u2 = (r0_static - sTmp ) /vnorm( r0_static - sTmp) ;
-//      AnyVec3 u1 = cross(u2, u3);
-//      
 
       //The origin of the  reference frame is found by projecting the 
       // kneeCenter-ankleCenter vector onto the y axis of the shank (u2)
-      AnyVec3 r0_static = .sLAnkleCenter+ ( .sLKneeCenter- .sLAnkleCenter )*u2'*u2;      
+      AnyVec3 r0_static = .sLAnkleCenter+ ( .sLKneeCenter- .sLAnkleCenter )*(u2/vnorm(u2))'*(u2/vnorm(u2));      
       
       // Basis for the thigh coordinate system. 
       // u3 is define by a line though mediala and lateral malleolus makers pointing right
       // u1 is a vector pependicular to u3 and the sRKneeCenter-sRAnkleCenter vector
       // u2 is the remaining orthonormal direction (cross product of u3, and u1) (y axis of shank)
-      AnyVec3 u3 = (.sLAnkleCenter -.sLAnkleLateral ) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
-      AnyVec3 u1 = cross(.sLKneeCenter - .sLAnkleCenter, u3)/vnorm( cross(.sLKneeCenter - .sLAnkleCenter, u3 ));
+      AnyVec3 u3 = (.sLAnkleCenter -.sLAnkleLateral );
+      AnyVec3 u1 = cross(.sLKneeCenter - .sLAnkleCenter, u3);
       AnyVec3 u2 = cross(u3,u1);
-      
-      
-            
 
-
-
-
-
-      AnyMatrix Axes0_static = {u1, u2, u3}';
+      AnyMatrix Axes0_static = {u1/vnorm(u1), u2/vnorm(u2), u3/vnorm(u3)}';
       
       #if IncludeKnee + IncludeAnkle > 0
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -1176,14 +1101,12 @@ AnyFolder StickFigure = {
     
     AnyFolder Talus = {
       AnyVec3 r0_static = .sLAnkleCenter;
-      
-//      AnyVec3 u3 = (.sLAnkleCenter -.sLAnkleLateral ) / vnorm(.sLAnkleLateral - .sLAnkleCenter);
-//      AnyVec3 u1 = cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static)
-//          /vnorm( cross(u3,.Foot.r0_static+.Foot.SubtalarJoint.sRel_static*.Foot.Axes0_static' -r0_static) );
-//      AnyVec3 u2 = cross(u3,u1);
-//      
-//      AnyMat33 Axes0_static = {u1, u2, u3}';
-      AnyMat33 Axes0_static = .Foot.Axes0_static;
+	  
+      AnyVec3 u3 = (-1)*(.sLAnkleLateral -.sLAnkleCenter );
+      AnyVec3 u2 = cross(u3,.Foot.SubtalarJoint.ARel_static'[0]*.Foot.Axes0_static');
+      AnyVec3 u1 = cross(u2,u3);
+	  
+      AnyMat33 Axes0_static = {u1/vnorm(u1), u2/vnorm(u2), u3/vnorm(u3)}';
       
       #if IncludeAnkle == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -1244,20 +1167,12 @@ AnyFolder StickFigure = {
       // Initial Segment position
       AnyVec3 r0_static = .sLHeel; 
       
-      // Vector defining the point of projection of AnkleJoint on the 
-      // line between LHeel and LToe (represented by u1)
-//      AnyVec3 sTmp = (.sLAnkleCenter - r0_static) *u1'*u1+ r0_static;
-
-// Foot Cordianate system changed to follow the lab, with x axis pointing to toe node
+      // Foot Cordianate system changed to follow the lab, with x axis pointing to toe node
       AnyVec3 u2 = {0,0,1};
-      AnyVec3 u3 = cross(.sLToe-.sLHeel,u2)/vnorm(cross(.sLToe-.sLHeel,u2));
+      AnyVec3 u3 = cross(.sLToe-.sLHeel,u2);
       AnyVec3 u1 = cross(u2,u3);
-      
-//      AnyVec3 u1 = (.sLToe-.sLHeel) /vnorm( .sLToe-.sLHeel );
-////      AnyVec3 u2 = (.sLAnkleCenter - sTmp) /vnorm(.sLAnkleCenter -sTmp);
-//      AnyVec3 u3 = cross(u1,u2);
-      
-      AnyMatrix Axes0_static = {u1, u2, u3}';
+     
+      AnyMatrix Axes0_static = {u1/vnorm(u1), u2/vnorm(u2), u3/vnorm(u3)}';
       
       #if IncludeAnkle == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -1306,12 +1221,14 @@ AnyFolder StickFigure = {
       };      
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sLAnkleCenter -.r0_static)')';
-        AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;        
+        AnyMat33 ARel_static = .Axes0_static'*..Talus.Axes0_static;        
       };
       AnyFolder SubtalarJoint = {
         AnyVar zRot = 42*pi/180;
-        AnyVar yRot = (-1)*20*pi/180;
-        AnyVec3 sRel_static = .AnkleJoint.sRel_static + {0.005,-0.01,(-1)*0.0};
+        AnyVar yRot = (-1)*25*pi/180;
+        AnyVar zPos = -(1)*0.00;
+        AnyVar yPos = -0.01;
+        AnyVec3 sRel_static = .AnkleJoint.sRel_static +yPos *cross(.AnkleJoint.ARel_static'[2],ARel_static'[0]) + zPos* .AnkleJoint.ARel_static'[2];
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
         
       };
