@@ -1,0 +1,37 @@
+#path MODEL_TYPE "../../../../AnatomicalLandmarkScaledModel"
+
+#include "<MODEL_TYPE>/PreMainIncludes.any"
+
+Main = {
+ #include "TrialSpecificData.any" 
+ #include "../../SubjectSpecificData.any"
+ #include "<BASE_MODEL_PATH>/InverseDynamicsModel.main.any"
+ 
+ JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeLateral = {
+   AnyDrawNode drw = {RGB = {0.5, 0, 0};ScaleXYZ = 0.01*{1,1,1};};
+ };
+ JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeMedial = {
+   AnyDrawNode drw = {RGB = {0.5, 0, 0};ScaleXYZ = 0.01*{1,1,1};};
+ };
+ JntParameterOptModel.LegModel.Right.Seg.Thigh.RPatella = {
+   AnyDrawNode drw = {RGB = {0.5, 0, 0};ScaleXYZ = 0.01*{1,1,1};};
+ };
+ 
+ #include "../DrawGroups.any"
+ #include "../ProjectView.any" 
+ 
+ Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh = {
+ 
+   AnyDrawSurf Drw31 = {
+    FileName = ANYBODY_PATH_BODY +"LegTD/femur"; //new, higher quality stl file, correct position
+    ScaleXYZ = {1.0, 1.0, ...Sign*1.0};
+    RGB = {0.7,0.7,0.7};
+    Opacity = ...BonesOpacity.Thigh*0.5;
+//    AnyFunTransform3D &Scale =.Scale;  
+    Face=-1;
+  };
+  
+  
+};
+ 
+};
