@@ -19,7 +19,7 @@ AnyFolder SubjectSpecificData = {
   AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
   AnyStringVar RightKneeParametersTrial = "SC_knee_2legsquat1";
   AnyStringVar LeftKneeParametersTrial = "SC_knee_2legsquat1";
-  AnyStringVar MultiJointParametersTrial = "SC_HipKneeAnkle_2legsquat1";
+  AnyStringVar MultiJointParametersTrial = "SC_HipKneeAnkle_ngait_og5";
 
   AnyIntVar StaticFrameIndex = 29;
   #endif
@@ -42,7 +42,7 @@ AnyFolder SubjectSpecificData = {
     AnyVar PatellaZ = 1;
 
     AnyVar ToeX = 1.0;
-    AnyVar ToeY = 0.0;
+    AnyVar ToeY = 0.05;
     AnyVar ToeZ = 1.0;
     
   };

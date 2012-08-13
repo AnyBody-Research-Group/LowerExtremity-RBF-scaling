@@ -23,8 +23,8 @@ Main.JntParameterOptModel  = {
     
   AnyBodyStudy KinematicStudyForParameterOptimization = 
   {
-    tStart = Main.ModelSetup.tStart+5;
-    tEnd = Main.ModelSetup.tEnd-4;
+    tStart = Main.ModelSetup.tStart;
+    tEnd = Main.ModelSetup.tEnd;
     nStep = 70;   
     Gravity = {0, 0, 0};
     

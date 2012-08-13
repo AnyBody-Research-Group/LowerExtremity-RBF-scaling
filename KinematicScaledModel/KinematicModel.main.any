@@ -87,9 +87,11 @@ Main = {
   AnyDesEvalStudy LoadSavaDesignParameters = 
   { 
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
+    #define INCLUDE_DUMMY_PLACEHOLDERS
     #include "KinOptModel/DesignVars_All.any"
     #include "KinOptModel/DesignMeasure_All.any"
-    
+    #undef INCLUDE_DUMMY_PLACEHOLDERS
+
     AnyOperationMacro Load_CurrentTrial = 
     {
       AnyString Mcr = "classoperation Main.JntParameterOptModel.LoadSavaDesignParameters" 
