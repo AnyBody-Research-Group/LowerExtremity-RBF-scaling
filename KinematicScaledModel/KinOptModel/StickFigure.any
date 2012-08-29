@@ -158,7 +158,11 @@ AnyFolder StickFigure = {
       };
       AnyFolder KneeJoint = 
       {
-        AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeCenter - .r0_static)')';       
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeCenter - .r0_static)')';
+        AnyMat33 ARel_static = {{1,0,0},{0,1,0},{0,0,1}};
+        
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
+       
       };
       
       
@@ -280,6 +284,8 @@ AnyFolder StickFigure = {
       };
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sRAnkleCenter -.r0_static)')';
+        AnyMat33 ARel_static = {{1,0,0},{0,1,0},{0,0,1}};
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
       };
       AnyFolder HipJoint = {
         AnyVec3 sRel_static=  (.Axes0_static'*(...Trunk.RHipJoint.r0_static - .r0_static)')';
@@ -288,6 +294,9 @@ AnyFolder StickFigure = {
       {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRKneeCenter - .r0_static)')';       
         AnyMat33 ARel_static = RotMat(sRel_static, .RKneeLateral.sRel_static,.HipJoint.sRel_static)* RotMat(90*pi/180,y);
+        
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
+        
       };      
       
       #if IncludeRight == 1
@@ -375,12 +384,18 @@ AnyFolder StickFigure = {
       
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sRAnkleCenter -.r0_static)')';
-        AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;        
+        AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;
+        
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
+
       };
       AnyFolder SubtalarJoint = {
         // Transform subtalarjoint out of foot coordianates and into talus coordinates
         AnyVec3 sRel_static= (..Foot.r0_static+ ..Foot.SubtalarJoint.sRel_static*..Foot.Axes0_static'-.r0_static)*.Axes0_static;
         AnyMat33 ARel_static = .Axes0_static'*(..Foot.Axes0_static*..Foot.SubtalarJoint.ARel_static)  ;   
+        
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
+        
       };    
       AnyFolder RAnkleLateral = 
       {
@@ -482,6 +497,8 @@ AnyFolder StickFigure = {
         AnyVar yPos = -0.01;
         AnyVec3 sRel_static = .AnkleJoint.sRel_static +yPos *cross(.AnkleJoint.ARel_static'[2],ARel_static'[0]) + zPos* .AnkleJoint.ARel_static'[2];
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
+        
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
       };
      
       
@@ -591,13 +608,13 @@ AnyFolder StickFigure = {
     // Pelvis axis and positions
     AnyFolder Pelvis = {
       AnyVec3 r0_static = 0.5*(.sRAsis+.sLAsis);
-      AnyVec3 u1 = (tmp  - .sSacral ) / vnorm( tmp - .sSacral ) ;
-      AnyVec3 u2 = cross(u3, u1);
-      AnyVec3 u3 = (.sRAsis - .sLAsis ) / vnorm(.sRAsis - .sLAsis ) ;
       
-      AnyVec3 tmp = (.sSacral -.sLAsis )*u3'* u3 + .sLAsis ;
-      //Axes0_static= RotMat(r0_static, u1, u3  );
-      AnyMatrix Axes0_static= {u1,u2,u3}';
+     AnyVec3 u3 = (.sRAsis - .sLAsis );
+     AnyVec3 u2 = cross( .sSacral - .sLAsis, u3);
+     AnyVec3 u1 = cross(u2,u3);
+     AnyMat33 Axes0_static = {u1/vnorm(u1),u2/vnorm(u2), u3/vnorm(u3)}';
+     
+      
       
       #if IncludeHip == 1
       CreateLoadPositions InitialPos( DynamicPos = UseDanamicLoadPosition ) = {
@@ -911,7 +928,8 @@ AnyFolder StickFigure = {
       AnyFolder KneeJoint = 
       {       
         AnyVec3 sRel_static= (.Axes0_static'*(..sLKneeCenter - .r0_static)')';
-        
+        AnyMat33 ARel_static = {{1,0,0},{0,1,0},{0,0,1}};
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
       };
       
       
@@ -1039,11 +1057,13 @@ AnyFolder StickFigure = {
       
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sLAnkleCenter -.r0_static)')';
+        AnyMat33 ARel_static = {{1,0,0},{0,1,0},{0,0,1}};
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
       };
       AnyFolder KneeJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLKneeCenter - .r0_static)')';       
         AnyMat33 ARel_static = RotMat(sRel_static, .LKneeLateral.sRel_static,.HipJoint.sRel_static)* RotMat(-90*pi/180,y);
-        
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
       };
       
       #if IncludeLeft == 1
@@ -1127,12 +1147,14 @@ AnyFolder StickFigure = {
       
       AnyFolder AnkleJoint = {
         AnyVec3 sRel_static= (.Axes0_static'*( ..sLAnkleCenter -.r0_static)')';
-        AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;        
+        AnyMat33 ARel_static = .Axes0_static'*..Shank.Axes0_static;
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
       };
       AnyFolder SubtalarJoint = {
         // Transform subtalarjoint out of foot coordianates and into talus coordinates
         AnyVec3 sRel_static= (..Foot.r0_static+ ..Foot.SubtalarJoint.sRel_static*..Foot.Axes0_static'-.r0_static)*.Axes0_static;
         AnyMat33 ARel_static = .Axes0_static'*(..Foot.Axes0_static*..Foot.SubtalarJoint.ARel_static)  ;   
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
       };
       AnyFolder LAnkleLateral = 
       {
@@ -1200,7 +1222,6 @@ AnyFolder StickFigure = {
       AnyFolder LHeel = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLHeel -.r0_static)')';
       };
-      
       AnyFolder LToe = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLToe -.r0_static)')';
       };
@@ -1230,6 +1251,8 @@ AnyFolder StickFigure = {
         AnyVar yPos = -0.01;
         AnyVec3 sRel_static = .AnkleJoint.sRel_static +yPos *cross(.AnkleJoint.ARel_static'[2],ARel_static'[0]) + zPos* .AnkleJoint.ARel_static'[2];
         AnyMat33 ARel_static = RotMat(yRot,y)*RotMat(zRot,z);
+        
+        RotAxisAnglesXYZ RotAxisAngles(ROT=ARel_static)={};
         
       };
       AnyFolder LAnkleLateral = 

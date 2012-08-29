@@ -27,7 +27,7 @@
         Val = .ModelRef.Right.Seg.Thigh.KneeJoint.sRel[1];
       };
       #ifdef INCLUDE_DUMMY_PLACEHOLDERS
-      AnyDesVar dummy0 = {
+      AnyDesVar dummy_RThighKneeJointZPos   = {
         Val = 0;
       }; 
       #endif
@@ -61,7 +61,7 @@
         Val = .ModelRef.Right.Seg.Shank.AnkleJoint.sRel[1];
       };    
       #ifdef INCLUDE_DUMMY_PLACEHOLDERS
-      AnyDesVar dummy1 = {
+      AnyDesVar dummy_RShankAnkleJointZPos = {
         Val = 0;
       }; 
       #endif
@@ -72,7 +72,22 @@
         Val = .ModelRef.Right.Seg.Shank.AnkleJoint.yRot;
       };
       #ifdef INCLUDE_DUMMY_PLACEHOLDERS
-      AnyDesVar dummy2 = {
+      AnyDesVar dummy_RTalusAnkleJointXPos = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_RTalusAnkleJointYPos = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_RTalusAnkleJointZPos = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_RTalusAnkleJointXRot = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_RTalusAnkleJointYRot = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_RTalusSubtalarJointXPos  = {
         Val = 0;
       }; 
       #endif
@@ -82,6 +97,11 @@
       AnyDesVar RTalusSubtalarJointZPos =  {
         Val = .ModelRef.Right.Seg.Talus.SubtalarJoint.sRel[2];
       }; 
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesVar dummy_RTalusSubtalarJointXRot = {
+        Val = 0;
+      }; 
+      #endif
       AnyDesVar RTalusSubtalarJointYRot =  {
         Val = .ModelRef.Right.Seg.Talus.SubtalarJoint.yRot;
       };
@@ -133,9 +153,9 @@
         Val = .ModelRef.Left.Seg.Thigh.KneeJoint.sRel[1];
       };
       #ifdef INCLUDE_DUMMY_PLACEHOLDERS
-      AnyDesVar dummy3 = {
+      AnyDesVar dummy_LThighKneeJointZPos   = {
         Val = 0;
-      };   
+      }; 
       #endif
       AnyDesVar LThighKneeJointXRot = {
         Val = .ModelRef.Left.Seg.Thigh.KneeJoint.xRot;
@@ -167,9 +187,9 @@
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.sRel[1];
       };   
       #ifdef INCLUDE_DUMMY_PLACEHOLDERS
-      AnyDesVar dummy4 = {
+      AnyDesVar dummy_LShankAnkleJointZPos = {
         Val = 0;
-      };   
+      }; 
       #endif
       AnyDesVar LShankAnkleJointXRot =  {
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.xRot;
@@ -178,9 +198,24 @@
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.yRot;
       };  
       #ifdef INCLUDE_DUMMY_PLACEHOLDERS
-      AnyDesVar dummy5 = {
+      AnyDesVar dummy_LTalusAnkleJointXPos = {
         Val = 0;
-      };   
+      }; 
+      AnyDesVar dummy_LTalusAnkleJointYPos = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_LTalusAnkleJointZPos = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_LTalusAnkleJointXRot = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_LTalusAnkleJointYRot = {
+        Val = 0;
+      }; 
+      AnyDesVar dummy_LTalusSubtalarJointXPos  = {
+        Val = 0;
+      }; 
       #endif
       AnyDesVar LTalusSubtalarJointYPos =  {
         Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.sRel[1];
@@ -188,6 +223,11 @@
       AnyDesVar LTalusSubtalarJointZPos =  {
         Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.sRel[2];
       };  
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesVar dummy_LTalusSubtalarJointXRot = {
+        Val = 0;
+      }; 
+      #endif
       AnyDesVar LTalusSubtalarJointYRot =  {
         Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.yRot;
       };

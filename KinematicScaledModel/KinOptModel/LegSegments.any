@@ -95,15 +95,13 @@ AnyFolder Seg = {
       
       #ifdef RightLeg 
       sRel = {0, 0,  -0.06341919};
-//      sRel = .....StickFigure.Posture.Right.Shank.KneeJoint.sRel_static;
-      AnyMat33 Rotation = .....StickFigure.Posture.Right.Shank.KneeJoint.ARel_static
-        *RotMat(xRot,x)*RotMat(yRot,y);    
+      AnyFolder &StaticRef = .....StickFigure.Posture.Right.Shank.KneeJoint.RotAxisAngles;
+      AnyMat33 Rotation = RotMat(xRot ,x)*RotMat(yRot,y)*RotMat(StaticRef.zRot,z);
       #endif
       #ifdef LeftLeg
       sRel = {0, 0, -0.01040184};
-//      sRel = .....StickFigure.Posture.Left.Shank.KneeJoint.sRel_static; 
-      AnyMat33 Rotation = .....StickFigure.Posture.Left.Shank.KneeJoint.ARel_static
-        *RotMat(xRot,x)*RotMat(yRot,y); 
+      AnyFolder &StaticRef = .....StickFigure.Posture.Left.Shank.KneeJoint.RotAxisAngles;
+      AnyMat33 Rotation = RotMat(xRot ,x)*RotMat(yRot,y)*RotMat(StaticRef.zRot,z);
       #endif
       
       ARel =  RotMat(sRel,sRel+Rotation'[2],.AnkleJoint.sRel)*RotMat(pi/2,y)*RotMat(pi,z);
@@ -125,7 +123,7 @@ AnyFolder Seg = {
       sRel = {0, -0.4213269, 0};
 //      sRel = .....StickFigure.Posture.Left.Shank.AnkleJoint.sRel_static;
       #endif
-      AnyMat33 Rotation = InitialRotation * RotMat(xRot,x)*RotMat(yRot,y);
+      AnyMat33 Rotation = RotMat(xRot,x)*RotMat(yRot,y)*InitialRotation;
       
       ARel = RotMat(sRel,sRel+Rotation'[2],.KneeJoint.sRel)*RotMat(pi/2,y);
     };
@@ -187,15 +185,15 @@ AnyFolder Seg = {
       #ifdef RightLeg
       sRel = {0.0, -0.01, 0};
 //      sRel =  .....StickFigure.Posture.Right.Talus.SubtalarJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Right.Talus.SubtalarJoint.ARel_static
-      *RotMat(yRot,y);
+      AnyFolder &StaticRef = .....StickFigure.Posture.Right.Talus.SubtalarJoint.RotAxisAngles;
+      ARel = RotMat(StaticRef.xRot,x)*RotMat(yRot,y)*RotMat(StaticRef.zRot,z);
       #endif
       
       #ifdef LeftLeg
       sRel =   {0, -0.01, 0};
 //      sRel =   .....StickFigure.Posture.Left.Talus.SubtalarJoint.sRel_static;
-      ARel = .....StickFigure.Posture.Left.Talus.SubtalarJoint.ARel_static
-      * RotMat(yRot,y);
+      AnyFolder &StaticRef = .....StickFigure.Posture.Left.Talus.SubtalarJoint.RotAxisAngles;
+      ARel = RotMat(StaticRef.xRot,x)*RotMat(yRot,y)*RotMat(StaticRef.zRot,z);
       #endif  
     };  
   
@@ -230,20 +228,19 @@ AnyFolder Seg = {
 //      AnyDrawRefFrame drw ={};
       AnyFloat yRot = 0;
       AnyFloat zRot = 0;
+      
       #ifdef RightLeg 
-//      sRel = .....StickFigure.Posture.Right.Foot.SubtalarJoint.sRel_static;
       sRel = {0.078530296, 0.02519825, 0.005506492};
-      AnyMat33 Rotation = .....StickFigure.Posture.Right.Foot.SubtalarJoint.ARel_static
-      *RotMat(yRot,y)*RotMat(zRot,z);
+      AnyFolder &StaticRef = .....StickFigure.Posture.Right.Foot.SubtalarJoint.RotAxisAngles;
+      ARel = RotMat(StaticRef.xRot,x)*RotMat(yRot,y)*RotMat(zRot,z);
       #endif
       
       #ifdef LeftLeg
       sRel = {0.07336435, 0.0103326, 0.007378342};
-//      sRel = .....StickFigure.Posture.Left.Foot.SubtalarJoint.sRel_static;
-      AnyMat33 Rotation = .....StickFigure.Posture.Left.Foot.SubtalarJoint.ARel_static
-      *RotMat(yRot,y)*RotMat(zRot,z);
+      AnyFolder &StaticRef = .....StickFigure.Posture.Left.Foot.SubtalarJoint.RotAxisAngles;
+      ARel = RotMat(StaticRef.xRot,x)*RotMat(yRot,y)*RotMat(zRot,z);
       #endif  
-      ARel = Rotation;
+            
     };    
     #if HideStickModelGraphics == 0
     //  Draw foot stick lines

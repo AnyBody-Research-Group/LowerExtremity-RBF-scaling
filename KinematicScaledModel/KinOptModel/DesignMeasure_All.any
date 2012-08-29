@@ -26,9 +26,11 @@
       AnyDesMeasure _RThighKneeJointYPos  =  {
         Val = .ModelRef.Right.Seg.Thigh.KneeJoint.sRel[1];
       };
-      AnyDesMeasure _dummy0 = {
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesMeasure _dummy_RThighKneeJointZPos   = {
         Val = 0;
       }; 
+      #endif
       AnyDesMeasure _RThighKneeJointXRot = {
         Val = .ModelRef.Right.Seg.Thigh.KneeJoint.xRot;
       };
@@ -58,24 +60,48 @@
       AnyDesMeasure _RShankAnkleJointYPos =  {
         Val = .ModelRef.Right.Seg.Shank.AnkleJoint.sRel[1];
       };    
-      AnyDesMeasure _dummy1 = {
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesMeasure _dummy_RShankAnkleJointZPos = {
         Val = 0;
       }; 
+      #endif
       AnyDesMeasure _RShankAnkleJointXRot =  {
         Val = .ModelRef.Right.Seg.Shank.AnkleJoint.xRot;
       };
       AnyDesMeasure _RShankAnkleJointYRot =  {
         Val = .ModelRef.Right.Seg.Shank.AnkleJoint.yRot;
       };
-      AnyDesMeasure _dummy2 = {
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesMeasure _dummy_RTalusAnkleJointXPos = {
         Val = 0;
       }; 
+      AnyDesMeasure _dummy_RTalusAnkleJointYPos = {
+        Val = 0;
+      }; 
+      AnyDesMeasure _dummy_RTalusAnkleJointZPos = {
+        Val = 0;
+      }; 
+      AnyDesMeasure _dummy_RTalusAnkleJointXRot = {
+        Val = 0;
+      }; 
+      AnyDesMeasure _dummy_RTalusAnkleJointYRot = {
+        Val = 0;
+      }; 
+      AnyDesMeasure _dummy_RTalusSubtalarJointXPos  = {
+        Val = 0;
+      }; 
+      #endif
       AnyDesMeasure _RTalusSubtalarJointYPos =  {
         Val = .ModelRef.Right.Seg.Talus.SubtalarJoint.sRel[1];
       }; 
       AnyDesMeasure _RTalusSubtalarJointZPos =  {
         Val = .ModelRef.Right.Seg.Talus.SubtalarJoint.sRel[2];
       }; 
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesMeasure _dummy_RTalusSubtalarJointXRot = {
+        Val = 0;
+      }; 
+      #endif
       AnyDesMeasure _RTalusSubtalarJointYRot =  {
         Val = .ModelRef.Right.Seg.Talus.SubtalarJoint.yRot;
       };
@@ -126,9 +152,11 @@
       AnyDesMeasure _LThighKneeJointYPos =  {
         Val = .ModelRef.Left.Seg.Thigh.KneeJoint.sRel[1];
       };
-      AnyDesMeasure _dummy3 = {
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesMeasure _dummy_LThighKneeJointZPos   = {
         Val = 0;
-      };   
+      }; 
+      #endif
       AnyDesMeasure _LThighKneeJointXRot = {
         Val = .ModelRef.Left.Seg.Thigh.KneeJoint.xRot;
       };
@@ -158,24 +186,48 @@
       AnyDesMeasure _LShankAnkleJointYPos =  {
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.sRel[1];
       };   
-      AnyDesMeasure _dummy4 = {
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesMeasure _dummy_LShankAnkleJointZPos = {
         Val = 0;
-      };   
+      }; 
+      #endif
       AnyDesMeasure _LShankAnkleJointXRot =  {
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.xRot;
       };
       AnyDesMeasure _LShankAnkleJointYRot =  {
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.yRot;
       };  
-      AnyDesMeasure _dummy5 = {
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesMeasure _dummy_LTalusAnkleJointXPos = {
         Val = 0;
-      };   
+      }; 
+      AnyDesMeasure _dummy_LTalusAnkleJointYPos = {
+        Val = 0;
+      }; 
+      AnyDesMeasure _dummy_LTalusAnkleJointZPos = {
+        Val = 0;
+      }; 
+      AnyDesMeasure _dummy_LTalusAnkleJointXRot = {
+        Val = 0;
+      }; 
+      AnyDesMeasure _dummy_LTalusAnkleJointYRot = {
+        Val = 0;
+      }; 
+      AnyDesMeasure _dummy_LTalusSubtalarJointXPos  = {
+        Val = 0;
+      }; 
+      #endif
       AnyDesMeasure _LTalusSubtalarJointYPos =  {
         Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.sRel[1];
       }; 
       AnyDesMeasure _LTalusSubtalarJointZPos =  {
         Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.sRel[2];
       };  
+      #ifdef INCLUDE_DUMMY_PLACEHOLDERS
+      AnyDesMeasure _dummy_LTalusSubtalarJointXRot = {
+        Val = 0;
+      }; 
+      #endif
       AnyDesMeasure _LTalusSubtalarJointYRot =  {
         Val = .ModelRef.Left.Seg.Talus.SubtalarJoint.yRot;
       };

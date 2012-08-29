@@ -30,7 +30,7 @@
 #include "KinOptModel\ClassTemplates.any"
 #include "<SHARED_FILES_PATH>/EmgProcessing.any"
 #include "<SHARED_FILES_PATH>/AnatomicalJointAnglesTemplate.any"
-
+#include "<SHARED_FILES_PATH>/RotationAxisAngles.any"
 
 #endif
 
