@@ -185,7 +185,7 @@ Main = {
    //TODO Rename JointTrialParameters to JointParameters
    AnyOperationSequence Load_JointTrialParameters = {
      AnyOperation &AllAnatomicalParam =.JntParameterOptModel.AnatomicalStickFigureValues.Load_AnatomicalParameters;
-     #ifndef USE_STATIC_MODEL
+     #ifndef ANATOMIC_SCALED_MODEL
      AnyOperation &RHip =.JntParameterOptModel.LoadSavaDesignParameters.Load_RightHipParameters ;
      AnyOperation &LHip =.JntParameterOptModel.LoadSavaDesignParameters .Load_LeftHipParameters ;
      AnyOperation &RAnk =.JntParameterOptModel.LoadSavaDesignParameters.Load_RightAnkleParameters ;

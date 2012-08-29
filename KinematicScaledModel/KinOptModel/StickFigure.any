@@ -79,7 +79,7 @@ AnyFolder StickFigure = {
 //                                Main.ModelSetup.StaticData.Points.Markers.RD5M.PosInterpol.Data[1][..FirstFrameStatic],
 //                                Main.ModelSetup.StaticData.Points.Markers.RD5M.PosInterpol.Data[2][..FirstFrameStatic]};
     
-  #ifndef USE_STATIC_MODEL
+  #ifdef USE_KLIEN_HORSMAN_JOINT_CENTER_OFFSET
      // In principle the ankle center can be any point along the revolute knee joint axis, thus
     // selecting the middle point between the lateral and medial malleous makes sense anatomically. 
     // However, to correspond with the LegTD model the ankle center is chosen 
@@ -846,7 +846,7 @@ AnyFolder StickFigure = {
                                 Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[1][..FirstFrameStatic],
                                 Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[2][..FirstFrameStatic]};
 
-  #ifndef USE_STATIC_MODEL
+  #ifdef USE_KLIEN_HORSMAN_JOINT_CENTER_OFFSET
     // In principle the ankle center can be any point along the revolute knee joint axis, thus
     // selecting the middle point between the lateral and medial malleous makes sense anatomically. 
     // However, to correspond with the LegTD model the ankle center is chosen 

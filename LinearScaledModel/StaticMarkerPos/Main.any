@@ -4,6 +4,34 @@
 #include "../KinematicModel.main.any"
 
 
+/* This code loads the stick figure definition file from the anatomical/kinematic scaled model. 
+   Thus, allowing us to register the anatomical frames to the coordinate system of the linear
+   scaled model. 
+   */
+Main.ModelSetup = {
+   AnyFolder &StaticData = C3DFileData;
+   AnyIntVar FirstFrame = 1;
+   C3DFileData = {
+   MarkerInterPolType = PiecewiseLinear;
+   };
+};
+AnyFolder JntParameterOptModel = {  
+  #define IncludeRight 1
+  #define IncludeLeft 1
+  #define IncludeHip 0
+  #define IncludeKnee 0
+  #define IncludeAnkle 0
+  #define UseDanamicLoadPosition 0
+     #include "<MODEL_TYPE>../KinematicScaledModel/KinOptModel/StickFigure.any"
+  #undef IncludeRight
+  #undef IncludeLeft
+  #undef IncludeHip
+  #undef IncludeKnee
+  #undef IncludeAnkle
+  #undef UseDanamicLoadPosition
+};
+/* ################################################################ */
+
 
 Main.Studies = {
   AnyBodyStudy StaticStudy = {      
@@ -65,8 +93,8 @@ Main.Studies = {
       
      // See ISB recommendation for the definition of these anatomical coordinate systems                    
      AnyMat33 PelvisGlobal = RotMat((RAsis+LAsis)*0.5,
-                                     (RAsis+LAsis)*0.5+ ((RAsis+LAsis)*0.5-(RPsis+LPsis)*0.5 ),
-                                     RAsis)*RotMat(-pi/2,x);
+                                     RAsis,
+                                     (RPsis+LPsis)*0.5 )*RotMat(-pi/2,x)*RotMat(pi/2,y);
      AnyMat33 RHipThighGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
                                      RHipJointGlobal,
                                      RKneeLateral)*RotMat(-pi/2,z)*RotMat(-pi/2,y);
@@ -115,15 +143,158 @@ Main.Studies = {
      AnyMat33 LAnkleShankMarkerFrame = BodyRef.Left.Leg.Seg.Shank.Axes'*LAnkleShankGlobal;                            
      AnyMat33 LAnkleFootMarkerFrame = BodyRef.Left.Leg.Seg.Foot.Axes'*LAnkleFootGlobal;
      
+     /* Coordinate systems for stickfigure model */
+     AnyFolder &SFRef = Main.JntParameterOptModel.StickFigure.Posture;
+     AnyVec3 PelvisSF_sRel= (BodyRef.Trunk.SegmentsLumbar.PelvisSeg.Axes' *(SFRef.Trunk.Pelvis.r0_static - BodyRef.Trunk.SegmentsLumbar.PelvisSeg.r)')';
+     AnyMat33 PelvisSF_ARel= BodyRef.Trunk.SegmentsLumbar.PelvisSeg.Axes' *SFRef.Trunk.Pelvis.Axes0_static;
+     AnyVec3 RThighSF_sRel= (BodyRef.Right.Leg.Seg.Thigh.Axes' *(SFRef.Right.Thigh.r0_static - BodyRef.Right.Leg.Seg.Thigh.r)')';
+     AnyMat33 RThighSF_ARel= BodyRef.Right.Leg.Seg.Thigh.Axes' *SFRef.Right.Thigh.Axes0_static;
+     AnyVec3 RShankSF_sRel= (BodyRef.Right.Leg.Seg.Shank.Axes' *(SFRef.Right.Shank.r0_static - BodyRef.Right.Leg.Seg.Shank.r)')';
+     AnyMat33 RShankSF_ARel= BodyRef.Right.Leg.Seg.Shank.Axes' *SFRef.Right.Shank.Axes0_static;
+     AnyVec3 RTalusSF_sRel= (BodyRef.Right.Leg.Seg.Talus.Axes' *(SFRef.Right.Talus.r0_static - BodyRef.Right.Leg.Seg.Talus.r)')';
+     AnyMat33 RTalusSF_ARel= BodyRef.Right.Leg.Seg.Talus.Axes' *SFRef.Right.Talus.Axes0_static;
+     AnyVec3 RFootSF_sRel= (BodyRef.Right.Leg.Seg.Foot.Axes' *(SFRef.Right.Foot.r0_static - BodyRef.Right.Leg.Seg.Foot.r)')';
+     AnyMat33 RFootSF_ARel= BodyRef.Right.Leg.Seg.Foot.Axes' *SFRef.Right.Foot.Axes0_static;
+     AnyVec3 LThighSF_sRel= (BodyRef.Left.Leg.Seg.Thigh.Axes' *(SFRef.Left.Thigh.r0_static - BodyRef.Left.Leg.Seg.Thigh.r)')';
+     AnyMat33 LThighSF_ARel= BodyRef.Left.Leg.Seg.Thigh.Axes' *SFRef.Left.Thigh.Axes0_static;
+     AnyVec3 LShankSF_sRel= (BodyRef.Left.Leg.Seg.Shank.Axes' *(SFRef.Left.Shank.r0_static - BodyRef.Left.Leg.Seg.Shank.r)')';
+     AnyMat33 LShankSF_ARel= BodyRef.Left.Leg.Seg.Shank.Axes' *SFRef.Left.Shank.Axes0_static;
+     AnyVec3 LTalusSF_sRel= (BodyRef.Left.Leg.Seg.Talus.Axes' *(SFRef.Left.Talus.r0_static - BodyRef.Left.Leg.Seg.Talus.r)')';
+     AnyMat33 LTalusSF_ARel= BodyRef.Left.Leg.Seg.Talus.Axes' *SFRef.Left.Talus.Axes0_static;
+     AnyVec3 LFootSF_sRel= (BodyRef.Left.Leg.Seg.Foot.Axes' *(SFRef.Left.Foot.r0_static - BodyRef.Left.Leg.Seg.Foot.r)')';
+     AnyMat33 LFootSF_ARel= BodyRef.Left.Leg.Seg.Foot.Axes' *SFRef.Left.Foot.Axes0_static;
+     
+     AnyVec3 RPelvisHipJoint = (BodyRef.Trunk.SegmentsLumbar.PelvisSeg.Right.HipJoint.sRel-PelvisSF_sRel)*PelvisSF_ARel;
+     AnyVec3 LPelvisHipJoint = (BodyRef.Trunk.SegmentsLumbar.PelvisSeg.Left.HipJoint.sRel-PelvisSF_sRel)*PelvisSF_ARel;
+     AnyVec3 RThighHipJoint = (BodyRef.Right.Leg.Seg.Thigh.HipJoint.sRel-RThighSF_sRel)*RThighSF_ARel;
+     AnyVec3 LThighHipJoint = (BodyRef.Left.Leg.Seg.Thigh.HipJoint.sRel-LThighSF_sRel)*LThighSF_ARel;
+     AnyVec3 RThighKneeJoint = (BodyRef.Right.Leg.Seg.Thigh.KneeJoint.sRel-RThighSF_sRel)*RThighSF_ARel;
+     AnyVec3 LThighKneeJoint = (BodyRef.Left.Leg.Seg.Thigh.KneeJoint.sRel-LThighSF_sRel)*LThighSF_ARel;
+     RotAxisAnglesXYZ1 RThighKneeRotations(ROT = BodyRef.Right.Leg.Seg.Thigh.KneeJoint.ARel)={ROT_rel= .RThighSF_ARel;};
+     RotAxisAnglesXYZ1 LThighKneeRotations(ROT = BodyRef.Left.Leg.Seg.Thigh.KneeJoint.ARel)={ROT_rel= .LThighSF_ARel;};
+     AnyVec3 RShankKneeJoint = (BodyRef.Right.Leg.Seg.Shank.KneeJoint.sRel-RShankSF_sRel)*RShankSF_ARel;
+     AnyVec3 LShankKneeJoint = (BodyRef.Left.Leg.Seg.Shank.KneeJoint.sRel-LShankSF_sRel)*LShankSF_ARel;
+     RotAxisAnglesXYZ1 RShankKneeRotations(ROT = BodyRef.Right.Leg.Seg.Shank.KneeJoint.ARel)={ROT_rel= .RShankSF_ARel;};
+     RotAxisAnglesXYZ1 LShankKneeRotations(ROT = BodyRef.Left.Leg.Seg.Shank.KneeJoint.ARel)={ROT_rel= .LShankSF_ARel;};
+     AnyVec3 RShankAnkleJoint = (BodyRef.Right.Leg.Seg.Shank.AnkleJoint.sRel-RShankSF_sRel)*RShankSF_ARel;
+     AnyVec3 LShankAnkleJoint = (BodyRef.Left.Leg.Seg.Shank.AnkleJoint.sRel-LShankSF_sRel)*LShankSF_ARel;
+     RotAxisAnglesXYZ1 RShankAnkleRotations(ROT = BodyRef.Right.Leg.Seg.Shank.AnkleJoint.ARel)={ROT_rel= .RShankSF_ARel;};
+     RotAxisAnglesXYZ1 LShankAnkleRotations(ROT = BodyRef.Left.Leg.Seg.Shank.AnkleJoint.ARel)={ROT_rel= .LShankSF_ARel;};
+     AnyVec3 RTalusAnkleJoint = (BodyRef.Right.Leg.Seg.Talus.AnkleJoint.sRel-RTalusSF_sRel)*RTalusSF_ARel;
+     AnyVec3 LTalusAnkleJoint = (BodyRef.Left.Leg.Seg.Talus.AnkleJoint.sRel-LTalusSF_sRel)*LTalusSF_ARel;
+     RotAxisAnglesXYZ1 RTalusAnkleRotations(ROT = BodyRef.Right.Leg.Seg.Talus.AnkleJoint.ARel)={ROT_rel= .RTalusSF_ARel;};
+     RotAxisAnglesXYZ1 LTalusAnkleRotations(ROT = BodyRef.Left.Leg.Seg.Talus.AnkleJoint.ARel)={ROT_rel= .LTalusSF_ARel;};
+     AnyVec3 RTalusSubTalarJoint = (BodyRef.Right.Leg.Seg.Talus.SubTalarJoint.sRel-RTalusSF_sRel)*RTalusSF_ARel;
+     AnyVec3 LTalusSubTalarJoint = (BodyRef.Left.Leg.Seg.Talus.SubTalarJoint.sRel-LTalusSF_sRel)*LTalusSF_ARel;
+     RotAxisAnglesXYZ1 RTalusSubTalarRotations(ROT = BodyRef.Right.Leg.Seg.Talus.SubTalarJoint.ARel)={ROT_rel= .RTalusSF_ARel;};
+     RotAxisAnglesXYZ1 LTalusSubTalarRotations(ROT = BodyRef.Left.Leg.Seg.Talus.SubTalarJoint.ARel)={ROT_rel= .LTalusSF_ARel;};
+     
+     AnyVec3 RFootSubTalarJoint = (BodyRef.Right.Leg.Seg.Foot.SubTalarJoint.sRel-RFootSF_sRel)*RFootSF_ARel;
+     AnyVec3 LFootSubTalarJoint = (BodyRef.Left.Leg.Seg.Foot.SubTalarJoint.sRel-LFootSF_sRel)*LFootSF_ARel;
+     
+     AnyMat33 RFootSubTalarRotTmp = BodyRef.Right.Leg.Seg.Foot.SubTalarJoint.ARel*RotMat(pi/2,y);
+     RotAxisAnglesXYZ1 RFootSubTalarRotations(ROT = RFootSubTalarRotTmp )={ROT_rel= .RFootSF_ARel;};
+     AnyMat33 LFootSubTalarRotTmp = BodyRef.Left.Leg.Seg.Foot.SubTalarJoint.ARel*RotMat(-pi/2,y);
+     RotAxisAnglesXYZ1 LFootSubTalarRotations(ROT = LFootSubTalarRotTmp )={ROT_rel= .LFootSF_ARel;};
+     
+     AnyString StaticParFileName = TEMP_FILE_PATH+"/"+anysetfile+"_StaticParameters.txt";
+     AnyInt StaticFrameReturn = {
+       SaveAnySetValue(StaticParFileName, "RPelvisHipJointXPos", RPelvisHipJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "RPelvisHipJointYPos", RPelvisHipJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "RPelvisHipJointZPos", RPelvisHipJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "RThighHipJointXPos", RThighHipJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "RThighHipJointYPos", RThighHipJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "RThighHipJointZPos", RThighHipJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "RThighKneeJointXPos", RThighKneeJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "RThighKneeJointYPos", RThighKneeJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "RThighKneeJointZPos", RThighKneeJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "RThighKneeJointXRot", RThighKneeRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "RThighKneeJointYRot", RThighKneeRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "RShankKneeJointXPos", RShankKneeJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "RShankKneeJointYPos", RShankKneeJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "RShankKneeJointZPos", RShankKneeJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "RShankKneeJointXRot", RShankKneeRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "RShankKneeJointYRot", RShankKneeRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "RShankAnkleJointXPos", RShankAnkleJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "RShankAnkleJointYPos", RShankAnkleJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "RShankAnkleJointZPos", RShankAnkleJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "RShankAnkleJointXRot", RShankAnkleRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "RShankAnkleJointYRot", RShankAnkleRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "RTalusAnkleJointXPos", RTalusAnkleJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "RTalusAnkleJointYPos", RTalusAnkleJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "RTalusAnkleJointZPos", RTalusAnkleJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "RTalusAnkleJointXRot", RTalusAnkleRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "RTalusAnkleJointYRot", RTalusAnkleRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "RTalusSubTalarJointXPos", RTalusSubTalarJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "RTalusSubTalarJointYPos", RTalusSubTalarJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "RTalusSubTalarJointZPos", RTalusSubTalarJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "RTalusSubTalarJointXRot", RTalusSubTalarRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "RTalusSubTalarJointYRot", RTalusSubTalarRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "RFootSubTalarJointXPos", RFootSubTalarJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "RFootSubTalarJointYPos", RFootSubTalarJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "RFootSubTalarJointZPos", RFootSubTalarJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "RFootSubTalarJointYRot", RFootSubTalarRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "RFootSubTalarJointZRot", RFootSubTalarRotations.zRot ),
+       SaveAnySetValue(StaticParFileName, "LPelvisHipJointXPos", LPelvisHipJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "LPelvisHipJointYPos", LPelvisHipJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "LPelvisHipJointZPos", LPelvisHipJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "LThighHipJointXPos", LThighHipJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "LThighHipJointYPos", LThighHipJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "LThighHipJointZPos", LThighHipJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "LThighKneeJointXPos", LThighKneeJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "LThighKneeJointYPos", LThighKneeJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "LThighKneeJointZPos", LThighKneeJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "LThighKneeJointXRot", LThighKneeRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "LThighKneeJointYRot", LThighKneeRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "LShankKneeJointXPos", LShankKneeJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "LShankKneeJointYPos", LShankKneeJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "LShankKneeJointZPos", LShankKneeJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "LShankKneeJointXRot", LShankKneeRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "LShankKneeJointYRot", LShankKneeRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "LShankAnkleJointXPos", LShankAnkleJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "LShankAnkleJointYPos", LShankAnkleJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "LShankAnkleJointZPos", LShankAnkleJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "LShankAnkleJointXRot", LShankAnkleRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "LShankAnkleJointYRot", LShankAnkleRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "LTalusAnkleJointXPos", LTalusAnkleJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "LTalusAnkleJointYPos", LTalusAnkleJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "LTalusAnkleJointZPos", LTalusAnkleJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "LTalusAnkleJointXRot", LTalusAnkleRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "LTalusAnkleJointYRot", LTalusAnkleRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "LTalusSubTalarJointXPos", LTalusSubTalarJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "LTalusSubTalarJointYPos", LTalusSubTalarJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "LTalusSubTalarJointZPos", LTalusSubTalarJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "LTalusSubTalarJointXRot", LTalusSubTalarRotations.xRot ),
+       SaveAnySetValue(StaticParFileName, "LTalusSubTalarJointYRot", LTalusSubTalarRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "LFootSubTalarJointXPos", LFootSubTalarJoint[0] ),
+       SaveAnySetValue(StaticParFileName, "LFootSubTalarJointYPos", LFootSubTalarJoint[1] ),
+       SaveAnySetValue(StaticParFileName, "LFootSubTalarJointZPos", LFootSubTalarJoint[2] ),
+       SaveAnySetValue(StaticParFileName, "LFootSubTalarJointYRot", LFootSubTalarRotations.yRot ),
+       SaveAnySetValue(StaticParFileName, "LFootSubTalarJointZRot", LFootSubTalarRotations.zRot )
+     };
+
+
+     
+     
+     
      AnyFunEx SaveAnySetValue =  {
        AnyInt Return = 0;
        AnyFunExMonoPy save_anymat33= {
-        ModuleFile = "save_anyset_file.py";
+        ModuleFile = SHARED_FILES_PATH + "/save_anyset_file.py";
          ArgList = 
          {
            AnyString filename = "Test file name";
            AnyString varname =  "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.StaticMarkerFrame";
            AnyMat33 var = {{1.0,1.0,1.0},{2,2,2},{3,3,3}};
+         };
+       };
+       AnyFunExMonoPy save_anyfloat= {
+        ModuleFile = SHARED_FILES_PATH+"/save_anyset_file.py";
+         ArgList = 
+         {
+           AnyString filename = "Test file name";
+           AnyString varname =  "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.StaticMarkerFrame";
+           AnyFloat var = 0.0;
          };
        };
      };

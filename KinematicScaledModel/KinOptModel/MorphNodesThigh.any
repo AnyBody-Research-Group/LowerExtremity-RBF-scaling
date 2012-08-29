@@ -31,7 +31,7 @@
     // Calculate a scale factor for the knee based on the knee width
    #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
      AnyVar KneeWidth = Main.SubjectSpecificData.Anthropometrics.KneeWidth;
-     #ifndef USE_STATIC_MODEL
+     #ifdef USE_KLIEN_HORSMAN_JOINT_CENTER_OFFSET
        AnyVar KneeWidthLateral = KneeWidth*0.3987;
      #else
        AnyVar KneeWidthLateral = KneeWidth*0.5;
