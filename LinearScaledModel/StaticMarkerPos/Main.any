@@ -186,8 +186,10 @@ Main.Studies = {
      RotAxisAnglesXYZ1 LTalusAnkleRotations(ROT = BodyRef.Left.Leg.Seg.Talus.AnkleJoint.ARel)={ROT_rel= .LTalusSF_ARel;};
      AnyVec3 RTalusSubTalarJoint = (BodyRef.Right.Leg.Seg.Talus.SubTalarJoint.sRel-RTalusSF_sRel)*RTalusSF_ARel;
      AnyVec3 LTalusSubTalarJoint = (BodyRef.Left.Leg.Seg.Talus.SubTalarJoint.sRel-LTalusSF_sRel)*LTalusSF_ARel;
-     RotAxisAnglesXYZ1 RTalusSubTalarRotations(ROT = BodyRef.Right.Leg.Seg.Talus.SubTalarJoint.ARel)={ROT_rel= .RTalusSF_ARel;};
-     RotAxisAnglesXYZ1 LTalusSubTalarRotations(ROT = BodyRef.Left.Leg.Seg.Talus.SubTalarJoint.ARel)={ROT_rel= .LTalusSF_ARel;};
+     AnyMat33 RTalusSubTalarRotTmp = BodyRef.Right.Leg.Seg.Talus.SubTalarJoint.ARel*RotMat(pi/2,y);
+     RotAxisAnglesXYZ1 RTalusSubTalarRotations(ROT = RTalusSubTalarRotTmp )={ROT_rel= .RTalusSF_ARel;};
+     AnyMat33 LTalusSubTalarRotTmp = BodyRef.Left.Leg.Seg.Talus.SubTalarJoint.ARel*RotMat(-pi/2,y);
+     RotAxisAnglesXYZ1 LTalusSubTalarRotations(ROT = LTalusSubTalarRotTmp )={ROT_rel= .LTalusSF_ARel;};
      
      AnyVec3 RFootSubTalarJoint = (BodyRef.Right.Leg.Seg.Foot.SubTalarJoint.sRel-RFootSF_sRel)*RFootSF_ARel;
      AnyVec3 LFootSubTalarJoint = (BodyRef.Left.Leg.Seg.Foot.SubTalarJoint.sRel-LFootSF_sRel)*LFootSF_ARel;
