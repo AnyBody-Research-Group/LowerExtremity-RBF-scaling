@@ -1,5 +1,5 @@
 #path TRIAL_PATH "."
-#define FULL_MARKERSET
+//#define FULL_MARKERSET
 #define EXCLUDE_RSHANKLATERAL
 
 AnyFolder TrialSpecificData={

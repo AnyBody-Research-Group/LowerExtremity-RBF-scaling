@@ -67,7 +67,9 @@ AnyFolder StickFigure = {
     AnyVec3 sRToeLateral =    { Main.ModelSetup.StaticData.Points.Markers.RToeLateral.PosInterpol.Data[0][..FirstFrameStatic],
                                 Main.ModelSetup.StaticData.Points.Markers.RToeLateral.PosInterpol.Data[1][..FirstFrameStatic],
                                 Main.ModelSetup.StaticData.Points.Markers.RToeLateral.PosInterpol.Data[2][..FirstFrameStatic]};
-
+    AnyVec3 sRHindfoot =      { Main.ModelSetup.StaticData.Points.Markers.RHindfoot.PosInterpol.Data[0][..FirstFrameStatic],
+                                Main.ModelSetup.StaticData.Points.Markers.RHindfoot.PosInterpol.Data[1][..FirstFrameStatic],
+                                Main.ModelSetup.StaticData.Points.Markers.RHindfoot.PosInterpol.Data[2][..FirstFrameStatic]};
                               
                               
                               
@@ -468,6 +470,9 @@ AnyFolder StickFigure = {
       AnyFolder RHeel = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRHeel -.r0_static)')';
       };
+      AnyFolder RHindfoot = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sRHindfoot -.r0_static)')';
+      };
       AnyFolder RToe = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sRToe -.r0_static)')';
       };
@@ -519,6 +524,9 @@ AnyFolder StickFigure = {
       FootRef = {
         AnyRefNode RHeel = {
           sRel = ..RHeel.sRel_static;
+        };
+        AnyRefNode RHindfoot = {
+          sRel = ..RHindfoot.sRel_static;
         };
         AnyRefNode RToe = {
           sRel = ..RToe.sRel_static;
@@ -845,7 +853,11 @@ AnyFolder StickFigure = {
     AnyVec3 sLToeLateral =    { Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[0][..FirstFrameStatic],
                                 Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[1][..FirstFrameStatic],
                                 Main.ModelSetup.StaticData.Points.Markers.LToeLateral.PosInterpol.Data[2][..FirstFrameStatic]};
-
+    AnyVec3 sLHindfoot =      { Main.ModelSetup.StaticData.Points.Markers.LHindfoot.PosInterpol.Data[0][..FirstFrameStatic],
+                                Main.ModelSetup.StaticData.Points.Markers.LHindfoot.PosInterpol.Data[1][..FirstFrameStatic],
+                                Main.ModelSetup.StaticData.Points.Markers.LHindfoot.PosInterpol.Data[2][..FirstFrameStatic]};
+                              
+                              
   #ifdef USE_KLIEN_HORSMAN_JOINT_CENTER_OFFSET
     // In principle the ankle center can be any point along the revolute knee joint axis, thus
     // selecting the middle point between the lateral and medial malleous makes sense anatomically. 
@@ -1222,6 +1234,9 @@ AnyFolder StickFigure = {
       AnyFolder LHeel = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLHeel -.r0_static)')';
       };
+      AnyFolder LHindfoot = {
+        AnyVec3 sRel_static= (.Axes0_static'*(..sLHindfoot -.r0_static)')';
+      };
       AnyFolder LToe = {
         AnyVec3 sRel_static= (.Axes0_static'*(..sLToe -.r0_static)')';
       };
@@ -1272,6 +1287,9 @@ AnyFolder StickFigure = {
       FootRef = {
         AnyRefNode LHeel = {
           sRel = ..LHeel.sRel_static;
+        };
+        AnyRefNode LHindfoot = {
+          sRel = ..LHindfoot.sRel_static;
         };
         AnyRefNode LToe = {
           sRel = ..LToe.sRel_static;
