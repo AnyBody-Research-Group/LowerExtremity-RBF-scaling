@@ -17,12 +17,14 @@ AnyInputC3D C3DFileData =   {
     MarkerDrawOnOff =Off;
     AnalogFilterIndex =1;
     
-    Filter =  {
-      N = 2;
-      Fc = {10};
-      Type = LowPass;
+    Filter = 
+    {
+    AutomaticInitialConditionOnOff = On;
+    FilterForwardBackwardOnOff = On;
+    N = 2;
+    Fc = {5};
+    Type = LowPass;
     };
-    
     
     /// This filter is used for the analog data
     AnyFunButterworthFilter LowPassFilter = {
