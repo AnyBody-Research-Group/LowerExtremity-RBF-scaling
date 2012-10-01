@@ -72,7 +72,7 @@
 // This is just the bones,
 // Choose one of the following options to add muscles
 #define RIGHT_LEG_TD_SIMPLE_MUSCLES 0
-#define RIGHT_LEG_TD_MUS_3E 0
+#define RIGHT_LEG_TD_MUS_3E 1
 #else
 #define RIGHT_LEG_TD 0
 // This is just the bones,
@@ -87,8 +87,8 @@
 #define LEFT_LEG_TD 1
 // This is just the bones,
 // Choose one of the following options to add muscles
-#define LEFT_LEG_TD_SIMPLE_MUSCLES 1
-#define LEFT_LEG_TD_MUS_3E 0
+#define LEFT_LEG_TD_SIMPLE_MUSCLES 0
+#define LEFT_LEG_TD_MUS_3E 1
 #else
 #define LEFT_LEG_TD 0
 // This is just the bones,
