@@ -1,4 +1,10 @@
-#include "../../../../SetModelType.any"
+#ifndef MODEL_TYPE
+#path MODEL_TYPE "../../../../KinematicScaledModel"
+//#path MODEL_TYPE "../../../../AnatomicalLandmarkScaledModel"
+#endif
+#include "<MODEL_TYPE>/PreMainIncludes.any"
+
+
 
 Main = {
  #include "TrialSpecificData.any" 

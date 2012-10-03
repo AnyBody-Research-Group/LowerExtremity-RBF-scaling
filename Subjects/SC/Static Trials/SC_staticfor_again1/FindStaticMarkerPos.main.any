@@ -1,4 +1,7 @@
-#include "../../../../SetModelType.any"
+#ifndef MODEL_TYPE
+#path MODEL_TYPE "../../../../LinearScaledModel"
+#endif
+#include "<MODEL_TYPE>/PreMainIncludes.any"
 
 #define EXCLUDE_RSHANKLATERAL
 
