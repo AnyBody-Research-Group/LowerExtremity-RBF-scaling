@@ -26,8 +26,8 @@ AnyFolder SubjectSpecificData = {
   
   
   AnyFolder MarkerPos = {
-    AnyVec3 HeelMarker = {-0.03104974, 0.01352436, 0.0146257};
-    AnyVec3 ToeMarker= {0.2684801, 0.02890321, 0.002888251};
+    AnyVec3 HeelMarker = {-0.03104974, 0.01352436, 0.015};
+    AnyVec3 ToeMarker= {0.2684801, 0.02890321, 0.010};
     AnyVec3 MidfootLateralMarker = {0.16528627, -0.00255456, 0.07045269};  
   
     AnyVec3 RAsisMarker = {0.1300608 , -0.025,  0.1295 };

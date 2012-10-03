@@ -311,7 +311,7 @@
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt= Main.SubjectSpecificData.MarkerPos.HeelMarker*{{1,0,0},{0,1,0},{0,0,-1}};
+   sRelOpt= Main.SubjectSpecificData.MarkerPos.HeelMarker;
 //   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, 0.03 -0.008 };
   };
    
@@ -322,7 +322,7 @@
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt= Main.SubjectSpecificData.MarkerPos.HeelMarker;
+   sRelOpt= Main.SubjectSpecificData.MarkerPos.HeelMarker*{{1,0,0},{0,1,0},{0,0,-1}};
 //   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, -0.03 +0.008};
   };
    
