@@ -30,11 +30,18 @@ AnyFolder SubjectSpecificData = {
     AnyVec3 ToeMarker= {0.2684801, 0.02890321, 0.010};
     AnyVec3 MidfootLateralMarker = {0.16528627, -0.00255456, 0.07045269};  
   
-    AnyVec3 RAsisMarker = {0.1300608 , -0.025,  0.1295 };
-    AnyVec3 LAsisMarker = { 0.1300608 , -0.025, -0.1295};
-    AnyVec3 LPsisMarker = {-0.06594569,  0.0050, -0.030 };
-    AnyVec3 RPsisMarker = {-0.06594569,  0.0050, 0.03 };
+    // These values comes from the TLEM data set.
+    AnyVec3 RASIS = {0.1050804, -0.05009163, 0.1312};
+    AnyVec3 LASIS = { 0.1050804, -0.05009163, -0.1312};
+    AnyVec3 PSIS_Mid = {-0.03192611, 0.01085285, 0};
+    
+    // Offset to marker postions
+    AnyVec3 RAsisMarker = RASIS + {0.02, 0.02, 0};//{0.135 , -0.025,  0.1295 };
+    AnyVec3 LAsisMarker = LASIS + {0.02, 0.02, 0};//{ 0.135 , -0.025, -0.1295};
+    AnyVec3 LPsisMarker = PSIS_Mid + {-0.02, 0, -0.03 };//{-0.06594569,  0.0050, -0.030 };
+    AnyVec3 RPsisMarker = PSIS_Mid + {-0.02, 0, 0.03 };//{-0.06594569,  0.0050, 0.03 };
 
+    
   };
   AnyFolder MarkerWeights =  {
     AnyVar PatellaX = 0.0;
@@ -83,7 +90,6 @@ AnyFolder SubjectSpecificData = {
     AnyVar HandBreadth = 0.085;     
  
  
- 
     // User-defined hip joint centers
     // AnyFolder Pelvis = {
       // AnyVec3 OffsetPos = {-0.01799353, 0.0001675525, -0.0005441904};
@@ -91,9 +97,59 @@ AnyFolder SubjectSpecificData = {
                 
       // AnyVec3 LeftHip_sRel =  (OffsetRot*({ -22.5365, -116.9949,  -87.0964}/1000.0+OffsetPos)')';
       // AnyVec3 RightHip_sRel =  (OffsetRot*({ -13.7442, -121.3618,   84.6766}/1000.0+OffsetPos)')';
+      
+      
+      
     // };
   };
   Main.TrialSpecificData= {
     AnyFolder &Anthropometrics = Main.SubjectSpecificData.Anthropometrics;
   };  
+  #ifdef SHOW_HEMI_PELVIS
+  Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis = {
+    AnyRefNode RealPelvis = {
+      sRel = 0.01*{-2,-1,0};
+      ARel = RotMat(4*pi/180,y);
+      AnyDrawSurf PelvisScan = 
+      {
+        //Visible = On;
+        //Opacity = 1;
+        //RGB = {0.65, 0.65, 0.65};
+        ScaleXYZ = 0.001*{1, 1, 1};
+        //Transparency = 1;
+        //Face = 2;
+        /*TextFont = 
+        {
+        RGB = {0, 0, 0};
+        FontName = "Times New Roman";
+        Height = 50;
+        Width = 50;
+        Bold = Off;
+        Italic = Off;
+        BillBoardView = On;
+        ModelSized = On;
+        ModelScaleHeight = 1;
+        ModelScaleWidth = 1;
+        };*/
+        FileName = "Hemi Pelvis.stl";
+        //AnyStyleDrawMaterial &<Insert name0> = <Insert object reference (or full object definition)>; You can make any number of these objects!
+  //      AnyFunTransform3DLin2 <ObjectName> = 
+  //          {
+  //            //PreTransforms = {};
+  //            Points0 = {
+  //              {64.805, 486.28, -5.861},
+  //              {-97.7292 ,492.23 ,55.1827},
+  //              { 55.094, 385.13 ,105.634}
+  //            };
+  //            Points1 = {..LAsis.sRel,
+  //              ..
+  //            
+  //            
+  //            };
+  //            //Mode = VTK_LANDMARK_RIGIDBODY;
+  //          };
+      };
+    };
+  };
+  #endif
 };
