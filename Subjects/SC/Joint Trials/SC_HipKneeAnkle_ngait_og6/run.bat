@@ -1,6 +1,26 @@
+@ECHO OFF
+REM SET AppExePath="%ProgramFiles%\AnyBody Technology\AnyBody.6.0\AnyBodyCon.exe"
+SET AppExePath="F:\Program Files\AnyBody Technology\AnyBody.6.0\AnyBodyCon.exe"
+SET "logfilename=%~n0%_outputlog.txt"
+SET "macrofile=%~n0%.anymcr"
 
-SET AppExePath="%ProgramFiles(x86)%\AnyBody Technology\AnyBody.5.3\AnyBodyCon.exe"
-IF NOT EXIST %AppExePath% SET AppExePath="%ProgramFiles%\AnyBody Technology\AnyBody.5.3\AnyBodyCon.exe"
-echo %date%, %time% > outputlog.txt
-%AppExePath% /m ConExe.anymcr |"..\..\..\wtee.exe" -a outputlog.txt
-exit
+::::::::::: AnyBody macro to run :::::::::::::::::::::
+(
+echo load "Kinematics.main.any"
+echo operation Main.JntParameterOptModel.AnatomicalStickFigureValues.Load_AnatomicalParameters
+echo run
+echo operation Main.Run_Kinematic_Optimization  
+echo run
+echo exit                                                                           
+) > %macrofile%
+:::::::::::::::::::::
+
+
+@ECHO ON
+echo %date%, %time% > %logfilename%
+%AppExePath% /m %macrofile% |"..\..\..\wtee.exe" -a  %logfilename%
+@ECHO OFF
+
+del %macrofile%
+
+

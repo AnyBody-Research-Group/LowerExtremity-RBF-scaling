@@ -1,6 +1,0 @@
-load "Kinematics.main.any"
-operation Main.JntParameterOptModel.AnatomicalStickFigureValues.Load_AnatomicalParameters
-run
-operation Main.Run_Kinematic_Optimization  
-run
-exit

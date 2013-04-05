@@ -1,8 +1,0 @@
-load "Kinematics.main.any"
-operation Main.Load_JointTrialParameters
-run
-operation Main.JntParameterOptModel.KinematicStudy.Kinematics
-run
- 
-exit
- 
