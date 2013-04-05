@@ -1,5 +1,6 @@
-//    This file contains two template to measure anatomical joint angles 
-//    and projected moments for the anybody modelling system.
+//    This file contains two templates. One which only measures anatomical joint angles 
+//    and one which measures both joint angles and projects the external joint moment 
+//    vectors onto the rotation axis. 
 // 
 //    The CreateJointMeasures template creates a folder with measures of 
 //    the anatomical joint angles. Angles are measured based on the 
@@ -7,7 +8,8 @@
 //    
 //    Inputs are AnyRefFrame derived classes which represent the antomical
 //    coordinate system for the segments. In the example below; all *StaticMarkerFrame 
-//    are embedded cordinate systems between which the joint angles are measured. 
+//    variables represent embedded cordinate-systems (AnyRefNodes) between which the
+//    joint angles are measured. 
 //
 //    NOTE: The reference coordinate system needs to be defined in the model. Otherwise
 //    the code will not work. If this template should produce joint angles as 
