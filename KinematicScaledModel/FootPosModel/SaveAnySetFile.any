@@ -1,0 +1,123 @@
+// Dummy structure for creating the AnySet file
+Main = {
+  AnyFolder AnyBodyGaitAppModel = {
+    AnyFolder  HumanModel ={
+      AnyFolder  Scaling  ={
+        AnyFolder  GeometricalScaling ={
+          AnyFolder  Right={
+            AnyFolder  Foot ={
+              AnyFolder  ScaleFunction ={
+                AnyMat33 ScaleMat = DesignVar({{1,0,0},{0,1,0},{0,0,1}});
+              };
+            };
+          };
+          AnyFolder  Left ={
+            AnyFolder  Foot ={
+              AnyFolder  ScaleFunction ={
+                AnyMat33 ScaleMat = DesignVar({{1,0,0},{0,1,0},{0,0,1}});
+              };
+            };
+          };
+        };
+      };
+      AnyFolder  BodyModel ={
+        
+        AnyFolder  Right={
+          AnyFolder Leg = {
+            AnyFolder Seg = {
+              AnyFolder Talus = {
+                AnyFolder AnkleJoint = {
+                  AnyVec3 sRel = DesignVar({0,0,0});
+                  AnyMat33 ARel = DesignVar({{1,0,0},{0,1,0},{0,0,1}});
+                };
+                AnyFolder SubTalarJoint= {
+                  AnyVec3 sRel = DesignVar({0,0,0});
+                  AnyMat33 ARel = DesignVar({{1,0,0},{0,1,0},{0,0,1}});
+                };
+              };
+              AnyFolder Foot = {
+                AnyFolder SubTalarJoint = {
+                  AnyVec3 sRel = DesignVar({0,0,0});
+                  AnyMat33 ARel = DesignVar({{1,0,0},{0,1,0},{0,0,1}});
+                };
+              };
+            };
+          };
+        };
+        AnyFolder  Left={
+          AnyFolder Leg = {
+            AnyFolder Seg = {
+              AnyFolder Talus = {
+                AnyFolder AnkleJoint = {
+                  AnyVec3 sRel = DesignVar({0,0,0});
+                  AnyMat33 ARel = DesignVar({{1,0,0},{0,1,0},{0,0,1}});
+                };
+                AnyFolder SubTalarJoint= {
+                  AnyVec3 sRel = DesignVar({0,0,0});
+                  AnyMat33 ARel = DesignVar({{1,0,0},{0,1,0},{0,0,1}});
+                };
+              };
+              AnyFolder Foot = {
+                AnyFolder SubTalarJoint = {
+                  AnyVec3 sRel = DesignVar({0,0,0});
+                  AnyMat33 ARel = DesignVar({{1,0,0},{0,1,0},{0,0,1}});
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+};
+
+AnyOperationMacro MarkValuesAsChanged_BugWorkAround = {
+MacroStr = {"classoperation Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Right.Foot.ScaleFunction.ScaleMat" + strquote("Set Value") + " --value= {{1,0,0},{0,1,0},{0,0,1}}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Left.Foot.ScaleFunction.ScaleMat" + strquote("Set Value") + " --value={{1,0,0},{0,1,0},{0,0,1}}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.sRel" + strquote("Set Value") + " --value={0,0,0}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel" + strquote("Set Value") + " --value={{1,0,0},{0,1,0},{0,0,1}}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel" + strquote("Set Value") + " --value={0,0,0}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel" + strquote("Set Value") + " --value={{1,0,0},{0,1,0},{0,0,1}}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.sRel" + strquote("Set Value") + " --value={0,0,0}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel" + strquote("Set Value") + " --value={{1,0,0},{0,1,0},{0,0,1}}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.sRel" + strquote("Set Value") + " --value={0,0,0}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.ARel" + strquote("Set Value") + " --value={{1,0,0},{0,1,0},{0,0,1}}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.sRel" + strquote("Set Value") + " --value={0,0,0}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel" + strquote("Set Value") + " --value={{1,0,0},{0,1,0},{0,0,1}}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.sRel" + strquote("Set Value") + " --value={0,0,0}",
+"classoperation Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.ARel" + strquote("Set Value") + " --value={{1,0,0},{0,1,0},{0,0,1}}"
+};
+};
+
+AnyOperationSetValue  CopyValues2DummyStructure= 
+{
+  Source = {&..RScaleMat,
+&..LScaleMat,
+&..RAnkleJointPos,
+&..RAnkleJointRot,
+&..RSubtalarJointPos,
+&..RSubtalarJointRot ,
+&..RSubtalarJointPos ,
+&..RFootSubtalarJointRot ,
+&..LAnkleJointPos,
+&..LAnkleJointRot,
+&..LSubtalarJointPos,
+&..LSubtalarJointRot ,
+&..LSubtalarJointPos ,
+&..LFootSubtalarJointRot};
+Target = {&Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Right.Foot.ScaleFunction.ScaleMat,
+&Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Left.Foot.ScaleFunction.ScaleMat,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.sRel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.sRel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.sRel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.ARel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.sRel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.sRel,
+&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.ARel};
+};
+
