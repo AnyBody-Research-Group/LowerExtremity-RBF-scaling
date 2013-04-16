@@ -237,11 +237,6 @@ AnyFolder MorphTargetPoints = {
   AnyFolder &ThighRef = ..LegTDRef.Thigh;
   ThighRef = {
     MorphNodes = {
-      AnyRefNode TEST = {
-        sRel = ...KneeCenterPoint;
-        ARel = ...ThighControlPointRot ;
-        AnyDrawRefFrame drw = {RGB = {1,0,1};};
-      };
       
       
         AnyRefNode TargetCenterHipPoint = {
