@@ -458,34 +458,34 @@ AnyFolder Validation = {
       AnyVar cForceBodyWeight = cForce /.BodyWeight;
      }; 
     
-     AnyFolder TotalContactForce = {
-     AnyFunInterpol InterpFun = 
-      {
-        Type = PiecewiseLinear;
-        AnyFolder &C3DHeader = ...C3DRef.Header;
-        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
-        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
-        
-        AnyInt nAnalogSamples = (C3DHeader.LastFrameNo-C3DHeader.FirstFrameNo+1)*C3DHeader.NoAnalogSamplesPer3DFrame;
-        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+//     AnyFolder TotalContactForce = {
+//     AnyFunInterpol InterpFun = 
+//      {
+//        Type = PiecewiseLinear;
+//        AnyFolder &C3DHeader = ...C3DRef.Header;
+//        AnyFloatVar  tStart = C3DHeader.FirstFrameNo/C3DHeader.VideoFrameRate;
+//        AnyFloatVar  tEnd =  C3DHeader.LastFrameNo/C3DHeader.VideoFrameRate;
 //        
-//        Data = ((..Lbs2Newton * ( {-0.876* ..KneeForceRef.ETibFx}
-//        + {0.494* ..KneeForceRef.ETibFz})) - (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.ETibTy}))) +
-//      ((..Lbs2Newton * ( {0.876* ..KneeForceRef.ETibFx}
-//        + {0.494* ..KneeForceRef.ETibFz})) + (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.ETibTy}))) ;
+//        AnyInt nAnalogSamples = (C3DHeader.LastFrameNo-C3DHeader.FirstFrameNo+1)*C3DHeader.NoAnalogSamplesPer3DFrame;
+//        T = tStart+(iarr(0,nAnalogSamples-1)*(tEnd-tStart)/nAnalogSamples);
+////        
+////        Data = ((..Lbs2Newton * ( {-0.876* ..KneeForceRef.ETibFx}
+////        + {0.494* ..KneeForceRef.ETibFz})) - (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.ETibTy}))) +
+////      ((..Lbs2Newton * ( {0.876* ..KneeForceRef.ETibFx}
+////        + {0.494* ..KneeForceRef.ETibFz})) + (..LBSinch2Nmm  * ( {0.0189* ..KneeForceRef.ETibTy}))) ;
+////       }; 
+//             Data = ((( {-0.876* ..KneeForceRef.ETibFx}
+//        + {0.494* ..KneeForceRef.ETibFz})) - (1000* ( {0.0189* ..KneeForceRef.ETibTy}))) +
+//      ((( {0.876* ..KneeForceRef.ETibFx}
+//        + {0.494* ..KneeForceRef.ETibFz})) + (1000 * ( {0.0189* ..KneeForceRef.ETibTy}))) ;
 //       }; 
-             Data = ((( {-0.876* ..KneeForceRef.ETibFx}
-        + {0.494* ..KneeForceRef.ETibFz})) - (1000* ( {0.0189* ..KneeForceRef.ETibTy}))) +
-      ((( {0.876* ..KneeForceRef.ETibFx}
-        + {0.494* ..KneeForceRef.ETibFz})) + (1000 * ( {0.0189* ..KneeForceRef.ETibTy}))) ;
-       }; 
-       
-      
-      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
-      AnyVar cForce = (...InstrumentedKnee.Fm) + (...InstrumentedKnee.Fl);
-      AnyVar cForceBodyWeight = cForce /.BodyWeight;
-
-    };
+//       
+//      
+//      AnyVar mForceBodyWeight = InterpFun(...t)[0]/.BodyWeight;
+//      AnyVar cForce = (...InstrumentedKnee.Fm) + (...InstrumentedKnee.Fl);
+//      AnyVar cForceBodyWeight = cForce /.BodyWeight;
+//
+//    };
      AnyFolder TotalContactForce2 = {
      AnyFunInterpol InterpFun = 
       {
