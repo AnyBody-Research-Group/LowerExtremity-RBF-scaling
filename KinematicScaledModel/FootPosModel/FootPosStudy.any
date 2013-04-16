@@ -23,7 +23,12 @@ Main = {
       MacroStr = { "classoperation Main" + strquote("Load Values") 
                     + " --file=" + TEMP_FILE_PATH + "/" +Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset",
                    "operation Main.Load_JointTrialParameters","run",
-                   "operation Main.FootPosModel.study.InitialConditions","run"};
+                   "operation Main.FootPosModel.study.InitialConditions","run",
+                   "operation Main.FootPosModel.study.FootPar.SaveToAnySetFile.MarkValuesAsChanged_BugWorkAround", "run",
+                   "operation Main.FootPosModel.study.FootPar.SaveToAnySetFile.CopyValues2DummyStructure","run",
+                   "classoperation Main " + strquote("Save Values") 
+                   + " --file=" + TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_Ankle_Joint_Parameters.anyset" 
+      };
     };
     
 };  // Main
@@ -127,79 +132,8 @@ AnyFolder Left = {
       
       AnyFolder SaveToAnySetFile = {
         
-        
-     AnyFunEx SaveAnySetValue = 
-     {
-       // Return type shoud be of same length as TrialForce*UnComp
-       AnyInt Return = 0;
-       AnyFunExMonoPy save_vec3=
-       {
-        ModuleFile = "save_anyset_file.py";
-         ArgList = 
-         {
-           AnyString filename = "Test file name";
-           AnyString varname =  "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel";
-           AnyVec3 var = {0.3434,0.3434,0.3434};
-         };
-       };
-       AnyFunExMonoPy save_anymat33=
-       {
-        ModuleFile = "save_anyset_file.py";
-         ArgList = 
-         {
-           AnyString filename = "Test file name";
-           AnyString varname =  "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel";
-           AnyMat33 var = {{1.0,1.0,1.0},{2,2,2},{3,3,3}};
-         };
-       };
-     };
-     
-     AnyString anysetfile = TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "_Ankle_Joint_Parameters.anyset";
 
-     
-     AnyInt ret0 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Right.Foot.ScaleFunction.ScaleMat",
-                           .RScaleMat );
-     AnyInt ret00 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.Scaling.GeometricalScaling.Left.Foot.ScaleFunction.ScaleMat",
-                           .LScaleMat );
-     AnyInt ret1 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.sRel",
-                           .RAnkleJointPos);
-     AnyInt ret2 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel",
-                           .RAnkleJointRot);
-     AnyInt ret3 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel",
-                           .RSubtalarJointPos);
-     AnyInt ret4 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel",
-                           .RSubtalarJointRot );
-     AnyInt ret5 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.sRel",
-                           .RSubtalarJointPos );
-     AnyInt ret6 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel",
-                           .RFootSubtalarJointRot );
-                           
-     AnyInt ret7 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.sRel",
-                           .LAnkleJointPos);
-     AnyInt ret8 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.ARel",
-                           .LAnkleJointRot);
-     AnyInt ret9 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.sRel",
-                           .LSubtalarJointPos);
-     AnyInt ret10 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel",
-                           .LSubtalarJointRot );
-     AnyInt ret11 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.sRel",
-                           .LSubtalarJointPos );
-     AnyInt ret12 = SaveAnySetValue(anysetfile,
-             "Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.ARel",
-                           .LFootSubtalarJointRot );                           
+     #include "SaveAnySetFile.any"
                                  
       
       

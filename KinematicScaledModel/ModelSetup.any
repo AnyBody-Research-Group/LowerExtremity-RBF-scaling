@@ -85,7 +85,7 @@ AnyFolder ModelSetup ={
 
   };
   
-  #include "FootContactPythonFunctions.any"
+//  #include "FootContactPythonFunctions.any"
   
   
   
