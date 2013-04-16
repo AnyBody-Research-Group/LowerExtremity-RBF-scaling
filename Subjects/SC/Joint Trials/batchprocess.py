@@ -4,13 +4,16 @@ Created on Tue Nov 01 11:17:31 2011
 
 @author: melund
 """
+from __future__ import print_function
 
 import os.path as op
-import os
 from subprocess import check_output
 import threading
+import sys
 
-NUM_PROCESSES = 4
+print = lambda x: sys.stdout.write("%s\n" % x)
+
+NUM_PROCESSES = 10
 
 
 # Find run.bat files in subfolders 
@@ -22,11 +25,12 @@ def collectBatFiles(arg,dirname, names):
             
 op.walk(op.abspath('.'), collectBatFiles,' ')
 
+bat1 = tasklist[0]
 
 def process(batfile):
     (folder, name) = op.split(batfile)
     check_output(batfile,cwd = folder)
-    print 'Processed ended' 
+    print( 'Done: ' + op.split(folder)[-1])
 
 
 threads = []

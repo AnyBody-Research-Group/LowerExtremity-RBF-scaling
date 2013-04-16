@@ -5,19 +5,19 @@ Created on Tue Dec 13 14:33:49 2011
 @author: melund
 """
 
-from anypytools.abcutils2 import AnyPyProcess, create_path_load_string
+from anypytools.abcutils import AnyPyProcess, create_path_load_string
 
 import os
 ################################ Setup ########################################
 def modelpath(path):
     return os.path.join(os.getcwd(), path)
 def outputpath(path):
-    return os.path.join('y:/model_output/', path)
+    return os.path.join('z:/model_output/', path)
 linear_model = modelpath('LinearScaledModel')
 anatomic_model = modelpath('AnatomicalLandmarkScaledModel')
 kinematic_model  = modelpath('KinematicScaledModel')
 re_string = 'ngait.*\.[M,m]ain\.any'
-n_processes = 2
+n_processes = 5
 
 app = AnyPyProcess(basepath = modelpath('Subjects/SC/Gait Trials'),
                    subdir_search= re_string,
