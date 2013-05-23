@@ -1,3 +1,8 @@
+#if ANYBODY_V4 == 3723
+   #define atan2 atan2_globalfunc
+#endif
+
+
 #ifndef MODEL_TYPE
 #path MODEL_TYPE "../../../../LinearScaledModel"
 #endif

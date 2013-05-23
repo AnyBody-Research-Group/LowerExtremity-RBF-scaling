@@ -2,6 +2,11 @@
 #define PREMAININCLUDES_ANY
 #include "../libdef.any"
 
+#if ANYBODY_V4 == 3723
+  #ifndef atan2 
+  #define atan2 atan2_globalfunc
+  #endif
+#endif
 
 #ifndef PROJECT_FOLDER_NAME 
 #define PROJECT_FOLDER_NAME Kinematic_Scaled_Model  
