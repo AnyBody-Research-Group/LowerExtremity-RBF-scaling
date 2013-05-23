@@ -127,7 +127,7 @@ app.start_batch_job(macro)
 ####################### RUN LINEARLY SCALED MODEL ########################
 print '*'*60+'\n','Linearly scaled model: Inverse dynamics'
 pathdef = create_path_load_string({'MODEL_TYPE':linear_model,
-                    'H5_OUTPUT':outputpath('lin_scaled_model/inversedynamicss')
+                    'H5_OUTPUT':outputpath('lin_scaled_model/inversedynamics')
                     })                 
 macro =  ['load "InversDynamics.main.any"'+pathdef, 
           'operation Main.InverseDynamicAnalysisSequence',
@@ -135,3 +135,4 @@ macro =  ['load "InversDynamics.main.any"'+pathdef,
           'operation Main.SaveResults',
           'run',
           'exit']   
+app.start_batch_job(macro)
