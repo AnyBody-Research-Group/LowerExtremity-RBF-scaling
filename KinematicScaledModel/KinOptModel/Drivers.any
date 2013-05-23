@@ -107,7 +107,7 @@ AnyFolder Drivers = {
 //    #ifdef FULL_MARKERSET
     AnyKinDriverMarker RPatella=    {
       CType = {Soft,Soft,Soft};
-      AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RPatella;
+      AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RPatella;
       AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RPatella.PosInterpol;
       AnyFolder Weights = {AnyFunConst WFun ={Value = {
             Main.SubjectSpecificData.MarkerWeights.PatellaX,

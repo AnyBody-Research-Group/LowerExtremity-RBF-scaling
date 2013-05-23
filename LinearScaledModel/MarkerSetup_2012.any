@@ -25,7 +25,7 @@
   CreateMarker RPsis ( 
   MarkerName=RPsis , 
   MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
-  OptX="Off", OptY="Off", OptZ="On",  
+  OptX="On", OptY="Off", OptZ="On",  
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,  
   Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel 
   ) = {
@@ -36,7 +36,7 @@
   CreateMarker LPsis ( 
   MarkerName=LPsis , 
   MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
-  OptX="Off", OptY="Off", OptZ="On",  
+  OptX="On", OptY="Off", OptZ="On",  
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,  
   Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel 
   ) = {
@@ -355,7 +355,7 @@
   CreateMarkerTD LMidfootLateral ( 
   MarkerName=PrefixDef(LMidfootLateral),
   MarkerPlacement =Left.Leg.Seg.Foot, 
-  OptX="On",OptY="Off",OptZ="Off",
+  OptX="On",OptY="Off",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
@@ -366,7 +366,7 @@
   CreateMarkerTD RMidfootLateral ( 
   MarkerName=PrefixDef(RMidfootLateral),
   MarkerPlacement =Right.Leg.Seg.Foot, 
-  OptX="On",OptY="Off",OptZ="Off",
+  OptX="On",OptY="Off",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
