@@ -88,8 +88,6 @@ Main ={
         };
       };
       
-      #include "JointAngleOutputs.any"
-      #include "UndefineBodyPartSetup.any"
       InitialConditions.PosAnalysisOnlyOnOff=On;
       Kinematics.PosAnalysisOnlyOnOff=On; //only run the position analysis 
       nStep = 75; 
@@ -118,9 +116,8 @@ Main ={
       AnyFolder &C3DData=..ModelSetup.C3DFileData ;
       AnyFolder &BodyModel=.KinematicStudyForParameterIdentification.BodyModel;
       AnyFolder &ModelOptimizationModel=.KinematicStudyForParameterIdentification;
-      AnyFolder &JointAngleOutput=.KinematicStudyForParameterIdentification.JointAngleOutputs;
       AnyFolder &Markers = ModelOptimizationModel.ModelEnvironmentConnection.Drivers;
-      
+      #include "JointAngleOutputs.any"
       InitialConditions.PosAnalysisOnlyOnOff=On;
       Kinematics.PosAnalysisOnlyOnOff=On;
       nStep=Main.ModelSetup.nStep; 
@@ -130,9 +127,18 @@ Main ={
       
       InitialConditions.SolverType = KinSolOverDeterminate;
       Kinematics.SolverType = KinSolOverDeterminate;
+      
+      
+      AnyFolder HumanModel = {
+        AnyFolder &BodyModel = .BodyModel;
+      };
+      #include "JointAnglesAndMoments.any"
+
     };
   };
 };
+
+#include "UndefineBodyPartSetup.any"
 #undef MotionAndParameterOptimizationModel 
 #undef InverseDynamicModel 
 #undef IntialPositionStudy 
