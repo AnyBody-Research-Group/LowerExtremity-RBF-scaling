@@ -61,16 +61,18 @@
       Type=RotAxesAngles;
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
+    OutDim = 1;
     Coef = {{1,0,0}}*180/pi;
   };
   AnyKinMeasureLinComb HipAdduction = {
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
     Coef = .Sign *{{0,1,0}}*180/pi;
-    
+    OutDim = 1;
   };
   AnyKinMeasureLinComb HipInternalRotation ={
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
     Coef =.Sign *{{0,0,1}}*180/pi;
+    OutDim = 1;
   };
 
   AnyKinMeasureLinComb KneeFlexion = {
@@ -81,14 +83,17 @@
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
     Coef =-1*{{1,0,0}}*180/pi;
+    OutDim = 1;
   };
   AnyKinMeasureLinComb KneeAdduction = {
     AnyKinRotational &KinRot = .KneeFlexion.KinRot;
     Coef =.Sign *{{0,1,0}}*180/pi;
+    OutDim = 1;
   };
   AnyKinMeasureLinComb KneeInternalRotation = {
     AnyKinRotational &KinRot = .KneeFlexion.KinRot;
     Coef =.Sign *{{0,0,1}}*180/pi;
+    OutDim = 1;
   };
   
   
@@ -100,14 +105,17 @@
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
     Coef ={{1,0,0}}*180/pi;
+    OutDim = 1;
   };
   AnyKinMeasureLinComb AnkleInversion ={
     AnyKinRotational &KinRot =.AnkleDorsiFlexion.KinRot; 
     Coef  =.Sign*{{0,1,0}}*180/pi;
+    OutDim = 1;
   };    
   AnyKinMeasureLinComb AnkleInternalRotation = {
     AnyKinRotational &KinRot =.AnkleDorsiFlexion.KinRot; 
     Coef  = .Sign*{{0,0,1}}*180/pi;
+    OutDim = 1;
   };
   
 
@@ -127,16 +135,19 @@
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
     Coef = {{1,0,0}}*180/pi;
+    OutDim = 1;
   };
   AnyKinMeasureLinComb HipAdduction = {
     AnyVar M_Projected = .Sign*cross(..PELVIS_FRAME.Axes'[2],..THIGH_HIP_FRAME.Axes'[1])*..HIPMOMENT';
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
     Coef =.Sign *{{0,1,0}}*180/pi;
+    OutDim = 1;
   };
   AnyKinMeasureLinComb HipInternalRotation ={
     AnyVar M_Projected = -1*.Sign*..THIGH_HIP_FRAME.Axes'[1]*..HIPMOMENT';
     AnyKinRotational &HipJoint =.HipFlexion.HipMeasure; 
     Coef =.Sign *{{0,0,1}}*180/pi;
+    OutDim = 1;
   };
 
   AnyKinMeasureLinComb KneeFlexion = {
@@ -148,16 +159,19 @@
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
     Coef =-1*{{1,0,0}}*180/pi;
+    OutDim = 1;
   };
   AnyKinMeasureLinComb KneeAdduction = {
     AnyVar M_Projected = .Sign*cross(..THIGH_KNEE_FRAME.Axes'[2], ..SHANK_KNEE_FRAME.Axes'[1])*..KNEEMOMENT';
     AnyKinRotational &KinRot = .KneeFlexion.KinRot;
     Coef  =.Sign *{{0,1,0}}*180/pi;
+    OutDim = 1;
   };
   AnyKinMeasureLinComb KneeInternalRotation = {
     AnyVar M_Projected = -1*.Sign*..SHANK_KNEE_FRAME.Axes'[1]*..KNEEMOMENT';
     AnyKinRotational &KinRot = .KneeFlexion.KinRot;
     Coef  =.Sign *{{0,0,1}}*180/pi;
+    OutDim = 1;
   };
   
   
@@ -170,16 +184,19 @@
       Axis1 = z; Axis2 = x; Axis3 = y;
     };
     Coef  ={{1,0,0}}*180/pi;
+    OutDim = 1;
   };
   AnyKinMeasureLinComb AnkleInversion ={
     AnyVar M_Projected = .Sign*cross(..SHANK_ANKLE_FRAME.Axes'[2],..FOOT_ANKLE_FRAME.Axes'[1])*..ANKLEMOMENT';
     AnyKinRotational &KinRot =.AnkleDorsiFlexion.KinRot; 
     Coef  =.Sign*{{0,1,0}}*180/pi;
+    OutDim = 1;
   };    
   AnyKinMeasureLinComb AnkleInternalRotation = {
     AnyVar M_Projected = -1*.Sign*..FOOT_ANKLE_FRAME.Axes'[1]*..ANKLEMOMENT';
     AnyKinRotational &KinRot =.AnkleDorsiFlexion.KinRot; 
     Coef  = .Sign*{{0,0,1}}*180/pi;
+    OutDim = 1;
   };
   
 
