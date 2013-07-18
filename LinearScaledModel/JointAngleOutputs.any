@@ -1,7 +1,11 @@
 AnyFolder JointAngleOutputs = {
  
   AnyOutputFile OutputFile1 = {
+    #ifdef TRUNK_DRIVER_FILE
+     FileName = TRUNK_DRIVER_FILE;
+    #else
     FileName = FilePathCompleteOf(Main.ModelSetup.FileNames.OptimizedMotionTrunk);
+    #endif
     SepSign = " ";
     
     AnyVector PelvisPosX = ..BodyModel.Interface.Trunk.PelvisPosX.Pos;
@@ -19,7 +23,11 @@ AnyFolder JointAngleOutputs = {
   #if LEFT_LEG_TD == 1
 
   AnyOutputFile OutputFile2 = {
+    #ifdef LLEG_DRIVER_FILE
+     FileName = LLEG_DRIVER_FILE;
+    #else
     FileName = FilePathCompleteOf(Main.ModelSetup.FileNames.OptimizedMotionLeftLegTD);
+    #endif
     SepSign = " ";
     
     AnyVector HipFlexion = ..BodyModel.Interface.Left.HipFlexion.Pos;
@@ -37,7 +45,11 @@ AnyFolder JointAngleOutputs = {
   #if RIGHT_LEG_TD == 1
 
   AnyOutputFile OutputFile3 = {
-        FileName = FilePathCompleteOf(Main.ModelSetup.FileNames.OptimizedMotionRightLegTD);
+    #ifdef RLEG_DRIVER_FILE
+    FileName = RLEG_DRIVER_FILE;
+    #else
+    FileName = FilePathCompleteOf(Main.ModelSetup.FileNames.OptimizedMotionRightLegTD);
+    #endif
     SepSign = " ";
     
     AnyVector HipFlexion = ..BodyModel.Interface.Right.HipFlexion.Pos;
