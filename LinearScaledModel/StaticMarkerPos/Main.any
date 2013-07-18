@@ -40,7 +40,7 @@ Main.Studies = {
       AnyFolder &BodyModel=..KinematicStudyForParameterIdentification.BodyModel;
     };
     AnyFolder &ModelOptimizationModel=.KinematicStudyForParameterIdentification;
-    AnyFolder &JointAngleOutput=.KinematicStudyForParameterIdentification.JointAngleOutputs;
+//    AnyFolder &JointAngleOutput=.KinematicStudyForParameterIdentification.JointAngleOutputs;
     AnyFolder &Markers = ModelOptimizationModel.ModelEnvironmentConnection.Drivers;
     
 //    #include "../AnatomicalJointAngles.any"
@@ -301,44 +301,45 @@ Main.Studies = {
        };
      };
      
-     AnyString anysetfile = DesignVar("SC_ngait_og5");
+     AnyString anysetfile = DesignVar("dummy");
+     AnyString StaticFramesFileName = TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset";
      
-     AnyInt ret0 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret0 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.StaticMarkerFrame.ARel",
                       PelvisMarkerFrame );
-     AnyInt ret1 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret1 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.HipStaticMarkerFrame.ARel",
                       RHipThighMarkerFrame );
-     AnyInt ret2 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret2 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.KneeStaticMarkerFrame.ARel",
                       RKneeThighMarkerFrame );
 
                       
-     AnyInt ret3 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret3 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Shank.KneeStaticMarkerFrame.ARel",
                       RKneeShankMarkerFrame );
-     AnyInt ret4 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret4 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Shank.AnkleStaticMarkerFrame.ARel",
                       RAnkleShankMarkerFrame );
-     AnyInt ret5 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret5 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Foot.AnkleStaticMarkerFrame.ARel",
                       RAnkleFootMarkerFrame );
                       
-     AnyInt ret6 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret6 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.HipStaticMarkerFrame.ARel",
                       LHipThighMarkerFrame );
-     AnyInt ret7 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret7 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.KneeStaticMarkerFrame.ARel",
                       LKneeThighMarkerFrame );
                       
                       
-     AnyInt ret8 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret8 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Shank.KneeStaticMarkerFrame.ARel",
                       LKneeShankMarkerFrame );
-     AnyInt ret9 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret9 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Shank.AnkleStaticMarkerFrame.ARel",
                       LAnkleShankMarkerFrame );
-     AnyInt ret10 = SaveAnySetValue(TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset",
+     AnyInt ret10 = SaveAnySetValue(StaticFramesFileName ,
         "Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Foot.AnkleStaticMarkerFrame.ARel",
                       LAnkleFootMarkerFrame );
    

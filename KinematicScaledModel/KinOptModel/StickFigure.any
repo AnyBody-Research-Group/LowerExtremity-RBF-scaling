@@ -191,7 +191,7 @@ AnyFolder StickFigure = {
            sRel = ..RKneeMedial.sRel_static;
          };
          /// Defined based on ISB recommendation for HIP joint rotations
-         AnyRefNode HipISBCoord = {
+         AnyRefNode HipStaticMarkerFrame = {
            AnyVec3 O = ..HipJoint.sRel_static ;
            AnyVec3 Y = O - 0.5*(..RKneeLateral.sRel_static + ..RKneeMedial.sRel_static) ;
            AnyVec3 X = cross(Y,..RKneeLateral.sRel_static -..RKneeMedial.sRel_static );
@@ -201,7 +201,7 @@ AnyFolder StickFigure = {
          };
          /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
          /// which align with the epicondyle line. 
-         AnyRefNode KneeISBCoord = {
+         AnyRefNode KneeStaticMarkerFrame = {
            AnyVec3 O = 0.5*(..RKneeMedial.sRel_static + ..RKneeLateral.sRel_static);
            AnyVec3 Z = ..RKneeLateral.sRel_static - ..RKneeMedial.sRel_static;
            AnyVec3 X = cross( ..HipJoint.sRel_static - O, Z);
@@ -330,7 +330,7 @@ AnyFolder StickFigure = {
          AnyRefNode RKneeMedial = {
            sRel = ..RKneeMedial.sRel_static;
          };
-         AnyRefNode AnkleISBCoord = {
+         AnyRefNode AnkleStaticMarkerFrame = {
            AnyVec3 O = 0.5*(..RAnkleMedial.sRel_static + ..RAnkleLateral.sRel_static);
            AnyVec3 Z = (..RAnkleLateral.sRel_static - ..RAnkleMedial.sRel_static) ;
            AnyVec3 X = cross( 0.5*(..RKneeMedial.sRel_static+..RKneeLateral.sRel_static)-..RAnkleLateral.sRel_static,
@@ -338,11 +338,11 @@ AnyFolder StickFigure = {
            AnyVec3 Y = cross(Z,X); 
            sRel = O;
            ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-//           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
+           AnyDrawRefFrame drw = {RGB = {1,0,1}; };
          };
          /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
          /// which align with the epicondyle line. 
-         AnyRefNode KneeISBCoord = {
+         AnyRefNode KneeStaticMarkerFrame = {
            AnyVec3 O = 0.5*(..RKneeMedial.sRel_static + ..RKneeLateral.sRel_static);
            AnyVec3 Z = ..RKneeLateral.sRel_static - ..RKneeMedial.sRel_static ;
            AnyVec3 X = cross(Z,0.5*(..RAnkleLateral.sRel_static+..RAnkleMedial.sRel_static) - O);  
@@ -552,7 +552,7 @@ AnyFolder StickFigure = {
         AnyRefNode RAnkleMedial = {
           sRel = ..RAnkleMedial.sRel_static;
         };
-        AnyRefNode AnkleISBCoord = {
+        AnyRefNode AnkleStaticMarkerFrame = {
           AnyVec3 O = 0.5*(..RAnkleMedial.sRel_static + ..RAnkleLateral.sRel_static);
           AnyVec3 Y =  0.5*(..RKneeMedial.sRel_static + ..RKneeLateral.sRel_static)-
                        0.5*(..RAnkleMedial.sRel_static + ..RAnkleLateral.sRel_static);
@@ -561,7 +561,7 @@ AnyFolder StickFigure = {
           AnyVec3 Z = cross(X,Y); 
           sRel = O;
           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-//          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
         };
         
        };
@@ -969,7 +969,7 @@ AnyFolder StickFigure = {
           sRel = ..LKneeMedial.sRel_static;
         };
         /// Defined based on ISB recommendation for HIP joint rotations
-        AnyRefNode HipISBCoord = {
+        AnyRefNode HipStaticMarkerFrame = {
           AnyVec3 O = ..HipJoint.sRel_static ;
           AnyVec3 Y = O - 0.5*(..LKneeLateral.sRel_static + ..LKneeMedial.sRel_static) ;
           AnyVec3 X = -1*cross(Y,..LKneeLateral.sRel_static -..LKneeMedial.sRel_static );
@@ -980,7 +980,7 @@ AnyFolder StickFigure = {
         };
         /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
         /// which align with the epicondyle line. 
-        AnyRefNode KneeISBCoord = {
+        AnyRefNode KneeStaticMarkerFrame = {
           AnyVec3 O = 0.5*(..LKneeMedial.sRel_static + ..LKneeLateral.sRel_static);
           AnyVec3 Z = -1*(..LKneeLateral.sRel_static - ..LKneeMedial.sRel_static);
           AnyVec3 X = cross( ..HipJoint.sRel_static - O, Z);
@@ -1102,7 +1102,7 @@ AnyFolder StickFigure = {
         AnyRefNode LAnkleMedial = {
           sRel = ..LAnkleMedial.sRel_static;
         };
-        AnyRefNode AnkleISBCoord = {
+        AnyRefNode AnkleStaticMarkerFrame = {
           AnyVec3 O = 0.5*(..LAnkleMedial.sRel_static + ..LAnkleLateral.sRel_static);
           AnyVec3 Z = -1*(..LAnkleLateral.sRel_static - ..LAnkleMedial.sRel_static) ;
           AnyVec3 X = cross( 0.5*(..LKneeMedial.sRel_static+..LKneeLateral.sRel_static)-..LAnkleLateral.sRel_static,
@@ -1114,7 +1114,7 @@ AnyFolder StickFigure = {
         };
          /// Defined based on Pennock and Clark (1990). Contrary to Grood&Suntay, they use a Z rotaition
          /// which align with the epicondyle line. 
-         AnyRefNode KneeISBCoord = {
+         AnyRefNode KneeStaticMarkerFrame = {
            AnyVec3 O = 0.5*(..LKneeMedial.sRel_static + ..LKneeLateral.sRel_static);
            AnyVec3 Z = -1*(..LKneeLateral.sRel_static - ..LKneeMedial.sRel_static) ;
            AnyVec3 X = cross(Z,0.5*(..LAnkleLateral.sRel_static+..LAnkleMedial.sRel_static) - O);  
@@ -1315,8 +1315,8 @@ AnyFolder StickFigure = {
         AnyRefNode LAnkleMedial = {
           sRel = ..LAnkleMedial.sRel_static;
         };
-        AnyRefNode AnkleISBCoord = {
-         AnyVec3 O = 0.5*(..LAnkleMedial.sRel_static + ..LAnkleLateral.sRel_static);
+        AnyRefNode AnkleStaticMarkerFrame = {
+         AnyVec3 O =  0.5*(..LAnkleMedial.sRel_static + ..LAnkleLateral.sRel_static);
          AnyVec3 Y =  0.5*(..LKneeMedial.sRel_static + ..LKneeLateral.sRel_static)-
                       0.5*(..LAnkleMedial.sRel_static + ..LAnkleLateral.sRel_static);
          AnyVec3 X = -1*cross( ..LKneeLateral.sRel_static-..LKneeMedial.sRel_static,

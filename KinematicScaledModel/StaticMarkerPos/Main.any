@@ -1,0 +1,229 @@
+#include "PreMainIncludes.any"
+
+
+#include "../KinematicModel.main.any"
+
+
+/* This code loads the stick figure definition file from the anatomical/kinematic scaled model. 
+   Thus, allowing us to register the anatomical frames to the coordinate system of the linear
+   scaled model. 
+   */
+//Main.ModelSetup = {
+//   AnyFolder &StaticData = C3DFileData;
+//   AnyIntVar FirstFrame = 1;
+//   C3DFileData = {
+//   MarkerInterPolType = PiecewiseLinear;
+//   };
+//};
+//AnyFolder JntParameterOptModel = {  
+//  #define IncludeRight 1
+//  #define IncludeLeft 1
+//  #define IncludeHip 0
+//  #define IncludeKnee 0
+//  #define IncludeAnkle 0
+//  #define UseDanamicLoadPosition 0
+//     #include "<MODEL_TYPE>../KinematicScaledModel/KinOptModel/StickFigure.any"
+//  #undef IncludeRight
+//  #undef IncludeLeft
+//  #undef IncludeHip
+//  #undef IncludeKnee
+//  #undef IncludeAnkle
+//  #undef UseDanamicLoadPosition
+//};
+/* ################################################################ */
+
+
+
+
+
+
+
+
+
+  AnyBodyStudy StaticStudy = {      
+    AnyFolder &C3DData=.ModelSetup.StaticData;
+    AnyFolder &LegModel = .JntParameterOptModel.LegModel;
+    AnyFolder &EnvironmentModel = .JntParameterOptModel.Environment;
+    AnyFolder &Markers = EnvironmentModel.Drivers;
+
+
+    InitialConditions.PosAnalysisOnlyOnOff=On;
+    Kinematics.PosAnalysisOnlyOnOff=On;
+    nStep=1; 
+    Gravity = { 0.0, -9.81,0};
+    tStart = (C3DData.Header.FirstFrameNo+Main.SubjectSpecificData.StaticFrameIndex)/
+              C3DData.Header.VideoFrameRate;
+    tEnd = tStart;
+     
+    InitialConditions.SolverType = KinSolOverDeterminate;
+    Kinematics.SolverType = KinSolOverDeterminate;
+    
+    AnyFolder StaticPos = {
+      AnyVec3 RAsis = .C3DData.Points.Markers.RAsis.PosInterpol(.t);
+      AnyVec3 LAsis = .C3DData.Points.Markers.LAsis.PosInterpol(.t);
+      AnyVec3 RPsis = .C3DData.Points.Markers.RPsis.PosInterpol(.t);
+      AnyVec3 LPsis = .C3DData.Points.Markers.LPsis.PosInterpol(.t);
+      
+      AnyVec3 RKneeLateral = .C3DData.Points.Markers.RKneeLateral.PosInterpol(.t);
+      AnyVec3 RKneeMedial = .C3DData.Points.Markers.RKneeMedial.PosInterpol(.t);
+      AnyVec3 RAnkleLateral = .C3DData.Points.Markers.RAnkleLateral.PosInterpol(.t);
+      AnyVec3 RAnkleMedial= .C3DData.Points.Markers.RAnkleMedial.PosInterpol(.t);
+      AnyVec3 RToe = .C3DData.Points.Markers.RToe.PosInterpol(.t);
+      AnyVec3 RHeel = .C3DData.Points.Markers.RHeel.PosInterpol(.t);
+      
+      AnyVec3 LKneeLateral = .C3DData.Points.Markers.LKneeLateral.PosInterpol(.t);
+      AnyVec3 LKneeMedial = .C3DData.Points.Markers.LKneeMedial.PosInterpol(.t);
+      AnyVec3 LAnkleLateral = .C3DData.Points.Markers.LAnkleLateral.PosInterpol(.t);
+      AnyVec3 LAnkleMedial= .C3DData.Points.Markers.LAnkleMedial.PosInterpol(.t);
+      AnyVec3 LToe = .C3DData.Points.Markers.LToe.PosInterpol(.t);
+      AnyVec3 LHeel = .C3DData.Points.Markers.LHeel.PosInterpol(.t);
+      
+      // The Hip Joint positions are calcualted with the Harrington methods. Similar to the 
+      // stickfigure values in the other models
+      AnyVar PelvisDepth = vnorm((RAsis+LAsis)/2-(LPsis+RPsis)/2);
+      AnyVar AsisDist = vnorm(RAsis -LAsis);
+      AnyVec3 RHipJointGlobal = (RAsis+LAsis)/2+                                
+                          {(-0.24*PelvisDepth*1000-9.9)/1000,
+                           (-0.16*AsisDist*1000-0.04*vnorm(RAsis - RAnkleMedial)*1000-7.1)/1000,
+                           (0.28*PelvisDepth*1000+0.16*AsisDist*1000+7.9)/1000}
+                           *PelvisGlobal';
+                           
+      AnyVec3 LHipJointGlobal = (RAsis+LAsis)/2+                                
+                           {(-0.24*PelvisDepth*1000-9.9)/1000,
+                           (-0.16*AsisDist*1000-0.04*vnorm(LAsis - LAnkleMedial)*1000-7.1)/1000,
+                           -(0.28*PelvisDepth*1000+0.16*AsisDist*1000+7.9)/1000}
+                         *PelvisGlobal';
+      
+     // See ISB recommendation for the definition of these anatomical coordinate systems                    
+     AnyMat33 PelvisGlobal = RotMat((RAsis+LAsis)*0.5,
+                                     RAsis,
+                                     (RPsis+LPsis)*0.5 )*RotMat(-pi/2,x)*RotMat(pi/2,y);
+     AnyMat33 RHipThighGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+                                     RHipJointGlobal,
+                                     RKneeLateral)*RotMat(-pi/2,z)*RotMat(-pi/2,y);
+     AnyMat33 RKneeThighGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+                                     RKneeLateral,
+                                     RHipJointGlobal)*RotMat(pi/2,y);
+     AnyMat33 RKneeShankGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+                                     RKneeLateral,
+                                     (RAnkleLateral + RAnkleMedial)/2 )*RotMat(pi,x)*RotMat(pi/2,y);
+     AnyMat33 RAnkleShankGlobal = RotMat((RAnkleLateral + RAnkleMedial)/2,
+                                     RAnkleLateral,
+                                     (RKneeLateral+RKneeMedial)/2 )*RotMat(pi/2,y);
+     AnyMat33 RAnkleFootGlobal = RotMat((RKneeLateral + RKneeMedial)/2,
+                                   (RAnkleLateral + RAnkleMedial)/2,
+                                   RKneeLateral)
+                                   *RotMat(pi/2,z)*RotMat(pi/2,y);
+     
+     // See ISB recommendation for the definition of these anatomical coordinate systems                    
+     AnyMat33 LHipThighGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+                                     LHipJointGlobal,
+                                     LKneeMedial)*RotMat(-pi/2,z)*RotMat(-pi/2,y);
+     AnyMat33 LKneeThighGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+                                     LKneeMedial,
+                                     LHipJointGlobal)*RotMat(pi/2,y);
+     AnyMat33 LKneeShankGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+                                     LKneeMedial,
+                                     (LAnkleLateral + LAnkleMedial)/2 )*RotMat(pi,x)*RotMat(pi/2,y);
+     AnyMat33 LAnkleShankGlobal = RotMat((LAnkleLateral + LAnkleMedial)/2,
+                                     LAnkleMedial,
+                                     (LKneeLateral+LKneeMedial)/2 )*RotMat(pi/2,y);
+     AnyMat33 LAnkleFootGlobal = RotMat((LKneeLateral + LKneeMedial)/2,
+                                   (LAnkleLateral + LAnkleMedial)/2,
+                                   LKneeMedial)
+                                   *RotMat(pi/2,z)*RotMat(pi/2,y);
+        
+     AnyFolder &BodyRef = Main.JntParameterOptModel.LegModel ;                              
+     AnyMat33 PelvisMarkerFrame = BodyRef.Trunk.Seg.Pelvis.Axes'*PelvisGlobal;                            
+     AnyMat33 RHipThighMarkerFrame = BodyRef.Right.Seg.Thigh.Axes'*RHipThighGlobal;
+     AnyMat33 RKneeThighMarkerFrame = BodyRef.Right.Seg.Thigh.Axes'*RKneeThighGlobal; 
+     AnyMat33 RKneeShankMarkerFrame = BodyRef.Right.Seg.Shank.Axes'*RKneeShankGlobal;      
+     AnyMat33 RAnkleShankMarkerFrame = BodyRef.Right.Seg.Shank.Axes'*RAnkleShankGlobal;                            
+     AnyMat33 RAnkleFootMarkerFrame = BodyRef.Right.Seg.Foot.Axes'*RAnkleFootGlobal; 
+     AnyMat33 LHipThighMarkerFrame = BodyRef.Left.Seg.Thigh.Axes'*LHipThighGlobal; 
+     AnyMat33 LKneeThighMarkerFrame = BodyRef.Left.Seg.Thigh.Axes'*LKneeThighGlobal; 
+     AnyMat33 LKneeShankMarkerFrame = BodyRef.Left.Seg.Shank.Axes'*LKneeShankGlobal;  
+     AnyMat33 LAnkleShankMarkerFrame = BodyRef.Left.Seg.Shank.Axes'*LAnkleShankGlobal;                            
+     AnyMat33 LAnkleFootMarkerFrame = BodyRef.Left.Seg.Foot.Axes'*LAnkleFootGlobal;
+     
+     
+     
+     AnyFunEx SaveAnySetValue =  {
+       AnyInt Return = 0;
+       AnyFunExMonoPy save_anymat33= {
+        ModuleFile = SHARED_FILES_PATH + "/save_anyset_file.py";
+         ArgList = 
+         {
+           AnyString filename = "Test file name";
+           AnyString varname =  "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.StaticMarkerFrame";
+           AnyMat33 var = {{1.0,1.0,1.0},{2,2,2},{3,3,3}};
+         };
+       };
+       AnyFunExMonoPy save_anyfloat= {
+        ModuleFile = SHARED_FILES_PATH + "/save_anyset_file.py";
+         ArgList = 
+         {
+           AnyString filename = "Test file name";
+           AnyString varname =  "Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.StaticMarkerFrame";
+           AnyFloat var = 0.0;
+         };
+       };
+     };
+     
+     AnyString anysetfile = DesignVar("KinematicallyScaled");
+     AnyString StaticFramesFileName = TEMP_FILE_PATH+"/"+anysetfile+"_StaticFrames.anyset";
+     
+     AnyInt ret0 = SaveAnySetValue(StaticFramesFileName ,
+     "Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.StaticMarkerFrame.ARel",
+                      PelvisMarkerFrame );
+     AnyInt ret1 = SaveAnySetValue(StaticFramesFileName ,
+     "Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.HipStaticMarkerFrame.ARel",
+                      RHipThighMarkerFrame );
+     AnyInt ret2 = SaveAnySetValue(StaticFramesFileName ,
+     "Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.KneeStaticMarkerFrame.ARel",
+                      RKneeThighMarkerFrame );
+
+                      
+     AnyInt ret3 = SaveAnySetValue(StaticFramesFileName ,
+     "Main.JntParameterOptModel.LegModel.Right.Seg.Shank.KneeStaticMarkerFrame.ARel",
+                      RKneeShankMarkerFrame );
+     AnyInt ret4 = SaveAnySetValue(StaticFramesFileName ,
+     "Main.JntParameterOptModel.LegModel.Right.Seg.Shank.AnkleStaticMarkerFrame.ARel",
+                      RAnkleShankMarkerFrame );
+     AnyInt ret5 = SaveAnySetValue(StaticFramesFileName ,
+     "Main.JntParameterOptModel.LegModel.Right.Seg.Foot.AnkleStaticMarkerFrame.ARel",
+                      RAnkleFootMarkerFrame );
+                      
+     AnyInt ret6 = SaveAnySetValue(StaticFramesFileName ,
+        "Main.JntParameterOptModel.LegModel.Left.Seg.Thigh.HipStaticMarkerFrame.ARel",
+                      LHipThighMarkerFrame );
+     AnyInt ret7 = SaveAnySetValue(StaticFramesFileName ,
+        "Main.JntParameterOptModel.LegModel.Left.Seg.Thigh.KneeStaticMarkerFrame.ARel",
+                      LKneeThighMarkerFrame );
+                      
+                      
+     AnyInt ret8 = SaveAnySetValue(StaticFramesFileName ,
+        "Main.JntParameterOptModel.LegModel.Left.Seg.Shank.KneeStaticMarkerFrame.ARel",
+                      LKneeShankMarkerFrame );
+     AnyInt ret9 = SaveAnySetValue(StaticFramesFileName ,
+        "Main.JntParameterOptModel.LegModel.Left.Seg.Shank.AnkleStaticMarkerFrame.ARel",
+                      LAnkleShankMarkerFrame );
+     AnyInt ret10 = SaveAnySetValue(StaticFramesFileName ,
+        "Main.JntParameterOptModel.LegModel.Left.Seg.Foot.AnkleStaticMarkerFrame.ARel",
+                      LAnkleFootMarkerFrame );
+   
+   };
+    
+  };
+  
+
+
+  AnyOperationMacro CalculateStaticCoordinateSystems = { 
+    MacroStr={
+      "operation Main.Load_JointTrialParameters",
+      "run",
+      "operation Main.StaticStudy.InitialConditions",
+      "run"
+    };
+  };
+  

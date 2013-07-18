@@ -19,6 +19,8 @@ AnyFolder Seg = {
         sRel =  {-0.06371582, -0.0877099, -0.1137453};
     };
     
+    AnyRefNode StaticMarkerFrame = {};
+    
     
 #if HideStickModelGraphics == 0
 

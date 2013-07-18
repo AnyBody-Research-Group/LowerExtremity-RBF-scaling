@@ -51,12 +51,12 @@ AnyFolder Interface = {
 
     #if IncludeHip & IncludeKnee & IncludeAnkle
     CreateJointMeasures ISBMeasures (
-    PELVIS_FRAME= ..Trunk.Seg.Pelvis,
-    THIGH_HIP_FRAME = ThighRef.HipISBCoord,
-    THIGH_KNEE_FRAME = ThighRef.KneeISBCoord,
-    SHANK_KNEE_FRAME =ShankRef.KneeISBCoord,
-    SHANK_ANKLE_FRAME =ShankRef.AnkleISBCoord,
-    FOOT_ANKLE_FRAME =FootRef.AnkleISBCoord  ) = {Sign = 1;};
+    PELVIS_FRAME= ..Trunk.Seg.Pelvis.StaticMarkerFrame,
+    THIGH_HIP_FRAME = ThighRef.HipStaticMarkerFrame,
+    THIGH_KNEE_FRAME = ThighRef.KneeStaticMarkerFrame,
+    SHANK_KNEE_FRAME =ShankRef.KneeStaticMarkerFrame,
+    SHANK_ANKLE_FRAME =ShankRef.AnkleStaticMarkerFrame,
+    FOOT_ANKLE_FRAME =FootRef.AnkleStaticMarkerFrame  ) = {Sign = 1;};
     #endif
     
   #if IncludeHip == 1
@@ -196,12 +196,12 @@ AnyFolder Interface = {
   
     #if IncludeHip & IncludeKnee & IncludeAnkle
     CreateJointMeasures ISBMeasures (
-    PELVIS_FRAME= ..Trunk.Seg.Pelvis,
-    THIGH_HIP_FRAME = ThighRef.HipISBCoord,
-    THIGH_KNEE_FRAME = ThighRef.KneeISBCoord,
-    SHANK_KNEE_FRAME =ShankRef.KneeISBCoord,
-    SHANK_ANKLE_FRAME =ShankRef.AnkleISBCoord,
-    FOOT_ANKLE_FRAME =FootRef.AnkleISBCoord  ) = {Sign = -1;};
+    PELVIS_FRAME= ..Trunk.Seg.Pelvis.StaticMarkerFrame,
+    THIGH_HIP_FRAME = ThighRef.HipStaticMarkerFrame,
+    THIGH_KNEE_FRAME = ThighRef.KneeStaticMarkerFrame,
+    SHANK_KNEE_FRAME =ShankRef.KneeStaticMarkerFrame,
+    SHANK_ANKLE_FRAME =ShankRef.AnkleStaticMarkerFrame,
+    FOOT_ANKLE_FRAME =FootRef.AnkleStaticMarkerFrame  ) = {Sign = -1;};
     #endif
     
   #if IncludeHip == 1

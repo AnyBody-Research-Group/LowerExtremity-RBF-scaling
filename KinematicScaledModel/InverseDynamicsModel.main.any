@@ -69,14 +69,19 @@ Main = {
     
     
  };
-//  #ifdef H5_OUTPUT
   AnyOperationMacro SaveOutputToH5File = {
      MacroStr = {
      "classoperation  Main.AnyBodyGaitAppModel.InverseDynamicStudy.Output " + strquote("Save data") 
      + "--type="+strquote("Deep") + " --file= " + strquote( H5_OUTPUT +"/"+ Main.TrialSpecificData.TrialName + ".anydata.h5") };
   };
-//  #endif
- 
+  
+  #ifndef ANATOMIC_SCALED_MODEL
+  AnyOperationMacro LoadStaticMarkerFrames = {
+     MacroStr = {
+     "classoperation Main " + strquote("Load Values") 
+     + " --file= " + strquote( TEMP_FILE_PATH +"/KinematicallyScaled_StaticFrames.anyset" )};
+  };
+  #endif
   #endif
   
   
