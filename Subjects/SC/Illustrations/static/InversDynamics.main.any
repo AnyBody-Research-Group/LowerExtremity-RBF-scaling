@@ -26,6 +26,6 @@ Main = {
  #include "../SourceTargetPointFigure.any"
  #include "../SourceTargetPointFigure2.any"
  
- 
+ #include "../StaticAndWalinkFigure.any"
 
 };

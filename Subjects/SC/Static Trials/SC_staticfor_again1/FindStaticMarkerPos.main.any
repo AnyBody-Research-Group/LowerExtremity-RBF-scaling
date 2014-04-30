@@ -4,8 +4,8 @@
 
 
 #ifndef MODEL_TYPE
-//#path MODEL_TYPE "../../../../LinearScaledModel"
-#path MODEL_TYPE "../../../../KinematicScaledModel"
+#path MODEL_TYPE "../../../../LinearScaledModel"
+//#path MODEL_TYPE "../../../../KinematicScaledModel"
 #endif
 #include "<MODEL_TYPE>/PreMainIncludes.any"
 

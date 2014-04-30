@@ -5,7 +5,7 @@ AnyFolder TrialSpecificData={
   
   /// Name of the C3D file to be analysed
   /// Trialname specifies naming of output files
-  AnyString TrialName = "static"; 
+  AnyString TrialName = "walking"; 
   
   // C3D files to load
   AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";
