@@ -37,8 +37,6 @@ AnyFolder DrawGroups = {
       &Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeLateral.drw,
       &Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeMedial.drw
 //      &Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.RPatella.drw    
-
-    
     };
   
   };
@@ -122,9 +120,9 @@ AnyFolder PelvisFigure = {
     Ellipsoid.elip = {
       AnyDrawParamSurf drw1 = {RGB = 0.7*{1,1,1};Opacity = 1;};
     };
-    RPsis = {AnyDrawNode drw = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
-    LAsis = {AnyDrawNode drw = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
-    RAsis = {AnyDrawNode drw = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
+    RPsis = {AnyDrawNode drw1 = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
+    LAsis = {AnyDrawNode drw1 = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
+    RAsis = {AnyDrawNode drw1 = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
   };
   AnyDrawGroup StickFigurePelvis = {
     Objects = {&Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.DrwLine11,

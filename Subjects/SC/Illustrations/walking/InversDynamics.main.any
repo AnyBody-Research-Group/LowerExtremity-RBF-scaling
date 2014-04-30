@@ -20,6 +20,15 @@ Main = {
  #include "../DrawGroups.any"
  #include "../ProjectView.any" 
  
+ #include "../StaticAndWalinkFigure.any"
+ 
+ 
+// Main.JntParameterOptModel.KinematicStudy = {
+//   AnyFolder &plate1 = Main.AnyBodyGaitAppModel.InverseDynamicStudy.EnvironmentModel.ForcePlate1;
+//   AnyFolder &plate2 = Main.AnyBodyGaitAppModel.InverseDynamicStudy.EnvironmentModel.ForcePlate2;
+//   AnyFolder &plate3 = Main.AnyBodyGaitAppModel.InverseDynamicStudy.EnvironmentModel.ForcePlate3;
+// };
+ 
  Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh = {
  
    AnyDrawSurf Drw31 = {

@@ -163,7 +163,7 @@ AnyFolder Seg = {
     sCoM = {0,0, 0};
     Jii = {0.0002, 0.003, 0.00295};
     JaboutCoMOnOff = On;
-      AnyDrawRefFrame drw ={ScaleXYZ = 0.1*{1,1,1};};
+//      AnyDrawRefFrame drw ={ScaleXYZ = 0.1*{1,1,1};};
     AnyRefNode AnkleJoint = {
 //      AnyDrawRefFrame drw ={};
       #ifdef RightLeg 

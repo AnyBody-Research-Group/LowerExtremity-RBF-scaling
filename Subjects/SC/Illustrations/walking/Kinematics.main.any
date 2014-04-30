@@ -19,7 +19,7 @@ Main = {
    AnyDrawNode drw = {RGB = {0.5, 0, 0};ScaleXYZ = 0.01*{1,1,1};};
  };
  
- #include "../DrawGroups.any"
- #include "../ProjectView.any"
+// #include "../DrawGroups.any"
+// #include "../ProjectView.any"
 
 }; 
