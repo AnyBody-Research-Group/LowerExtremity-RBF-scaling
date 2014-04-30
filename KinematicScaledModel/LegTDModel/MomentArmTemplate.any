@@ -323,7 +323,7 @@
     
     
     AnyFolder SoftDrivers = {
-      AnyKinEqDriver PelvisDriver = {
+      AnyKinEq PelvisDriver = {
         CType = {Hard,Hard,Hard,Hard,Hard,Hard};
         AnyKinMeasure &ref1 = ..HumanModel.BodyModel.Interface.Trunk.PelvisPosX;
         AnyKinMeasure &ref2 = ..HumanModel.BodyModel.Interface.Trunk.PelvisPosY;

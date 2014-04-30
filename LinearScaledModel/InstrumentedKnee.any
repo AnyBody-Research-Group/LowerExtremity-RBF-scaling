@@ -69,7 +69,7 @@ AnyFolder InstrumentedKnee = {
 //  // effectively works as a revolute joint by removing 5 degrees of freedom.
 //  // Reaction forces in the shank y direction is not included as these represent 
 //  // contact force we want to measure. 
-//  AnyKinEqDriver LateralContraint = 
+//  AnyKinEq LateralContraint = 
 //  {
 //    MeasureOrganizer = {0,1,2};
 //    CType = {Hard,Hard,Hard};
@@ -77,7 +77,7 @@ AnyFolder InstrumentedKnee = {
 //    AnyKinMeasure &ref = .LateralContactNodeLin ;
 //    Reaction.Type={On,Off,On};
 //  };
-//  AnyKinEqDriver MedialConstraint = 
+//  AnyKinEq MedialConstraint = 
 //  {
 //    MeasureOrganizer = {0,1};
 //    CType = {Hard,Hard};
