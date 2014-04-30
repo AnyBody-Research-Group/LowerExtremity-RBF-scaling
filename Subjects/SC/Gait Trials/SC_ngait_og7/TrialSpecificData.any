@@ -1,6 +1,11 @@
 #path TRIAL_PATH "."
 //#define FULL_MARKERSET
+// RightShankSuperior and RShankLateral appear to have moved
+// between standing reference and dynamic trials. Thus, they are 
+// excluded from the analysis
 #define EXCLUDE_RSHANKLATERAL
+#define EXCLUDE_RSHANKSUPERIOR
+
 
 AnyFolder TrialSpecificData={
   

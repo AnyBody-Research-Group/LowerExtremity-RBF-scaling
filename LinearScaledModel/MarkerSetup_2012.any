@@ -172,7 +172,7 @@
   )= {
    sRelOpt = { 0.00115436+0.04,  0.21063336,  -0.04005241+0.05};
   };
-
+#ifndef EXCLUDE_RSHANKSUPERIOR
  CreateMarkerTD RShankSuperior ( 
   MarkerName=PrefixDef(RShankSuperior),
   MarkerPlacement =Right.Leg.Seg.Shank, 
@@ -182,6 +182,7 @@
   )= {
    sRelOpt =  { 0.04215119,  0.27685411+0.05, -0.012+0.05} ;
   };  
+#endif
 //
  CreateMarkerTD LShankSuperior ( 
   MarkerName=PrefixDef(LShankSuperior),

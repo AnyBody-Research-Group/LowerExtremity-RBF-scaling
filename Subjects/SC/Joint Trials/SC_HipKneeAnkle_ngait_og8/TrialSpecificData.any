@@ -3,6 +3,9 @@
 #define IncludeRight 1
 #define IncludeLeft 1
 
+#define EXCLUDE_RSHANKLATERAL
+#define EXCLUDE_RSHANKSUPERIOR
+
 AnyFolder TrialSpecificData={
   
   /// Name of the C3D file to be analysed

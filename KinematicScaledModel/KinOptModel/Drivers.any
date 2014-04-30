@@ -107,7 +107,7 @@ AnyFolder Drivers = {
 //    #ifdef FULL_MARKERSET
     AnyKinDriverMarker RPatella=    {
       CType = {Soft,Soft,Soft};
-      AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RPatella;
+      AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RPatella;
       AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RPatella.PosInterpol;
       AnyFolder Weights = {AnyFunConst WFun ={Value = {
             Main.SubjectSpecificData.MarkerWeights.PatellaX,
@@ -125,7 +125,7 @@ AnyFolder Drivers = {
   
   #if IncludeKnee + IncludeAnkle > 0
 
-  
+#ifndef EXCLUDE_RSHANKSUPERIOR
   AnyKinDriverMarker RTUB =    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RTUB;
@@ -133,6 +133,7 @@ AnyFolder Drivers = {
     //WeightFun = {&Main.ModelSetup.DynamicDataSet.Points.Markers.RShankSuperior.Weight};
     AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
   };
+#endif 
   AnyKinDriverMarker RShankInferior=    {
     CType = {Soft,Soft,Soft};
     AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RShankInferior ;
