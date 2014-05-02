@@ -26,9 +26,9 @@ AnyFolder SubjectSpecificData = {
   
   
   AnyFolder MarkerPos = {
-    AnyVec3 HeelMarker = {-0.03104974, 0.000, 0.015};
+    AnyVec3 HeelMarker = {-0.0310, 0.000, 0.015};
     AnyVec3 ToeMarker= {0.280, 0.015, 0.010};
-    AnyVec3 MidfootLateralMarker = {0.177, -0.015, 0.07045269};  
+    AnyVec3 MidfootLateralMarker = {0.177, -0.015, 0.0705};  
   
     // These values comes from the TLEM data set.
     AnyVec3 RASIS = {0.1050804, -0.05009163, 0.1312};

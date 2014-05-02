@@ -19,8 +19,8 @@ AnyFolder TrialSpecificData={
   
   #define USE_TRIAL_SPECIFIC_TIMES
   
-  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+20;
-  AnyIntVar  LastFrameNo = -50+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+30;
+  AnyIntVar  LastFrameNo = -60+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
    
