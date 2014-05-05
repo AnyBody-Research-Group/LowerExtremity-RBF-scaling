@@ -26,9 +26,9 @@ AnyFolder SubjectSpecificData = {
   
   
   AnyFolder MarkerPos = {
-    AnyVec3 HeelMarker = {-0.0310, 0.000, 0.015};
-    AnyVec3 ToeMarker= {0.280, 0.015, 0.010};
-    AnyVec3 MidfootLateralMarker = {0.177, -0.015, 0.0705};  
+    AnyVec3 HeelMarker = DesignVar{-0.0310, 0.000, 0.015});
+    AnyVec3 ToeMarker= DesignVar{0.280, 0.015, 0.010});
+    AnyVec3 MidfootLateralMarker = DesignVar{0.177, -0.015, 0.0705});  
   
     // These values comes from the TLEM data set.
     AnyVec3 RASIS = {0.1050804, -0.05009163, 0.1312};
@@ -36,10 +36,10 @@ AnyFolder SubjectSpecificData = {
     AnyVec3 PSIS_Mid = {-0.03192611, 0.01085285, 0};
     
     // Offset to marker postions
-   AnyVec3 RAsisMarker = RASIS + {0.025, 0.02, 0};//{0.135 , -0.025,  0.1295 };
-   AnyVec3 LAsisMarker = LASIS + {0.025, 0.02, 0};//{ 0.135 , -0.025, -0.1295};
-   AnyVec3 LPsisMarker = PSIS_Mid + {-0.03, -0.03, -0.03 };//{-0.06594569,  0.0050, -0.030 };
-   AnyVec3 RPsisMarker = PSIS_Mid + {-0.03, -0.03, 0.03 };//{-0.06594569,  0.0050, 0.03 };
+   AnyVec3 RAsisMarker = DesignVar( RASIS + {0.025, 0.02, 0});//{0.135 , -0.025,  0.1295 };
+   AnyVec3 LAsisMarker = DesignVar(LASIS + {0.025, 0.02, 0});//{ 0.135 , -0.025, -0.1295};
+   AnyVec3 LPsisMarker = DesignVar(PSIS_Mid + {-0.03, -0.03, -0.03 });//{-0.06594569,  0.0050, -0.030 };
+   AnyVec3 RPsisMarker = DesignVar(PSIS_Mid + {-0.03, -0.03, 0.03 });//{-0.06594569,  0.0050, 0.03 };
 
     
   };
