@@ -77,9 +77,23 @@ AnyFolder ModelSetup ={
     AnyStringVar MultiJointParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.MultiJointParametersTrial + "_OptimizedParameters.txt";
     AnyStringVar AllParameters = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
     
+    #ifdef TRUNK_DRIVER_FILE
+     AnyFileVar OptimizedMotionTrunk = TRUNK_DRIVER_FILE;
+    #else
     AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";
+    #endif
+    
+    #ifdef LLEG_DRIVER_FILE
+     AnyFileVar OptimizedMotionLeftLegTD = LLEG_DRIVER_FILE;
+    #else
     AnyFileVar OptimizedMotionLeftLegTD = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "-output-euler-leftlegtd.txt";
+    #endif
+    
+    #ifdef RLEG_DRIVER_FILE
+     AnyFileVar OptimizedMotionRightLegTD = RLEG_DRIVER_FILE;
+    #else
     AnyFileVar OptimizedMotionRightLegTD = TEMP_FILE_PATH  + "/" + Main.TrialSpecificData.TrialName + "-output-euler-rightlegtd.txt";
+    #endif
     
     AnyFileVar AnkleJointParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.TrialNameStatic + "_Ankle_Joint_Parameters.anyset";
 
