@@ -1,117 +1,74 @@
 #define IncludeRight 1
 #define IncludeLeft 1
-#define IncludeKnee 0
-#define IncludeHip 0
+#define IncludeKnee 1
+#define IncludeHip 1
 #define IncludeAnkle 1
 #define UseDanamicLoadPosition 0
 #define HideStickModelGraphics 0
 
+AnyOperationMacro RunApplication = {
+  MacroStr = {
+    "operation  Main.Load_JointTrialParameters","run", 
+    "operation  Main.FootPosModel.FootPosStudy.Kinematics", "run", 
+    "operation Main.FootPosModel.FootPosStudy.FootPar.SaveToAnySetFile.CopyValues", "run",
+    "classoperation Main " + strquote("Save Values")  + " --file=" + strquote(FilePathCompleteOf( Main.ModelSetup.Files.AnkleJointParameters )) 
+  };
+};
 
 
 #include "<BASE_MODEL_PATH>/KinematicModel.main.any"
 
-
-Main = {
+  // Include the human model
+  #include "../DrawSettings.any"
+  #include "../GeneralSettings.any"  
+  AnyFolder AnyBodyGaitAppModel = {
+    #include "HumanModel.any"
+  }; 
   
-     
-    AnyOperationMacro Save_Marker_Widget_Values=  {
-      MacroStr = { "classoperation Main " + strquote("Save Values") 
-        + " --file=" + TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset"};    
+  // Define the Foot position model
+  AnyFolder FootPosModel = {
+    AnyFolder Foot = {
+    AnyFolder Right = {
+      AnyFolder &StickFigureSide = Main.JntParameterOptModel.LegModel.Right;
+      AnyFolder &TLEMFoot = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot;
+      #include "FootDrivers.any"
     };
+  AnyFolder Left = {
+      AnyFolder &StickFigureSide = Main.JntParameterOptModel.LegModel.Left;
+      AnyFolder &TLEMFoot = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot;
+      #include "FootDrivers.any"
+    };
+  };
+AnyKinStudy FootPosStudy = {
+    Gravity = {0,0,0};
+    
+    AnyFolder &OptKinModel = Main.JntParameterOptModel.LegModel;
+    AnyFolder &FootModel = .Foot;
       
-    AnyOperationMacro RunApplication=  {
-      MacroStr = { "classoperation Main" + strquote("Load Values") 
-                    + " --file=" + TEMP_FILE_PATH + "/" +Main.TrialSpecificData.TrialName + "_FootMarkerPos.anyset",
-                   "operation Main.Load_JointTrialParameters","run",
-                   "operation Main.FootPosModel.study.InitialConditions","run",
-                   "operation Main.FootPosModel.study.FootPar.SaveToAnySetFile.MarkValuesAsChanged_BugWorkAround", "run",
-                   "operation Main.FootPosModel.study.FootPar.SaveToAnySetFile.CopyValues2DummyStructure","run",
-                   "classoperation Main " + strquote("Save Values") 
-                   + " --file=" + TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_Ankle_Joint_Parameters.anyset" 
-      };
+    AnyFolder ModelEnvironmentConnection = {
+      #include "<BASE_MODEL_PATH>\KinOptModel\JointsAndDriversOptimized.any"
     };
     
-};  // Main
-
-
-AnyFolder FootPosModel = {
-AnyFolder Right = {
-  AnyVar Sign = 1;
-  #include "FootSeg.any" 
-  AnyFolder Drivers = {
-    AnyKinDriverMarker Rheel = {
-      AnyRefFrame &refmarker =  ..Foot.Heel;
-      AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol;
-      AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
-      Linear.Ref = 0;
-    };
-    AnyKinDriverMarker RToe = {
-      AnyRefFrame &refmarker =  ..Foot.Toe;
-      AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol;
-      AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
-      Linear.Ref = 0;
-    };
-     AnyKinDriverMarker RMidfootLateral = {
-      AnyRefFrame &refmarker =  ..Foot.MidfootLateral ;
-      AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral .PosInterpol;
-      AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
-      Linear.Ref = 0;
-    }; 
-  };
-};// Right
-AnyFolder Left = {
-  AnyVar Sign = -1;
-  #include "FootSeg.any" 
-  AnyFolder Drivers = {
-    AnyKinDriverMarker Lheel = {
-      AnyRefFrame &refmarker =  ..Foot.Heel;
-      AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosInterpol;
-      AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
-      Linear.Ref = 0;
-    };
-    AnyKinDriverMarker LToe = {
-      AnyRefFrame &refmarker =  ..Foot.Toe;
-      AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosInterpol;
-      AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
-      Linear.Ref = 0;
-    };
-     AnyKinDriverMarker LMidfootLateral = {
-      AnyRefFrame &refmarker =  ..Foot.MidfootLateral ;
-      AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.LMidfootLateral .PosInterpol;
-      AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
-      Linear.Ref = 0;
-    };
-  };
-};//Left
- 
-  
-  
-   AnyKinStudy study = {
-     Gravity = {0,0,0};
-     AnyFolder &RefLeft = .Left;
-     AnyFolder &RefRight= .Right;
-     
-     AnyFolder &LegModel = ..JntParameterOptModel.LegModel;
-     AnyFolder &Environment = ..JntParameterOptModel.Environment;
-       
-     tStart = Main.ModelSetup.tStart+0.01;
-     tEnd = Main.ModelSetup.tEnd-0.01;
-     nStep = 1;
-         InitialConditions.SolverType = KinSolOverDeterminate;
-         Kinematics.SolverType = KinSolOverDeterminate;   
-         InitialConditions.PosAnalysisOnlyOnOff=On;
-         Kinematics.PosAnalysisOnlyOnOff=On; 
-
+    tStart = Main.ModelSetup.tStart+0.01;
+    tEnd = Main.ModelSetup.tEnd-0.01;
+    nStep = 1;
+    InitialConditions.SolverType = KinSolOverDeterminate;
+    Kinematics.SolverType = KinSolOverDeterminate;   
+    InitialConditions.PosAnalysisOnlyOnOff=On;
+    Kinematics.PosAnalysisOnlyOnOff=On; 
+    
+    
+    
    AnyFolder FootPar = {       
 
      
-      AnyFolder &sfRTalus= .LegModel.Right.Seg.Talus;
-      AnyFolder &sfRFoot= .LegModel.Right.Seg.Foot;
-      AnyFolder &sfLTalus= .LegModel.Left.Seg.Talus;
-      AnyFolder &sfLFoot= .LegModel.Left.Seg.Foot;
+      AnyFolder &sfRTalus= .OptKinModel.Right.Seg.Talus;
+      AnyFolder &sfRFoot= .OptKinModel.Right.Seg.Foot;
+      AnyFolder &sfLTalus= .OptKinModel.Left.Seg.Talus;
+      AnyFolder &sfLFoot= .OptKinModel.Left.Seg.Foot;
       
-      AnyFolder &RFootref = .RefRight.Foot ;
-      AnyFolder &LFootref = .RefLeft.Foot;
+      AnyFolder &RFootref = .FootModel.Right.TLEMFoot ;
+      AnyFolder &LFootref = .FootModel.Left.TLEMFoot ;
       
       AnyMat33 RScaleMat = RFootref.Scale.ScaleMat;
       AnyMat33 LScaleMat = LFootref.Scale.ScaleMat;
@@ -132,25 +89,44 @@ AnyFolder Left = {
       
       AnyFolder SaveToAnySetFile = {
         
-
-     #include "SaveAnySetFile.any"
-                                 
-      
-      
+         AnyOperationSetValue  CopyValues= {
+           Source = {
+             &..RAnkleJointPos,
+             &..RAnkleJointRot,
+             &..RSubtalarJointPos,
+             &..RSubtalarJointRot ,
+             &..RSubtalarJointPos ,
+             &..RFootSubtalarJointRot ,
+             &..LAnkleJointPos,
+             &..LAnkleJointRot,
+             &..LSubtalarJointPos,
+             &..LSubtalarJointRot ,
+             &..LSubtalarJointPos ,
+             &..LFootSubtalarJointRot};
+           Target = {
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.ARel};
+         };
+        
+        
+        
       };
           
+    };
   };
   
-};
-
-
-   
-   
-
-
-
-
-
-};
   
   
+  
+  
+};// FootPosModel

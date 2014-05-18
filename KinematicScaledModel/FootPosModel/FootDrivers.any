@@ -1,0 +1,65 @@
+TLEMFoot = {
+    AnyRefNode NeutralAnkleCenter = {
+      sRel = .Scale(.StdPar.AnkleJoint);
+      //ARel = .AnatomicalFrame.ARel;
+      ARel = .ScalingNode.ARel;
+
+      AnyDrawRefFrame drw = {};
+    };      
+
+ };
+ 
+#ifndef _GLOBAL_FOOT_DRIVER_NODE_
+  #define _GLOBAL_FOOT_DRIVER_NODE_
+  Main.JntParameterOptModel.Environment.GlobalRef = {
+    AnyRefNode RotNode = {
+      ARel = RotMat(pi/2,x);
+    };
+  };
+#endif
+
+AnyFolder Drivers = {
+
+  
+  AnyKinEqDriver AnklePosDriver = {
+    AnyKinLinear lin ={
+      Ref =0;
+      AnyRefFrame &ref1 = ...TLEMFoot.NeutralAnkleCenter;
+      AnyRefFrame &ref2 = ...StickFigureSide.Seg.Shank.AnkleJoint;
+    };
+  };
+    AnyKinEqSimpleDriver ParallelWithFootAxis = {
+      AnyKinRotational rotTest = {
+        AnyRefFrame &TLEMFootRef = ...TLEMFoot.NeutralAnkleCenter;
+        TLEMFootRef = { AnyDrawRefFrame drwtest ={RGB={0,0,1};};};
+        AnyRefFrame &StickFigureFoot =  ...StickFigureSide.Seg.Foot;
+        Type = RotAxesAngles;
+        
+        Axis1 = x;
+        Axis2 = y;
+        Axis3 = z;
+      };
+      MeasureOrganizer = {1,2};
+      DriverPos  ={0,0};
+      DriverVel = {0,0};
+      Reaction.Type={Off,Off};
+      CType = {Soft,Soft};
+    };
+    AnyKinEqSimpleDriver ParallelWithFloorNormal = {
+      AnyKinRotational rotTest = {
+        AnyRefFrame &TLEMFootRef = ...TLEMFoot.NeutralAnkleCenter;
+        AnyRefFrame &GlobalRef = Main.JntParameterOptModel.Environment.GlobalRef.RotNode;
+        Type = RotAxesAngles;
+        
+        Axis1 = y;
+        Axis2 = z;
+        Axis3 = x;
+      };
+      MeasureOrganizer = {1,2};
+      DriverPos  ={0,0};
+      DriverVel = {0,0};
+      Reaction.Type={Off,Off};
+    };
+
+
+};

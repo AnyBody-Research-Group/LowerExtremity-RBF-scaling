@@ -11,7 +11,7 @@ AnyFolder Mannequin = {
     AnyVec3 u3 =  ( RAsis(Main.ModelSetup.tStart) - LAsis(Main.ModelSetup.tStart) ) / vnorm(RAsis(Main.ModelSetup.tStart)- LAsis(Main.ModelSetup.tStart)) ;
     AnyVec3 initPelvisPos = ( Sacral(Main.ModelSetup.tStart) -LAsis(Main.ModelSetup.tStart) )*u3'* u3 + LAsis(Main.ModelSetup.tStart);
         
-    AnyVar PelvisPosX = initPelvisPos[0] -0.1;
+    AnyVar PelvisPosX = initPelvisPos[0] -0.5;
     AnyVar PelvisPosY = initPelvisPos[1] ;
     AnyVar PelvisPosZ =initPelvisPos[2] ;    
 

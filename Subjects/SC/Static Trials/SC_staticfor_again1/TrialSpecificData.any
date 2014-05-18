@@ -26,18 +26,18 @@ AnyFolder TrialSpecificData={
     AnyVar PelvisRotX = 90;
     
     AnyFolder Right={
-      AnyVar HipFlexion = 20.31705;
-      AnyVar HipAbduction = 5.707386;
-      AnyVar HipExternalRotation = -3.079478;
+      AnyVar HipFlexion = 0;
+      AnyVar HipAbduction = 0;
+      AnyVar HipExternalRotation = 0;
       AnyVar KneeFlexion = 0;
       AnyVar AnklePlantarFlexion = 0;
       AnyVar SubTalarEversion = 0;
     };
     
     AnyFolder Left ={
-      AnyVar HipFlexion = -20.1819;
-      AnyVar HipAbduction = -3.050171;
-      AnyVar HipExternalRotation = 0*-16.907892;
+      AnyVar HipFlexion = 0;
+      AnyVar HipAbduction = 0;
+      AnyVar HipExternalRotation = 0;
       AnyVar KneeFlexion = 0;
       AnyVar AnklePlantarFlexion = 0;
       AnyVar SubTalarEversion =0.0;

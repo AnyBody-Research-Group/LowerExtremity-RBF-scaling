@@ -95,7 +95,7 @@ AnyFolder ModelSetup ={
     AnyFileVar OptimizedMotionRightLegTD = TEMP_FILE_PATH  + "/" + Main.TrialSpecificData.TrialName + "-output-euler-rightlegtd.txt";
     #endif
     
-    AnyFileVar AnkleJointParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.TrialNameStatic + "_Ankle_Joint_Parameters.anyset";
+    AnyFileVar  AnkleJointParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.TrialNameStatic + "_Ankle_Joint_Parameters.anyset";
 
   };
   
