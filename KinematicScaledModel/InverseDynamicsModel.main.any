@@ -9,6 +9,11 @@
 #define UseRbfScaling 1
 #define IncludeLegTDModel 1
 
+#ifndef INCLUDE_MUSCLE_WEIGHT_FACTOR 
+#define INCLUDE_MUSCLE_WEIGHT_FACTOR 1
+#endif
+
+
 
 #include "KinematicModel.main.any"
 
@@ -63,6 +68,19 @@ Main = {
       
       #include "JointReactionForces.any"
       #include "JointAnglesAndMoments.any"
+      
+      #ifdef INCLUDE_MUSCLE_WEIGHT_FACTOR 
+      #if INCLUDE_MUSCLE_WEIGHT_FACTOR > 0
+      InverseDynamics.Criterion.PrimaryTerm.Weight_SearchName = "WeightFactor";
+      Main = {AnyVar Power = .InverseDynamics.Criterion.Power;};
+      #endif
+      #endif
+      
+      
+      AnyFolder &MusPar= Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.MusPar;
+      #include "<SHARED_FILES_PATH>/ReduceKneeStrength.any"
+      
+
      
    }; 
   #include "LegTDModel\LoadAnkleJointParameters.any"

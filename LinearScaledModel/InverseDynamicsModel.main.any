@@ -6,6 +6,13 @@
 
 #define EXLCUDE_TRUNK_MARKERS
 
+#ifndef INCLUDE_MUSCLE_WEIGHT_FACTOR 
+#define INCLUDE_MUSCLE_WEIGHT_FACTOR 1
+#endif
+
+
+
+
 Main = {
   #include "ModelSetup.any" 
   
@@ -98,6 +105,18 @@ Main = {
       tStart = Main.ModelSetup.tStart;
       tEnd = Main.ModelSetup.tEnd;
       nStep = Main.ModelSetup.nStep;
+      
+      #ifdef INCLUDE_MUSCLE_WEIGHT_FACTOR 
+      #if INCLUDE_MUSCLE_WEIGHT_FACTOR > 0
+      InverseDynamics.Criterion.PrimaryTerm.Weight_SearchName = "WeightFactor";
+      Main = {AnyVar Power = .InverseDynamics.Criterion.Power;};
+      #endif
+      #endif
+      
+      #ifndef EXCLUDE_ALL_MUSCLES
+      AnyFolder &MusPar= Main.Studies.HumanModel.BodyModel.Left.Leg.MusPar;
+      #include "<SHARED_FILES_PATH>/ReduceKneeStrength.any"
+      #endif
       
     };
     

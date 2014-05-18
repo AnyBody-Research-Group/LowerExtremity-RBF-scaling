@@ -1,3 +1,6 @@
+//New Recruitment
+//#define INCLUDE_MUSCLE_WEIGHT_FACTOR 2
+
 #include "../../../../SetModelType.any"
 
 Main = {
