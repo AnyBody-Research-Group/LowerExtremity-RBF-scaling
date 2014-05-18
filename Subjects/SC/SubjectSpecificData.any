@@ -13,8 +13,11 @@ AnyFolder SubjectSpecificData = {
   
   AnyStringVar TrialNameStatic = "SC_staticfor_again1";
   AnyStringVar C3DFileNameStatic = SUBJECT_PATH + "/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
-  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
-  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
+//  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
+//  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
+  AnyStringVar RightHipParametersTrial = "SC_hip_Tr1";
+  AnyStringVar LeftHipParametersTrial = "SC_hip_Tl1_again1";
+
   AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
   AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
   AnyStringVar RightKneeParametersTrial = "SC_knee_2legsquat1";
@@ -53,16 +56,14 @@ AnyFolder SubjectSpecificData = {
     
   };
   AnyFolder MarkerWeights =  {
-    AnyVar PatellaX = 1.0;
-    AnyVar PatellaY = 0.0;
+    AnyVar PatellaX = 1;
+    AnyVar PatellaY = 1;
     AnyVar PatellaZ = 1;
 
     // Apllies to all toe markers
     AnyVar ToeX = 1.0;
     AnyVar ToeY = 0.00;
     AnyVar ToeZ = 1.0;
-    
-
   };
   
   

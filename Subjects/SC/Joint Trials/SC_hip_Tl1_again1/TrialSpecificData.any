@@ -14,7 +14,8 @@ AnyFolder TrialSpecificData={
   AnyStringVar C3DFileNameStatic = "../Data/SC/Static Trials/SC_staticfor_again1/SC_staticfor_again1.c3d" ;
   AnyIntVar StaticFrameIndex = 100;
   
-  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+  #define USE_TRIAL_SPECIFIC_TIMES
+  AnyIntVar  StartFrameNo = 110+Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
   AnyIntVar  LastFrameNo = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
