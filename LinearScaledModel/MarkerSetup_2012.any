@@ -1,44 +1,48 @@
   AnyFolder Macros = {};
   
-  CreateMarker RAsis (
+  CreateMarkerDriver RAsis (
   MarkerName=RAsis,
   MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
   OptX="Off", OptY="Off", OptZ="Off",  
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
-  ) = {
+  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
+ ) = {
 //    sRelOpt = { 0.1104314832245, -0.0381873163174 ,0.1454700654965}+{0.01,0.035,0.00};
       sRelOpt = Main.SubjectSpecificData.MarkerPos.RAsisMarker;//{0.1050608, -0.05008401, 0.1295}+{ 0.02,0.03,0.00};
   };
-
-  CreateMarker LAsis (
+  
+  CreateMarkerDriver LAsis (
   MarkerName=LAsis,
   MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
   OptX="Off", OptY="Off", OptZ="Off",  
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+  Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel ,
+  sRelOptScalingOnOff = "On"
   ) = {
 //    sRelOpt = { 0.1104314832245, -0.0381873163174 ,-0.1454700654965}+{0.01,0.035,-0.00};
     sRelOpt = Main.SubjectSpecificData.MarkerPos.LAsisMarker;//{0.1050608, -0.05008401, -0.1295}+{ 0.02,0.03,-0.00};
   };
     
-  CreateMarker RPsis ( 
+  CreateMarkerDriver RPsis ( 
   MarkerName=RPsis , 
   MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
   OptX="On", OptY="Off", OptZ="On",  
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,  
-  Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel 
+  Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel ,
+  sRelOptScalingOnOff = "On"
   ) = {
 //    sRelOpt = { -0.07, -0.00, 0.040};
   sRelOpt = Main.SubjectSpecificData.MarkerPos.RPsisMarker;//{-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,0.03};
   };
    
-  CreateMarker LPsis ( 
+  CreateMarkerDriver LPsis ( 
   MarkerName=LPsis , 
   MarkerPlacement=Trunk.SegmentsLumbar.PelvisSeg,
   OptX="On", OptY="Off", OptZ="On",  
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,  
-  Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel 
+  Model1=MotionAndParameterOptimizationModel , Model2= InverseDynamicModel ,
+  sRelOptScalingOnOff = "On"
   ) = {
 //    sRelOpt = { -0.07, -0.00, -0.040};
   sRelOpt = Main.SubjectSpecificData.MarkerPos.LPsisMarker;//{-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,-0.03};
@@ -62,156 +66,179 @@
 
 	
   // Thigh
-  CreateMarkerTD RThighLateral ( 
+  CreateMarkerDriver RThighLateral ( 
   MarkerName=PrefixDef(RThighLateral),
   MarkerPlacement =Right.Leg.Seg.Thigh, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = { 0.02708723+0.04, -0.22500183,  0.11248938 -0.1 };     //coordinates of the marker unscaled
-  };
+   sRelOpt = { 0.07, -0.22, 0.05 };    
+   };
   
   //
-  CreateMarkerTD LThighLateral ( 
+  CreateMarkerDriver LThighLateral ( 
   MarkerName=PrefixDef(LThighLateral),
   MarkerPlacement =Left.Leg.Seg.Thigh, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt=  { 0.02708723+0.04, -0.22500183,  -0.11248938 +0.1 };
+   sRelOpt = { 0.07, -0.22, -0.05 };    
   };
   
-  //
-  CreateMarkerTD LThighSuperior ( 
+  
+  CreateMarkerDriver LThighSuperior ( 
   MarkerName=PrefixDef(LThighSuperior),
   MarkerPlacement =Left.Leg.Seg.Thigh, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt= { 0.0905687 , -0.17195914+0.05, 0.00520705 -0.06};
+   sRelOpt= { 0, -0.1, -0.07};
   };
   
-  //
-  CreateMarkerTD LThighInferior ( 
+  
+  CreateMarkerDriver LThighInferior ( 
   MarkerName=PrefixDef(LThighInferior),
   MarkerPlacement =Left.Leg.Seg.Thigh, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt= { 0.07907758, -0.30765352, -0.01459529 -0.06 };
+   sRelOpt= { 0.05, -0.30, -0.06};
   };
 
- CreateMarkerTD RThighSuperior ( 
+ CreateMarkerDriver RThighSuperior ( 
   MarkerName=PrefixDef(RThighSuperior),
   MarkerPlacement =Right.Leg.Seg.Thigh, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt= { 0.0905687 , -0.17195914+0.05, -0.00520705+0.06};
+   sRelOpt= { 0, -0.1, 0.07};
   };
 
- CreateMarkerTD RThighInferior ( 
+ CreateMarkerDriver RThighInferior ( 
   MarkerName=PrefixDef(RThighInferior),
   MarkerPlacement =Right.Leg.Seg.Thigh, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-      sRelOpt=  { 0.07907758, -0.30765352, -0.01459529+0.06};
+   sRelOpt= { 0.05, -0.30, 0.06};
   };
   
-  // Patella
- CreateMarkerTD LPatella ( 
+//  // Patella
+
+// Workaround for missing GeomScale object in patella segment.
+Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Patella = {
+  AnyFunTransform3DLin &GeomScale = Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.GeomScale;
+};
+Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Patella = {
+  AnyFunTransform3DLin &GeomScale = Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.GeomScale;
+};
+
+ CreateMarkerDriver LPatella ( 
   MarkerName=PrefixDef(LPatella),
   MarkerPlacement =Left.Leg.Seg.Patella, 
   OptX = "Off",OptY="Off",OptZ = "Off",
   WeightX=Main.SubjectSpecificData.MarkerWeights.PatellaX, 
   WeightY=Main.SubjectSpecificData.MarkerWeights.PatellaY, 
   WeightZ=Main.SubjectSpecificData.MarkerWeights.PatellaZ, 
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
    sRelOpt = { 0.075,-0.005,-0.02}; //{0.0125-0.01, -0.0385-0.015, -0.04};
  };
-//
- CreateMarkerTD RPatella (  
+
+ CreateMarkerDriver RPatella (  
   MarkerName=PrefixDef(RPatella),
   MarkerPlacement =Right.Leg.Seg.Patella, 
   OptX="Off",OptY="Off",OptZ="Off",
   WeightX=Main.SubjectSpecificData.MarkerWeights.PatellaX, 
   WeightY=Main.SubjectSpecificData.MarkerWeights.PatellaY, 
   WeightZ=Main.SubjectSpecificData.MarkerWeights.PatellaZ, 
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
    sRelOpt = { 0.075,-0.005,0.02}; //{0.125-0.01, -0.385-0.015, 0.04};
   };
   
 //Shank
 #ifndef EXCLUDE_RSHANKLATERAL
- CreateMarkerTD RShankLateral ( 
+ CreateMarkerDriver RShankLateral ( 
   MarkerName=PrefixDef(RShankLateral),
   MarkerPlacement =Right.Leg.Seg.Shank, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = {0.00115436+0.04,  0.21063336,  0.04005241-0.05};
+   sRelOpt = { 0.05,  -0.21,  0.0};
   };
 #endif
 
- CreateMarkerTD LShankLateral ( 
+ CreateMarkerDriver LShankLateral ( 
   MarkerName=PrefixDef(LShankLateral),
   MarkerPlacement =Left.Leg.Seg.Shank, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = { 0.00115436+0.04,  0.21063336,  -0.04005241+0.05};
+   sRelOpt = { 0.05,  -0.21,  -0.0};
   };
 #ifndef EXCLUDE_RSHANKSUPERIOR
- CreateMarkerTD RShankSuperior ( 
+ CreateMarkerDriver RShankSuperior ( 
   MarkerName=PrefixDef(RShankSuperior),
   MarkerPlacement =Right.Leg.Seg.Shank, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt =  { 0.04215119,  0.27685411+0.05, -0.012+0.05} ;
+   sRelOpt =  { 0.01,  -0.05, 0.085};
   };  
 #endif
-//
- CreateMarkerTD LShankSuperior ( 
+
+CreateMarkerDriver LShankSuperior ( 
   MarkerName=PrefixDef(LShankSuperior),
   MarkerPlacement =Left.Leg.Seg.Shank, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt =  { 0.04215119,  0.27685411+0.05, 0.012-0.05 };
+   sRelOpt =  { 0.00,  -0.1, -0.08};
   };  
 
- CreateMarkerTD LShankInferior ( 
+ CreateMarkerDriver LShankInferior ( 
   MarkerName=PrefixDef(LShankInferior),
   MarkerPlacement =Left.Leg.Seg.Shank, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = { 0.0241822 ,  0.13779799, 0.012-0.05} ;
+   sRelOpt = { 0.02 ,  -0.27, -0.08} ;
   };    
   
- CreateMarkerTD RShankInferior ( 
+ CreateMarkerDriver RShankInferior ( 
   MarkerName=PrefixDef(RShankInferior),
   MarkerPlacement =Right.Leg.Seg.Shank, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = { 0.0241822 ,  0.13779799, -0.012+0.05};
+   sRelOpt = { 0.02 ,  -0.27, 0.08} ;
   };     
   
  // /*
@@ -233,7 +260,7 @@
  }; 
  
  
-// CreateMarkerTD Sternum  (
+ CreateMarkerTD Sternum  (
  CreateMarker Sternum  (
  MarkerName=PrefixDef(Sternum),  
  MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
@@ -244,7 +271,7 @@
    sRelOpt = { 0.1, 0.40, 0};
  };  
  
-// CreateMarkerTD Xiphoid  (
+ CreateMarkerTD Xiphoid  (
  CreateMarker Xiphoid  (
  MarkerName=PrefixDef(Xiphoid),  
  MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
@@ -255,7 +282,7 @@
    sRelOpt = { 0.16, 0.27, 0 };
  };  
  
-// CreateMarkerTD Neck  (
+ CreateMarkerTD Neck  (
  CreateMarker Neck  (
  MarkerName=PrefixDef(Neck),  
  MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
@@ -266,7 +293,7 @@
    sRelOpt = { -0.05,0.465,0 };
  }; 
  
-// CreateMarkerTD Thoracic  (
+ CreateMarkerTD Thoracic  (
  CreateMarker Thoracic  (
  MarkerName=PrefixDef(Thoracic),  
  MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
@@ -276,144 +303,154 @@
  ) = {
    sRelOpt = { -0.09, 0.32, 0};
  }; 
- 
+// 
 
  
-//  CreateMarker  LShoulderCenter  (
-// MarkerName=LShoulderCenter,  
-// MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
-// OptX="Off",OptY="On",OptZ="On",  
-// WeightX=0.05,WeightY=1.0,WeightZ=1.0,
-// Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
-// ) = {
-//   sRelOpt = { 0.03,0.40,-0.2 };
-// };  
-// 
-//  CreateMarker  RShoulderCenter (
-// MarkerName= RShoulderCenter,  
-// MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
-// OptX="Off",OptY="On",OptZ="On",  
-// WeightX=0.05,WeightY=1.0,WeightZ=1.0,
-// Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
-// ) = {
-//   sRelOpt = { 0.03 ,0.40,0.2 };
-// };  
+  CreateMarker  LShoulderCenter  (
+ MarkerName=LShoulderCenter,  
+ MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
+ OptX="Off",OptY="On",OptZ="On",  
+ WeightX=0.05,WeightY=1.0,WeightZ=1.0,
+ Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+ ) = {
+   sRelOpt = { 0.03,0.40,-0.2 };
+ };  
+ 
+  CreateMarker  RShoulderCenter (
+ MarkerName= RShoulderCenter,  
+ MarkerPlacement=Trunk.SegmentsThorax.ThoraxSeg, 
+ OptX="Off",OptY="On",OptZ="On",  
+ WeightX=0.05,WeightY=1.0,WeightZ=1.0,
+ Model1=MotionAndParameterOptimizationModel ,Model2= InverseDynamicModel 
+ ) = {
+   sRelOpt = { 0.03 ,0.40,0.2 };
+ };  
 // 
 #endif 
  
 //
 //   FOOT MARKERS
 //
-   
-  CreateMarkerTD RHeel ( 
+
+  CreateMarkerDriver RHeel ( 
   MarkerName=PrefixDef(RHeel),
   MarkerPlacement =Right.Leg.Seg.Foot, 
   OptX="Off",OptY="Off",OptZ="Off",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt= Main.SubjectSpecificData.MarkerPos.HeelMarker;
+    sRelOpt = Main.SubjectSpecificData.MarkerPos.HeelMarker;
 //   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, 0.03 -0.008 };
   };
    
-  CreateMarkerTD LHeel ( 
+  CreateMarkerDriver LHeel ( 
   MarkerName=PrefixDef(LHeel),
   MarkerPlacement =Left.Leg.Seg.Foot, 
   OptX="Off",OptY="Off",OptZ="Off",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
    sRelOpt= Main.SubjectSpecificData.MarkerPos.HeelMarker*{{1,0,0},{0,1,0},{0,0,-1}};
 //   sRelOpt = { -0.0487318 +0.01 ,  0.01078777, -0.03 +0.008};
   };
    
-  CreateMarkerTD LToe (
+  CreateMarkerDriver LToe (
   MarkerName=PrefixDef(LToe),
   MarkerPlacement =Left.Leg.Seg.Foot, 
   OptX="Off",OptY="Off",OptZ="Off",
   WeightX=Main.SubjectSpecificData.MarkerWeights.ToeX,
   WeightY=Main.SubjectSpecificData.MarkerWeights.ToeY,
   WeightZ=Main.SubjectSpecificData.MarkerWeights.ToeZ,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
    sRelOpt= Main.SubjectSpecificData.MarkerPos.ToeMarker*{{1,0,0},{0,1,0},{0,0,-1}};
 //   sRelOpt= { 0.23438048+0.015,  0.01647059+0.01, -0.029 +0.02 };
   };
   
-  CreateMarkerTD RToe ( 
+  CreateMarkerDriver RToe ( 
   MarkerName=PrefixDef(RToe),
   MarkerPlacement =Right.Leg.Seg.Foot, 
   OptX="Off",OptY="Off",OptZ="Off",
   WeightX=Main.SubjectSpecificData.MarkerWeights.ToeX,
   WeightY=Main.SubjectSpecificData.MarkerWeights.ToeY,
   WeightZ=Main.SubjectSpecificData.MarkerWeights.ToeZ,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
    sRelOpt= Main.SubjectSpecificData.MarkerPos.ToeMarker;
 //   sRelOpt= { 0.23438048+0.025,  0.01647059+0.01, 0.029 -0.02};
   };  
   
-  CreateMarkerTD LMidfootLateral ( 
+  CreateMarkerDriver LMidfootLateral ( 
   MarkerName=PrefixDef(LMidfootLateral),
   MarkerPlacement =Left.Leg.Seg.Foot, 
   OptX="On",OptY="Off",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
    sRelOpt= Main.SubjectSpecificData.MarkerPos.MidfootLateralMarker*{{1,0,0},{0,1,0},{0,0,-1}};
 //   sRelOpt= { 0.10556638+0.03,  -0.02+0.015,  -0.085+0.02};
   }; 
 
-  CreateMarkerTD RMidfootLateral ( 
+  CreateMarkerDriver RMidfootLateral ( 
   MarkerName=PrefixDef(RMidfootLateral),
   MarkerPlacement =Right.Leg.Seg.Foot, 
   OptX="On",OptY="Off",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
    sRelOpt= Main.SubjectSpecificData.MarkerPos.MidfootLateralMarker;
    //{ 0.10556638+0.03,  -0.02+0.015,  0.085-0.02};
   }; 
   
-  CreateMarkerTD LMidfootSuperior ( 
+  CreateMarkerDriver LMidfootSuperior ( 
   MarkerName=PrefixDef(LMidfootSuperior),
   MarkerPlacement =Left.Leg.Seg.Foot, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt= { 0.10556638+0.03,  0.06959772+0.01,  -0.0322785+0.03};
+   sRelOpt= { 0.05, -0.02, 0.000};
   }; 
 
-  CreateMarkerTD RMidfootSuperior ( 
+  CreateMarkerDriver RMidfootSuperior ( 
   MarkerName=PrefixDef(RMidfootSuperior),
   MarkerPlacement = Right.Leg.Seg.Foot, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt= { 0.10556638+0.03,  0.06959772+0.01,  0.0322785-0.03};
+   sRelOpt= { 0.05, -0.02, 0.000};
   }; 
-  
+//  
  
-  CreateMarkerTD RMidfootMedial ( 
+  CreateMarkerDriver RMidfootMedial ( 
   MarkerName=PrefixDef(RMidfootMedial),
   MarkerPlacement =Right.Leg.Seg.Foot, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = { 0.10556638+0.02,  -0.02+0.01,  0.085-0.11};
+   sRelOpt = { 0.118, -0.11, -0.055};
   };
    
-  CreateMarkerTD LMidfootMedial ( 
+  CreateMarkerDriver LMidfootMedial ( 
   MarkerName=PrefixDef(LMidfootMedial ),
   MarkerPlacement =Left.Leg.Seg.Foot, 
   OptX="On",OptY="On",OptZ="On",
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
-  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
+  sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = { 0.10556638 +0.02,  -0.02+0.01,  -0.085+0.12};
+   sRelOpt = { 0.118, -0.11, 0.055};
   };
    
   CreateMarkerTD RHindfoot ( 
@@ -423,7 +460,7 @@
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-   sRelOpt= { 0.030+0.03,  -0.02+0.03,  0.085-0.03 };
+   sRelOpt= { -0.00, -0.07, 0.05};
   };
   
   CreateMarkerTD LHindfoot( 
@@ -433,7 +470,7 @@
   WeightX=1.0,WeightY=1.0,WeightZ=1.0,
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel
   )= {
-  sRelOpt= { 0.030+0.03,  -0.02+0.03,  -0.085+0.03};
+  sRelOpt= { -0.00, -0.07, -0.05};
   };  
   
 //  CreateMarkerTD RToeMedial ( 
