@@ -9,7 +9,7 @@ Morten Lund and Michael Skipper Andersen April 2011
 AnyFolder Scaling = {
   
   AnyFolder StandardParameters = {
-    #include"<ANYBODY_PATH_BODY>\BodyModels\Include\BodyParameters.any"
+    #include "<ANYBODY_PATH_BODY>\BodyModels\Include\BodyParameters.any"
     
     #include "<ANYBODY_PATH_BODY>\Trunk\StandardParameters.any"
     #include "<ANYBODY_PATH_BODY>\Arm\StandardParameters.any"  
@@ -17,8 +17,13 @@ AnyFolder Scaling = {
     #if RIGHT_LEG_TD + LEFT_LEG_TD == 0
     #include "<ANYBODY_PATH_BODY>\Leg\StandardParameters.any"
     #else
+    #ifdef AMMR15
     AnyFolder Right ={#include "<ANYBODY_PATH_BODY>\LegTD\StandardParameters.any"};
     AnyFolder Left ={#include "<ANYBODY_PATH_BODY>\LegTD\StandardParameters.any"}; 
+    #else
+    AnyFolder Right ={#include "<ANYBODY_PATH_BODY>\LegTLEM\StandardParameters.any"};
+    AnyFolder Left ={#include "<ANYBODY_PATH_BODY>\LegTLEM\StandardParameters.any"}; 
+    #endif
     #endif
     
   };
@@ -116,154 +121,95 @@ AnyFolder Scaling = {
     #if RIGHT_LEG_TD == 1
     
     AnyFolder Right ={
-      AnyVar Sign = 1;
-	AnyFolder &LegTDRef = ...BodyModel.Right.Leg.Seg;
-      AnyFolder &KinOptRef = Main.JntParameterOptModel.LegModel.Right.Seg;
+      #define Side Right 
 
+      AnyVar Sign = 1;
+      
       AnyFolder Talus  = {
         AnySwitch ShowNodes = Off;
-          AnyFunTransform3D &ScaleFunction = .Foot.ScaleFunction;
+
+        #if 1
+          AnyFunTransform3DIdentity ScaleFunction = {};
+        #endif
       };
       
          
       AnyFolder Foot  = {
         AnySwitch ShowNodes = Off;
-//        #include "MorphNodesFootLinear.any"
-        AnyVar LengthScale = ...AnthroSegmentLengths.Right.FootLength / ...StandardParameters.Right.Foot.Length;    
-        AnyVar MassScale = ...MassScaling.Right.Foot.MassScale;
-//        #if !UseRbfScaling
-        AnyFunTransform3DLin ScaleFunction = {
-        ScaleMat = {{1,0,0},{0,1,0},{0,0,1}};
-        Offset = {0,0,0};
+        AnyVar LengthScale = ...AnthroSegmentLengths.Side.FootLength / ...StandardParameters.Side.Foot.Length;    
+        AnyVar MassScale = ...MassScaling.Left.Foot.MassScale;
+
+        AnyFunTransform3DLin ScaleFunction= 
+        {
+           ScaleMat = {{1,0,0},{0,1,0},{0,0,1}};
+           Offset = {0,0,0};
         };
-//        #else
-//        AnyFunTransform3DRBF ScaleFunction= 
-//        {
-//          RBFDef.Param = 0.3;
-//          Points0 = {
-//            .MorphSourcePoints.AnkleCenterPoint,  
-//            .MorphSourcePoints.FootControlPoint1, 
-//            .MorphSourcePoints.FootControlPoint2, 
-//            .MorphSourcePoints.FootControlPoint3, 
-//            .MorphSourcePoints.FootControlPoint4, 
-//            .MorphSourcePoints.FootControlPoint5, 
-//            .MorphSourcePoints.FootControlPoint6, 
-//            .MorphSourcePoints.FootControlPoint7, 
-//            .MorphSourcePoints.FootControlPoint8,
-//            .MorphSourcePoints.FootControlPoint9, 
-//            .MorphSourcePoints.FootControlPoint10, 
-//            .MorphSourcePoints.FootControlPoint11, 
-//            .MorphSourcePoints.FootControlPoint12,
-//            .MorphSourcePoints.FootControlPoint13, 
-//            .MorphSourcePoints.FootControlPoint14, 
-//            .MorphSourcePoints.FootControlPoint15
-//          };
-//          Points1 = {
-//            .MorphTargetPoints.AnkleCenterPoint,  
-//            .MorphTargetPoints.FootControlPoint1, 
-//            .MorphTargetPoints.FootControlPoint2, 
-//            .MorphTargetPoints.FootControlPoint3, 
-//            .MorphTargetPoints.FootControlPoint4, 
-//            .MorphTargetPoints.FootControlPoint5, 
-//            .MorphTargetPoints.FootControlPoint6, 
-//            .MorphTargetPoints.FootControlPoint7, 
-//            .MorphTargetPoints.FootControlPoint8,
-//            .MorphTargetPoints.FootControlPoint9, 
-//            .MorphTargetPoints.FootControlPoint10, 
-//            .MorphTargetPoints.FootControlPoint11, 
-//            .MorphTargetPoints.FootControlPoint12,
-//            .MorphTargetPoints.FootControlPoint13, 
-//            .MorphTargetPoints.FootControlPoint14, 
-//            .MorphTargetPoints.FootControlPoint15
-//          };
-//        };
-//        #endif
       };
 
       AnyFolder Shank = {
         AnySwitch ShowNodes = Off;
         #include "MorphNodesShank.any"
-
-        AnyVar MassScale = ...MassScaling.Right.Shank.MassScale;
         
         #if !UseRbfScaling 
         AnyFunTransform3DIdentity ScaleFunction = {};
         #else
-        AnyFunTransform3DRBF ScaleFunction= 
-        {
+        
+//        AnyFunTransform3DLin2 Transform =   {
+//          Points0 = .ScaleFunction.Points0;
+//          Points1 =. ScaleFunction.Points1;
+//          Mode = VTK_LANDMARK_AFFINE;
+//        };
+        
+
+        AnyFunTransform3DRBF ScaleFunction=      {
+          //PreTransforms={&.Transform} ;
           RBFDef.Param = 0.3;
-//          RBFDef.Type = RBF_ThinPlate;
-          Points0 ={.MorphSourcePoints.KneeCenterPoint,
-            .MorphSourcePoints.KneeMedialPoint,
-            .MorphSourcePoints.KneeLateralPoint,
-            .MorphSourcePoints.KneeAnteriorPoint,
-            .MorphSourcePoints.KneeBelowAnteriorPoint,
-            .MorphSourcePoints.KneeBelowLateralPoint ,
-            .MorphSourcePoints.KneeBelowMedialPoint ,
-            .MorphSourcePoints.AnkleCenterPoint ,            
-            .MorphSourcePoints.AnkleMedialPoint,
-            .MorphSourcePoints.AnkleLateralPoint, 
-            .MorphSourcePoints.AnkleAnteriorPoint,
-            .MorphSourcePoints.ShankCPoint1,
-            .MorphSourcePoints.ShankCPoint2,
-            .MorphSourcePoints.ShankCPoint3,
-            .MorphSourcePoints.ShankCPoint4,
-            .MorphSourcePoints.ShankCPoint5,
-            .MorphSourcePoints.ShankCPoint6,
-            .MorphSourcePoints.ShankCPoint7,
-            .MorphSourcePoints.ShankCPoint8,
-            .MorphSourcePoints.ShankCPoint9,
-            .MorphSourcePoints.ShankCPoint10,
-            .MorphSourcePoints.ShankCPoint11,
-            .MorphSourcePoints.ShankCPoint12,
-            .MorphSourcePoints.ShankCPoint13,
-            .MorphSourcePoints.ShankCPoint14,
-            .MorphSourcePoints.ShankCPoint15,
-            .MorphSourcePoints.ShankCPoint16,
-            .MorphSourcePoints.ShankCPoint17,
-            .MorphSourcePoints.ShankCPoint18,
-            .MorphSourcePoints.ShankCPoint19
+         //RBFDef.Type = RBF_ThinPlate;
+          Points0 ={
+            .MorphSourcePoints.KneeJointStandard ,
+            .MorphSourcePoints.MedialKneePoint,
+            .MorphSourcePoints.LateralKneePoint,
+            .MorphSourcePoints.AnteriorKneePoint,
+            .MorphSourcePoints.AboveAnteriorKneePoint,
+            .MorphSourcePoints.AboveLateralKneePoint ,
+            .MorphSourcePoints.AboveMedialKneePoint ,
+            .MorphSourcePoints.AnkleJointStandard ,            
+            .MorphSourcePoints.MedialAnklePoint,
+            .MorphSourcePoints.LateralAnklePoint, 
+            .MorphSourcePoints.AnteriorAnklePoint,
+            .MorphSourcePoints.PosteriorKneePoint,
+            .MorphSourcePoints.AbovePosteriorKneePoint,
+            .MorphSourcePoints.PosteriorAnklePoint
           };
-          Points1 = {.MorphTargetPoints.KneeCenterPoint,  
-            .MorphTargetPoints.KneeMedialPoint,
-            .MorphTargetPoints.KneeLateralPoint,
-            .MorphTargetPoints.KneeAnteriorPoint,
-            .MorphTargetPoints.KneeBelowAnteriorPoint,
-            .MorphTargetPoints.KneeBelowLateralPoint ,
-            .MorphTargetPoints.KneeBelowMedialPoint ,
-            .MorphTargetPoints.AnkleCenterPoint ,
-            .MorphTargetPoints.AnkleMedialPoint,
-            .MorphTargetPoints.AnkleLateralPoint,
-            .MorphTargetPoints.AnkleAnteriorPoint,
-            .MorphTargetPoints.ShankCPoint1,
-            .MorphTargetPoints.ShankCPoint2,
-            .MorphTargetPoints.ShankCPoint3,
-            .MorphTargetPoints.ShankCPoint4,
-            .MorphTargetPoints.ShankCPoint5,
-            .MorphTargetPoints.ShankCPoint6,
-            .MorphTargetPoints.ShankCPoint7,
-            .MorphTargetPoints.ShankCPoint8,
-            .MorphTargetPoints.ShankCPoint9,
-            .MorphTargetPoints.ShankCPoint10,
-            .MorphTargetPoints.ShankCPoint11,
-            .MorphTargetPoints.ShankCPoint12,
-            .MorphTargetPoints.ShankCPoint13,
-            .MorphTargetPoints.ShankCPoint14,
-            .MorphTargetPoints.ShankCPoint15,
-            .MorphTargetPoints.ShankCPoint16,
-            .MorphTargetPoints.ShankCPoint17,
-            .MorphTargetPoints.ShankCPoint18,
-            .MorphTargetPoints.ShankCPoint19   
-          };  
+          Points1 = {
+            .MorphTargetPoints.targetCenterKneeJoint ,  
+            .MorphTargetPoints.targetMedialKneePoint,
+            .MorphTargetPoints.targetLateralKneePoint,
+            .MorphTargetPoints.targetAnteriorKneePoint,
+            .MorphTargetPoints.targetAboveAnteriorKneePoint,
+            .MorphTargetPoints.targetAboveLateralKneePoint ,
+            .MorphTargetPoints.targetAboveMedialKneePoint ,
+            .MorphTargetPoints.targetAnkleCenter,
+            .MorphTargetPoints.targetMedialAnklePoint,
+            .MorphTargetPoints.targetLateralAnklePoint,
+            .MorphTargetPoints.targetAnteriorAnklePoint,
+            .MorphTargetPoints.targetPosteriorKneePoint,
+            .MorphTargetPoints.targetAbovePosteriorKneePoint,
+            .MorphTargetPoints.targetPosteriorAnklePoint};  
+        
+  
         };
         #endif        
       };   
       
+      
       AnyFolder Thigh = {
         AnySwitch ShowNodes = Off;
+       
+        
         #include "MorphNodesThigh.any"
-        AnyVar MassScale = ...MassScaling.Right.Thigh.MassScale;
-		
+       
+        
         #if  !UseRbfScaling    
         AnyFunTransform3DIdentity ScaleFunction = {};
         #else        
@@ -272,7 +218,7 @@ AnyFolder Scaling = {
           //RBFDef.Param = 0.3;
           RBFDef.Type = RBF_ThinPlate;          
           Points0 ={    
-            .MorphSourcePoints.CenterHipPoint , // Hip joint center
+            .MorphSourcePoints.HipJointStandard, // Hip joint center
             .MorphSourcePoints.ThighCPoint1,
             .MorphSourcePoints.ThighCPoint2,
             .MorphSourcePoints.ThighCPoint3,
@@ -293,17 +239,13 @@ AnyFolder Scaling = {
             .MorphSourcePoints.ThighCPoint18,
             .MorphSourcePoints.ThighCPoint19,
             .MorphSourcePoints.ThighCPoint20,
-            .MorphSourcePoints.ThighCPoint21,
-            .MorphSourcePoints.ThighCPoint22,
-            .MorphSourcePoints.ThighCPoint23,
-            .MorphSourcePoints.ThighCPoint24,
-            .MorphSourcePoints.KneeCenterPoint,
-            .MorphSourcePoints.KneeMedialPoint,
-            .MorphSourcePoints.KneeLateralPoint,
-            .MorphSourcePoints.KneeAnteriorPoint            
+            .MorphSourcePoints.CenterKneePoint,
+            .MorphSourcePoints.MedialKneePoint,
+            .MorphSourcePoints.LateralKneePoint,
+            .MorphSourcePoints.AnteriorKneePoint            
           };
           Points1 = { 
-            .MorphTargetPoints.CenterHipPoint, // Hip joint center
+            .MorphTargetPoints.HipJointStandard, // Hip joint center
             .MorphTargetPoints.ThighCPoint1,
             .MorphTargetPoints.ThighCPoint2,
             .MorphTargetPoints.ThighCPoint3,
@@ -324,186 +266,120 @@ AnyFolder Scaling = {
             .MorphTargetPoints.ThighCPoint18,
             .MorphTargetPoints.ThighCPoint19,
             .MorphTargetPoints.ThighCPoint20,
-            .MorphTargetPoints.ThighCPoint21,
-            .MorphTargetPoints.ThighCPoint22,
-            .MorphTargetPoints.ThighCPoint23,
-            .MorphTargetPoints.ThighCPoint24,
-            .MorphTargetPoints.KneeCenterPoint,
-            .MorphTargetPoints.KneeMedialPoint,
-            .MorphTargetPoints.KneeLateralPoint,
-            .MorphTargetPoints.KneeAnteriorPoint            
+            .MorphTargetPoints.CenterKneePoint,
+            .MorphTargetPoints.MedialKneePoint,
+            .MorphTargetPoints.LateralKneePoint,
+            .MorphTargetPoints.AnteriorKneePoint            
            };              
         };
         #endif
       };
+       #undef Side
     }; // Right
+    
     #else
     #endif
     
     #if LEFT_LEG_TD == 1
     
     AnyFolder Left ={
-      AnyVar Sign = -1;
-	AnyFolder &LegTDRef = ...BodyModel.Left.Leg.Seg;
-      AnyFolder &KinOptRef = Main.JntParameterOptModel.LegModel.Left.Seg;
+      #define Side Left 
 
+      AnyVar Sign = -1;
+      
       AnyFolder Talus  = {
+        AnySwitch ShowNodes = Off;
+
+        #if 0
+          AnyFunTransform3DIdentity ScaleFunction = {};
+        #else
           AnyFunTransform3D &ScaleFunction = .Foot.ScaleFunction;
+        #endif
       };      
       
       
       AnyFolder Foot  = {
         AnySwitch ShowNodes = Off;
 //        #include "MorphNodesFootLinear.any"
-        AnyVar LengthScale = ...AnthroSegmentLengths.Left.FootLength / ...StandardParameters.Left.Foot.Length;    
+        AnyVar LengthScale = ...AnthroSegmentLengths.Side.FootLength / ...StandardParameters.Side.Foot.Length;    
         AnyVar MassScale = ...MassScaling.Left.Foot.MassScale;
-	  
-	  
-        // AnySwitch ShowNodes = Off;
-        // #include "MorphNodesFootAlternativeLeft.any"
-//        #if !UseRbfScaling
-        AnyFunTransform3DLin ScaleFunction = {
-        ScaleMat = {{1,0,0},{0,1,0},{0,0,1}};
-        Offset = {0,0,0};
+
+        AnyFunTransform3DLin ScaleFunction = 
+        {
+          ScaleMat = {{1,0,0},{0,1,0},{0,0,1}};
+          Offset = {0,0,0};
         };
-//        #else
-//        AnyFunTransform3DRBF ScaleFunction= 
-//        {
-//          RBFDef.Param = 0.3;
-//          //RBFDef.Type = RBF_ThinPlate;          
-//          Points0 = {
-//            .MorphSourcePoints.AnkleCenterPoint,  
-//            .MorphSourcePoints.FootControlPoint1, 
-//            .MorphSourcePoints.FootControlPoint2, 
-//            .MorphSourcePoints.FootControlPoint3, 
-//            .MorphSourcePoints.FootControlPoint4, 
-//            .MorphSourcePoints.FootControlPoint5, 
-//            .MorphSourcePoints.FootControlPoint6, 
-//            .MorphSourcePoints.FootControlPoint7, 
-//            .MorphSourcePoints.FootControlPoint8,
-//            .MorphSourcePoints.FootControlPoint9, 
-//            .MorphSourcePoints.FootControlPoint10, 
-//            .MorphSourcePoints.FootControlPoint11, 
-//            .MorphSourcePoints.FootControlPoint12,
-//            .MorphSourcePoints.FootControlPoint13, 
-//            .MorphSourcePoints.FootControlPoint14,
-//            .MorphSourcePoints.FootControlPoint15
-//          };
-//          Points1 = {
-//            .MorphTargetPoints.AnkleCenterPoint,  
-//            .MorphTargetPoints.FootControlPoint1, 
-//            .MorphTargetPoints.FootControlPoint2, 
-//            .MorphTargetPoints.FootControlPoint3, 
-//            .MorphTargetPoints.FootControlPoint4, 
-//            .MorphTargetPoints.FootControlPoint5, 
-//            .MorphTargetPoints.FootControlPoint6, 
-//            .MorphTargetPoints.FootControlPoint7, 
-//            .MorphTargetPoints.FootControlPoint8,
-//            .MorphTargetPoints.FootControlPoint9, 
-//            .MorphTargetPoints.FootControlPoint10, 
-//            .MorphTargetPoints.FootControlPoint11, 
-//            .MorphTargetPoints.FootControlPoint12,
-//            .MorphTargetPoints.FootControlPoint13, 
-//            .MorphTargetPoints.FootControlPoint14, 
-//            .MorphTargetPoints.FootControlPoint15
-//          };
-//        };
-//        #endif
+     
       };
       
       AnyFolder Shank = {
         AnySwitch ShowNodes = Off;
         #include "MorphNodesShank.any"
-        AnyVar MassScale = ...MassScaling.Left.Shank.MassScale;
-
+        
         #if !UseRbfScaling 
         AnyFunTransform3DIdentity ScaleFunction = {};
         #else
-        AnyFunTransform3DRBF ScaleFunction= 
+        
+       
+        
+        AnyFunTransform3DRBF ScaleFunction = 
         {
           RBFDef.Param = 0.3;
           //RBFDef.Type = RBF_ThinPlate;          
-          Points0 ={.MorphSourcePoints.KneeCenterPoint,
-            .MorphSourcePoints.KneeMedialPoint,
-            .MorphSourcePoints.KneeLateralPoint,
-            .MorphSourcePoints.KneeAnteriorPoint,
-            .MorphSourcePoints.KneeBelowAnteriorPoint,
-            .MorphSourcePoints.KneeBelowLateralPoint ,
-            .MorphSourcePoints.KneeBelowMedialPoint ,
-            .MorphSourcePoints.AnkleCenterPoint ,            
-            .MorphSourcePoints.AnkleMedialPoint,
-            .MorphSourcePoints.AnkleLateralPoint, 
-            .MorphSourcePoints.AnkleAnteriorPoint,
-            .MorphSourcePoints.ShankCPoint1,
-            .MorphSourcePoints.ShankCPoint2,
-            .MorphSourcePoints.ShankCPoint3,
-            .MorphSourcePoints.ShankCPoint4,
-            .MorphSourcePoints.ShankCPoint5,
-            .MorphSourcePoints.ShankCPoint6,
-            .MorphSourcePoints.ShankCPoint7,
-            .MorphSourcePoints.ShankCPoint8,
-            .MorphSourcePoints.ShankCPoint9,
-            .MorphSourcePoints.ShankCPoint10,
-            .MorphSourcePoints.ShankCPoint11,
-            .MorphSourcePoints.ShankCPoint12,
-            .MorphSourcePoints.ShankCPoint13,
-            .MorphSourcePoints.ShankCPoint14,
-            .MorphSourcePoints.ShankCPoint15,
-            .MorphSourcePoints.ShankCPoint16,
-            .MorphSourcePoints.ShankCPoint17,
-            .MorphSourcePoints.ShankCPoint18,
-            .MorphSourcePoints.ShankCPoint19
+        Points0 ={
+            .MorphSourcePoints.KneeJointStandard ,
+            .MorphSourcePoints.MedialKneePoint,
+            .MorphSourcePoints.LateralKneePoint,
+            .MorphSourcePoints.AnteriorKneePoint,
+            .MorphSourcePoints.AboveAnteriorKneePoint,
+            .MorphSourcePoints.AboveLateralKneePoint ,
+            .MorphSourcePoints.AboveMedialKneePoint ,
+            .MorphSourcePoints.AnkleJointStandard ,            
+            .MorphSourcePoints.MedialAnklePoint,
+            .MorphSourcePoints.LateralAnklePoint, 
+            .MorphSourcePoints.AnteriorAnklePoint,
+            .MorphSourcePoints.PosteriorKneePoint,
+            .MorphSourcePoints.AbovePosteriorKneePoint,
+            .MorphSourcePoints.PosteriorAnklePoint
           };
-          Points1 = {.MorphTargetPoints.KneeCenterPoint,  
-            .MorphTargetPoints.KneeMedialPoint,
-            .MorphTargetPoints.KneeLateralPoint,
-            .MorphTargetPoints.KneeAnteriorPoint,
-            .MorphTargetPoints.KneeBelowAnteriorPoint,
-            .MorphTargetPoints.KneeBelowLateralPoint ,
-            .MorphTargetPoints.KneeBelowMedialPoint ,
-            .MorphTargetPoints.AnkleCenterPoint ,
-            .MorphTargetPoints.AnkleMedialPoint,
-            .MorphTargetPoints.AnkleLateralPoint,
-            .MorphTargetPoints.AnkleAnteriorPoint,
-            .MorphTargetPoints.ShankCPoint1,
-            .MorphTargetPoints.ShankCPoint2,
-            .MorphTargetPoints.ShankCPoint3,
-            .MorphTargetPoints.ShankCPoint4,
-            .MorphTargetPoints.ShankCPoint5,
-            .MorphTargetPoints.ShankCPoint6,
-            .MorphTargetPoints.ShankCPoint7,
-            .MorphTargetPoints.ShankCPoint8,
-            .MorphTargetPoints.ShankCPoint9,
-            .MorphTargetPoints.ShankCPoint10,
-            .MorphTargetPoints.ShankCPoint11,
-            .MorphTargetPoints.ShankCPoint12,
-            .MorphTargetPoints.ShankCPoint13,
-            .MorphTargetPoints.ShankCPoint14,
-            .MorphTargetPoints.ShankCPoint15,
-            .MorphTargetPoints.ShankCPoint16,
-            .MorphTargetPoints.ShankCPoint17,
-            .MorphTargetPoints.ShankCPoint18,
-            .MorphTargetPoints.ShankCPoint19
-          };  
+          Points1 = {
+            .MorphTargetPoints.targetCenterKneeJoint ,  
+            .MorphTargetPoints.targetMedialKneePoint,
+            .MorphTargetPoints.targetLateralKneePoint,
+            .MorphTargetPoints.targetAnteriorKneePoint,
+            .MorphTargetPoints.targetAboveAnteriorKneePoint,
+            .MorphTargetPoints.targetAboveLateralKneePoint ,
+            .MorphTargetPoints.targetAboveMedialKneePoint ,
+            .MorphTargetPoints.targetAnkleCenter,
+            .MorphTargetPoints.targetMedialAnklePoint,
+            .MorphTargetPoints.targetLateralAnklePoint,
+            .MorphTargetPoints.targetAnteriorAnklePoint,
+            .MorphTargetPoints.targetPosteriorKneePoint,
+            .MorphTargetPoints.targetAbovePosteriorKneePoint,
+            .MorphTargetPoints.targetPosteriorAnklePoint };
+        
+  
         };
         #endif        
       };
       
       AnyFolder Thigh = {
         AnySwitch ShowNodes = Off;
+       
         #include "MorphNodesThigh.any"
-        AnyVar MassScale = ...MassScaling.Right.Thigh.MassScale;
-		
-
+       
+        
         #if  !UseRbfScaling    
         AnyFunTransform3DIdentity ScaleFunction = {};
-        #else        
-        AnyFunTransform3DRBF ScaleFunction= 
+        #else      
+       
+        
+        AnyFunTransform3DRBF ScaleFunction = 
         {
           //RBFDef.Param = 0.3;
           RBFDef.Type = RBF_ThinPlate;          
           Points0 ={    
-            .MorphSourcePoints.CenterHipPoint , // Hip joint center
+            .MorphSourcePoints.HipJointStandard, // Hip joint center
             .MorphSourcePoints.ThighCPoint1,
             .MorphSourcePoints.ThighCPoint2,
             .MorphSourcePoints.ThighCPoint3,
@@ -524,17 +400,13 @@ AnyFolder Scaling = {
             .MorphSourcePoints.ThighCPoint18,
             .MorphSourcePoints.ThighCPoint19,
             .MorphSourcePoints.ThighCPoint20,
-            .MorphSourcePoints.ThighCPoint21,
-            .MorphSourcePoints.ThighCPoint22,
-            .MorphSourcePoints.ThighCPoint23,
-            .MorphSourcePoints.ThighCPoint24,
-            .MorphSourcePoints.KneeCenterPoint,
-            .MorphSourcePoints.KneeMedialPoint,
-            .MorphSourcePoints.KneeLateralPoint,
-            .MorphSourcePoints.KneeAnteriorPoint            
+            .MorphSourcePoints.CenterKneePoint,
+            .MorphSourcePoints.MedialKneePoint,
+            .MorphSourcePoints.LateralKneePoint,
+            .MorphSourcePoints.AnteriorKneePoint            
           };
           Points1 = { 
-            .MorphTargetPoints.CenterHipPoint , // Hip joint center
+            .MorphTargetPoints.HipJointStandard, // Hip joint center
             .MorphTargetPoints.ThighCPoint1,
             .MorphTargetPoints.ThighCPoint2,
             .MorphTargetPoints.ThighCPoint3,
@@ -555,19 +427,16 @@ AnyFolder Scaling = {
             .MorphTargetPoints.ThighCPoint18,
             .MorphTargetPoints.ThighCPoint19,
             .MorphTargetPoints.ThighCPoint20,
-            .MorphTargetPoints.ThighCPoint21,
-            .MorphTargetPoints.ThighCPoint22,
-            .MorphTargetPoints.ThighCPoint23,
-            .MorphTargetPoints.ThighCPoint24,
-            .MorphTargetPoints.KneeCenterPoint,
-            .MorphTargetPoints.KneeMedialPoint,
-            .MorphTargetPoints.KneeLateralPoint,
-            .MorphTargetPoints.KneeAnteriorPoint            
-           };              
+            .MorphTargetPoints.CenterKneePoint,
+            .MorphTargetPoints.MedialKneePoint,
+            .MorphTargetPoints.LateralKneePoint,
+            .MorphTargetPoints.AnteriorKneePoint            
+          };              
         };
         #endif
       };
-      
+       #undef Side
+
     }; // Left
     
     #else
@@ -581,7 +450,15 @@ AnyFolder Scaling = {
     // Common law for the upper body
     // *****************************
     
-   AnyFolder Pelvis = {
+    AnyFolder Pelvis = {
+      
+      //      AnyMat33 AFwd = {{1.03652092e+00,  -1.09638814e-02,   5.18107474e-03},{4.95366278e-04,   9.82704250e-01,  -1.11534133e-03},{2.55795044e-04,  -1.03051812e-03,   8.90635444e-01}};
+      //      AnyVec3 sFwd = {-4.85406463e-03,   1.81634855e-03,   2.76898546e-05};     
+      //      AnyMat33 ARv = {{9.99982522e-01,   5.44723955e-03,  -2.29869535e-03},{-5.44653268e-03,   9.99985118e-01,   3.13656882e-04},{2.30036970e-03,  -3.01131481e-04,   9.99997309e-01}};
+      //      AnyVec3 sRv = {0.0042582,  -0.00246698, -0.00011655};
+      
+      
+      
       AnySwitch ShowNodes = Off;
       #include "MorphNodesPelvis.any"
       #if !UseRbfScaling    
@@ -589,8 +466,8 @@ AnyFolder Scaling = {
       #else
       AnyFunTransform3DRBF ScaleFunction= 
       {
-        //RBFDef.Param = 1.0;
-        RBFDef.Type = RBF_ThinPlate;//RBF_Gaussian;
+        RBFDef.Param = 1.0;
+        RBFDef.Type = RBF_ThinPlate;// RBF_Gaussian; //
         Points0 = {
           .MorphSourcePoints.RightAsisMarker , 
           .MorphSourcePoints.LeftAsisMarker , 
@@ -624,35 +501,53 @@ AnyFolder Scaling = {
           .MorphTargetPoints.CBox8
         };          
       };
+      
+      
+      //      
+      //      AnyMat33 invA = {{9.6476e-001,  1.0758e-002,  -5.5988e-003},{-4.8664e-004,  1.0176e+000,  1.2772e-003},{-2.7765e-004,  1.1743e-003,  1.1228e+000}};
+      //      AnyFunTransform3DLin L2Affine = {  
+      //        ScaleMat = .AFwd;
+      //        Offset = .sFwd*.invA';
+      //      };
+      //      // BACK
+      //      AnyFunTransform3DLin ScaleFunction  = {  
+      //        PreTransforms = {&.L2Affine};
+      //        ScaleMat=.ARv;
+      //        Offset = .sRv*.ARv;
+      //      };
+      
+      
+      
+      
       #endif
     };
     
-//    AnyFolder Pelvis = {
-//      AnySwitch ShowNodes = Off;
-//      #include "MorphNodesPelvis.any"
-//      #if !UseRbfScaling    
-//      AnyFunTransform3DLin ScaleFunction = { ScaleMat = {{1, 0, 0},{0, 1, 0},{0, 0, 1}}; Offset = {0,0,0};};      
-//      #else
-//      AnyFunTransform3DRBF ScaleFunction= 
-//      {
-//        RBFDef.Type = RBF_Gaussian;
-//        RBFDef.Param = 1;
-//        //RBFDef.Type = RBF_Biharmonic;
-//        Points0 = {
-//          .MorphSourcePoints.RightAsisMarker , 
-//          .MorphSourcePoints.LeftAsisMarker , 
-//          .MorphSourcePoints.RightHipJointPoint , 
-//          .MorphSourcePoints.LeftHipJointPoint , 
-//          .MorphSourcePoints.SacrumMarker};
-//        Points1 = {
-//          .MorphTargetPoints.RightAsisMarker , 
-//          .MorphTargetPoints.LeftAsisMarker , 
-//          .MorphTargetPoints.RightHipJointPoint , 
-//          .MorphTargetPoints.LeftHipJointPoint , 
-//          .MorphTargetPoints.SacrumMarker};          
-//      };
-//      #endif
-//    };
+    //    AnyFolder Pelvis = {
+    //      AnySwitch ShowNodes = On;
+    //      #include "MorphNodesPelvis.any"
+    //      #if !UseRbfScaling    
+    //      AnyFunTransform3DLin ScaleFunction = { ScaleMat = {{1, 0, 0},{0, 1, 0},{0, 0, 1}}; Offset = {0,0,0};};      
+    //      #else
+    //      AnyFunTransform3DRBF ScaleFunction= 
+    //      {
+    //        RBFDef.Type = RBF_Gaussian;
+    //        RBFDef.Param = 1;
+    //        //RBFDef.Type = RBF_Biharmonic;
+    //        Points0 = {
+    //          .MorphSourcePoints.RightAsisMarker , 
+    //          .MorphSourcePoints.LeftAsisMarker , 
+    //          .MorphSourcePoints.RightHipJointPoint , 
+    //          .MorphSourcePoints.LeftHipJointPoint , 
+    //          .MorphSourcePoints.SacrumMarker};
+    //        Points1 = {
+    //          .MorphTargetPoints.RightAsisMarker , 
+    //          .MorphTargetPoints.LeftAsisMarker , 
+    //          .MorphTargetPoints.RightHipJointPoint , 
+    //          .MorphTargetPoints.LeftHipJointPoint , 
+    //          .MorphTargetPoints.SacrumMarker};          
+    //      };
+    //      #endif
+    //    };
     
     AnyFolder Trunk = {
       AnyVar LengthScale = (..AnthroSegmentLengths.TrunkHeight / ..StandardParameters.Trunk.Height);
@@ -778,9 +673,11 @@ AnyFolder Scaling = {
     AnyFolder &L5Seg = Lumbar;
     AnyFolder &SacrumSeg = Lumbar;
     
+    
   };
   
 };
+
 
 
 

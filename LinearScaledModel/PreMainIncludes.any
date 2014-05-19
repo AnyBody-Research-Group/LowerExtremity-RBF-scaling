@@ -1,5 +1,14 @@
 #ifndef PREMAININCLUDES_ANY
 #define PREMAININCLUDES_ANY
+
+
+
+#ifndef ANYBODY_PATH_OUTPUT
+#path ANYBODY_PATH_OUTPUT"../Output"  
+#endif 
+
+
+
 #include "../libdef.any"
 
 #define LINEARLY_SCALED_MODEL
@@ -34,6 +43,6 @@
 #include "<SHARED_FILES_PATH>/EmgProcessing.any"
 #include "<SHARED_FILES_PATH>/AnatomicalJointAnglesTemplate.any"
 #include "<SHARED_FILES_PATH>/RotationAxisAngles.any"
-#path ALTERNATIVE_CADAVER_PARAMETER_FILE "<SHARED_FILES_PATH>/CadaverParameters.any"
+#path ALTERNATIVE_JOINT_PARAMETER_FILE "<SHARED_FILES_PATH>/Modified_ModelJointParameters.any"
 
 #endif

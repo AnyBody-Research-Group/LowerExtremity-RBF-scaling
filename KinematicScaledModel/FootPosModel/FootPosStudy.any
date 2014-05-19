@@ -60,24 +60,28 @@ AnyKinStudy FootPosStudy = {
     
     
    AnyFolder FootPar = {       
+      AnyFolder &RFootref = .FootModel.Right.TLEMFoot;
+      AnyFolder &LFootref = .FootModel.Left.TLEMFoot;
 
-     
+
       AnyFolder &sfRTalus= .OptKinModel.Right.Seg.Talus;
       AnyFolder &sfRFoot= .OptKinModel.Right.Seg.Foot;
       AnyFolder &sfLTalus= .OptKinModel.Left.Seg.Talus;
       AnyFolder &sfLFoot= .OptKinModel.Left.Seg.Foot;
-      
-      AnyFolder &RFootref = .FootModel.Right.TLEMFoot ;
-      AnyFolder &LFootref = .FootModel.Left.TLEMFoot ;
-      
-      AnyMat33 RScaleMat = RFootref.Scale.ScaleMat;
-      AnyMat33 LScaleMat = LFootref.Scale.ScaleMat;
+            
+
+
+
+
+
+
 
       AnyVec3 RAnkleJointPos = (sfRTalus.r + sfRTalus.AnkleJoint.sRel*sfRTalus.Axes'-RFootref.r)*RFootref.Axes;
       AnyVec3 RSubtalarJointPos = (sfRFoot.r + sfRFoot.SubtalarJoint.sRel*sfRFoot.Axes'-RFootref.r)*RFootref.Axes;
       AnyMat33 RAnkleJointRot = RFootref.Axes'*(sfRTalus.Axes*sfRTalus.DriveNodeAnkle.ARel);
       AnyMat33 RSubtalarJointRot = RFootref.Axes'*(sfRTalus.Axes*sfRTalus.DriveNodeSubtalar.ARel);
       AnyMat33 RFootSubtalarJointRot = RFootref.Axes'*(sfRFoot.Axes*sfRFoot.DriveNodeSubtalar.ARel);
+      
 
       
       AnyVec3 LAnkleJointPos = (sfLTalus.r + sfLTalus.AnkleJoint.sRel*sfLTalus.Axes'-LFootref.r)*LFootref.Axes;
@@ -85,7 +89,7 @@ AnyKinStudy FootPosStudy = {
       AnyMat33 LAnkleJointRot = LFootref.Axes'*(sfLTalus.Axes*sfLTalus.DriveNodeAnkle.ARel);
       AnyMat33 LSubtalarJointRot = LFootref.Axes'*(sfLTalus.Axes*sfLTalus.DriveNodeSubtalar.ARel);
       AnyMat33 LFootSubtalarJointRot = LFootref.Axes'*(sfLFoot.Axes*sfLFoot.DriveNodeSubtalar.ARel);
-    
+      
       
       AnyFolder SaveToAnySetFile = {
         

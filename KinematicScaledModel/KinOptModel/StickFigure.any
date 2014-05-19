@@ -1102,6 +1102,12 @@ AnyFolder StickFigure = {
         AnyRefNode LAnkleMedial = {
           sRel = ..LAnkleMedial.sRel_static;
         };
+        AnyRefNode LKneeLateral = {
+          sRel = ..LKneeLateral.sRel_static;
+        };
+        AnyRefNode LKneeMedial = {
+          sRel = ..LKneeMedial.sRel_static;
+        };
         AnyRefNode AnkleStaticMarkerFrame = {
           AnyVec3 O = 0.5*(..LAnkleMedial.sRel_static + ..LAnkleLateral.sRel_static);
           AnyVec3 Z = -1*(..LAnkleLateral.sRel_static - ..LAnkleMedial.sRel_static) ;
