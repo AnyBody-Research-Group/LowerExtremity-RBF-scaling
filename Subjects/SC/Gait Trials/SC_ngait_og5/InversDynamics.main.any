@@ -1,5 +1,5 @@
 //New Recruitment
-//#define INCLUDE_MUSCLE_WEIGHT_FACTOR 2
+//#define INCLUDE_MUSCLE_WEIGHT_FACTOR 0
 
 #include "../../../../SetModelType.any"
 

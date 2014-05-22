@@ -72,15 +72,15 @@ Main = {
          WeightFun={&Weights.WFun };
          Linear.Ref = 0; // Weights are in local coordinates
         };
-//       AnyKinDriverMarker RKnee =    {
-//         CType = {Soft,Soft,Soft};
-//         AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RKneeLateral;
-//         AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RKneeLateral.PosInterpol;
-//         AnyFolder Weights = {AnyFunConst WFun ={Value = {1,0,1};};};
-//         WeightFun={&Weights.WFun };
-//         Linear.Ref = 0; // Weights are in local coordinates
-//         AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
-//       };
+       AnyKinDriverMarker RKnee =    {
+         CType = {Soft,Soft,Soft};
+         AnyRefFrame &ref1 = ...LegModel.Right.Seg.Thigh.RKneeLateral;
+         AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RKneeLateral.PosInterpol;
+         AnyFolder Weights = {AnyFunConst WFun ={Value = {1,0,1};};};
+         WeightFun={&Weights.WFun };
+         Linear.Ref = 0; // Weights are in local coordinates
+         AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
+       };
 //        
         RThighSuperior = {
          AnyFolder Weights = {AnyFunConst WFun ={Value = {0.1,0.1,0};};};

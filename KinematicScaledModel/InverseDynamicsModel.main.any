@@ -70,9 +70,9 @@ Main = {
       #include "JointAnglesAndMoments.any"
       
       #ifdef INCLUDE_MUSCLE_WEIGHT_FACTOR 
+      Main = {AnyVar Power = .InverseDynamics.Criterion.Power;};
       #if INCLUDE_MUSCLE_WEIGHT_FACTOR > 0
       InverseDynamics.Criterion.PrimaryTerm.Weight_SearchName = "WeightFactor";
-      Main = {AnyVar Power = .InverseDynamics.Criterion.Power;};
       #endif
       #endif
       

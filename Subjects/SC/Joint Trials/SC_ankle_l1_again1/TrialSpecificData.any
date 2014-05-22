@@ -23,8 +23,8 @@ AnyFolder TrialSpecificData={
   AnyStringVar GaitParametersTrial = "";
   
  #define USE_TRIAL_SPECIFIC_TIMES
- AnyIntVar  StartFrameNo =50+Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
- AnyIntVar  LastFrameNo = -200+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+ AnyIntVar  StartFrameNo =40+Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+ AnyIntVar  LastFrameNo = -190+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
    

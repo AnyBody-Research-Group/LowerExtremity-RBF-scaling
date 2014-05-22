@@ -987,7 +987,7 @@ AnyFolder StickFigure = {
           AnyVec3 Y = cross(Z,X);
           sRel = O;
           ARel = {X/vnorm(X),Y/vnorm(Y),Z/vnorm(Z)}';
-//          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
+          AnyDrawRefFrame drw = {RGB = {1,0,0}; };
         };         
         
       };

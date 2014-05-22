@@ -137,13 +137,7 @@
   
 //  // Patella
 
-// Workaround for missing GeomScale object in patella segment.
-Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Patella = {
-  AnyFunTransform3DLin &GeomScale = Main.Studies.HumanModel.BodyModel.Right.Leg.Seg.Thigh.GeomScale;
-};
-Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Patella = {
-  AnyFunTransform3DLin &GeomScale = Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Thigh.GeomScale;
-};
+
 
  CreateMarkerDriver LPatella ( 
   MarkerName=PrefixDef(LPatella),
@@ -155,7 +149,7 @@ Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Patella = {
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
   sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = { 0.075,-0.005,-0.02}; //{0.0125-0.01, -0.0385-0.015, -0.04};
+   sRelOpt = { 0.075,-0.015,0.01}; //{0.0125-0.01, -0.0385-0.015, -0.04};
  };
 
  CreateMarkerDriver RPatella (  
@@ -168,7 +162,7 @@ Main.Studies.HumanModel.BodyModel.Left.Leg.Seg.Patella = {
   Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel,
   sRelOptScalingOnOff = "On"
   )= {
-   sRelOpt = { 0.075,-0.005,0.02}; //{0.125-0.01, -0.385-0.015, 0.04};
+   sRelOpt = { 0.075,-0.015,-0.01}; //{0.125-0.01, -0.385-0.015, 0.04};
   };
   
 //Shank

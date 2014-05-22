@@ -148,9 +148,9 @@
       AnyDesVar LShankAnkleJointYPos =  {
         Val = .ModelRef.Left.Seg.Shank.AnkleJoint.sRel[1];
       };   
-//      AnyDesVar LFootSubtalarJointXPos =  {
-//        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[0];
-//      };      
+      AnyDesVar LFootSubtalarJointXPos =  {
+        Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[0];
+      };      
       AnyDesVar LFootSubtalarJointYPos =  {
         Val = .ModelRef.Left.Seg.Foot.SubtalarJoint.sRel[1];
       }; 

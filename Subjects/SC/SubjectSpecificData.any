@@ -63,12 +63,12 @@ AnyFolder SubjectSpecificData = {
   };
   AnyFolder MarkerWeights =  {
     AnyVar PatellaX = 1;
-    AnyVar PatellaY = 1;
+    AnyVar PatellaY = 0;
     AnyVar PatellaZ = 1;
 
     // Apllies to all toe markers
     AnyVar ToeX = 1.0;
-    AnyVar ToeY = 1;
+    AnyVar ToeY = 0.0;
     AnyVar ToeZ = 1.0;
   };
   

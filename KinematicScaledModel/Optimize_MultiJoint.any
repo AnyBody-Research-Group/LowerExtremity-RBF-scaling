@@ -15,7 +15,7 @@ Main.JntParameterOptModel  = {
   
   AnyOptKinStudy OptimizeParameters = 
   { 
-    ParameterOptimization.ConvergenceTol = 4e-6;
+    ParameterOptimization.ConvergenceTol = 1e-5;
     Analysis = { AnyOperation &Operation = .KinematicStudyForParameterOptimization.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
 
@@ -27,6 +27,14 @@ Main.JntParameterOptModel  = {
     tEnd = Main.ModelSetup.tEnd;
     nStep = 70;   
     Gravity = {0, 0, 0};
+    
+    InitialConditions.PreOperation = {
+      AnyOperationMacro ResetPatellaWeight = {
+        MacroStr = {"classoperation Main.JntParameterOptModel.Environment.Drivers.RPatella.Weights.WFun.Value"+strquote("Set Value")+"--value="+strquote("{1,1,1}"),
+          "classoperation Main.JntParameterOptModel.Environment.Drivers.LPatella.Weights.WFun.Value"+strquote("Set Value")+"--value="+strquote("{1,1,1}") };
+      };
+    };   
+    
     
     AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
     AnyFolder &LegModel = ..LegModel;
