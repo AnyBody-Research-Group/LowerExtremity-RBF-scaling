@@ -15,7 +15,7 @@ Main = {
   
   AnyOptKinStudy OptimizeParameters = 
   { 
-    ParameterOptimization.ConvergenceTol = 1e-5;
+    ParameterOptimization.ConvergenceTol = 1e-4;
     Analysis = { AnyOperation &Operation = ..OptimizeParameters.KinematicStudyForParameterOptimization.Kinematics; };
     AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
     #include "KinOptModel/DesignVars_All.any"

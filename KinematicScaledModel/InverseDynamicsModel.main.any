@@ -10,7 +10,7 @@
 #define IncludeLegTDModel 1
 
 #ifndef INCLUDE_MUSCLE_WEIGHT_FACTOR 
-#define INCLUDE_MUSCLE_WEIGHT_FACTOR 1
+#define INCLUDE_MUSCLE_WEIGHT_FACTOR 0
 #endif
 
 
@@ -32,9 +32,20 @@ Main = {
     {
       #include "<SHARED_FILES_PATH>/InverseDynamicsSettings.any"
       
-      tStart = Main.ModelSetup.tStart; 
-      tEnd = Main.ModelSetup.tEnd;
+      tStart = Main.ModelSetup.tStart;
+      #ifdef NSTEP
+      nStep = NSTEP;
+      #else
       nStep = Main.ModelSetup.nStep;
+      #endif
+      
+      #ifdef TEND
+      tEnd = TEND;
+      #else
+      tEnd = Main.ModelSetup.tEnd;
+      #endif
+
+      
       
       AnyFolder &OptKinModel = Main.JntParameterOptModel.LegModel;
       AnyFolder HumanModel = {

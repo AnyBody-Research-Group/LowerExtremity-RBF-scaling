@@ -3,7 +3,7 @@
 #define IncludeRight 1
 #define IncludeLeft 1
 
-#define EXCLUDE_RSHANKLATERAL
+//#define EXCLUDE_RSHANKLATERAL
 #define EXCLUDE_RSHANKSUPERIOR
 
 
@@ -20,8 +20,8 @@ AnyFolder TrialSpecificData={
   
   #define USE_TRIAL_SPECIFIC_TIMES
   
-  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+20;
-  AnyIntVar  LastFrameNo = -50+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+15;
+  AnyIntVar  LastFrameNo = -40+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
   
   AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
    

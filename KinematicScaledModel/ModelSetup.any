@@ -21,7 +21,7 @@ AnyFolder ModelSetup ={
     AutomaticInitialConditionOnOff = On;
     FilterForwardBackwardOnOff = On;
     N = 2;
-    Fc = {5};
+    Fc = {10};
     Type = LowPass;
     };
     AnalogFilterIndex =1;
@@ -30,7 +30,7 @@ AnyFolder ModelSetup ={
       FilterForwardBackwardOnOff = On;
       AutomaticInitialConditionOnOff = On;
       N = 2;
-      AnyVar CutOffFrequency=12;
+      AnyVar CutOffFrequency=10;
       AnyVar SampleFreq=.Header.VideoFrameRate* .Header.NoAnalogSamplesPer3DFrame   ;
       W = {1/(SampleFreq*0.5)*CutOffFrequency};
       Type = LowPass;

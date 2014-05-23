@@ -1,6 +1,6 @@
 #path TRIAL_PATH "."
 
-#define EXCLUDE_RSHANKLATERAL
+//#define EXCLUDE_RSHANKLATERAL
 #define EXCLUDE_RSHANKSUPERIOR
 
 #define IncludeRight 1

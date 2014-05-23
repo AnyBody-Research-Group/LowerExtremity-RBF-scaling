@@ -7,7 +7,7 @@
 #define EXLCUDE_TRUNK_MARKERS
 
 #ifndef INCLUDE_MUSCLE_WEIGHT_FACTOR 
-#define INCLUDE_MUSCLE_WEIGHT_FACTOR 1
+#define INCLUDE_MUSCLE_WEIGHT_FACTOR 0
 #endif
 
 
@@ -101,12 +101,20 @@ Main = {
       AnyFolder ModelEnvironmentConnection = {
         #include "JointsAndDriversOptimized.any"      
       };
-            
-      tStart = Main.ModelSetup.tStart;
-      tEnd = Main.ModelSetup.tEnd;
-      nStep = Main.ModelSetup.nStep;
       
+      tStart = Main.ModelSetup.tStart;
+      #ifdef NSTEP
+      nStep = NSTEP;
+      #else
+      nStep = Main.ModelSetup.nStep;
+      #endif
+      #ifdef TEND
+      tEnd = TEND;
+      #else
+      tEnd = Main.ModelSetup.tEnd;
+      #endif
 
+      
       #ifdef INCLUDE_MUSCLE_WEIGHT_FACTOR
       Main = {AnyVar Power = .InverseDynamics.Criterion.Power;};
       #if INCLUDE_MUSCLE_WEIGHT_FACTOR > 0
