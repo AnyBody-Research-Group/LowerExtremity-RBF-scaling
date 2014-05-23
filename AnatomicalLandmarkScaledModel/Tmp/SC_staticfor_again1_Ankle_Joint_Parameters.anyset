@@ -1,11 +1,11 @@
 Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel = {0.069532785, -0.83792913, 0.012320295};
-Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel = {{-0.10172222, -0.37454252, -0.92161298}, {-0.24831995, 0.90665263, -0.34105456}, {0.96332227, 0.19416207, -0.1852331}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel = {{-0.10172222, -0.37454252, -0.92161298}, {-0.24831995, 0.90665263, -0.34105455}, {0.96332227, 0.19416207, -0.1852331}};
 Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.sRel = {0.066424049, -0.82926735, 0.011839334};
-Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel = {{0.76087674, 0.36762485, -0.53471353}, {-0.51153517, 0.84682114, -0.14569056}, {0.39924725, 0.38437733, 0.83237954}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel = {{0.76087674, 0.36762486, -0.53471353}, {-0.51153517, 0.84682113, -0.14569056}, {0.39924725, 0.38437733, 0.83237954}};
 Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.sRel = {0.069532785, -0.83792913, 0.012320295};
-Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel = {{-0.10118379, -0.37468834, -0.92161298}, {-0.2496228, 0.90629479, -0.34105456}, {0.96304221, 0.19554642, -0.1852331}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel = {{-0.10118379, -0.37468834, -0.92161298}, {-0.2496228, 0.90629479, -0.34105455}, {0.96304221, 0.19554642, -0.1852331}};
 Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.sRel = {0.069322671, -0.83817916, -0.013798769};
-Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel = {{-0.099667334, -0.37430825, 0.92193262}, {-0.25038942, 0.9061649, 0.34083766}, {-0.96300133, -0.1968718, -0.18403787}};
+Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel = {{-0.099667334, -0.37430826, 0.92193262}, {-0.25038942, 0.9061649, 0.34083766}, {-0.96300133, -0.1968718, -0.18403787}};
 Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.sRel = {0.066406833, -0.82923389, -0.011838975};
 Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.ARel = {{0.75320033, 0.44301117, 0.48624106}, {-0.49088421, 0.87060674, -0.032811642}, {-0.43786067, -0.21397432, 0.87320847}};
 Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.sRel = {0.069322671, -0.83817916, -0.013798769};
