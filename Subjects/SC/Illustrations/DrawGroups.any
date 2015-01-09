@@ -1,0 +1,161 @@
+
+AnyFolder DrawGroups = {
+
+  
+  
+  
+  AnyDrawGroup All  = {
+    Objects = ObjSearchRecursive("Main", "*");
+  };
+  
+  
+  AnyDrawGroup StickFigureSegmentRefFrames = {
+    Objects = ObjSearch("Main.JntParameterOptModel.LegModel.*.Seg.*.drw");  
+  };
+
+  AnyDrawGroup StickFigureMarkers = {
+    Objects = ObjSearch("Main.JntParameterOptModel.Environment.Drivers.*.drw");  
+  };  
+  AnyDrawGroup StickFigure = {
+    Objects = arrcat(
+        ObjSearch("Main.JntParameterOptModel.LegModel.*.Seg.*.DrwLin*"),
+        ObjSearch("Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.Ellipsoid.elip.drw")
+    );  
+  }; 
+  AnyDrawGroup StickFigureJoints = {
+    Objects = ObjSearch("Main.JntParameterOptModel.LegModel.*.Jnt.*.drwJnt");  
+  };   
+  
+  AnyDrawGroup DefaultStickFigure = {
+    Objects = arrcat(.StickFigure.Objects,
+        .StickFigureJoints.Objects
+        );
+  };
+  
+  AnyDrawGroup StickFigureStaticMarkers = {
+    Objects = {
+      &Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeLateral.drw,
+      &Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeMedial.drw
+//      &Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.RPatella.drw    
+    };
+  
+  };
+  
+  
+  AnyDrawGroup StickFigureKnee = {
+    Objects = {
+      &Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.DrwLine,
+      &Main.JntParameterOptModel.LegModel.Right.Seg.Shank.DrwLine,
+      &Main.JntParameterOptModel.LegModel.Right.Jnt.KneeJoint
+    };
+  }; 
+  
+  AnyDrawGroup MusculoskeletalKnee = {
+    Objects = {&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.Drw3,
+    &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Shank.DrwSurf3,
+    &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Patella.DrwSurf
+    };
+  };
+  
+  AnyDrawGroup DefaultMusculoskeltalModel = {
+    Objects = arrcat(ObjSearchRecursive("Main.AnyBodyGaitAppModel.HumanModel.BodyModel","Drw*"),
+    ObjSearchRecursive("Main.AnyBodyGaitAppModel.HumanModel.BodyModel.*.Leg.Muscles","*") 
+    );
+  };
+  
+  
+  
+  
+  
+  
+  AnyFolder MorphNodes = {
+    
+    AnyDrawGroup RTighKneeTargetPoints = {
+      Objects = {
+        &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.TargetKneeLateralPoint.refnode,
+        &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.TargetKneeMedialPoint.refnode,
+        &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.TargetKneeAnteriorPoint.refnode,
+        &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.TargetCenterHipPoint.refnode
+      };
+    };   
+    AnyDrawGroup RThighTargetControlBox = {
+      Objects = ObjSearch("Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.TargetThighCPoint*.refnode") ;           
+    };           
+  AnyDrawGroup RTighKneeSourcePoints = {
+    Objects = {
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.SourceKneeLateralPoint.refnode,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.SourceKneeMedialPoint.refnode,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.SourceKneeAnteriorPoint.refnode,
+        &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.SourceCenterHipPoint.refnode
+      };
+  };   
+  AnyDrawGroup RThighSourceControlBox = {
+    Objects = ObjSearch("Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Thigh.MorphNodes.SourceThighCPoint*.refnode") ;           
+  };           
+
+
+
+AnyDrawGroup Pelvis = {
+  Objects = ObjSearch("Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.*.refnode") ;
+}; 
+
+AnyDrawGroup Thigh = {
+  Objects = ObjSearch("Main.AnyBodyGaitAppModel.HumanModel.BodyModel.*.Leg.Seg.Thigh.MorphNodes.*.refnode") ;
+};   
+AnyDrawGroup Shank = {
+  Objects = ObjSearch("Main.AnyBodyGaitAppModel.HumanModel.BodyModel.*.Leg.Seg.Shank.MorphNodes.*.refnode") ;
+};  
+AnyDrawGroup Foot = {
+  Objects = ObjSearch("Main.AnyBodyGaitAppModel.HumanModel.BodyModel.*.Leg.Seg.Foot.MorphNodes.*.refnode") ;
+};   
+
+};
+
+
+AnyFolder PelvisFigure = {
+  
+  Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis = {
+    AnyDrawLine DrwLine11 = {p0 = .DrwLine1.p0;p1 = .DrwLine1.p1; GlobalCoord = Off; Line.RGB = 0.7*{1,1,1};Line.Thickness = 0.015; Opacity = 1;};
+    AnyDrawLine DrwLine21 = {p0 = .DrwLine2.p0;p1 = .DrwLine2.p1; GlobalCoord = Off; Line.RGB = 0.7*{1,1,1};Line.Thickness = 0.015; Opacity = 1;};
+    Ellipsoid.elip = {
+      AnyDrawParamSurf drw1 = {RGB = 0.7*{1,1,1};Opacity = 1;};
+    };
+    RPsis = {AnyDrawNode drw1 = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
+    LAsis = {AnyDrawNode drw1 = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
+    RAsis = {AnyDrawNode drw1 = {ScaleXYZ = 0.01*{1,1,1}; RGB ={0.7,0.7,0.7}; };};
+  };
+  AnyDrawGroup StickFigurePelvis = {
+    Objects = {&Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.DrwLine11,
+      &Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.DrwLine21,
+      &Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.Ellipsoid.elip.drw1,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.TargetRightAsisMarker,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.TargetLeftAsisMarker,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.TargetRightPSISMarker,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.TargetLeftPSISMarker,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.TargetLeftHipJointPoint,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.TargetRightHipJointPoint };
+  };  
+  
+  Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg = {AnyDrawSurf DrwSTL1 = {FileName = .DrwSTL.FileName;Opacity = 0.5;};};
+  Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.SacrumSeg = {AnyDrawSurf DrwSurf1= {FileName = .DrwSurf.FileName;Opacity = 0.5;};};
+  Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.L5Seg= {AnyDrawSurf DrwSTL1= {FileName = .DrwSTL.FileName;Opacity = 0.5;};};
+  
+  AnyDrawGroup ModelPelvis = {
+    Objects = {&Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.DrwSTL1,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.SacrumSeg.DrwSurf1,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.L5Seg.DrwSTL1,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.SourceRightAsisMarker,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.SourceLeftAsisMarker,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.SourceRightPSISMarker,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.SourceLeftPSISMarker,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.SourceLeftHipJointPoint,
+      &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg.MorphNodes.SourceRightHipJointPoint};
+  };  
+  
+};
+
+
+
+
+  
+};

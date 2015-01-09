@@ -1,0 +1,31 @@
+#path MODEL_TYPE "../../../../AnatomicalLandmarkScaledModel"
+
+#include "<MODEL_TYPE>/PreMainIncludes.any"
+#include "../DrawBoxTemplate.any"
+
+Main = {
+ #include "TrialSpecificData.any" 
+ #include "../../SubjectSpecificData.any"
+ #include "<BASE_MODEL_PATH>/InverseDynamicsModel.main.any"
+ 
+ JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeLateral = {
+   AnyDrawNode drw = {RGB = {0.5, 0, 0};ScaleXYZ = 0.01*{1,1,1};};
+ };
+ JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeMedial = {
+   AnyDrawNode drw = {RGB = {0.5, 0, 0};ScaleXYZ = 0.01*{1,1,1};};
+ };
+ JntParameterOptModel.LegModel.Right.Seg.Thigh.RPatella = {
+   AnyDrawNode drw = {RGB = {0.5, 0, 0};ScaleXYZ = 0.01*{1,1,1};};
+ };
+ 
+ 
+ 
+ #include "../DrawGroups.any"
+ #include "../ProjectView.any" 
+ 
+ #include "../SourceTargetPointFigure.any"
+ #include "../SourceTargetPointFigure2.any"
+ 
+ #include "../StaticAndWalinkFigure.any"
+
+};

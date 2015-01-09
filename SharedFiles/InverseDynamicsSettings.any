@@ -1,0 +1,17 @@
+Gravity = {0.0,0.0,-9.82};
+
+//InverseDynamics.Criterion.Type = MR_MinMaxAux;
+//InverseDynamics.Criterion.Type = MR_MinMaxStrict;
+InverseDynamics.Criterion.AuxLinearTerm.Weight = 0;
+InverseDynamics.Criterion.AuxQuadraticTerm.Weight = 1e-06;
+
+
+InverseDynamics.Criterion.Power = DesignVar(5);
+
+InverseDynamics.Criterion.UpperBoundOnOff=Off;
+InitialConditions.SolverType = KinSolDeterminate;
+Kinematics.SolverType = KinSolDeterminate;       
+
+InitialConditions.PosAnalysisOnlyOnOff=Off;
+Kinematics.PosAnalysisOnlyOnOff=Off;
+      

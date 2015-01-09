@@ -1,0 +1,51 @@
+PROJECT_FOLDER_NAME = {
+    
+  Tasks = {
+               
+      AnyProjectTaskFolder Inverse_Dynamics ={
+        
+        #ifdef IncludeLegTDModel 
+        AnyProjectTaskOperation Load_Joint_Parameters = {
+          Description = {
+            Title = "<h4>Load Joint Trials Parameters </h4>";
+            BodyText = 
+            "Execting this task will load the joint parameters from the functinal trials." ;
+            Tooltip = Title;
+          };         
+          Operation = &Main.Load_JointTrialParameters;
+        };
+        AnyProjectTaskOperation Load_Ankle_Axis_Parameters = {
+          Description = {
+            Title = "<h4>Load ankle axis parameters/h4>";
+            BodyText = 
+            "Execting this task will load the ankle axis parameters" ;
+            Tooltip = Title;
+          };         
+          Operation = &Main.LoadFootJointAxis;
+        };
+        AnyProjectTaskOperation Run_Inverse_Dynamics = {
+          Description = {
+            Title = "<h4>Run Inverse Dynamics</h4>";
+            BodyText = 
+            "Execting this task will run the inverse dynamics." ;
+            Tooltip = Title;
+          };         
+          Operation = &Main.AnyBodyGaitAppModel.InverseDynamicStudy.InverseDynamics;
+        };
+        AnyProjectTaskOperation Replay = {
+          Description = {
+            Title = "<h4>Replay motion</h4>";
+            BodyText = 
+            "Execting this task will replay the motion" ;
+            Tooltip = Title;
+          };         
+          Operation = &Main.AnyBodyGaitAppModel.InverseDynamicStudy.Replay;
+        };
+        
+        #endif
+      };//Inverse dynamic tasks
+      
+      
+    };
+  
+  };// Project

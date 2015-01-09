@@ -1,0 +1,275 @@
+#define IncludeRight 1
+#define IncludeLeft 1
+#define IncludeAnkle 1
+#define UseDanamicLoadPosition 0
+#define HideStickModelGraphics 0
+
+
+Main = {  
+  #include "ModelSetup.any"
+  
+  AnyFolder JntParameterOptModel = {
+    
+     #include "KinOptModel\StickFigure.any"
+     #include "KinOptModel\TransferStickFigureValues.any"
+
+     // The actual body model goes in this folder
+     AnyFolder LegModel = {
+       
+       AnyFolder Trunk = {
+         #include "KinOptModel\TrunkSegments.any"
+       };
+       
+       #if IncludeRight == 1
+       #define RightLeg
+         AnyFolder Right = {
+           #include "KinOptModel\LegSegments.any"
+           #include "KinOptModel\Joints.any"
+           AnyFloat Sign = 1;
+         };   
+       #undef RightLeg
+       #endif
+       
+       #if IncludeLeft == 1
+       #define LeftLeg
+         AnyFolder Left = {
+           #include "KinOptModel\LegSegments.any"
+           #include "KinOptModel\Joints.any"
+           AnyFloat Sign = -1;
+         };   
+       #undef LeftLeg
+       #endif       
+       
+       #include "KinOptModel\Interface.any"
+
+     };
+          
+     AnyFolder Environment = {
+       #include "KinOptModel\Drivers.any"
+     };
+     
+  
+  AnyOptKinStudy LoadSavaDesignParameters = 
+  { 
+    Analysis = { AnyOperation &Operation = ..KinematicStudy.Kinematics; };
+    AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
+    #include "KinOptModel/DesignVars_HipTrial.any"
+    #include "KinOptModel/DesignVars_GaitTrial.any"
+    #include "KinOptModel/DesignVars_AnkleTrial.any"
+  };  
+       
+     
+  AnyBodyStudy KinematicStudy = 
+  {
+    tStart = Main.ModelSetup.tStart;
+    tEnd = Main.ModelSetup.tEnd;
+    nStep = Main.ModelSetup.nStep;
+    Gravity = {0, 0, 0};
+    
+//    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
+    AnyFolder &LegModel = .LegModel;
+    AnyFolder &Environment = .Environment;
+
+
+    #include "KinOptModel\JointAngleOutputs.any"
+    
+      InitialConditions.SolverType = KinSolOverDeterminate;
+      Kinematics.SolverType = KinSolOverDeterminate;   
+      InitialConditions.PosAnalysisOnlyOnOff=On;
+      Kinematics.PosAnalysisOnlyOnOff=On;     
+  };
+  
+  
+  
+};
+    
+
+  
+};  // Main
+
+
+
+
+AnyFolder FootPosModel = {
+AnyFolder Right = {
+  AnyVar Sign = 1;
+  AnySeg Foot = {
+    Mass = 1;
+    Jii = {1,1,1};
+    
+    AnyDrawSurf FootSTL = {
+      FileName = AMMR_PATH + "/Body/AAUHuman/LegTD/subtalar.stl";
+    RGB = {0.4,0.5,0.5};
+    AnyFunTransform3D &scale = .Scale;
+    };
+    
+    AnyFunTransform3DLin Scale = 
+    {
+      AnyVar yScale = vnorm(Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol.Data'[0]-
+      Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol.Data'[0])/
+      vnorm(.Heel.sRelEdit-.Toe.sRelEdit);
+
+      
+      ScaleMat =  .ScalingNode.ARel*{{yScale , 0, 0}, {0, 1, 0}, {0, 0, 1}}*.ScalingNode.ARel';
+      Offset = {0,0,0};
+    };
+
+    
+    
+   
+    AnyRefNode ScalingNode = {
+      AnyVec3 sRel0 = {0.02, -0.8485,..Sign* -0.025};
+      sRel = .Scale(sRel0);
+      ARel = {{0.73889, 0.4760073, -0.4769262}, {-0.5502786, 0.834756, -0.01938539}, {0.3888895, 0.276766, 0.8787295}}   ;
+    };
+    
+  ///////////// RefNodes /////////////////
+    AnyRefNode Heel = {
+      AnyVec3 sRelEdit = DesignVar({-0.02, 0, 0.01});
+      sRel=.ScalingNode.sRel+ .Scale(sRelEdit*.ScalingNode.ARel');
+      ARel = .ScalingNode.ARel;
+      
+      AnyDrawWidgetLin DrwWidget = {
+        RefFrame = &..ScalingNode;
+        Target = &.sRelEdit;
+        Operation = &Main.FootPosModel.study.InitialConditions;
+        AnyVec3 scaleDif=-( ..Scale(.sRelEdit*..ScalingNode.ARel')*..ScalingNode.ARel-.sRelEdit); 
+        RelPos=&scaleDif;
+        UpdateEvent = OnMouseRelease;
+      };
+    };   
+    AnyRefNode Toe = {
+      AnyVec3 sRelEdit = DesignVar({0.26,0.04, 0.02});
+      sRel=.ScalingNode.sRel+ .Scale(sRelEdit*.ScalingNode.ARel');
+      AnyDrawWidgetLin DrwWidget = {
+        RefFrame = &..ScalingNode;
+        Target = &.sRelEdit;
+        Operation = &Main.FootPosModel.study.InitialConditions;
+        AnyVec3 scaleDif=(..Scale(.sRelEdit*..ScalingNode.ARel')*..ScalingNode.ARel-.sRelEdit); 
+        RelPos=&scaleDif;
+        UpdateEvent = OnMouseRelease;
+      };
+    };       
+    AnyRefNode MidfootLateral = {
+      AnyVec3 sRelEdit = DesignVar({0.15,0,0.08});
+      sRel=.ScalingNode.sRel+ .Scale(sRelEdit*.ScalingNode.ARel');
+      AnyDrawWidgetLin DrwWidget = {
+        RefFrame = &..ScalingNode;
+        Target = &.sRelEdit;
+        Operation = &Main.FootPosModel.study.InitialConditions;
+        AnyVec3 scaleDif=(..Scale(.sRelEdit*..ScalingNode.ARel')*..ScalingNode.ARel-.sRelEdit); 
+        RelPos=&scaleDif;
+        UpdateEvent = OnMouseRelease;
+      };
+    };   
+    
+    
+
+
+    AnyDrawLine DrwLine0 = 
+    {
+      p0 = .Scale( {0.09668047, -0.8200609, -0.01278219} );
+      p1 = .Scale( {0.04522308, -0.835571, 0.03992975} );    
+      GlobalCoord = Off; Line.Thickness = 0.002; Line.RGB = {1,1,1}*0.3;
+    };
+    AnyDrawLine DrwLinePlus20Eversion = 
+    {
+      p0 = .Scale({0.046515, -0.846851, 0.04507796});
+      p1 = .Scale({0.09170306, -0.8103409, -0.002797183});    
+      GlobalCoord = Off; Line.Thickness = 0.002; Line.RGB = {1,1,1}*0.3;
+    };  
+    AnyDrawLine DrwLineMinus20Eversion = 
+    {
+      p0 = .Scale({0.04537509, -0.8265177, 0.03136079});
+      p1 = .Scale({0.1012805, -0.8328399, -0.0186551});    
+      GlobalCoord = Off; Line.Thickness = 0.002; Line.RGB = {1,1,1}*0.3;
+    }; 
+    AnyDrawLine DrwLineMinus10Eversion = 
+    {
+      p0 = .Scale({0.04511558, -0.8306897, 0.03601669});
+      p1 = .Scale({0.09906423, -0.8261577, -0.01628988});    
+      GlobalCoord = Off; Line.Thickness = 0.002; Line.RGB = {1,1,1}*0.3;
+    }; 
+    AnyDrawLine DrwLinePlus10Eversion = 
+    {
+      p0 = .Scale({0.04569433, -0.8410132, 0.04298108});
+      p1 = .Scale({0.09420164, -0.8147347, -0.008238606});    
+      GlobalCoord = Off; Line.Thickness = 0.002; Line.RGB = {1,1,1}*0.3;
+    };    
+
+    AnyDrawLine DrwLineSubtalarJoint = 
+    {
+      p0 = .Scale({0.0417519, -0.8576898, 0.007430944});
+      p1 = .Scale({0.0982481, -0.8443102, 0.02256906});    
+      GlobalCoord = Off; Line.Thickness = 0.002; Line.RGB = {1,1,1}*0.3;
+    };    
+    
+    
+    
+    
+  };//Foot
+  
+  
+};// Right
+  
+AnyFolder Drivers = {
+  AnyKinDriverMarker Rheel = {
+    AnyRefFrame &refmarker =  ..Right.Foot.Heel;
+    AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosInterpol;
+    AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
+  };
+  AnyKinDriverMarker RToe = {
+    AnyRefFrame &refmarker =  ..Right.Foot.Toe;
+    AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosInterpol;
+    AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
+  };
+   AnyKinDriverMarker RMidfootLateral = {
+    AnyRefFrame &refmarker =  ..Right.Foot.MidfootLateral ;
+    AnyParamFun &refdata  = Main.ModelSetup.DynamicDataSet.Points.Markers.RMidfootLateral .PosInterpol;
+    AnyDrawKinMeasure drw = {Size = 0.01;Line = Off;Label =Off;};
+  };
+};
+AnyFolder Widgets = {
+
+  
+};
+
+  //  
+//  
+  
+  
+AnyKinStudy study = {
+  Gravity = {0,0,0};
+  AnyFolder &right_ref = .Right;
+  AnyFolder &drivers = .Drivers;
+  
+    AnyFolder &LegModel = ..JntParameterOptModel.LegModel;
+    AnyFolder &Environment = ..JntParameterOptModel.Environment;
+    
+  tStart = Main.ModelSetup.tStart+0.01;
+  tEnd = Main.ModelSetup.tEnd-0.01;
+  nStep = 1;
+      InitialConditions.SolverType = KinSolOverDeterminate;
+      Kinematics.SolverType = KinSolOverDeterminate;   
+      InitialConditions.PosAnalysisOnlyOnOff=On;
+      Kinematics.PosAnalysisOnlyOnOff=On; 
+
+      
+      
+    AnyFolder ExtractedValues = {
+      AnyFolder &sfShank= .LegModel.Right.Seg.Shank;
+      AnyFolder &footref = .right_ref.Foot;
+      
+        
+      AnyVec3 AnkleJoint = (sfShank.r + sfShank.AnkleJoint.sRel*sfShank.Axes'-footref.r)*footref.Axes;
+      AnyVec3 SubtalarJoint = (sfShank.r + sfShank.AnkleJoint.sRel*sfShank.Axes'-footref.r)*footref.Axes;
+  
+  };    
+      
+
+};
+
+
+};
+  
+  

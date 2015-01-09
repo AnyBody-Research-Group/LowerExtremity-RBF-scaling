@@ -1,0 +1,171 @@
+
+#path SUBJECT_PATH "."
+
+
+// Switches whether or not to use the anatomically computed joint center or the joint center listed below
+#define UseAnatomicalValuesLeftHip 1
+#define UseAnatomicalValuesRightHip 1
+#define GrandChallageDataSet 2012
+
+AnyFolder SubjectSpecificData = {
+     
+  #ifndef USE_TRIAL_SPECIFIC_PARAMETERS
+  
+  AnyStringVar TrialNameStatic = "SC_staticfor_again1";
+  AnyStringVar C3DFileNameStatic = SUBJECT_PATH + "/Static Trials/" + TrialNameStatic + "\" + TrialNameStatic +".c3d" ;
+//  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
+//  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
+  AnyStringVar RightHipParametersTrial = "SC_hip_Tr1";
+  AnyStringVar LeftHipParametersTrial = "SC_hip_Tl1_again1";
+
+  AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
+  AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
+  AnyStringVar RightKneeParametersTrial = "SC_knee_2legsquat1";
+  AnyStringVar LeftKneeParametersTrial = "SC_knee_2legsquat1";
+  AnyStringVar MultiJointParametersTrial = "SC_HipKneeAnkle_ngait_og5";
+
+  AnyIntVar StaticFrameIndex = 29;
+  #endif
+  
+  
+  AnyFolder MarkerPos = { 
+    
+    // This is hack is necessary since the makers position 
+    // not be 'DesignVar' in the linearly scaled model.
+    #ifdef LINEARLY_SCALED_MODEL
+    #define _DESIGNVAR_ 
+    #else
+    #define _DESIGNVAR_ DesignVar
+    #endif
+    
+//    AnyVec3 HeelMarker = _DESIGNVAR_({-0.0310, 0.000, 0.015});
+//    AnyVec3 ToeMarker= _DESIGNVAR_({0.280, 0.015, 0.010});
+//    AnyVec3 MidfootLateralMarker = _DESIGNVAR_({0.177, -0.015, 0.0705});  
+  
+    AnyVec3 HeelMarker = _DESIGNVAR_({-0.10, -0.05, 0.0});
+    AnyVec3 ToeMarker= _DESIGNVAR_({0.211, -0.08, -0.01});
+    AnyVec3 MidfootLateralMarker = _DESIGNVAR_({0.108, -0.11, 0.065});  
+    
+    
+    
+    // These values comes from the TLEM data set.
+    AnyVec3 RASIS = {0.1050804, -0.05009163, 0.1312};
+    AnyVec3 LASIS = { 0.1050804, -0.05009163, -0.1312};
+    AnyVec3 PSIS_Mid = {-0.03192611, 0.01085285, 0};
+    
+    // Offset to marker postions
+   AnyVec3 RAsisMarker = _DESIGNVAR_( RASIS + {0.025, 0.02, 0});//{0.135 , -0.025,  0.1295 };
+   AnyVec3 LAsisMarker = _DESIGNVAR_(LASIS + {0.025, 0.02, 0});//{ 0.135 , -0.025, -0.1295};
+   AnyVec3 LPsisMarker = _DESIGNVAR_(PSIS_Mid + {-0.03, -0.03, -0.03 });//{-0.06594569,  0.0050, -0.030 };
+   AnyVec3 RPsisMarker = _DESIGNVAR_(PSIS_Mid + {-0.03, -0.03, 0.03 });//{-0.06594569,  0.0050, 0.03 };
+
+    
+  };
+  AnyFolder MarkerWeights =  {
+    AnyVar PatellaX = 1;
+    AnyVar PatellaY = 0;
+    AnyVar PatellaZ = 1;
+
+    // Apllies to all toe markers
+    AnyVar ToeX = 1.0;
+    AnyVar ToeY = 0.0;
+    AnyVar ToeZ = 1.0;
+  };
+  
+  
+  
+  
+  //These antrhopometric data will be used as initial guess for the optimization alogorithm the optimization algoritm will allow changes to the 
+  //segment lengths
+  AnyFolder Anthropometrics={
+    AnyVar BodyMass=78.4;  //the mass is automatically distributed to the segments
+    AnyVar BodyHeight=1.67;  //height
+    
+	#ifdef IncludeLegTDModel 
+      #if IncludeLegTDModel == 1
+		AnyFolder &SP = Main.AnyBodyGaitAppModel.HumanModel.Scaling.StandardParameters;
+		AnyVar StandardBodyHeight = SP.Head.Height+SP.Trunk.Height+SP.Right.LengthLeg+0.05;
+		AnyVar TrunkHeight = SP.Trunk.Height*BodyHeight/StandardBodyHeight;
+	#endif
+      #endif    
+
+     #define MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
+     AnyVar KneeWidth = 0.0934;
+     AnyVar AnkleWidth = 0.0753;
+          
+    AnyVar ThighLengthIni= 0.4234534;  //rigth and left side is mirrored 
+    AnyVar ShankLengthIni= 0.4120814;
+    AnyVar FootLengthIni=0.21;
+    AnyVar PelvisWidthIni=0.16; //distance between hip joints
+    
+    AnyVar HeadHeightIni = 0.14;//height in neutral position from  C1HatNode to top of head
+    AnyVar TrunkHeightIni = 0.620233;//height in neautral position from  C1HatNode to L5SacrumJnt
+    AnyVar UpperArmLengthIni = 0.340079;
+    AnyVar LowerArmLengthIni =0.2690167;
+    AnyVar HandLengthIni = 0.182;
+    AnyVar HandBreadth = 0.085;     
+ 
+ 
+    // User-defined hip joint centers
+    // AnyFolder Pelvis = {
+      // AnyVec3 OffsetPos = {-0.01799353, 0.0001675525, -0.0005441904};
+      // AnyMat33 OffsetRot = {{0.9997829, -0.02058313, 0.003227431}, {0.02059419, 0.999782, -0.003432066}, {-0.003156084, 0.003497787, 0.9999889}};
+                
+      // AnyVec3 LeftHip_sRel =  (OffsetRot*({ -22.5365, -116.9949,  -87.0964}/1000.0+OffsetPos)')';
+      // AnyVec3 RightHip_sRel =  (OffsetRot*({ -13.7442, -121.3618,   84.6766}/1000.0+OffsetPos)')';
+      
+      
+      
+    // };
+  };
+  Main.TrialSpecificData= {
+    AnyFolder &Anthropometrics = Main.SubjectSpecificData.Anthropometrics;
+  };  
+  #ifdef SHOW_HEMI_PELVIS
+  Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis = {
+    AnyRefNode RealPelvis = {
+      sRel = 0.01*{-2,-1,0};
+      ARel = RotMat(4*pi/180,y);
+      AnyDrawSurf PelvisScan = 
+      {
+        //Visible = On;
+        //Opacity = 1;
+        //RGB = {0.65, 0.65, 0.65};
+        ScaleXYZ = 0.001*{1, 1, 1};
+        //Transparency = 1;
+        //Face = 2;
+        /*TextFont = 
+        {
+        RGB = {0, 0, 0};
+        FontName = "Times New Roman";
+        Height = 50;
+        Width = 50;
+        Bold = Off;
+        Italic = Off;
+        BillBoardView = On;
+        ModelSized = On;
+        ModelScaleHeight = 1;
+        ModelScaleWidth = 1;
+        };*/
+        FileName = "Hemi Pelvis.stl";
+        //AnyStyleDrawMaterial &<Insert name0> = <Insert object reference (or full object definition)>; You can make any number of these objects!
+  //      AnyFunTransform3DLin2 <ObjectName> = 
+  //          {
+  //            //PreTransforms = {};
+  //            Points0 = {
+  //              {64.805, 486.28, -5.861},
+  //              {-97.7292 ,492.23 ,55.1827},
+  //              { 55.094, 385.13 ,105.634}
+  //            };
+  //            Points1 = {..LAsis.sRel,
+  //              ..
+  //            
+  //            
+  //            };
+  //            //Mode = VTK_LANDMARK_RIGIDBODY;
+  //          };
+      };
+    };
+  };
+  #endif
+};

@@ -1,0 +1,350 @@
+
+AnyVar LengthScale = ..AnthroSegmentLengths.PelvisWidth / ..StandardParameters.Pelvis.Width;
+AnyVar ms = ..MassScaling.Pelvis.MassScale;
+AnyVar ls = LengthScale;
+
+
+AnyFolder MorphSourcePoints = {
+  AnyVec3 HipJointRightTDStandard = PelvisRef.Right.HipJoint.sRel0;  
+  AnyVec3 HipJointLeftTDStandard = PelvisRef.Left.HipJoint.sRel0; 
+
+  // These are Marker positions on the unscaled pelvis
+  AnyVec3 RightAsisMarker =  Main.SubjectSpecificData.MarkerPos.RAsisMarker;
+  AnyVec3 LeftAsisMarker =  Main.SubjectSpecificData.MarkerPos.LAsisMarker;
+  
+  AnyVec3 LeftPSISMarker= Main.SubjectSpecificData.MarkerPos.LPsisMarker;// {-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,-0.03};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
+  AnyVec3 RightPSISMarker= Main.SubjectSpecificData.MarkerPos.RPsisMarker;//{-0.03194569, 0.01086048, -0.00135}+{-0.04,0.0,0.03};//+{-(Main.SubjectSpecificData.Anthropometrics.Pelvis.RightHipCenterOffset[0]+Main.SubjectSpecificData.Anthropometrics.Pelvis.LeftHipCenterOffset[0])/2,0,0};
+
+  
+  AnyVec3 RightHipJointPoint = HipJointRightTDStandard;
+  AnyVec3 LeftHipJointPoint = HipJointLeftTDStandard;
+
+  AnyVec3 PSISMidPoint = 0.5*(LeftPSISMarker+RightPSISMarker);
+  
+  AnyVec3 sRelS = .MorphTargetPoints.sRelSource;
+  AnyMat33 ARelS = .MorphTargetPoints.ARelSource;
+  AnyVec3 CBox1 = {RightAsisMarker[0]+0.05,0.08,RightAsisMarker[2]};// + sRelS + {0,0.08,0}*ARelS';
+  AnyVec3 CBox2 = {LeftAsisMarker[0]+0.05,0.08, LeftAsisMarker[2]};//sRelS +(ARelS* {LeftAsisMarker[0],0.08, LeftAsisMarker[2] } ')';
+  AnyVec3 CBox3 = {PSISMidPoint [0]-0.07,0.08,RightAsisMarker[2]};
+  AnyVec3 CBox4 = {PSISMidPoint [0]-0.07 ,0.08, LeftAsisMarker[2]};
+  AnyVec3 CBox5 = {RightAsisMarker[0]+0.05,-0.15,RightAsisMarker[2]};
+  AnyVec3 CBox6 = {LeftAsisMarker[0]+0.05,-0.15, LeftAsisMarker[2] };
+  AnyVec3 CBox7 = {PSISMidPoint [0]-0.07,-0.15,RightAsisMarker[2] };
+  AnyVec3 CBox8 = {PSISMidPoint [0]-0.07,-0.15, LeftAsisMarker[2] };
+  
+  
+  
+  
+  AnyFolder &PelvisRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg;
+  PelvisRef = {
+    AnyRefNode MorphNodes = {
+      AnySwitch ShowNodes = Off;
+      AnyRefNode SourceRightAsisMarker = {
+        sRel = ...RightAsisMarker ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };      
+      AnyRefNode SourceLeftAsisMarker  = {
+        sRel = ...LeftAsisMarker  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };
+      AnyRefNode SourceRightHipJointPoint  = {
+        sRel = ...RightHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };
+      AnyRefNode SourceLeftHipJointPoint  = {
+        sRel = ...LeftHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };
+//      AnyRefNode SourceSacrumMarker = {
+//        sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//      }; 
+      AnyRefNode SourceLeftPSISMarker = {
+        sRel = ...LeftPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      }; 
+      AnyRefNode SourceRightPSISMarker = {
+        sRel = ...RightPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      }; 
+      AnyRefNode SourcePSISMidPointMarker = {
+        sRel = ...PSISMidPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      }; 
+      AnyRefNode SourceCBox1 = {
+        sRel = ...CBox1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      }; 
+      AnyRefNode SourceCBox2 = {
+        sRel = ...CBox2; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };         
+      AnyRefNode SourceCBox3 = {
+        sRel = ...CBox3; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };         
+      AnyRefNode SourceCBox4 = {
+        sRel = ...CBox4; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };         
+      AnyRefNode SourceCBox5 = {
+        sRel = ...CBox5; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };         
+      AnyRefNode SourceCBox6 = {
+        sRel = ...CBox6; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };         
+      AnyRefNode SourceCBox7 = {
+        sRel = ...CBox7; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };   
+      AnyRefNode SourceCBox8 = {
+        sRel = ...CBox8; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+      };
+    };
+  };//PelvisRef
+};
+
+AnyFolder MorphTargetPoints = {
+  AnyFolder &target = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis;
+
+//  AnyVec3 sRelTarget = 1/2*(target.RHipJoint.sRel+ target.LHipJoint.sRel);
+//  AnyMat33 ARelTarget = RotMat(sRelTarget ,
+//  sRelTarget +(sRelTarget -1/2*(target.RAsis.sRel+target.LAsis.sRel)),
+//  target.RHipJoint.sRel)*RotMat(-pi/2,x);
+//  AnyMat33 ARelTarget = RotMat(sRelTarget ,
+//  sRelTarget +(sRelTarget -target.Sacral.sRel),
+//  target.RHipJoint.sRel)*RotMat(-pi/2,x);
+
+  AnyVec3 sRelTarget = 1/2*(target.RAsis.sRel+ target.LAsis.sRel);
+  AnyMat33 ARelTarget = RotMat(sRelTarget ,
+  sRelTarget +(sRelTarget - target.PSIMidPoint.sRel ),
+  target.RAsis.sRel)*RotMat(-pi/2,x);
+ 
+//  AnyVec3 sRelSource = 1/2*( .MorphSourcePoints.RightHipJointPoint  + .MorphSourcePoints.LeftHipJointPoint  );
+//  AnyMat33 ARelSource = RotMat(sRelSource ,
+//  sRelSource +(sRelSource - 1/2*( .MorphSourcePoints.RightAsisMarker+ .MorphSourcePoints.LeftAsisMarker)),
+//  .MorphSourcePoints.RightHipJointPoint  )*RotMat(-pi/2,x);
+//  AnyMat33 ARelSource = RotMat(sRelSource ,
+//  sRelSource +(sRelSource - .MorphSourcePoints.SacrumMarker),
+//  .MorphSourcePoints.RightHipJointPoint  )*RotMat(-pi/2,x);
+
+  AnyVec3 sRelSource = 1/2*( .MorphSourcePoints.RightAsisMarker  + .MorphSourcePoints.LeftAsisMarker  );
+  AnyMat33 ARelSource = RotMat(sRelSource ,
+  sRelSource +(sRelSource -  .MorphSourcePoints.PSISMidPoint),
+  .MorphSourcePoints.RightAsisMarker  )*RotMat(-pi/2,x)*RotMat(0*pi/180,z);
+    
+  
+//  AnyVec3 lRightAsisMarker = (ARelTarget'*(target.RAsis.sRel-sRelTarget)')';
+//  AnyVec3 lLeftAsisMarker =  (ARelTarget'*(target.LAsis.sRel-sRelTarget)')';
+//  AnyVec3 lRightHipJointPoint =  (ARelTarget'*(target.RHipJoint.sRel-sRelTarget)')';
+//  AnyVec3 lLeftHipJointPoint  =  (ARelTarget'*(target.LHipJoint.sRel-sRelTarget)')';
+//  AnyVec3 lSacrumMarker =  (ARelTarget'*(target.Sacral.sRel-sRelTarget)')';
+#if UseAnatomicalValuesLeftHip == 1 | UseAnatomicalValuesRightHip == 1    
+  AnyVec3 RightAsisMarker = sRelSource + (target.RAsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 LeftAsisMarker = sRelSource + (target.LAsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 RightHipJointPoint = sRelSource + (target.RHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 LeftHipJointPoint = sRelSource + (target.LHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
+  //AnyVec3 SacrumMarker= sRelSource + (target.Sacral.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 LeftPSISMarker= sRelSource + (target.LPsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 RightPSISMarker= sRelSource + (target.RPsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+
+//  AnyVec3 CBox1 = {RightAsisMarker[0],0.08,RightAsisMarker[2]};
+//  AnyVec3 CBox2 = {LeftAsisMarker[0],0.08, LeftAsisMarker[2]};
+//  AnyVec3 CBox3 = {PSISMidPoint[0]-0.03,0.08,RightAsisMarker[2]};
+//  AnyVec3 CBox4 = {PSISMidPoint[0]-0.03 ,0.08, LeftAsisMarker[2]};
+//  AnyVec3 CBox5 = {RightAsisMarker[0],-0.15,RightAsisMarker[2]};
+//  AnyVec3 CBox6 = {LeftAsisMarker[0],-0.15, LeftAsisMarker[2] };
+//  AnyVec3 CBox7 = {PSISMidPoint[0]-0.03,-0.15,RightAsisMarker[2] };
+//  AnyVec3 CBox8 = {PSISMidPoint[0]-0.03,-0.15, LeftAsisMarker[2] };
+  
+  AnyVec3 CBox1 = {RightAsisMarker[0]+0.05,0.08,RightAsisMarker[2]};
+  AnyVec3 CBox2 = {LeftAsisMarker[0]+0.05,0.08, LeftAsisMarker[2]};
+  AnyVec3 CBox3 = {PSISMidPoint[0]-0.07,0.08,RightAsisMarker[2]};
+  AnyVec3 CBox4 = {PSISMidPoint[0]-0.07 ,0.08, LeftAsisMarker[2]};
+  AnyVec3 CBox5 = {RightAsisMarker[0]+0.05,-0.15,RightAsisMarker[2]};
+  AnyVec3 CBox6 = {LeftAsisMarker[0]+0.05,-0.15, LeftAsisMarker[2] };
+  AnyVec3 CBox7 = {PSISMidPoint[0]-0.07,-0.15,RightAsisMarker[2] };
+  AnyVec3 CBox8 = {PSISMidPoint[0]-0.07,-0.15, LeftAsisMarker[2] };
+    
+  
+  
+
+  
+  
+  
+#else
+AnyFolder &PelvisBonyLandMarks = Main.AnyBodyGaitAppModel.InverseDynamicStudy.PelvisStlVisualization.PelvisStlSeg.BonyLandmarks;
+AnyVec3 OffsetPos = Main.SubjectSpecificData.Anthropometrics.Pelvis.OffsetPos;
+AnyMat33 OffsetRot = Main.SubjectSpecificData.Anthropometrics.Pelvis.OffsetRot;
+
+AnyVec3 TmpRightAsisMarker = (OffsetRot*(PelvisBonyLandMarks.RAsis.sRel+OffsetPos)')';
+AnyVec3 TmpLeftAsisMarker = (OffsetRot*(PelvisBonyLandMarks.LAsis.sRel+OffsetPos)')';
+AnyVec3 TmpLeftPSISMarker = (OffsetRot*(PelvisBonyLandMarks.LPsis.sRel+OffsetPos)')';
+AnyVec3 TmpRightPSISMarker = (OffsetRot*(PelvisBonyLandMarks.RPsis.sRel+OffsetPos)')';
+
+
+  AnyVec3 RightAsisMarker = sRelSource + (TmpRightAsisMarker-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 LeftAsisMarker = sRelSource + (TmpLeftAsisMarker-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 RightHipJointPoint = sRelSource + (target.RHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 LeftHipJointPoint = sRelSource + (target.LHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
+  //AnyVec3 SacrumMarker= sRelSource + (target.Sacral.sRel-sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 LeftPSISMarker= sRelSource + (TmpLeftPSISMarker -sRelTarget )*ARelTarget*ARelSource';
+  AnyVec3 RightPSISMarker= sRelSource + (TmpRightPSISMarker -sRelTarget )*ARelTarget*ARelSource';
+
+  AnyVec3 CBox1 = {RightAsisMarker[0]+0.05,0.08,RightAsisMarker[2]};
+  AnyVec3 CBox2 = {LeftAsisMarker[0]+0.05,0.08, LeftAsisMarker[2]};
+  AnyVec3 CBox3 = {PSISMidPoint[0]-0.07,0.08,RightAsisMarker[2]};
+  AnyVec3 CBox4 = {PSISMidPoint[0]-0.07 ,0.08, LeftAsisMarker[2]};
+  AnyVec3 CBox5 = {RightAsisMarker[0]+0.05,-0.15,RightAsisMarker[2]};
+  AnyVec3 CBox6 = {LeftAsisMarker[0]+0.05,-0.15, LeftAsisMarker[2] };
+  AnyVec3 CBox7 = {PSISMidPoint[0]-0.07,-0.15,RightAsisMarker[2] };
+  AnyVec3 CBox8 = {PSISMidPoint[0]-0.07,-0.15, LeftAsisMarker[2] };
+  
+  #endif
+  
+  
+  AnyVec3 PSISMidPoint = 0.5*(LeftPSISMarker+RightPSISMarker);
+  
+  
+  
+  
+
+  AnyFolder &PelvisRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg;
+  PelvisRef.MorphNodes = {
+    AnyRefNode TargetRightAsisMarker = {
+      sRel = ...RightAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };      
+    AnyRefNode TargetLeftAsisMarker  = {
+      sRel = ...LeftAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+    AnyRefNode TargetRightHipJointPoint  = {
+      sRel = ...RightHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+    AnyRefNode TargetLeftHipJointPoint  = {
+      sRel = ...LeftHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+//    AnyRefNode TargetSacrumMarker = {
+//      sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//    };   
+    AnyRefNode TargetLeftPSISMarker = {
+      sRel = ...LeftPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };   
+    AnyRefNode TargetRightPSISMarker = {
+      sRel = ...RightPSISMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };   
+    AnyRefNode TargetCBox1 = {
+      sRel = ...CBox1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetCBox2 = {
+      sRel = ...CBox2; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };         
+    AnyRefNode TargetCBox3 = {
+      sRel = ...CBox3; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };         
+    AnyRefNode TargetCBox4 = {
+      sRel = ...CBox4; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };         
+    AnyRefNode TargetCBox5 = {
+      sRel = ...CBox5; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };         
+    AnyRefNode TargetCBox6 = {
+      sRel = ...CBox6; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };         
+    AnyRefNode TargetCBox7 = {
+      sRel = ...CBox7; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };   
+    AnyRefNode TargetCBox8 = {
+      sRel = ...CBox8; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+  };
+};
+
+
+
+//
+//AnyVar LengthScale = ..AnthroSegmentLengths.PelvisWidth / ..StandardParameters.Pelvis.Width;
+//AnyVar ms = ..MassScaling.Pelvis.MassScale;
+//AnyVar ls = LengthScale;
+//
+//
+//AnyFolder MorphSourcePoints = {
+//  AnyVec3 HipJointRightTDStandard = {0.035, -0.115, 0.088};  
+//  AnyVec3 HipJointLeftTDStandard = {0.035, -0.115, -0.088};  
+//  
+//  // These are Marker positions on the unscaled pelvis
+//  AnyVec3 RightAsisMarker = {0.108750, -0.058906, 0.117813} +{0,0.04,0};
+//  AnyVec3 LeftAsisMarker = {0.108750, -0.058906, -0.117813} +{0,0.04,0};
+//  AnyVec3 SacrumMarker= {-0.04-0.03, 0.01-0.01, 0};// Sacral (estimated)
+//  
+//  
+//  AnyVec3 RightHipJointPoint = HipJointRightTDStandard;
+//  AnyVec3 LeftHipJointPoint = HipJointLeftTDStandard;
+//
+//  AnyFolder &PelvisRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg;
+//  PelvisRef = {
+//    AnyRefNode MorphNodes = {
+//      AnySwitch ShowNodes = Off;
+//      AnyRefNode SourceRightAsisMarker = {
+//        sRel = ...RightAsisMarker ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//      };      
+//      AnyRefNode SourceLeftAsisMarker  = {
+//        sRel = ...LeftAsisMarker  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//      };
+//      AnyRefNode SourceRightHipJointPoint  = {
+//        sRel = ...RightHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//      };
+//      AnyRefNode SourceLeftHipJointPoint  = {
+//        sRel = ...LeftHipJointPoint  ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//      };
+//      AnyRefNode SourceSacrumMarker = {
+//        sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.91796875, 0.76953125, 0.06640625};};
+//        //AnyDrawRefFrame drw = {};
+//      };   
+//    };
+//  };//PelvisRef
+//};
+//
+//AnyFolder MorphTargetPoints = {
+//  AnyFolder &target = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis;
+//
+////  AnyVec3 TranslationOffset = 1/2*(target.RASI.sRel+ target.LASI.sRel)
+////  - 1/2*(.MorphSourcePoints.RightAsisMarker + .MorphSourcePoints.LeftAsisMarker);
+////  
+////  AnyVec3 RightAsisMarker = target.RASI.sRel - TranslationOffset ;
+////  AnyVec3 LeftAsisMarker = target.LASI.sRel-  TranslationOffset ;
+////  AnyVec3 RightHipJointPoint = target.RHipJoint.sRel -TranslationOffset ;
+////  AnyVec3 LeftHipJointPoint = target.LHipJoint.sRel-TranslationOffset ;
+////  AnyVec3 SacrumMarker= target.SACR.sRel-TranslationOffset ;
+//   AnyVec3 sRelTarget = 1/2*(target.RHipJoint.sRel+ target.LHipJoint.sRel);
+//  AnyMat33 ARelTarget = RotMat(sRelTarget ,
+//  sRelTarget +(sRelTarget -1/2*(target.RAsis.sRel + target.LAsis.sRel)),
+//  target.RHipJoint.sRel)*RotMat(-pi/2,x);
+//  
+//  AnyVec3 sRelSource = 1/2*( .MorphSourcePoints.RightHipJointPoint  + .MorphSourcePoints.LeftHipJointPoint  );
+//  AnyMat33 ARelSource = RotMat(sRelSource ,
+//  sRelSource +(sRelSource - 1/2*( .MorphSourcePoints.RightAsisMarker + .MorphSourcePoints.LeftAsisMarker  )),
+//  .MorphSourcePoints.RightHipJointPoint  )*RotMat(-pi/2,x);
+//  
+//  AnyVec3 lRightAsisMarker = (ARelTarget'*(target.RAsis.sRel-sRelTarget)')';
+//  AnyVec3 lLeftAsisMarker =  (ARelTarget'*(target.LAsis.sRel-sRelTarget)')';
+//  AnyVec3 lRightHipJointPoint =  (ARelTarget'*(target.RHipJoint.sRel-sRelTarget)')';
+//  AnyVec3 lLeftHipJointPoint  =  (ARelTarget'*(target.LHipJoint.sRel-sRelTarget)')';
+//  AnyVec3 lSacrumMarker =  (ARelTarget'*(target.Sacral.sRel-sRelTarget)')';
+//
+//  
+//  AnyVec3 RightAsisMarker = sRelSource + (target.RAsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+//  AnyVec3 LeftAsisMarker = sRelSource + (target.LAsis.sRel-sRelTarget )*ARelTarget*ARelSource';
+//  AnyVec3 RightHipJointPoint = sRelSource + (target.RHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
+//  AnyVec3 LeftHipJointPoint = sRelSource + (target.LHipJoint.sRel-sRelTarget )*ARelTarget*ARelSource';
+//  AnyVec3 SacrumMarker= sRelSource + (target.Sacral.sRel-sRelTarget )*ARelTarget*ARelSource';
+//  
+//
+//  
+//  AnyFolder &PelvisRef = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Trunk.SegmentsLumbar.PelvisSeg;
+//  PelvisRef.MorphNodes = {
+//    AnyRefNode TargetRightAsisMarker = {
+//      sRel = ...RightAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//    };      
+//    AnyRefNode TargetLeftAsisMarker  = {
+//      sRel = ...LeftAsisMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//    };
+//    AnyRefNode TargetRightHipJointPoint  = {
+//      sRel = ...RightHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//    };
+//    AnyRefNode TargetLeftHipJointPoint  = {
+//      sRel = ...LeftHipJointPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//    };
+//    AnyRefNode TargetSacrumMarker = {
+//      sRel = ...SacrumMarker; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//    };       
+//  };
+//};
+//
+//

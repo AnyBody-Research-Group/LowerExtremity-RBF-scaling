@@ -1,0 +1,109 @@
+//This file contains the marker toplogy of the data set it links free floating markers with the markers on the human 
+
+AnyFolder ModelSetup ={
+  
+  
+  AnyInputC3D DynamicDataSet = 
+  {
+    FileName =  Main.TrialSpecificData.C3DFileNameDynamic;
+    ConstructWeightFunUsingResidualOnOff = Off;
+    PointsScaleFactor = 0.001;
+    ConstructModelOnOff = Off;
+    ConstructChartOnOff = Off;
+    MarkerUseAllPointsOnOff = On;
+    MarkerUseCamMaskOnOff = Off;
+    MarkerScaleXYZ = {0.01,0.01,0.01};
+    SearchAndReplace = {{".",""}};
+    MarkerRGB = {1,1,0};
+//    MarkerLabels = {"Sternum","Neck","RShoulder","LShoulder","Xiphoid","Thoracic","RAsis","LAsis","RPsis","LPsis","Lumbar","RElbow","RWrist","RRadius","RUlna","LElbow","LWrist","LUlna","LRadius","LThighSuperior","LThighInferior","LThighLateral","LPatella","LShankSuperior","LShankInferior","LShankLateral","RThighSuperior","RThighInferior","RThighLateral","RPatella","RShankLateral","RShankSuperior","RShankInferior","RHeel","RToe","RMidfootMedial","RMidfootLateral","RHindfoot","RMidfootSuperior","RToeMedial","RToeMedial","RToeLateral","LHeel","LToe","LMidfootMedial","LMidfootLateral","LHindfoot","LMidfootSuperior","LToeMedial","LToeLateral","LShoulderCenter","Sacral"};
+    Filter = 
+    {
+    AutomaticInitialConditionOnOff = On;
+    FilterForwardBackwardOnOff = On;
+    N = 2;
+    Fc = {10};
+    Type = LowPass;
+    };
+    AnalogFilterIndex =1;
+    /// This filter is used for the analog data
+    AnyFunButterworthFilter LowPassFilter = {
+      FilterForwardBackwardOnOff = On;
+      AutomaticInitialConditionOnOff = On;
+      N = 2;
+      AnyVar CutOffFrequency=10;
+      AnyVar SampleFreq=.Header.VideoFrameRate* .Header.NoAnalogSamplesPer3DFrame   ;
+      W = {1/(SampleFreq*0.5)*CutOffFrequency};
+      Type = LowPass;
+    };
+    
+  };
+  
+  AnyInputC3D StaticData = 
+  {
+    FileName =  Main.SubjectSpecificData.C3DFileNameStatic;
+    PointsScaleFactor = 0.001;
+    ConstructModelOnOff = Off;
+    ConstructChartOnOff = Off;
+    MarkerScaleXYZ = {0.01,0.01,0.01};
+    MarkerRGB = {0,1,0};
+    MarkerUseAllPointsOnOff = On;
+    MarkerUseCamMaskOnOff = Off;
+    SearchAndReplace = {{".",""}};
+    #ifdef FIX_FOR_PARAMETER_OPT_BUG 
+    MarkerInterPolType = PiecewiseLinear;
+    #endif
+
+  };
+  #ifndef USE_TRIAL_SPECIFIC_TIMES
+    AnyIntVar LastFrame = Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-1;
+    AnyIntVar FirstFrame = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+1;
+    AnyIntVar nStep = LastFrame - FirstFrame + 1;
+  #else
+    AnyIntVar LastFrame = Main.TrialSpecificData.LastFrameNo-1;
+    AnyIntVar FirstFrame = Main.TrialSpecificData.StartFrameNo+1;
+    AnyIntVar nStep = LastFrame - FirstFrame + 1;
+  #endif
+  
+  AnyFloatVar  tStart = FirstFrame/Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
+  AnyFloatVar  tEnd = LastFrame /Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate; 
+  
+  AnyFolder Files = {
+    AnyStringVar RightHipParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightHipParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftHipParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftHipParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftAnkleParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar RightAnkleParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightAnkleParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar LeftKneeParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.LeftKneeParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar RightKneeParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.RightKneeParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar MultiJointParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.MultiJointParametersTrial + "_OptimizedParameters.txt";
+    AnyStringVar AllParameters = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "_OptimizedParameters.txt";
+    
+    #ifdef TRUNK_DRIVER_FILE
+     AnyFileVar OptimizedMotionTrunk = TRUNK_DRIVER_FILE;
+    #else
+    AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";
+    #endif
+    
+    #ifdef LLEG_DRIVER_FILE
+     AnyFileVar OptimizedMotionLeftLegTD = LLEG_DRIVER_FILE;
+    #else
+    AnyFileVar OptimizedMotionLeftLegTD = TEMP_FILE_PATH + "/" + Main.TrialSpecificData.TrialName + "-output-euler-leftlegtd.txt";
+    #endif
+    
+    #ifdef RLEG_DRIVER_FILE
+     AnyFileVar OptimizedMotionRightLegTD = RLEG_DRIVER_FILE;
+    #else
+    AnyFileVar OptimizedMotionRightLegTD = TEMP_FILE_PATH  + "/" + Main.TrialSpecificData.TrialName + "-output-euler-rightlegtd.txt";
+    #endif
+    
+    AnyFileVar  AnkleJointParameters = TEMP_FILE_PATH + "/" + Main.SubjectSpecificData.TrialNameStatic + "_Ankle_Joint_Parameters.anyset";
+
+  };
+  
+//  #include "FootContactPythonFunctions.any"
+  
+  
+  
+  
+  
+};
+

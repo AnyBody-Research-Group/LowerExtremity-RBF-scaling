@@ -1,0 +1,58 @@
+AnyFolder Seg = {
+  
+  #if IncludeHip == 1 
+  AnySeg Pelvis = 
+  {
+    r0 = ....StickFigure.Posture.Trunk.Pelvis.InitialPos.r0; 
+    Axes0 = ....StickFigure.Posture.Trunk.Pelvis.InitialPos.Axes0;
+    
+    Mass = 10.6;
+    Jii = {0.02, 0.025, 0.015};
+    sCoM = {-0.09,-0.03,0};
+    JaboutCoMOnOff = On;
+        
+    AnyRefNode RHipJoint = {
+        sRel =  { -0.06371582, -0.08784103, 0.1137453};
+    };
+    
+    AnyRefNode LHipJoint = {
+        sRel =  {-0.06371582, -0.0877099, -0.1137453};
+    };
+    
+    AnyRefNode StaticMarkerFrame = {};
+    
+    
+#if HideStickModelGraphics == 0
+
+   AnyDrawRefFrame drw ={RGB={0,0.76953125,0}; ScaleXYZ = 0.12*{1,1,1};Visible = On;};
+
+AnyRefNode Ellipsoid = {
+    sRel = {-0.09,-0.03,0};
+    AnySurfEllipsoid elip =     {
+      Radius = {0.09, 0.06, 0.1};
+      AnyDrawParamSurf drw =       {
+         RGB = {0, 0.76953125, 0};
+      };
+    };
+};
+
+AnyDrawLine DrwLine1 = {
+p0 = .sCoM;
+p1 = .RHipJoint.sRel;
+Line.Thickness = 0.01;
+GlobalCoord = Off;
+Line.RGB = {0, 0.76953125, 0};
+};
+AnyDrawLine DrwLine2 = {
+p0 = .sCoM;
+p1 = .LHipJoint.sRel;
+Line.Thickness = 0.01;
+GlobalCoord = Off;
+Line.RGB = {0, 0.76953125, 0};
+};#endif
+   
+    
+  };
+  #endif
+  
+};

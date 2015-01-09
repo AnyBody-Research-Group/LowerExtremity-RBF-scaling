@@ -1,0 +1,124 @@
+//MechObjectExclude = ObjSearchRecursive("Main.Studies.HumanModel.BodyModel.Left.Leg.Jnt.Knee","*","AnyMechObject");
+
+AnyFolder InstrumentedKnee = {
+  
+  AnyFolder &ShankRef = .HumanModel.BodyModel.Left.Leg.Seg.Shank;
+//  AnyFolder &ThighRef = .HumanModel.Left.Leg.Seg.Thigh;
+//   Try to calculate forces analytically
+  
+  AnyForceMomentMeasure KneeJointReactionMomentsShank = 
+  {
+    AnyForceBase &Force = ..HumanModel.BodyModel.Left.Leg.Jnt.Knee.Constraints.Reaction;
+    AnyRefFrame &ShankRef = .ShankRef.KneeJoint;
+    AnyVec3 Mlocal = M*.ShankRef.Axes;
+    AnyVec3 Flocal = F*.ShankRef.Axes;
+  };
+
+  AnyVar _Rl = vnorm(ShankRef.LateralKneeContactNode.sRel - ShankRef.KneeJoint.sRel);
+  AnyVar _Rm = vnorm(ShankRef.MedialKneeContactNode.sRel - ShankRef.KneeJoint.sRel);
+  AnyVar _Ft = KneeJointReactionMomentsShank.Flocal[1];
+  AnyVar _Mt = KneeJointReactionMomentsShank.Mlocal[0];
+  AnyVar _Fl = (_Ft*_Rm+_Mt)/(_Rl+_Rm);
+  AnyVar _Fm = _Ft-_Fl;
+  AnyVar Fl = -_Fl;
+  AnyVar Fm = -_Fm;
+  
+  
+  
+  ////////
+  AnyVar LateralDisplacement = DesignVar(0.010);
+  AnyVar MeidalDisplacement = LateralDisplacement - ContactPointDistance ;
+  AnyVar ContactPointDistance = DesignVar(0.05);
+  ///////
+  // Create contact nodes in the left shank
+  ShankRef = {
+    AnyRefNode LateralKneeContactNode = {
+      AnyVec3 uKneeAxis = {0,0,1}*.KneeJoint.ARel';
+      sRel = .KneeJoint.sRel + ..LateralDisplacement *uKneeAxis;
+      ARel = .KneeJoint.ARel;
+      AnyDrawRefFrame drwFrame = {ScaleXYZ = {0.03,0.03,0.03};};
+    };
+    AnyRefNode MedialKneeContactNode = {
+      AnyVec3 uKneeAxis = {0,0,1}*.KneeJoint.ARel';
+      sRel = .KneeJoint.sRel + ..MeidalDisplacement *uKneeAxis;
+      ARel = .KneeJoint.ARel;
+      AnyDrawRefFrame drwFrame = {ScaleXYZ = {0.03,0.03,0.03};};
+    };    
+  };
+  
+
+  
+};
+
+
+ 
+
+  
+  // Setup kinematic contraints
+//  AnyKinLinear MedialContactNodeLin = {
+//      Ref = 0;
+//      AnyRefFrame &ref0 = .ShankRef.MedialKneeContactNode;
+//      AnyRefFrame &ref1 = .ThighRef.MedialKneeContactNode;
+//  };
+//  AnyKinLinear LateralContactNodeLin = {
+//      Ref = 0;
+//      AnyRefFrame &ref0 = .ShankRef.LateralKneeContactNode;
+//      AnyRefFrame &ref1 = .ThighRef.LateralKneeContactNode;
+//  };
+//  // Setup kinmatical contraint for the contact nodes. These contraints
+//  // effectively works as a revolute joint by removing 5 degrees of freedom.
+//  // Reaction forces in the shank y direction is not included as these represent 
+//  // contact force we want to measure. 
+//  AnyKinEq LateralContraint = 
+//  {
+//    MeasureOrganizer = {0,1,2};
+//    CType = {Hard,Hard,Hard};
+//    //WeightFun = {};
+//    AnyKinMeasure &ref = .LateralContactNodeLin ;
+//    Reaction.Type={On,Off,On};
+//  };
+//  AnyKinEq MedialConstraint = 
+//  {
+//    MeasureOrganizer = {0,1};
+//    CType = {Hard,Hard};
+//    //WeightFun = {};
+//    AnyKinMeasure &ref = .MedialContactNodeLin ;
+//    Reaction.Type={On,Off};
+//  };
+//
+//  AnyReacForce MedialYForce={
+//    AnyKinMeasureOrg MedialYMeasure= {
+//      MeasureOrganizer = {1};
+//      AnyKinMeasure &ref = ..MedialContactNodeLin;
+//    };
+//    Type={NonNegative};
+//  };
+//  AnyReacForce LateralYForce={
+//    AnyKinMeasureOrg LateralYMeasure= {
+//      MeasureOrganizer = {1};
+//      AnyKinMeasure &ref = ..LateralContactNodeLin;
+//    };
+//    Type={NonNegative};
+//  };  
+  
+  
+////   Create a general muscle that can carry straight leg walking
+//  AnyGeneralMuscle RightKneeStopper = 
+//  {
+//    ForceDirection = 1;
+//    AnyKinMeasure &KneeAngleRef= Main.Studies.HumanModel.BodyModel.Interface.Right.KneeFlexion;
+//    AnyMuscleModelUsr1 StraightKneeStopperGeneralMuscle = 
+//    {
+//      AnyVar Thresshold = 9*pi/180;
+//      F0 = 0;
+//      S = 1000*( ( Thresshold - min({.KneeAngleRef.Pos[0] ,Thresshold}) )/Thresshold)^3 ;
+//    };
+//  };  
+//  
+  
+  
+    
+//  };
+  
+
+

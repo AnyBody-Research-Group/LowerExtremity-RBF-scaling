@@ -1,0 +1,95 @@
+#class_template DrawBox(LINE_WIDTH, REF_FRAME){
+  #var AnyVec3 p1;
+  #var AnyVec3 p2;
+  #var AnyVec3 p3;
+  #var AnyVec3 p4;
+  #var AnyVec3 p5;
+  #var AnyVec3 p6;
+  #var AnyVec3 p7;
+  #var AnyVec3 p8;
+  
+     AnyDrawLine bbox_l1 = {
+       p0 = .p1;
+       p1 = .p2;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref = .REF_FRAME;
+     };
+     AnyDrawLine bbox_l2 = {
+       p0 = .p2;
+       p1 = .p3;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref = .REF_FRAME;
+     };
+     AnyDrawLine bbox_l3 = {
+       p0 = .p3;
+       p1 = .p4;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref = .REF_FRAME;
+     };
+     AnyDrawLine bbox_l4 = {
+       p0 = .p4;
+       p1 = .p1;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };
+     AnyDrawLine bbox_l5 = {
+       p0 = .p5;
+       p1 = .p6;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };
+     AnyDrawLine bbox_l6 = {
+       p0 = .p6;
+       p1 = .p7;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };
+     AnyDrawLine bbox_l7 = {
+       p0 = .p7;
+       p1 = .p8;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };
+     AnyDrawLine bbox_l8 = {
+       p0 = .p8;
+       p1 = .p5;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };
+     AnyDrawLine bbox_l15 = {
+       p0 = .p1;
+       p1 = .p5;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };
+     AnyDrawLine bbox_l26 = {
+       p0 = .p2;
+       p1 = .p6;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };
+     AnyDrawLine bbox_l37 = {
+       p0 = .p3;
+       p1 = .p7;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };
+     AnyDrawLine bbox_l48 = {
+       p0 = .p4;
+       p1 = .p8;
+       GlobalCoord = Off;
+       Line.Thickness = LINE_WIDTH;
+       AnyRefFrame &ref= .REF_FRAME;
+     };     
+};

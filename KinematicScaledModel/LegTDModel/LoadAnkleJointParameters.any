@@ -1,0 +1,9 @@
+Main = {
+  AnyOperationMacro LoadFootJointAxis = {
+     MacroStr = {
+     "classoperation Main " + strquote("Load Values") 
+     + " --file= " + strquote( FilePathCompleteOf(Main.ModelSetup.Files.AnkleJointParameters) )};
+  };
+};
+
+

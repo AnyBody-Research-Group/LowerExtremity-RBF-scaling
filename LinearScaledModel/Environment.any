@@ -1,0 +1,131 @@
+//This file creates the environment around the human
+//It creates the force plates and add the measure load to them
+
+AnyFixedRefFrame GlobalRef ={
+  Origin={0,0,0};
+  AnyDrawRefFrame drw={ScaleXYZ=0.4*{1,1,1};};
+};  
+
+
+
+#if GrandChallageDataSet == 2012 
+
+ForcePlateType2AutoDetection ForcePlate1 (
+PlateName= Plate1,
+Folder = Main.ModelSetup.C3DFileData,
+Limb1 = .BodyModelRef.Right.Leg.Seg.Foot,
+Limb2=  .BodyModelRef.Left.Leg.Seg.Foot,
+No = 0,
+VerticalDirection = "Z",
+HeightTolerance=0.07,
+VelThreshold=2.2,
+
+Fx=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fx1,
+Fy=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fy1,
+Fz=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fz1,
+Mx=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Mx1,
+My=Main.ModelSetup.C3DFileData.Analog.DataFiltered.My1,
+Mz=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Mz1,
+FootPresent=1)
+={};
+
+
+ForcePlateType2AutoDetection ForcePlate2 (
+PlateName= Plate2,
+Folder = Main.ModelSetup.C3DFileData,
+Limb1 = .BodyModelRef.Right.Leg.Seg.Foot,
+Limb2=  .BodyModelRef.Left.Leg.Seg.Foot,
+No = 1,
+VerticalDirection = "Z",
+HeightTolerance=0.07,
+VelThreshold=2.2,
+
+Fx=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fx2,
+Fy=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fy2,
+Fz=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fz2,
+Mx=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Mx2,
+My=Main.ModelSetup.C3DFileData.Analog.DataFiltered.My2,
+Mz=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Mz2,
+FootPresent=1)
+={};
+
+
+ForcePlateType2AutoDetection ForcePlate3 (
+PlateName= Plate3,
+Folder = Main.ModelSetup.C3DFileData,
+Limb1 = .BodyModelRef.Right.Leg.Seg.Foot,
+Limb2=  .BodyModelRef.Left.Leg.Seg.Foot,
+No = 2,
+VerticalDirection = "Z",
+HeightTolerance=0.07,
+VelThreshold=2.2,
+Fx=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fx3,
+Fy=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fy3,
+Fz=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Fz3,
+Mx=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Mx3,
+My=Main.ModelSetup.C3DFileData.Analog.DataFiltered.My3,
+Mz=Main.ModelSetup.C3DFileData.Analog.DataFiltered.Mz3,
+FootPresent=1)
+={};
+
+
+
+#else 
+// Grand Challenge 2010, and 2011
+CreateForcePlateGrandChallenge ForcePlate1 (
+Limb=  FootOnForcePlate1 ,
+Folder = Main.ModelSetup.C3DFileData,
+No = 0,
+Fx=Main.ModelSetup.C3DFileData.Analog.Data.Fx1,
+Fy=Main.ModelSetup.C3DFileData.Analog.Data.Fy1,
+Fz=Main.ModelSetup.C3DFileData.Analog.Data.Fz1,
+COPx=Main.ModelSetup.C3DFileData.Analog.Data.COPx1,
+COPy=Main.ModelSetup.C3DFileData.Analog.Data.COPy1,
+COPz=Main.ModelSetup.C3DFileData.Analog.Data.COPz1,
+Mz = Main.ModelSetup.C3DFileData.Analog.Data.Mz1 )
+= {
+};
+
+CreateForcePlateGrandChallenge ForcePlate2 (
+Limb=  FootOnForcePlate2,
+Folder = Main.ModelSetup.C3DFileData,
+No = 1,
+Fx=Main.ModelSetup.C3DFileData.Analog.Data.Fx2,
+Fy=Main.ModelSetup.C3DFileData.Analog.Data.Fy2,
+Fz=Main.ModelSetup.C3DFileData.Analog.Data.Fz2,
+COPx=Main.ModelSetup.C3DFileData.Analog.Data.COPx2,
+COPy=Main.ModelSetup.C3DFileData.Analog.Data.COPy2,
+COPz=Main.ModelSetup.C3DFileData.Analog.Data.COPz2,
+Mz = Main.ModelSetup.C3DFileData.Analog.Data.Mz2)
+= {
+};
+
+CreateForcePlateGrandChallenge ForcePlate3 (
+Limb=  FootOnForcePlate3,
+Folder = Main.ModelSetup.C3DFileData,
+No = 2,
+Fx=Main.ModelSetup.C3DFileData.Analog.Data.Fx3,
+Fy=Main.ModelSetup.C3DFileData.Analog.Data.Fy3,
+Fz=Main.ModelSetup.C3DFileData.Analog.Data.Fz3,
+COPx=Main.ModelSetup.C3DFileData.Analog.Data.COPx3,
+COPy=Main.ModelSetup.C3DFileData.Analog.Data.COPy3,
+COPz=Main.ModelSetup.C3DFileData.Analog.Data.COPz3,
+Mz = Main.ModelSetup.C3DFileData.Analog.Data.Mz3)
+= {
+};
+
+CreateForcePlateGrandChallenge ForcePlate4 (
+Limb=  FootOnForcePlate4,
+Folder = Main.ModelSetup.C3DFileData,
+No = 3,
+Fx=Main.ModelSetup.C3DFileData.Analog.Data.Fx4,
+Fy=Main.ModelSetup.C3DFileData.Analog.Data.Fy4,
+Fz=Main.ModelSetup.C3DFileData.Analog.Data.Fz4,
+COPx=Main.ModelSetup.C3DFileData.Analog.Data.COPx4,
+COPy=Main.ModelSetup.C3DFileData.Analog.Data.COPy4,
+COPz=Main.ModelSetup.C3DFileData.Analog.Data.COPz4,
+Mz = Main.ModelSetup.C3DFileData.Analog.Data.Mz4)
+= {
+};
+
+#endif

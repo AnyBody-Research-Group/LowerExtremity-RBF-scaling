@@ -1,0 +1,57 @@
+#include "../../../../SetModelType.any"
+#define EXCLUDE_FORCEPLATE
+#define UseDanamicLoadPosition 0
+Main = {
+ #include "TrialSpecificData.any" 
+ #include "../../SubjectSpecificData.any"  
+ #include "<BASE_MODEL_PATH>/KinematicModel.main.any"
+ 
+ 
+// // Just for graphics
+// JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeLateral = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Right.Seg.Thigh.RKneeMedial = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Right.Seg.Shank.RAnkleLateral = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Right.Seg.Shank.RAnkleMedial = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Left.Seg.Thigh.LKneeLateral = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Left.Seg.Thigh.LKneeMedial = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Left.Seg.Shank.LAnkleLateral = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Left.Seg.Shank.LAnkleMedial = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.RAsis = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.LAsis = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// }; 
+// JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.Sacral = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+// JntParameterOptModel.LegModel.Right.Seg.Foot.RHeel = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// }; 
+// JntParameterOptModel.LegModel.Right.Seg.Foot.RToe = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// }; 
+// JntParameterOptModel.LegModel.Left.Seg.Foot.LHeel = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// }; 
+// JntParameterOptModel.LegModel.Left.Seg.Foot.LToe = {
+//   AnyDrawNode drw = {ScaleXYZ = 0.012*{1,1,1};RGB={1,1,0};};
+// };
+ 
+}; 

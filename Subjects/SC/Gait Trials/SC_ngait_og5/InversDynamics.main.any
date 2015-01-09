@@ -1,0 +1,10 @@
+//New Recruitment
+//#define INCLUDE_MUSCLE_WEIGHT_FACTOR 0
+
+#include "../../../../SetModelType.any"
+
+Main = {
+ #include "TrialSpecificData.any" 
+ #include "../../SubjectSpecificData.any"
+ #include "<BASE_MODEL_PATH>/InverseDynamicsModel.main.any"
+};

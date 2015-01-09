@@ -1,0 +1,247 @@
+#define IncludeHip 1
+#define IncludeKnee 1
+#define IncludeAnkle 1
+
+#define UseDanamicLoadPosition 1
+#define EnableJointAxisScaling 1
+
+#define HideStickModelGraphics 0
+
+#define EXCLUDE_FORCEPLATE
+#include "KinematicModel.main.any"
+
+
+Main.JntParameterOptModel  = {
+  
+
+    #if IncludeAnkle == 1
+  AnyDesEvalStudy SubtalarAxisContraints = {
+    AnyOperationMacro LoadMacro = 
+    {
+      AnyString LoadLeftMcr = "classoperation Main.JntParameterOptModel.SubtalarAxisContraints " 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftAnkleParameters ) ;
+      AnyString LoadRightMcr = "classoperation Main.JntParameterOptModel.SubtalarAxisContraints " 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightAnkleParameters ) ;
+      MacroStr = { 
+        #if IncludeLeft == 1
+        LoadLeftMcr,
+        #endif 
+        #if IncludeRight == 1
+        LoadRightMcr,
+        #endif
+        ""};
+    };
+    
+//    Analysis = { AnyOperation &Operation = ..OptimizeParameters .KinematicStudyForParameterOptimization.Kinematics;};
+    #if IncludeLeft == 1
+    AnyFolder &LeftFootRef = .LegModel.Left.Seg.Foot;
+    AnyFolder &LeftSFFootRef = .StickFigure.Posture.Left.Foot;
+    LeftFootRef = {
+       AnyRefNode ConstaintSubtalarJoint = {
+          sRel = {0, 0, 0};
+          AnyFloat zRot = 0;
+          AnyFloat yRot = 0;
+          ARel = ...StickFigure.Posture.Left.Foot.SubtalarJoint.ARel_static*RotMat(yRot,y)*RotMat(zRot,z);
+          AnyVar DistZ = (.SubtalarJoint.sRel-sRel)*ARel'[2]';
+          AnyVar DistY = (.SubtalarJoint.sRel-sRel)*ARel'[1]';
+          AnyDrawRefFrame drw = {};
+       };
+    };
+    AnyDesVar LFootSubtalarJointXPos =  {
+      Val = .LeftFootRef.ConstaintSubtalarJoint.sRel[0];
+    };      
+    AnyDesMeasure _LFootSubtalarJointXPos =  {
+      Val = .LeftSFFootRef.SubtalarJoint.sRel_static[0];
+    };      
+    AnyDesVar LFootSubtalarJointYPos =  {
+      Val = .LeftFootRef.ConstaintSubtalarJoint.sRel[1];
+    }; 
+    AnyDesMeasure _LFootSubtalarJointYPos =  {
+      Val = .LeftSFFootRef.SubtalarJoint.sRel_static[1];
+    };      
+    AnyDesVar LFootSubtalarJointZPos =  {
+      Val = .LeftFootRef.ConstaintSubtalarJoint.sRel[2];
+    };   
+    AnyDesMeasure _LFootSubtalarJointZPos =  {
+      Val = .LeftSFFootRef.SubtalarJoint.sRel_static[2];
+    };      
+    AnyDesVar LFootSubtalarJointZRot =  {
+      Val = .LeftFootRef.ConstaintSubtalarJoint.zRot;
+    };   
+    AnyDesMeasure _LFootSubtalarJointZRot =  {
+      Val = 0;
+    };      
+    AnyDesVar LFootSubtalarJointYRot =  {
+      Val = .LeftFootRef.ConstaintSubtalarJoint.yRot;
+    }; 
+    AnyDesMeasure _LFootSubtalarJointYRot =  {
+      Val = 0;
+    };      
+    #endif  
+    
+    #if IncludeRight == 1
+    AnyFolder &RightFootRef = .LegModel.Right.Seg.Foot;
+    AnyFolder &RightSFFootRef = .StickFigure.Posture.Right.Foot;
+    RightFootRef = {
+       AnyRefNode ConstaintSubtalarJoint = {
+          sRel = {0,0,0};
+          AnyFloat zRot = 0;
+          AnyFloat yRot = 0;
+          ARel = ...StickFigure.Posture.Right.Foot.SubtalarJoint.ARel_static*RotMat(yRot,y)*RotMat(zRot,z);
+          AnyVar DistZ = (.SubtalarJoint.sRel-sRel)*ARel'[2]';
+          AnyVar DistY = (.SubtalarJoint.sRel-sRel)*ARel'[1]';
+          
+       };
+    };
+    AnyDesVar RFootSubtalarJointXPos =  {
+      Val = .RightFootRef.ConstaintSubtalarJoint.sRel[0];
+    };     
+    AnyDesMeasure _RFootSubtalarJointXPos =  {
+      Val = .RightSFFootRef.SubtalarJoint.sRel_static[0];
+    };      
+    AnyDesVar RFootSubtalarJointYPos =  {
+      Val = .RightFootRef.ConstaintSubtalarJoint.sRel[1];
+    }; 
+    AnyDesMeasure _RFootSubtalarJointYPos =  {
+      Val = .RightSFFootRef.SubtalarJoint.sRel_static[1];
+    };      
+    AnyDesVar RFootSubtalarJointZPos =  {
+      Val = .RightFootRef.ConstaintSubtalarJoint.sRel[2];
+    };   
+    AnyDesMeasure _RFootSubtalarJointZPos =  {
+      Val = .RightSFFootRef.SubtalarJoint.sRel_static[2];
+    };      
+    AnyDesVar RFootSubtalarJointZRot =  {
+      Val = .RightFootRef.ConstaintSubtalarJoint.zRot;
+    };   
+    AnyDesMeasure _RFootSubtalarJointZRot =  {
+      Val = 0;
+    };      
+    AnyDesVar RFootSubtalarJointYRot =  {
+      Val = .RightFootRef.ConstaintSubtalarJoint.yRot;
+    }; 
+    AnyDesMeasure _RFootSubtalarJointYRot =  {
+      Val = 0;
+    };         
+    
+    #endif   
+  };
+    #endif 
+    
+    
+    #if IncludeHip == 1
+  AnyOptKinStudy HipJointContraints = {
+    AnyOperationMacro LoadMacro = 
+    {
+      AnyString LoadLeftMcr = "classoperation Main.JntParameterOptModel.HipJointContraints " 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.LeftHipParameters ) ;
+      AnyString LoadRightMcr = "classoperation Main.JntParameterOptModel.HipJointContraints " 
+      + strquote("Load design")+ " --file=" + strquote(Main.ModelSetup.Files.RightHipParameters ) ;
+      MacroStr = { 
+        #if IncludeLeft == 1
+        LoadLeftMcr,
+        #endif 
+        #if IncludeRight == 1
+        LoadRightMcr,
+        #endif
+        ""};
+    };
+    Analysis = { AnyOperation &Operation = ..OptimizeParameters .KinematicStudyForParameterOptimization.Kinematics;};
+    #if IncludeLeft == 1
+    AnyFolder Left = {
+      AnyFloat PelvisHipJointZPos = -0.12;
+      AnyFloat ThighHipJointZPos = 0;
+    };
+    AnyDesVar LPelvisHipJointZPos =  {
+      Val = .Left.PelvisHipJointZPos;
+    };      
+    AnyDesVar LThighHipJointZPos =  {
+      Val = .Left.ThighHipJointZPos ;
+    }; 
+    #endif
+    #if IncludeRight == 1
+    AnyFolder Right = {
+      AnyFloat PelvisHipJointZPos = 0.12;
+      AnyFloat ThighHipJointZPos = 0;
+    };
+    AnyDesVar RPelvisHipJointZPos =  {
+      Val = .Right.PelvisHipJointZPos;
+    };      
+    AnyDesVar RThighHipJointZPos =  {
+      Val = .Right.ThighHipJointZPos ;
+    }; 
+    #endif  
+  };  
+    #endif
+  
+  AnyOptKinStudy OptimizeParameters = 
+  { 
+    ParameterOptimization.ConvergenceTol = 1e-6;
+    Analysis = { AnyOperation &Operation = .KinematicStudyForParameterOptimization.Kinematics; };
+    AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
+
+    #include "KinOptModel/DesignVars_All.any"
+    
+    AnyDesMeasure LSubTalarConstraint1 = {
+    Val = .ModelRef.Left.Seg.Foot.ConstaintSubtalarJoint.DistZ;
+    Type = EqualToZero;
+    };
+    AnyDesMeasure LSubTalarConstraint2 = {
+    Val = .ModelRef.Left.Seg.Foot.ConstaintSubtalarJoint.DistY;
+    Type = EqualToZero;
+    };    
+    AnyDesMeasure RSubTalarConstraint1 = {
+    Val = .ModelRef.Right.Seg.Foot.ConstaintSubtalarJoint.DistZ;
+    Type = EqualToZero;
+    };
+    AnyDesMeasure RSubTalarConstraint2 = {
+    Val = .ModelRef.Right.Seg.Foot.ConstaintSubtalarJoint.DistY;
+    Type = EqualToZero;
+    };    
+    
+    
+    
+    
+  AnyBodyStudy KinematicStudyForParameterOptimization = 
+  {
+    tStart = Main.ModelSetup.tStart;
+    tEnd = Main.ModelSetup.tEnd;
+    nStep = 70;
+    Gravity = {0, 0, 0};
+    
+    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
+    AnyFolder &LegModel = ..LegModel;
+    AnyFolder &Environment = ..Environment;
+    
+    InitialConditions.SolverType = KinSolOverDeterminate;
+    Kinematics.SolverType = KinSolOverDeterminate;   
+    InitialConditions.PosAnalysisOnlyOnOff=On;
+    Kinematics.PosAnalysisOnlyOnOff=On;
+    Kinematics.KinematicTol = 1e-5;
+    
+
+  };  
+
+ }; 
+};  
+
+Main = {    
+    
+    AnyOperationMacro Run_Kinematic_Optimization = 
+    {
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
+      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters) ;
+      MacroStr = { "operation Main.JntParameterOptModel.AnatomicalStickFigureValues.Load_AnatomicalParameters","run",
+                   "operation Main.JntParameterOptModel.SubtalarAxisContraints.UpdateDesign","run",
+                   "operation Main.JntParameterOptModel.LoadSavaDesignParameters.Load_RightHipParameters","run",
+                   "operation Main.JntParameterOptModel.LoadSavaDesignParameters.Load_LeftHipParameters","run",
+                   "operation Main.JntParameterOptModel.LoadSavaDesignParameters.Load_RightAnkleParameters","run",
+                   "operation Main.JntParameterOptModel.LoadSavaDesignParameters.Load_LeftAnkleParameters","run",
+                   "operation Main.JntParameterOptModel.SubtalarAxisContraints.LoadMacro","run",
+                   "operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
+                  "run",
+                  SaveMcr};
+    };
+    
+};  // Main
+

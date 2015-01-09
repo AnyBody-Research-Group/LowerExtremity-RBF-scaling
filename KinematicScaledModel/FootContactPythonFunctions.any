@@ -1,0 +1,54 @@
+#ifdef UseHeelStrikesTimes
+
+AnyFolder ForcePlateEvents = {
+     
+ // Definition of python function to calculate foot ground contact events
+  AnyFunEx FootContactEvents = 
+  {
+    // Return type shoud be of same length as TrialForce*UnComp
+    AnyInt Return = {0, 0, 0, 0, 0, 0, 0, 0};
+    AnyFunExMonoPy foot_contact_times =
+    {
+      ModuleFile = "heel_strike_events.py";
+      ArgList = {
+        AnyVector f1 = Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz1;
+        AnyVector f2 = Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz2;
+        AnyVector f3 = Main.ModelSetup.DynamicDataSet.Analog.DataFiltered.Fz3;
+        AnyMatrix RHeel = Main.ModelSetup.DynamicDataSet.Points.Markers.RHeel.PosFiltered;
+        AnyMatrix LHeel = Main.ModelSetup.DynamicDataSet.Points.Markers.LHeel.PosFiltered;
+        AnyMatrix RToe = Main.ModelSetup.DynamicDataSet.Points.Markers.RToe.PosFiltered;
+        AnyMatrix LToe = Main.ModelSetup.DynamicDataSet.Points.Markers.LToe.PosFiltered;
+        AnyMatrix Sacral = Main.ModelSetup.DynamicDataSet.Points.Markers.Sacral.PosFiltered;
+        AnyString folder = " ";
+        AnyInt avratio = Main.ModelSetup.DynamicDataSet.Header.NoAnalogSamplesPer3DFrame;
+      };
+    };
+  };
+  
+  
+ /// Foot-forceplate contact events:
+ /// Events[0]: Toe off (foot1)
+ /// Events[1]: Heel strike (foot1)
+ /// Events[2]: Toe off (foot 2)
+ /// Events[3]: Heel strike (foot2)
+ /// Events[4]: Toe off (foot 1)
+ /// Events[5]: Heelstrike (foot 1)
+  AnyVector out = FootContactEvents(.DynamicDataSet.Analog.DataFiltered.Fz1,
+  .DynamicDataSet.Analog.DataFiltered.Fz2,
+  .DynamicDataSet.Analog.DataFiltered.Fz3,
+  .DynamicDataSet.Points.Markers.RHeel.PosFiltered,
+  .DynamicDataSet.Points.Markers.LHeel.PosFiltered,
+  .DynamicDataSet.Points.Markers.RToe.PosFiltered,
+  .DynamicDataSet.Points.Markers.LToe.PosFiltered,
+  .DynamicDataSet.Points.Markers.Sacral.PosFiltered,
+  TRIAL_PATH,
+  .DynamicDataSet.Header.NoAnalogSamplesPer3DFrame);
+  
+
+  
+};
+
+  #endif
+
+
+

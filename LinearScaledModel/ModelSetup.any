@@ -1,0 +1,111 @@
+//This file contains the marker toplogy of the data set it links free floating markers with the markers on the human 
+
+AnyFolder ModelSetup ={
+  
+AnyFolder &DynamicDataSet = C3DFileData ;
+AnyInputC3D C3DFileData =   {
+    AnyString PrefixStr=""; //if the dataset makes use of a prefix name which goes in front of all markers and processed datanames write it here
+    #define PrefixDef(Arg) Arg
+    AnyString TrialName = Main.TrialSpecificData.TrialName;
+    FileName =  TRIAL_PATH+ TrialName + ".c3d";
+    ConstructModelOnOff = Off; //If this is set to on it will display the markers but slow down the analysis a lot....
+    MarkerUseAllPointsOnOff = On; 
+    MarkerUseCamMaskOnOff = Off;
+    PointsScaleFactor = 1/1000;
+    ConstructChartOnOff=Off;
+    SearchAndReplace = {{".",""}};
+    MarkerDrawOnOff =Off;
+    AnalogFilterIndex =1;
+    
+    Filter = 
+    {
+    AutomaticInitialConditionOnOff = On;
+    FilterForwardBackwardOnOff = On;
+    N = 2;
+    Fc = {10};
+    Type = LowPass;
+    };
+    
+    /// This filter is used for the analog data
+    AnyFunButterworthFilter LowPassFilter = {
+      FilterForwardBackwardOnOff = On;
+      AutomaticInitialConditionOnOff = On;
+      N = 2;
+      AnyVar CutOffFrequency=10;
+      AnyVar SampleFreq=.Header.VideoFrameRate* .Header.NoAnalogSamplesPer3DFrame   ;
+      W = {1/(SampleFreq*0.5)*CutOffFrequency};
+      Type = LowPass;
+    };
+    
+    
+    MarkerScaleXYZ = 0.015*{1,1,1};
+    MarkerRGB={0,0,1};
+  };
+ 
+  #ifndef USE_TRIAL_SPECIFIC_TIMES
+    AnyIntVar EndFrame = Main.ModelSetup.C3DFileData.Header.LastFrameNo-1;
+    AnyIntVar StartFrame = Main.ModelSetup.C3DFileData.Header.FirstFrameNo+1;
+  #else
+    AnyIntVar EndFrame = Main.TrialSpecificData.LastFrameNo-1;
+    AnyIntVar StartFrame = Main.TrialSpecificData.StartFrameNo+1;
+  #endif
+  
+  AnyFloatVar  tStart = StartFrame /Main.ModelSetup.C3DFileData.Header.VideoFrameRate;
+  AnyFloatVar  tEnd = EndFrame /Main.ModelSetup.C3DFileData.Header.VideoFrameRate; 
+    AnyIntVar nStep = EndFrame - StartFrame + 1;
+
+    AnyFolder FileNames={
+    //Definition of file names
+    AnyFileVar KinResults = H5_OUTPUT + "/"+ Main.TrialSpecificData.TrialName + "-Kinematics.anydata.h5";
+    AnyFileVar Results = H5_OUTPUT + "/"+ Main.TrialSpecificData.TrialName + ".anydata.h5";
+    AnyFileVar OptimizedParameters = TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "-OptimizedParameters.txt";
+    AnyFileVar OptimizedMotionTrunk = TEMP_FILE_PATH +  "/"+ Main.TrialSpecificData.TrialName + "-output-euler-trunk.txt";
+    AnyFileVar OptimizedMotionLeftLegTD = TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "-output-euler-leftlegtd.txt";
+    AnyFileVar OptimizedMotionRightLegTD = TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "-output-euler-rightlegtd.txt";
+    AnyFileVar OptimizedMotionLeftLeg = TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "-output-euler-leftleg.txt";
+    AnyFileVar OptimizedMotionRightLeg =TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "-output-euler-rightleg.txt";
+    AnyFileVar OptimizedMotionLeftArm = TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "-output-euler-leftarm.txt";
+    AnyFileVar OptimizedMotionRightArm =TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + "-output-euler-rightarm.txt";
+  
+    AnyFileVar WidgetValues =TEMP_FILE_PATH + "/"+ Main.TrialSpecificData.TrialName + ".anyset";
+};
+
+
+  
+  
+   OptimizeAnthropometricsOnOff OptimizeOnOff (
+  PelvisWidthOnOff ="On", 
+  ThighLengthOnOff="On", 
+  ShankLengthOnOff="On", 
+  FootLengthOnOff="On", 
+  HeadHeightOnOff="Off", 
+  TrunkHeightOnOff="Off", 
+  UpperArmLengthOnOff="Off",
+  LowerArmLengthOnOff="Off",
+  HandLengthOnOff="Off",
+  Model1=MotionAndParameterOptimizationModel, Model2= InverseDynamicModel, Model3=0 ) ={};
+
+
+  
+ // Use this marker setup with 2010 and 2011 data 
+#if GrandChallageDataSet == 2010
+   #include "MarkerSetup_2010_2011.any"
+#endif
+ 
+#if GrandChallageDataSet == 2011
+   #include "MarkerSetup_2010_2011.any"
+#endif
+  
+//  Use this Marker Protocol for 2012 data set
+#if GrandChallageDataSet == 2012 
+   #include "MarkerSetup_2012.any"
+#endif  
+
+  
+
+};
+
+
+
+
+

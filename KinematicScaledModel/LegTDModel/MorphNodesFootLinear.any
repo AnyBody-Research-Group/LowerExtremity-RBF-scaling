@@ -1,0 +1,339 @@
+ 
+
+AnyVar ms = MassScale;
+AnyVar ls = LengthScale;
+AnyFolder StdPar = {
+  #include "<AMMR_PATH>\Body\AAUHuman\LegTD\KlienHorsmannParam.any"
+};
+
+AnyFolder MorphSourcePoints = {
+
+  // Scaling node rotation for the foot.
+  AnyMat33 scaleRot = ..LegTDRef.Foot.ScalingNode.Rotation;  
+
+  // 1. Place the markers where they should be relative to the LegTD model
+  // These are giving in the ScalingNode coordinate system to make them easier to move
+  AnyVec3 ToeMarker = (scaleRot* { 0.185, 0.000 +0.012, ..Sign*(0.0120+0.015) }')' + .StdPar.HeelNode;
+  AnyVec3 HeelMarker =(scaleRot* { 0.0024 -0.018, -0.003, ..Sign*0.01}')' + .StdPar.HeelNode;
+  AnyVec3 LateralFootMarker = (scaleRot* {  0.162, 0.016-0.012, ..Sign*0.060 }')' + .StdPar.HeelNode;
+  AnyVec3 MedialFootMarker = (scaleRot* {  0.19, 0.023, ..Sign*-0.0150 }')' + .StdPar.HeelNode;
+
+  // 2. Use these variables to rotate the foot around the ankle joint. Thus aligning the model markers with data markers.
+  AnyFloat FootPitch = 0.0;
+  AnyFloat FootRoll = 0.0;
+  AnyFloat FootYaw = 0.0;
+
+  AnyMat33 ARelAnkle = RotMat(.StdPar.AnkleJoint,
+  .StdPar.AnkleJoint+.StdPar.AnkleJointAxis,
+  .StdPar.KneeJoint)
+  *RotMat(-..Sign*90*pi/180,y);  
+  
+  
+
+  
+  AnyFolder &ScaleNodeRef = ..LegTDRef.Foot.ScalingNode;
+  //ScaleNodeRef = {AnyDrawRefFrame drw ={};};
+  
+  // These rotation matrixes define the rotation of the control point box
+  // The same rotations are used in the Stick-figure model
+  AnyMat33 ControlPointRotMat = RotMat(HeelMarker, ToeMarker, LateralFootMarker);
+  AnyMat33 RotateBox = RotMat(FootYaw,z)*RotMat(FootRoll,x)*RotMat(FootPitch,y)*RotMat(0.0,x); //Rotation of the ControlBox must be the same as in the stickfigure model
+    
+  // Some values quantifing the size of the foot in the coordinate system of the control box  
+//  AnyVar HeelAnkleXDist = abs( {1,0,0} * ControlPointRotMat'*RotateBox' *(HeelMarker -.StdPar.SubTalarJointStandard)' );
+//  AnyVar AnkleToeXDist = abs( {1,0,0} * ControlPointRotMat'*RotateBox' *(ToeMarker -.StdPar.SubTalarJointStandard)' ) ;
+  AnyVar HeelAnkleXDist = abs( {1,0,0} * (ControlPointRotMat*RotateBox)' *(HeelMarker -.StdPar.AnkleJoint)' );
+  AnyVar AnkleToeXDist = abs( {1,0,0} * (ControlPointRotMat*RotateBox)' *(ToeMarker - .StdPar.AnkleJoint)' ) ;
+ 
+  AnyVec3 FootControlPoint1 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { -HeelAnkleXDist, -0.05, ..Sign*0.08}' )' ;
+  AnyVec3 FootControlPoint2 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { -HeelAnkleXDist, 0.06, ..Sign*0.08}' )' ;
+  AnyVec3 FootControlPoint3 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { -HeelAnkleXDist, -0.05, ..Sign*-0.01}' )' ;
+  AnyVec3 FootControlPoint4 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { -HeelAnkleXDist, 0.06, ..Sign*-0.01}' )' ;
+  AnyVec3 FootControlPoint5 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {AnkleToeXDist , -0.05, ..Sign*0.08}' )' ;
+  AnyVec3 FootControlPoint6 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {AnkleToeXDist , 0.06, ..Sign*0.08}' )' ;
+  AnyVec3 FootControlPoint7 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {AnkleToeXDist , -0.05, ..Sign*-0.01}' )' ;
+  AnyVec3 FootControlPoint8 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {AnkleToeXDist , 0.06, ..Sign*-0.01}' )' ;
+  AnyVec3 FootControlPoint9 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {1.5 * AnkleToeXDist , -0.05, ..Sign*0.08}' )' ;
+  AnyVec3 FootControlPoint10 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {1.5 * AnkleToeXDist , 0.06, ..Sign*0.08}' )' ;
+  AnyVec3 FootControlPoint11 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {1.5 * AnkleToeXDist , -0.05, ..Sign*-0.01}' )' ;
+  AnyVec3 FootControlPoint12 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {1.5 * AnkleToeXDist , 0.06, ..Sign*-0.01}' )' ;
+  AnyVec3 FootControlPoint13 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {AnkleToeXDist , 0.005, ..Sign*0.035}' )' ;
+  AnyVec3 FootControlPoint14 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {1.5 * AnkleToeXDist , 0.005,  ..Sign*0.035}' )' ;
+  AnyVec3 FootControlPoint15 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * {-HeelAnkleXDist, 0.005,  ..Sign*0.035}' )' ;
+  AnyVec3 FootControlPoint16 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { 0 , -0.05, ..Sign*0.08}' )' ;
+  AnyVec3 FootControlPoint17 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { 0 , 0.06, ..Sign*0.08}' )' ;
+  AnyVec3 FootControlPoint18 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { 0, -0.05, ..Sign*-0.01}' )' ;
+  AnyVec3 FootControlPoint19 = .StdPar.AnkleJoint+ (ControlPointRotMat *RotateBox * { 0, 0.06, ..Sign*-0.01}' )' ;
+  
+  AnyVec3 AnkleCenterPoint = .StdPar.AnkleJoint;  
+//  AnyVec3 AnteriorSubTalarPoint = .StdPar.SubTalarJointStandard - 0.03*.StdPar.SubTalarJointAxis ;
+//  AnyVec3 PosteriorSubTalarPoint = .StdPar.SubTalarJointStandard + 0.03*.StdPar.SubTalarJointAxis ;
+  
+  //Calc MalleousMedialis projection on Ankle joint z axis.
+  AnyVar MedMallAxisProj = ( .StdPar.MedialMalleolus- .StdPar.AnkleJoint) * ARelAnkle *{0,0,1}' ;
+  
+  //Calc MalleousLateralis projection on Ankle joint z axis.
+  AnyVar LatMallAxisProj = ( .StdPar.LateralMalleolus - .StdPar.AnkleJoint) * ARelAnkle *{0,0,1}';
+
+  // Lateral Ankle source control point, found by projecting the lateral Malleolus to the ankle axis.
+  AnyVec3 LateralAnklePoint = .StdPar.AnkleJoint+ (ARelAnkle * LatMallAxisProj * {0,0,1}' )';
+  
+  // Medial Ankle source control point, found by projecting the lateral Malleolus to the ankle axis.
+  AnyVec3 MedialAnklePoint = .StdPar.AnkleJoint+ (ARelAnkle * MedMallAxisProj * {0,0,1}' )';
+   
+  
+  AnyFolder &FootRef = ..LegTDRef.Foot;
+  FootRef = {
+    AnyRefNode MorphNodes = {
+      AnySwitch ShowNodes = Off;
+      AnyRefNode SourceToeMarker = {
+        ARel = ...scaleRot;
+        sRel = ..Scale(...ToeMarker);
+        AnyDrawNode refnode = { Visible = On;  ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.36953125, 0.06640625}; };
+        //AnyDrawRefFrame refFrame = { Visible = On; ScaleXYZ = {0.05, 0.05, 0.05};  };
+      };      
+      AnyRefNode SourceHeelMarker = {
+        ARel = ...scaleRot;
+        sRel = ..Scale(...HeelMarker);
+        AnyDrawNode refnode = { Visible = On;  ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.36953125, 0.06640625}; };
+        //AnyDrawRefFrame refFrame = { Visible = On; ScaleXYZ = {0.05, 0.05, 0.05};  };
+      };
+      AnyRefNode SourceLateralFootMarker = {
+        ARel = ...scaleRot;
+        sRel = ..Scale(...LateralFootMarker);
+        AnyDrawNode refnode = { Visible = On;  ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.36953125, 0.06640625}; };
+        //AnyDrawRefFrame refFrame = { Visible = On; ScaleXYZ = {0.05, 0.05, 0.05};  };
+      };
+      AnyRefNode SourceMedialFootMarker = {
+        ARel = ...scaleRot;
+        sRel = ..Scale(...MedialFootMarker);
+        AnyDrawNode refnode = { Visible = On;  ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.36953125, 0.06640625}; };
+        //AnyDrawRefFrame refFrame = { Visible = On; ScaleXYZ = {0.05, 0.05, 0.05};  };
+      };
+      
+      AnyRefNode SourceAnkleCenterPoint  = {
+        sRel = ...AnkleCenterPoint ; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };   
+      AnyRefNode SourceFootControlPoint1  = {
+        sRel = ...FootControlPoint1; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };      
+      AnyRefNode SourceFootControlPoint2  = {
+        sRel = ...FootControlPoint2; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };  
+      AnyRefNode SourceFootControlPoint3  = {
+        sRel = ...FootControlPoint3; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      }; 
+      AnyRefNode SourceFootControlPoint4  = {
+        sRel = ...FootControlPoint4; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };      
+      AnyRefNode SourceFootControlPoint5  = {
+        sRel = ...FootControlPoint5; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };      
+      AnyRefNode SourceFootControlPoint6  = {
+        sRel = ...FootControlPoint6; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };  
+      AnyRefNode SourceFootControlPoint7  = {
+        sRel = ...FootControlPoint7; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      }; 
+      AnyRefNode SourceFootControlPoint8  = {
+        sRel = ...FootControlPoint8; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };  
+      AnyRefNode SourceFootControlPoint9  = {
+        sRel = ...FootControlPoint9; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };      
+      AnyRefNode SourceFootControlPoint10  = {
+        sRel = ...FootControlPoint10; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };  
+      AnyRefNode SourceFootControlPoint11  = {
+        sRel = ...FootControlPoint11; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      }; 
+      AnyRefNode SourceFootControlPoint12  = {
+        sRel = ...FootControlPoint12; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };
+      AnyRefNode SourceFootControlPoint13  = {
+        sRel = ...FootControlPoint13; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      }; 
+      AnyRefNode SourceFootControlPoint14  = {
+        sRel = ...FootControlPoint14; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };
+      AnyRefNode SourceFootControlPoint15  = {
+        sRel = ...FootControlPoint15; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };   
+      AnyRefNode SourceFootControlPoint16  = {
+        sRel = ...FootControlPoint16; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };
+      AnyRefNode SourceFootControlPoint17  = {
+        sRel = ...FootControlPoint17; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      }; 
+      AnyRefNode SourceFootControlPoint18  = {
+        sRel = ...FootControlPoint18; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };
+      AnyRefNode SourceFootControlPoint19  = {
+        sRel = ...FootControlPoint19; AnyDrawNode refnode = {  Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005};  RGB = {0.91796875, 0.76953125, 0.06640625}; };
+      };         
+    };
+    
+  };//FootRef
+};
+
+AnyFolder MorphTargetPoints = {
+  //AnyVec3 .StdPar.SubTalarJointStandard={  0.070, -0.851, ..Sign*0.015}; 
+  //AnyVec3 .StdPar.KneeJoint= {0.0384, -0.4078, ..Sign* 0.0138};
+    
+   AnyFolder &FootMorphNodes = ..KinOptRef.Foot.MorphNodesFoot;
+
+  // These rotation matrixes define the rotation of the control point box
+  // The same rotations are used in the Stick-figure model
+  AnyMat33 ControlPointRotMat = .MorphSourcePoints.ControlPointRotMat ; 
+  
+  
+  AnyVec3 AnkleCenterPoint = .StdPar.AnkleJoint;
+  
+  AnyVec3 MedialAnklePoint = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.MedialAnkleControlPoint.sRel')';
+  AnyVec3 LateralAnklePoint = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.LateralAnkleControlPoint.sRel')';
+
+  AnyVec3 HeelPoint = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.HeelControlPoint.sRel')';
+  AnyVec3 ToePoint = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ToeControlPoint.sRel')';
+  AnyVec3 LateralFootPoint  = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.LateralFootControlPoint.sRel')';
+  AnyVec3 MedialFootPoint  = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.MedialFootControlPoint.sRel')';
+  
+//  AnyVec3 AnteriorSubTalarPoint = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.AnteriorSubTalarControlPoint.sRel')';
+//  AnyVec3 PosteriorSubTalarPoint = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.PosteriorSubTalarControlPoint.sRel')';
+  AnyVec3 FootControlPoint1 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox1.sRel')'; 
+  AnyVec3 FootControlPoint2 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox2.sRel')'; 
+  AnyVec3 FootControlPoint3 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox3.sRel')'; 
+  AnyVec3 FootControlPoint4 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox4.sRel')'; 
+  AnyVec3 FootControlPoint5 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox5.sRel')'; 
+  AnyVec3 FootControlPoint6 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox6.sRel')'; 
+  AnyVec3 FootControlPoint7 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox7.sRel')'; 
+  AnyVec3 FootControlPoint8 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox8.sRel')'; 
+  AnyVec3 FootControlPoint9 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox9.sRel')'; 
+  AnyVec3 FootControlPoint10 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox10.sRel')'; 
+  AnyVec3 FootControlPoint11 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox11.sRel')'; 
+  AnyVec3 FootControlPoint12 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox12.sRel')'; 
+  AnyVec3 FootControlPoint13 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox13.sRel')'; 
+  AnyVec3 FootControlPoint14 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox14.sRel')'; 
+  AnyVec3 FootControlPoint15 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox15.sRel')'; 
+  AnyVec3 FootControlPoint16 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox16.sRel')'; 
+  AnyVec3 FootControlPoint17 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox17.sRel')'; 
+  AnyVec3 FootControlPoint18 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox18.sRel')'; 
+  AnyVec3 FootControlPoint19 = .StdPar.AnkleJoint+ (ControlPointRotMat * FootMorphNodes.ControlBox19.sRel')'; 
+
+  // Calculate the Subtalar Joint axis standard
+//  AnyVec3 SubTalarJointAxis = (ControlPointRotMat*(FootMorphNodes.PosteriorSubTalarControlPoint.sRel' - FootMorphNodes.AnteriorSubTalarControlPoint.sRel'))';
+//  AnyVec3 SubTalarJoint = .StdPar.AnkleJoint+ (ControlPointRotMat*FootMorphNodes.SubTalarControlPoint.sRel')';
+  
+//  FootRef = {
+//    AnyRefNode SubTalarJoint = {
+//      #if UseRbfScaling == 1
+//      sRel = ..SubTalarJoint;
+//      ARel = RotMat(sRel,
+//      sRel +..SubTalarJointAxis ,
+//      ...StdPar.KneeJoint)
+//      *RotMat(....Sign*90*pi/180,y);
+//      #else
+//      sRel = .Scale(..StdPar.SubTalarJointStandard);
+//      ARel = RotMat(..StdPar.SubTalarJointStandard,
+//      ..StdPar.SubTalarJointStandard +..StdPar.SubTalarJointAxis ,
+//      ...StdPar.KneeJoint)
+//             *RotMat(....Sign*90*pi/180,y);
+//      #endif
+//      
+////      AnyDrawRefFrame drw = 
+////      {
+////        RGB = {0.91796875, 0.76953125, 0.06640625};
+////        ScaleXYZ = {0.1, 0.1, 0.1};
+////      };
+//    };
+//  };
+  
+  
+  AnyFolder &FootRef = ..LegTDRef.Foot;
+  FootRef.MorphNodes = {
+    AnyRefNode TargetAnkleCenterPoint  = {
+      sRel = ...AnkleCenterPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+    AnyRefNode TargetMedialAnklePoint  = {
+      sRel = ...MedialAnklePoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };    
+    AnyRefNode TargetLateralAnklePoint  = {
+      sRel = ...LateralAnklePoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };    
+    AnyRefNode TargetHeelPoint  = {
+      sRel = ...HeelPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };    
+    AnyRefNode TargetToePoint  = {
+      sRel = ...ToePoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };    
+    AnyRefNode TargetLateralFootPoint  = {
+      sRel = ...LateralFootPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };    
+    AnyRefNode TargetMedialFootPoint  = {
+      sRel = ...MedialFootPoint ; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };        
+//    AnyRefNode TargetAnteriorSubTalarPoint  = {
+//      sRel = ...AnteriorSubTalarPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//    }; 
+//    AnyRefNode TargetPosteriorSubTalarPoint  = {
+//      sRel = ...PosteriorSubTalarPoint; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+//    }; 
+    AnyRefNode TargetFootControlPoint1 = {
+      sRel = ...FootControlPoint1; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint2 = {
+      sRel = ...FootControlPoint2; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint3 = {
+      sRel = ...FootControlPoint3; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint4 = {
+      sRel = ...FootControlPoint4; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint5 = {
+      sRel = ...FootControlPoint5; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint6 = {
+      sRel = ...FootControlPoint6; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint7 = {
+      sRel = ...FootControlPoint7; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint8 = {
+      sRel = ...FootControlPoint8; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };   
+    AnyRefNode TargetFootControlPoint9 = {
+      sRel = ...FootControlPoint9; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint10 = {
+      sRel = ...FootControlPoint10; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint11 = {
+      sRel = ...FootControlPoint11; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint12 = {
+      sRel = ...FootControlPoint12; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+    AnyRefNode TargetFootControlPoint13 = {
+      sRel = ...FootControlPoint13; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint14 = {
+      sRel = ...FootControlPoint14; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+    AnyRefNode TargetFootControlPoint15 = {
+      sRel = ...FootControlPoint15; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+    AnyRefNode TargetFootControlPoint16 = {
+      sRel = ...FootControlPoint16; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+    AnyRefNode TargetFootControlPoint17 = {
+      sRel = ...FootControlPoint17; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    }; 
+    AnyRefNode TargetFootControlPoint18 = {
+      sRel = ...FootControlPoint18; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };
+    AnyRefNode TargetFootControlPoint19 = {
+      sRel = ...FootControlPoint19; AnyDrawNode refnode = { Visible = .....ShowNodes; ScaleXYZ = {0.005, 0.005, 0.005}; RGB = {0.01796875, 0.76953125, 0.06640625};};
+    };    
+  };//MorphNodeRef
+};
+

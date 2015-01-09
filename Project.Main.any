@@ -1,0 +1,17 @@
+#ifndef PREMAININCLUDES_ANY
+#include "SetModelType.any"
+#endif
+
+Main = {
+  AnyProject PROJECT_FOLDER_NAME = {
+    
+    #include "Subjects/TrialSelector.any"
+    
+    Tasks = {
+    #ifdef PREMAININCLUDES_ANY
+      
+    #endif
+
+    };
+  };
+};

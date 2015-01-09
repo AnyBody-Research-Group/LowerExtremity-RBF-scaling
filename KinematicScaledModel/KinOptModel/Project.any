@@ -1,0 +1,39 @@
+PROJECT_FOLDER_NAME = {
+    
+  Tasks = {
+      AnyProjectTaskFolder Kinematics ={
+        AnyProjectTaskOperation Load_Joint_Trial_Parameters = {
+          Description = {
+            Title = "<h4>Load Joint Trials Parameters </h4>";
+            BodyText = 
+            "Execting this task will load the joint parameters from the functinal trials." ;
+            Tooltip = Title;
+          };         
+          Operation = &Main.Load_JointTrialParameters;
+        };
+        AnyProjectTaskOperation Run_Kinematics = {
+          Description = {
+            Title = "<h4>Run and Save Kinematics</h4>";
+            BodyText = 
+            "Execting this task will calculate the kinmatics usign the overdeterminate solver, and save all joint angle, so they can later be used in the inversedynamic model." ;
+            Tooltip = Title;
+          };         
+          Operation = &Main.JntParameterOptModel.KinematicStudy.Kinematics;
+        };
+        AnyProjectTaskOperation Replay = {
+          Description = {
+            Title = "<h4>Replay motion</h4>";
+            BodyText = 
+            "Execting this task will replay the motion" ;
+            Tooltip = Title;
+          };         
+          Operation = &Main.JntParameterOptModel.KinematicStudy.Replay;
+        };
+      };//Kinematic tasks
+      
+      
+      
+      
+    };
+  
+  };// Project

@@ -1,0 +1,110 @@
+
+AnyOperationSetValue ReduceKneeStrengh = 
+{
+  
+  AnyVar k = DesignVar(0.65);
+  
+AnyVar NewF0_GastrocnemiusLateralis1Par = k * .MusPar.GastrocnemiusLateralis1Par.F0;
+AnyVar NewF0_GastrocnemiusMedialis1Par = k * .MusPar.GastrocnemiusMedialis1Par.F0;
+AnyVar NewF0_RectusFemoris1Par = k * .MusPar.RectusFemoris1Par.F0;
+AnyVar NewF0_RectusFemoris2Par = k * .MusPar.RectusFemoris2Par.F0;
+AnyVar NewF0_VastusIntermedius1Par = k * .MusPar.VastusIntermedius1Par.F0;
+AnyVar NewF0_VastusIntermedius2Par = k * .MusPar.VastusIntermedius2Par.F0;
+AnyVar NewF0_VastusIntermedius3Par = k * .MusPar.VastusIntermedius3Par.F0;
+AnyVar NewF0_VastusIntermedius4Par = k * .MusPar.VastusIntermedius4Par.F0;
+AnyVar NewF0_VastusIntermedius5Par = k * .MusPar.VastusIntermedius5Par.F0;
+AnyVar NewF0_VastusIntermedius6Par = k * .MusPar.VastusIntermedius6Par.F0;
+AnyVar NewF0_VastusLateralisInferior1Par = k * .MusPar.VastusLateralisInferior1Par.F0;
+AnyVar NewF0_VastusLateralisInferior2Par = k * .MusPar.VastusLateralisInferior2Par.F0;
+AnyVar NewF0_VastusLateralisInferior3Par = k * .MusPar.VastusLateralisInferior3Par.F0;
+AnyVar NewF0_VastusLateralisInferior4Par = k * .MusPar.VastusLateralisInferior4Par.F0;
+AnyVar NewF0_VastusLateralisInferior5Par = k * .MusPar.VastusLateralisInferior5Par.F0;
+AnyVar NewF0_VastusLateralisInferior6Par = k * .MusPar.VastusLateralisInferior6Par.F0;
+AnyVar NewF0_VastusLateralisSuperior1Par = k * .MusPar.VastusLateralisSuperior1Par.F0;
+AnyVar NewF0_VastusLateralisSuperior2Par = k * .MusPar.VastusLateralisSuperior2Par.F0;
+AnyVar NewF0_VastusMedialisInferior1Par = k * .MusPar.VastusMedialisInferior1Par.F0;
+AnyVar NewF0_VastusMedialisInferior2Par = k * .MusPar.VastusMedialisInferior2Par.F0;
+AnyVar NewF0_VastusMedialisMid1Par = k * .MusPar.VastusMedialisMid1Par.F0;
+AnyVar NewF0_VastusMedialisMid2Par = k * .MusPar.VastusMedialisMid2Par.F0;
+AnyVar NewF0_VastusMedialisSuperior1Par = k * .MusPar.VastusMedialisSuperior1Par.F0;
+AnyVar NewF0_VastusMedialisSuperior2Par = k * .MusPar.VastusMedialisSuperior2Par.F0;
+AnyVar NewF0_VastusMedialisSuperior3Par = k * .MusPar.VastusMedialisSuperior3Par.F0;
+AnyVar NewF0_VastusMedialisSuperior4Par = k * .MusPar.VastusMedialisSuperior4Par.F0;
+AnyVar NewF0_VastusMedialisSuperior5Par = k * .MusPar.VastusMedialisSuperior5Par.F0;
+AnyVar NewF0_VastusMedialisSuperior6Par = k * .MusPar.VastusMedialisSuperior6Par.F0;
+
+  
+  /*Settings = 
+  {
+  Echo = On;
+  ModelSceneUpdate = On;
+  };*/
+  Source = {
+    &NewF0_GastrocnemiusLateralis1Par,
+    &NewF0_GastrocnemiusMedialis1Par,
+    &NewF0_RectusFemoris1Par,
+    &NewF0_RectusFemoris2Par,
+    &NewF0_VastusIntermedius1Par,
+    &NewF0_VastusIntermedius2Par,
+    &NewF0_VastusIntermedius3Par,
+    &NewF0_VastusIntermedius4Par,
+    &NewF0_VastusIntermedius5Par,
+    &NewF0_VastusIntermedius6Par,
+    &NewF0_VastusLateralisInferior1Par,
+    &NewF0_VastusLateralisInferior2Par,
+    &NewF0_VastusLateralisInferior3Par,
+    &NewF0_VastusLateralisInferior4Par,
+    &NewF0_VastusLateralisInferior5Par,
+    &NewF0_VastusLateralisInferior6Par,
+    &NewF0_VastusLateralisSuperior1Par,
+    &NewF0_VastusLateralisSuperior2Par,
+    &NewF0_VastusMedialisInferior1Par,
+    &NewF0_VastusMedialisInferior2Par,
+    &NewF0_VastusMedialisMid1Par,
+    &NewF0_VastusMedialisMid2Par,
+    &NewF0_VastusMedialisSuperior1Par,
+    &NewF0_VastusMedialisSuperior2Par,
+    &NewF0_VastusMedialisSuperior3Par,
+    &NewF0_VastusMedialisSuperior4Par,
+    &NewF0_VastusMedialisSuperior5Par,
+    &NewF0_VastusMedialisSuperior6Par
+  
+  
+  };
+  
+  Target = {
+    &.MusPar.GastrocnemiusLateralis1Par.F0,
+    &.MusPar.GastrocnemiusMedialis1Par.F0,
+    &.MusPar.RectusFemoris1Par.F0,
+    &.MusPar.RectusFemoris2Par.F0,
+    &.MusPar.VastusIntermedius1Par.F0,
+    &.MusPar.VastusIntermedius2Par.F0,
+    &.MusPar.VastusIntermedius3Par.F0,
+    &.MusPar.VastusIntermedius4Par.F0,
+    &.MusPar.VastusIntermedius5Par.F0,
+    &.MusPar.VastusIntermedius6Par.F0,
+    &.MusPar.VastusLateralisInferior1Par.F0,
+    &.MusPar.VastusLateralisInferior2Par.F0,
+    &.MusPar.VastusLateralisInferior3Par.F0,
+    &.MusPar.VastusLateralisInferior4Par.F0,
+    &.MusPar.VastusLateralisInferior5Par.F0,
+    &.MusPar.VastusLateralisInferior6Par.F0,
+    &.MusPar.VastusLateralisSuperior1Par.F0,
+    &.MusPar.VastusLateralisSuperior2Par.F0,
+    &.MusPar.VastusMedialisInferior1Par.F0,
+    &.MusPar.VastusMedialisInferior2Par.F0,
+    &.MusPar.VastusMedialisMid1Par.F0,
+    &.MusPar.VastusMedialisMid2Par.F0,
+    &.MusPar.VastusMedialisSuperior1Par.F0,
+    &.MusPar.VastusMedialisSuperior2Par.F0,
+    &.MusPar.VastusMedialisSuperior3Par.F0,
+    &.MusPar.VastusMedialisSuperior4Par.F0,
+    &.MusPar.VastusMedialisSuperior5Par.F0,
+    &.MusPar.VastusMedialisSuperior6Par.F0
+    
+    
+    
+
+  
+  } ;
+};

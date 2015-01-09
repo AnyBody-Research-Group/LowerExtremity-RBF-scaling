@@ -1,0 +1,61 @@
+#define IncludeHip 1
+#define IncludeKnee 1
+#define IncludeAnkle 1
+
+#define UseDanamicLoadPosition 1
+#define EnableJointAxisScaling 1
+
+#define HideStickModelGraphics 0
+
+#include "KinematicModel.main.any"
+
+
+Main.JntParameterOptModel  = {
+  
+  AnyOptKinStudy OptimizeParameters = 
+  { 
+    ParameterOptimization.ConvergenceTol = 1e-6;
+    Analysis = { AnyOperation &Operation = .KinematicStudyForParameterOptimization.Kinematics; };
+    AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
+
+    #include "KinOptModel/DesignVars_GaitTrial.any"
+    
+  AnyBodyStudy KinematicStudyForParameterOptimization = 
+  {
+    tStart = Main.ModelSetup.tStart;
+    tEnd = Main.ModelSetup.tEnd;
+    nStep = 70;
+    Gravity = {0, 0, 0};
+    
+    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
+    AnyFolder &LegModel = ..LegModel;
+    AnyFolder &Environment = ..Environment;
+    
+    InitialConditions.SolverType = KinSolOverDeterminate;
+    Kinematics.SolverType = KinSolOverDeterminate;   
+    InitialConditions.PosAnalysisOnlyOnOff=On;
+    Kinematics.PosAnalysisOnlyOnOff=On;
+    Kinematics.KinematicTol = 1e-5;
+  };  
+
+ }; 
+};  
+
+Main = {    
+    
+    AnyOperationMacro Run_Kinematic_Optimization = 
+    {
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters " 
+      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters) ;
+      MacroStr = { "operation Main.JntParameterOptModel.Load_AnatomicalParameters","run",
+                   "operation Main.JntParameterOptModel.Load_RightHipParameters","run",
+                   "operation Main.JntParameterOptModel.Load_LeftHipParameters","run",
+                   "operation Main.JntParameterOptModel.Load_RightAnkleParameters","run",
+                   "operation Main.JntParameterOptModel.Load_LeftAnkleParameters","run",
+                   "operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
+                  "run",
+                  SaveMcr};
+    };
+    
+};  // Main
+

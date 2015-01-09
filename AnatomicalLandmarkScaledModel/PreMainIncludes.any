@@ -1,0 +1,11 @@
+// The Anatomical based model uses the same files as the Kinematically scaled model
+// but with an extra flag (ANATOMIC_SCALED_MODEL) defined 
+#define ANATOMIC_SCALED_MODEL
+#define BONY_LANDMARK_DEFINED_JOINTAXIS
+
+
+#path TEMP_FILE_PATH "Tmp"
+#define PROJECT_FOLDER_NAME Anatomical_Landmark_Scaled_Model  
+
+#include "../KinematicScaledModel/PreMainIncludes.any"
+

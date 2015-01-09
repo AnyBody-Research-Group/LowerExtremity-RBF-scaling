@@ -1,0 +1,87 @@
+#define IncludeHip 0
+#define IncludeKnee 0
+#define IncludeAnkle 1
+
+#define UseDanamicLoadPosition 1
+
+#define HideStickModelGraphics 0
+
+#include "KinematicModel.main.any"
+
+
+Main = {
+  
+ JntParameterOptModel  = {
+  
+  AnyOptKinStudy OptimizeParameters = 
+  { 
+    ParameterOptimization.ConvergenceTol = 1e-4;
+    Analysis = { AnyOperation &Operation = ..OptimizeParameters.KinematicStudyForParameterOptimization.Kinematics; };
+    AnyFolder &ModelRef = Main.JntParameterOptModel.LegModel;
+    #include "KinOptModel/DesignVars_All.any"
+    
+  AnyBodyStudy KinematicStudyForParameterOptimization = 
+  {
+    tStart = Main.ModelSetup.tStart;
+    tEnd = Main.ModelSetup.tEnd;
+    nStep = 150;
+    Gravity = {0, 0, 0};
+    
+    AnyFolder &C3DData=Main.ModelSetup.DynamicDataSet ;
+    AnyFolder &LegModel = ..LegModel;
+    AnyFolder &Environment = ..Environment;
+    Environment.Drivers = {
+      #if IncludeLeft == 1
+      LShankInferior = {
+         AnyFolder Weights = {AnyFunConst WFun ={Value = {0,1,1};};};
+         WeightFun={&Weights.WFun };
+         Linear.Ref = 0; // Weights are in local coordinates
+      };
+      
+       AnyKinDriverMarker LKneeLat =    {
+         CType = {Soft,Soft,Soft};
+         AnyRefFrame &ref1 = ...LegModel.Left.Seg.Shank.LKneeLateral;
+         AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.LKneeLateral.PosInterpol;
+         AnyFolder Weights = {AnyFunConst WFun ={Value = {1,1,1};};};
+         WeightFun={&Weights.WFun };
+         Linear.Ref = 0; // Weights are in local coordinates
+         AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
+       };
+       #endif
+      #if IncludeRight == 1  
+      RShankInferior = {
+         AnyFolder Weights = {AnyFunConst WFun ={Value = {0,1,1};};};
+         WeightFun={&Weights.WFun };
+         Linear.Ref = 0; // Weights are in local coordinates
+      };
+       AnyKinDriverMarker RKnee =    {
+         CType = {Soft,Soft,Soft};
+         AnyRefFrame &ref1 = ...LegModel.Right.Seg.Shank.RKneeLateral;
+         AnyParamFun &ref2 = Main.ModelSetup.DynamicDataSet.Points.Markers.RKneeLateral.PosInterpol;
+         AnyFolder Weights = {AnyFunConst WFun ={Value = {0,0,1};};};
+         WeightFun={&Weights.WFun };
+         Linear.Ref = 0; // Weights are in local coordinates
+         AnyDrawKinMeasure drw = { Visible = ..ShowMarker; Label = Off; Size = ..MarkerSize;  Line = Off;  };
+       };
+      #endif
+    };
+    
+    InitialConditions.SolverType = KinSolOverDeterminate;
+    Kinematics.SolverType = KinSolOverDeterminate;   
+    InitialConditions.PosAnalysisOnlyOnOff=On;
+    Kinematics.PosAnalysisOnlyOnOff=On;
+    Kinematics.KinematicTol = 1e-3;
+  };  
+}; 
+};
+    AnyOperationMacro Run_Kinematic_Optimization = 
+    {
+      AnyString SaveMcr = "classoperation Main.JntParameterOptModel.OptimizeParameters" 
+      + strquote("Save design")+ " --file=" + strquote(Main.ModelSetup.Files.AllParameters) ;
+      MacroStr = {"operation Main.JntParameterOptModel.OptimizeParameters.ParameterOptimization",
+                  "run",
+                  SaveMcr};
+    };
+    
+};  // Main
+

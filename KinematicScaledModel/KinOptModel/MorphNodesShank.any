@@ -1,0 +1,156 @@
+    AnyRefNode MorphNodes = {
+    AnyDrawRefFrame drw={RGB={1,0,0};};
+
+    AnyVar MarkerRadius = 0.006;
+    sRel = .KneeJoint.sRel;
+      #ifdef RightLeg
+        AnyVar Sign = 1;
+        // Coordinates of Medial and Lateral condyle markers in Shank ref system
+        AnyVec3 LatKneeRef = .....StickFigure.Posture.Right.Shank.RKneeLateral.sRel_static;
+        AnyVec3 MedKneeRef = .....StickFigure.Posture.Right.Shank.RKneeMedial.sRel_static;
+        AnyVec3 PatellaRef = .....StickFigure.Posture.Right.Shank.RPatella.sRel_static;
+        AnyVec3 MedAnkleRef = .....StickFigure.Posture.Right.Shank.RAnkleMedial.sRel_static;
+        AnyVec3 LatAnkleRef = .....StickFigure.Posture.Right.Shank.RAnkleLateral.sRel_static;
+      #endif
+      #ifdef LeftLeg
+         AnyVar Sign = -1;
+        // Coordinates of Medial and Lateral condyle markers in Thigh ref system
+        AnyVec3 LatKneeRef = .....StickFigure.Posture.Left.Shank.LKneeLateral.sRel_static;
+        AnyVec3 MedKneeRef = .....StickFigure.Posture.Left.Shank.LKneeMedial.sRel_static;
+        AnyVec3 PatellaRef = .....StickFigure.Posture.Left.Shank.LPatella.sRel_static;
+        AnyVec3 MedAnkleRef = .....StickFigure.Posture.Left.Shank.LAnkleMedial.sRel_static;
+        AnyVec3 LatAnkleRef = .....StickFigure.Posture.Left.Shank.LAnkleLateral.sRel_static;
+      #endif
+
+     // Calculate Knee and Ankle axis orientation in the MorphNodes coordinate system
+     AnyVec3 sKneeAxisZ = ( ARel'* .KneeJoint.ARel*{0,0,Sign*1}' )';
+     AnyVec3 sKneeAxisX = ( ARel'* .KneeJoint.ARel*{1,0,0}' )';
+     AnyVec3 sAnkleAxisZ = ( ARel'* .AnkleJoint.ARel*{0,0,Sign*1}' )';
+     AnyVec3 sAnkleAxisX = ( ARel'* .AnkleJoint.ARel*{1,0,0}' )';
+     
+     // Calculate a scale factor for the knee based on the knee width
+     #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
+       AnyVar KneeWidth = Main.SubjectSpecificData.Anthropometrics.KneeWidth;
+       #ifdef USE_KLIEN_HORSMAN_JOINT_CENTER_OFFSET
+       AnyVar KneeWidthLateral = KneeWidth*0.3987; // This hard coded value must be the same as in the sticfigure.any
+       #else
+       AnyVar KneeWidthLateral = KneeWidth*0.5; // This hard coded value must be the same as in the sticfigure.any
+       #endif
+       AnyVar KneeWidthMedial = KneeWidth-KneeWidthLateral ;
+     #else
+      AnyVar KneeWidth = vnorm(sMedKneeMarker  - sLatKneeMarker )-2*MarkerRadius;
+     #endif
+    AnyVar LegTDKneeWidthStandard = 0.09796637;
+    AnyVar KneeScaleFactor = KneeWidth /LegTDKneeWidthStandard ;
+     
+     // Calculate a scale factor for the ankle based on the ankle width
+     #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
+       AnyVar AnkleWidth = Main.SubjectSpecificData.Anthropometrics.AnkleWidth ;
+       #ifdef USE_KLIEN_HORSMAN_JOINT_CENTER_OFFSET
+       AnyVar AnkleWidthLateral = AnkleWidth*0.5204;  // This hard coded value must be the same as in the sticfigure.any
+       #else
+       AnyVar AnkleWidthLateral = AnkleWidth*0.5;  // This hard coded value must be the same as in the sticfigure.any
+       #endif
+       AnyVar AnkleWidthMedial = AnkleWidth-AnkleWidthLateral ;
+     #else
+     AnyVar AnkleWidth = vnorm(sMedAnkleMarker - sLatAnkleMarker )-2*MarkerRadius;
+     #endif
+     AnyVar LegTDAnkleWidthStandard = 0.0793;
+     AnyVar AnkleScaleFactor = AnkleWidth /LegTDAnkleWidthStandard ;
+          
+     // Calculate Marker Positions in the MorphNodes coordinate system
+     AnyVec3 sMedKneeMarker = ( ARel'*(MedKneeRef - sRel)' )';
+     AnyVec3 sLatKneeMarker = ( ARel'*(LatKneeRef - sRel)' )';
+     AnyVec3 sPatellaMarker = ( ARel'*(PatellaRef - sRel)' )';
+     AnyVec3 sMedAnkleMarker = ( ARel'*(MedAnkleRef - sRel)' )';
+     AnyVec3 sLatAnkleMarker = ( ARel'*(LatAnkleRef - sRel)' )';
+     AnyVec3 sAnkleCenter = ( ARel'*(.AnkleJoint.sRel - sRel)')';
+
+     // Set up a coordinate system for the morphnodes. A similar coordinate system can be defined in 
+     // LegTLEM model so source and target point for morphing can be defined in similar reference frames
+     ARel = RotMat(.KneeJoint.sRel, 
+                   .AnkleJoint.sRel ,
+                   .KneeJoint.sRel+(LatKneeRef-MedKneeRef) );
+
+     
+     
+     // Anterior knee target morph node. For now this is placed 5 cm times a knee scaling factor
+     // anterior to the knee (i.e. the x-axis). 
+     AnyRefNode AnteriorKneeControlPoint = {
+        sRel = 0.1*.KneeScaleFactor * .sKneeAxisX;
+        //sRel = (.sPatellaMarker*.sKneeAxisX' - .MarkerRadius) * .sKneeAxisX;
+      #include "ControlPointsDrw.any"
+     };   
+     // Lateral knee target morph node. Found by projection of the lateral knee marker
+     // onto the knee axis
+     AnyRefNode LateralKneeControlPoint = {
+      #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
+        sRel = (.KneeWidthLateral) * .sKneeAxisZ;
+      #else
+        sRel = (.sLatKneeMarker*.sKneeAxisZ'-.MarkerRadius ) * .sKneeAxisZ;
+      #endif
+      #include "ControlPointsDrw.any"
+     };
+     // Medial knee target morph node. Found by projection of the medial knee marker
+     // onto the knee axis
+     AnyRefNode MedialKneeControlPoint = {
+      #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
+       sRel = -(.KneeWidthMedial) * .sKneeAxisZ;
+      #else 
+        sRel = (.sMedKneeMarker*.sKneeAxisZ'+.MarkerRadius ) * .sKneeAxisZ;
+      #endif
+      #include "ControlPointsDrw.any"
+     };
+     // Medial ankle target morph node. Found by projection of the medial ankle marker
+     // onto the ankle axis
+     AnyRefNode MedialAnkleControlPoint = {
+      #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
+       sRel = .sAnkleCenter -(.AnkleWidthMedial) * .sAnkleAxisZ;
+      #else 
+       sRel = .sAnkleCenter + ( (.sMedAnkleMarker-.sAnkleCenter) *.sAnkleAxisZ'+.MarkerRadius ) * .sAnkleAxisZ;
+      #endif
+      #include "ControlPointsDrw.any"
+     };         
+     // Lateral ankle target morph node. Found by projection of the lateral ankle marker
+     // onto the ankle axis
+     AnyRefNode LateralAnkleControlPoint = {
+      #ifdef MARKERS_DO_NOT_DEFINE_KNEE_WIDTH
+       sRel = .sAnkleCenter +(.AnkleWidthLateral) * .sAnkleAxisZ;
+      #else 
+        sRel = .sAnkleCenter + ( (.sLatAnkleMarker- .sAnkleCenter) *.sAnkleAxisZ'-.MarkerRadius ) * .sAnkleAxisZ;
+      #endif
+      #include "ControlPointsDrw.any"
+     };  
+     // Ankle center target morph node.'
+     AnyRefNode AnkleCenterControlPoint = {
+        sRel = .sAnkleCenter;
+      #include "ControlPointsDrw.any"
+     }; 
+     
+     // Anterior ankle target morph node. For now this is placed 5 cm times a ankle scaling factor
+     // anterior to the ankle (i.e. the x-axis). 
+     AnyRefNode AnteriorAnkleControlPoint = {
+        sRel = .sAnkleCenter + 0.05*.AnkleScaleFactor * .sAnkleAxisX;
+        //sRel = (.sPatellaMarker*.sKneeAxisX' - .MarkerRadius) * .sKneeAxisX;
+      #include "ControlPointsDrw.any"
+     };    
+     // Posterior ankle target morph node. For now this is placed 5 cm times a ankle scaling factor
+     // posterior to the ankle (i.e. the x-axis). 
+     AnyRefNode PosteriorAnkleControlPoint = {
+        sRel = .sAnkleCenter - 0.05*.AnkleScaleFactor * .sAnkleAxisX;
+        //sRel = (.sPatellaMarker*.sKneeAxisX' - .MarkerRadius) * .sKneeAxisX;
+      #include "ControlPointsDrw.any"
+     };        
+     
+
+     
+          // New:
+     // Posterior knee target morph node. For now this is placed 10 cm times a knee scaling factor
+     // Posterior to the knee (i.e. the x-axis). 
+     AnyRefNode PosteriorKneeControlPoint = {
+        sRel = -0.1*.KneeScaleFactor * .sKneeAxisX;
+        //sRel = (.sPatellaMarker*.sKneeAxisX' - .MarkerRadius) * .sKneeAxisX;
+      #include "ControlPointsDrw.any"
+     };
+          
+  };// Shank MorphNode

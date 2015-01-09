@@ -1,0 +1,34 @@
+#path TRIAL_PATH "."
+
+#define IncludeRight 1
+#define IncludeLeft 1
+
+//#define EXCLUDE_RSHANKLATERAL
+#define EXCLUDE_RSHANKSUPERIOR
+
+AnyFolder TrialSpecificData={
+  
+  /// Name of the C3D file to be analysed
+  /// Trialname specifies naming of output files
+  AnyString TrialName = "SC_HipKneeAnkle_ngait_og8"; 
+  
+  // C3D files to load
+  AnyFileVar C3DFileNameDynamic =  TrialName+".c3d";
+  AnyStringVar C3DFileNameStatic = "../Data/SC/Static Trials/SC_staticfor_again1/SC_staticfor_again1.c3d" ;
+  AnyIntVar StaticFrameIndex = 100;
+  
+  #define USE_TRIAL_SPECIFIC_TIMES
+  
+  AnyIntVar  StartFrameNo = Main.ModelSetup.DynamicDataSet.Header.FirstFrameNo+35;
+  AnyIntVar  LastFrameNo = -60+Main.ModelSetup.DynamicDataSet.Header.LastFrameNo-10;
+  
+  AnyFloatVar FrameRate = Main.ModelSetup.DynamicDataSet.Header.VideoFrameRate;
+   
+  AnyStringVar RightHipParametersTrial = "SC_hip_rstar1";
+  AnyStringVar LeftHipParametersTrial = "SC_hip_lstar1_again1";
+  AnyStringVar LeftAnkleParametersTrial = "SC_ankle_l1_again1";
+  AnyStringVar RightAnkleParametersTrial = "SC_ankle_r2";
+  AnyStringVar LeftKneeParametersTrial = "";
+  AnyStringVar RightKneeParametersTrial = "";
+  AnyStringVar GaitParametersTrial = "";
+};

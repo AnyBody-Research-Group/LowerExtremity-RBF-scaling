@@ -1,0 +1,78 @@
+AnyFolder JointAnglesAndMoments = {
+ AnyFolder &BodyModelRef = .HumanModel.BodyModel;
+ 
+ BodyModelRef.Trunk.SegmentsLumbar.PelvisSeg = {
+   AnyRefNode StaticMarkerFrame ={AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+ };
+  
+BodyModelRef.Right.Leg.Seg.Thigh = {
+   AnyRefNode HipStaticMarkerFrame ={sRel = .HipJoint.sRel;
+   AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Right.Leg.Seg.Thigh = {
+   AnyRefNode KneeStaticMarkerFrame ={sRel = .KneeJoint.sRel;
+   AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Left.Leg.Seg.Thigh = {
+   AnyRefNode HipStaticMarkerFrame ={sRel = .HipJoint.sRel;
+   AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Left.Leg.Seg.Thigh = {
+   AnyRefNode KneeStaticMarkerFrame ={sRel = .KneeJoint.sRel;
+   AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Right.Leg.Seg.Shank = {
+   AnyRefNode KneeStaticMarkerFrame ={sRel = .KneeJoint.sRel;
+   AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Right.Leg.Seg.Shank = {
+   AnyRefNode AnkleStaticMarkerFrame ={sRel = .AnkleJoint.sRel;
+   AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Left.Leg.Seg.Shank = {
+   AnyRefNode KneeStaticMarkerFrame ={sRel = .KneeJoint.sRel;
+     AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Left.Leg.Seg.Shank = {
+   AnyRefNode AnkleStaticMarkerFrame ={sRel = .AnkleJoint.sRel;
+     AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Right.Leg.Seg.Foot = {
+   AnyRefNode AnkleStaticMarkerFrame ={sRel = .HeelNode.sRel;
+AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+BodyModelRef.Left.Leg.Seg.Foot = {
+   AnyRefNode AnkleStaticMarkerFrame ={sRel = .HeelNode.sRel;
+     AnyDrawRefFrame drw = {RGB = {0,1,1};};};
+};
+
+ AnyOperationMacro LoadStaticFrames=  {
+   MacroStr = { "classoperation Main" + strquote("Load Values") 
+                 + " --file=" + TEMP_FILE_PATH + "/" +Main.TrialSpecificData.TrialName + "_StaticFrames.anyset"};
+ };
+
+    CreateJointAnglesAndMomentMeasures Right (
+    PELVIS_FRAME= BodyModelRef.Trunk.SegmentsLumbar.PelvisSeg.StaticMarkerFrame,
+    THIGH_HIP_FRAME = BodyModelRef.Right.Leg.Seg.Thigh.HipStaticMarkerFrame,
+    THIGH_KNEE_FRAME = BodyModelRef.Right.Leg.Seg.Thigh.KneeStaticMarkerFrame,
+    SHANK_KNEE_FRAME = BodyModelRef.Right.Leg.Seg.Shank.KneeStaticMarkerFrame,
+    SHANK_ANKLE_FRAME = BodyModelRef.Right.Leg.Seg.Shank.AnkleStaticMarkerFrame,
+    FOOT_ANKLE_FRAME = BodyModelRef.Right.Leg.Seg.Foot.AnkleStaticMarkerFrame,
+    HIPMOMENT = BodyModelRef.Right.Leg.MomentMeasure.HipNetMoment.M,
+    KNEEMOMENT = BodyModelRef.Right.Leg.MomentMeasure.KneeNetMoment.M,
+    ANKLEMOMENT = BodyModelRef.Right.Leg.MomentMeasure.AnklePlantarFlexionNetMoment.M
+    ) = { Sign = 1;};
+//  
+    CreateJointAnglesAndMomentMeasures Left (
+    PELVIS_FRAME= BodyModelRef.Trunk.SegmentsLumbar.PelvisSeg.StaticMarkerFrame,
+    THIGH_HIP_FRAME = BodyModelRef.Left.Leg.Seg.Thigh.HipStaticMarkerFrame,
+    THIGH_KNEE_FRAME = BodyModelRef.Left.Leg.Seg.Thigh.KneeStaticMarkerFrame,
+    SHANK_KNEE_FRAME = BodyModelRef.Left.Leg.Seg.Shank.KneeStaticMarkerFrame,
+    SHANK_ANKLE_FRAME = BodyModelRef.Left.Leg.Seg.Shank.AnkleStaticMarkerFrame,
+    FOOT_ANKLE_FRAME = BodyModelRef.Left.Leg.Seg.Foot.AnkleStaticMarkerFrame,
+    HIPMOMENT = BodyModelRef.Left.Leg.MomentMeasure.HipNetMoment.M,
+    KNEEMOMENT = BodyModelRef.Left.Leg.MomentMeasure.KneeNetMoment.M,
+    ANKLEMOMENT = BodyModelRef.Left.Leg.MomentMeasure.AnklePlantarFlexionNetMoment.M
+    ) = { Sign = -1;};
+
+};

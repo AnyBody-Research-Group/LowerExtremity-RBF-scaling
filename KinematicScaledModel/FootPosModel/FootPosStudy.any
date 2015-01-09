@@ -1,0 +1,136 @@
+#define IncludeRight 1
+#define IncludeLeft 1
+#define IncludeKnee 1
+#define IncludeHip 1
+#define IncludeAnkle 1
+#define UseDanamicLoadPosition 0
+#define HideStickModelGraphics 0
+
+AnyOperationMacro RunApplication = {
+  MacroStr = {
+    "operation  Main.Load_JointTrialParameters","run", 
+    "operation  Main.FootPosModel.FootPosStudy.Kinematics", "run", 
+    "operation Main.FootPosModel.FootPosStudy.FootPar.SaveToAnySetFile.CopyValues", "run",
+    "classoperation Main " + strquote("Save Values")  + " --file=" + strquote(FilePathCompleteOf( Main.ModelSetup.Files.AnkleJointParameters )) 
+  };
+};
+
+
+#include "<BASE_MODEL_PATH>/KinematicModel.main.any"
+
+  // Include the human model
+  #include "../DrawSettings.any"
+  #include "../GeneralSettings.any"  
+  AnyFolder AnyBodyGaitAppModel = {
+    #include "HumanModel.any"
+  }; 
+  
+  // Define the Foot position model
+  AnyFolder FootPosModel = {
+    AnyFolder Foot = {
+    AnyFolder Right = {
+      AnyFolder &StickFigureSide = Main.JntParameterOptModel.LegModel.Right;
+      AnyFolder &TLEMFoot = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot;
+      #include "FootDrivers.any"
+    };
+  AnyFolder Left = {
+      AnyFolder &StickFigureSide = Main.JntParameterOptModel.LegModel.Left;
+      AnyFolder &TLEMFoot = Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot;
+      #include "FootDrivers.any"
+    };
+  };
+AnyKinStudy FootPosStudy = {
+    Gravity = {0,0,0};
+    
+    AnyFolder &OptKinModel = Main.JntParameterOptModel.LegModel;
+    AnyFolder &FootModel = .Foot;
+      
+    AnyFolder ModelEnvironmentConnection = {
+      #include "<BASE_MODEL_PATH>\KinOptModel\JointsAndDriversOptimized.any"
+    };
+    
+    tStart = Main.ModelSetup.tStart+0.01;
+    tEnd = Main.ModelSetup.tEnd-0.01;
+    nStep = 1;
+    InitialConditions.SolverType = KinSolOverDeterminate;
+    Kinematics.SolverType = KinSolOverDeterminate;   
+    InitialConditions.PosAnalysisOnlyOnOff=On;
+    Kinematics.PosAnalysisOnlyOnOff=On; 
+    
+    
+    
+   AnyFolder FootPar = {       
+      AnyFolder &RFootref = .FootModel.Right.TLEMFoot;
+      AnyFolder &LFootref = .FootModel.Left.TLEMFoot;
+
+
+      AnyFolder &sfRTalus= .OptKinModel.Right.Seg.Talus;
+      AnyFolder &sfRFoot= .OptKinModel.Right.Seg.Foot;
+      AnyFolder &sfLTalus= .OptKinModel.Left.Seg.Talus;
+      AnyFolder &sfLFoot= .OptKinModel.Left.Seg.Foot;
+            
+
+
+
+
+
+
+
+      AnyVec3 RAnkleJointPos = (sfRTalus.r + sfRTalus.AnkleJoint.sRel*sfRTalus.Axes'-RFootref.r)*RFootref.Axes;
+      AnyVec3 RSubtalarJointPos = (sfRFoot.r + sfRFoot.SubtalarJoint.sRel*sfRFoot.Axes'-RFootref.r)*RFootref.Axes;
+      AnyMat33 RAnkleJointRot = RFootref.Axes'*(sfRTalus.Axes*sfRTalus.DriveNodeAnkle.ARel);
+      AnyMat33 RSubtalarJointRot = RFootref.Axes'*(sfRTalus.Axes*sfRTalus.DriveNodeSubtalar.ARel);
+      AnyMat33 RFootSubtalarJointRot = RFootref.Axes'*(sfRFoot.Axes*sfRFoot.DriveNodeSubtalar.ARel);
+      
+
+      
+      AnyVec3 LAnkleJointPos = (sfLTalus.r + sfLTalus.AnkleJoint.sRel*sfLTalus.Axes'-LFootref.r)*LFootref.Axes;
+      AnyVec3 LSubtalarJointPos = (sfLFoot.r + sfLFoot.SubtalarJoint.sRel*sfLFoot.Axes'-LFootref.r)*LFootref.Axes;
+      AnyMat33 LAnkleJointRot = LFootref.Axes'*(sfLTalus.Axes*sfLTalus.DriveNodeAnkle.ARel);
+      AnyMat33 LSubtalarJointRot = LFootref.Axes'*(sfLTalus.Axes*sfLTalus.DriveNodeSubtalar.ARel);
+      AnyMat33 LFootSubtalarJointRot = LFootref.Axes'*(sfLFoot.Axes*sfLFoot.DriveNodeSubtalar.ARel);
+      
+      
+      AnyFolder SaveToAnySetFile = {
+        
+         AnyOperationSetValue  CopyValues= {
+           Source = {
+             &..RAnkleJointPos,
+             &..RAnkleJointRot,
+             &..RSubtalarJointPos,
+             &..RSubtalarJointRot ,
+             &..RSubtalarJointPos ,
+             &..RFootSubtalarJointRot ,
+             &..LAnkleJointPos,
+             &..LAnkleJointRot,
+             &..LSubtalarJointPos,
+             &..LSubtalarJointRot ,
+             &..LSubtalarJointPos ,
+             &..LFootSubtalarJointRot};
+           Target = {
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.AnkleJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Talus.SubTalarJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Right.Leg.Seg.Foot.SubTalarJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.AnkleJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Talus.SubTalarJoint.ARel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.sRel,
+             &Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.Seg.Foot.SubTalarJoint.ARel};
+         };
+        
+        
+        
+      };
+          
+    };
+  };
+  
+  
+  
+  
+  
+};// FootPosModel

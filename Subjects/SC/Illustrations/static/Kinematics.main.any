@@ -1,0 +1,18 @@
+#path MODEL_TYPE "../../../../AnatomicalLandmarkScaledModel"
+
+#include "<MODEL_TYPE>/PreMainIncludes.any"
+
+
+#define EXCLUDE_FORCEPLATE
+Main = {
+ #include "TrialSpecificData.any" 
+ #include "../../SubjectSpecificData.any"  
+ #include "<BASE_MODEL_PATH>/KinematicModel.main.any"
+ 
+ 
+ 
+ 
+// #include "../DrawGroups.any"
+// #include "../ProjectView.any"
+
+}; 

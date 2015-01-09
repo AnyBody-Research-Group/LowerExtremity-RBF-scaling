@@ -1,0 +1,11 @@
+Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.StaticMarkerFrame.ARel={{0.999733,0.021911,0.007378},{-0.022080,0.999476,0.023678},{-0.006855,-0.023834,0.999692}};
+Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.HipStaticMarkerFrame.ARel={{0.999070,-0.009071,0.042146},{0.014517,0.991308,-0.130759},{-0.040593,0.131249,0.990518}};
+Main.JntParameterOptModel.LegModel.Right.Seg.Thigh.KneeStaticMarkerFrame.ARel={{0.999070,-0.013836,0.040831},{0.014517,0.999760,-0.016424},{-0.040593,0.017002,0.999031}};
+Main.JntParameterOptModel.LegModel.Right.Seg.Shank.KneeStaticMarkerFrame.ARel={{0.987302,0.012663,0.158347},{-0.052418,0.966955,0.249502},{-0.149955,-0.254634,0.955340}};
+Main.JntParameterOptModel.LegModel.Right.Seg.Shank.AnkleStaticMarkerFrame.ARel={{0.999550,0.023463,0.018715},{-0.023874,0.999472,0.022059},{-0.018188,-0.022496,0.999581}};
+Main.JntParameterOptModel.LegModel.Right.Seg.Foot.AnkleStaticMarkerFrame.ARel={{0.986581,0.113106,0.117746},{-0.112568,0.993581,-0.011235},{-0.118261,-0.002170,0.992980}};
+Main.JntParameterOptModel.LegModel.Left.Seg.Thigh.HipStaticMarkerFrame.ARel={{0.998976,0.035613,-0.027892},{-0.036055,0.999229,-0.015511},{0.027318,0.016501,0.999491}};
+Main.JntParameterOptModel.LegModel.Left.Seg.Thigh.KneeStaticMarkerFrame.ARel={{0.998976,0.036502,-0.026718},{-0.036055,0.999205,0.017028},{0.027318,-0.016048,0.999498}};
+Main.JntParameterOptModel.LegModel.Left.Seg.Shank.KneeStaticMarkerFrame.ARel={{0.991631,-0.018589,0.127755},{0.008423,0.996787,0.079660},{-0.128826,-0.077917,0.988601}};
+Main.JntParameterOptModel.LegModel.Left.Seg.Shank.AnkleStaticMarkerFrame.ARel={{0.999203,-0.004213,0.039694},{0.005137,0.999717,-0.023208},{-0.039585,0.023394,0.998942}};
+Main.JntParameterOptModel.LegModel.Left.Seg.Foot.AnkleStaticMarkerFrame.ARel={{0.981429,0.118378,0.150946},{-0.121701,0.992483,0.012935},{-0.148280,-0.031065,0.988457}};

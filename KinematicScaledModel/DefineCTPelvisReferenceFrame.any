@@ -1,0 +1,14 @@
+AnyRefNode CTNode = {
+   AnyVec3 PSISMidPoint = 0.5*(.RPSI.sRel+.LPSI.sRel);
+   AnyVec3 u1 = (tmp  - PSISMidPoint ) / vnorm( tmp - PSISMidPoint  ) ;
+   AnyVec3 u2 = cross(u3, u1);
+   AnyVec3 u3 = (.RASIS.sRel - .LASIS.sRel ) / vnorm(.RASIS.sRel - .LASIS.sRel ) ;
+      
+   AnyVec3 tmp = (PSISMidPoint  -.LASIS.sRel )*u3'* u3 + .LASIS.sRel ;
+   sRel = 0.5*(.LASIS.sRel+.RASIS.sRel);
+   ARel= {u1,u2,u3}';  
+//   AnyDrawRefFrame drw={};
+};
+
+AnyVec3 OffSetPos = (Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.Axes'*(CTNode.r-Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.r)')'; 
+AnyMat33 OffSetRot = Main.JntParameterOptModel.LegModel.Trunk.Seg.Pelvis.Axes*CTNode.Axes';

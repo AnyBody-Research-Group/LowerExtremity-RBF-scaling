@@ -1,0 +1,121 @@
+#define IncludeRight 1
+#define IncludeLeft 1
+#define IncludeHip 1
+#define IncludeKnee 1
+#define IncludeAnkle 1
+#define UseDanamicLoadPosition 1
+#define EnableJointAxisScaling 1
+#define HideStickModelGraphics 0
+#define UseRbfScaling 1
+#define IncludeLegTDModel 1
+
+#ifndef INCLUDE_MUSCLE_WEIGHT_FACTOR 
+#define INCLUDE_MUSCLE_WEIGHT_FACTOR 0
+#endif
+
+
+
+#include "KinematicModel.main.any"
+
+// This is the project operation for the inverse dynamic models
+#include "LegTDModel\Project.any"
+
+Main = {
+  #include "DrawSettings.any"
+  #include "GeneralSettings.any"  
+  
+  #if IncludeLegTDModel  == 1
+  AnyFolder AnyBodyGaitAppModel = {
+    #include "LegTDModel\HumanModel.any"
+    
+    AnyBodyStudy InverseDynamicStudy = 
+    {
+      #include "<SHARED_FILES_PATH>/InverseDynamicsSettings.any"
+      
+      tStart = Main.ModelSetup.tStart;
+      #ifdef NSTEP
+      nStep = NSTEP;
+      #else
+      nStep = Main.ModelSetup.nStep;
+      #endif
+      
+      #ifdef TEND
+      tEnd = TEND;
+      #else
+      tEnd = Main.ModelSetup.tEnd;
+      #endif
+
+      
+      
+      AnyFolder &OptKinModel = Main.JntParameterOptModel.LegModel;
+      AnyFolder HumanModel = {
+        AnyFolder &BodyModel = ..HumanModel.BodyModel ;
+        AnyFolder &Scaling = ..HumanModel.Scaling;
+        AnyFolder &Mannequin = ..HumanModel.Mannequin;
+        AnyMessage Ammr_check = {
+          TriggerConst = neqfun(.BodyModel.Right.Leg.ModelParameters.Thigh.KneeJoint[0]  , 0.04423707  );
+           Type = MSG_ErrorFatal;
+           Message = "The model is not using a modified AMMR. The joint parameters have to be changed so the ankle and knee joint are translated along the axis to lie between the bony landmarks.";
+        };
+      }; 
+      #include "LegTDModel\InstrumentedKnee.any"
+      // Includes Analog data (EMG and Kneeforces) 
+      #include "ValidationOutput.any"
+      
+      AnyFolder EnvironmentModel = {
+        AnyFolder DrawC3DMarkers = {}; 
+        #include "Environment.any"         
+       };
+      AnyFolder &camera = Main.ModelSetup.Camera;
+      //Connection between environment and the human    
+      AnyFolder ModelEnvironmentConnection = {
+        //Drivers for the model
+        #include "LegTDModel\JointsAndDriversOptimized.any"
+        
+        
+        #include "KinOptModel\JointsAndDriversOptimized.any"
+      };
+      
+      
+      #include "JointReactionForces.any"
+      #include "JointAnglesAndMoments.any"
+      
+      #ifdef INCLUDE_MUSCLE_WEIGHT_FACTOR 
+      Main = {AnyVar Power = .InverseDynamics.Criterion.Power;};
+      #if INCLUDE_MUSCLE_WEIGHT_FACTOR > 0
+      InverseDynamics.Criterion.PrimaryTerm.Weight_SearchName = "WeightFactor";
+      #endif
+      #endif
+      
+      
+      AnyFolder &MusPar= Main.AnyBodyGaitAppModel.HumanModel.BodyModel.Left.Leg.MusPar;
+      #include "<SHARED_FILES_PATH>/ReduceKneeStrength.any"
+      
+
+     
+   }; 
+  #include "LegTDModel\LoadAnkleJointParameters.any"
+    
+    
+ };
+  AnyOperationMacro SaveOutputToH5File = {
+     MacroStr = {
+     "classoperation  Main.AnyBodyGaitAppModel.InverseDynamicStudy.Output " + strquote("Save data") 
+     + "--type="+strquote("Deep") + " --file= " + strquote( H5_OUTPUT +"/"+ Main.TrialSpecificData.TrialName + ".anydata.h5") };
+  };
+  
+  #ifndef ANATOMIC_SCALED_MODEL
+  AnyOperationMacro LoadStaticMarkerFrames = {
+     MacroStr = {
+     "classoperation Main " + strquote("Load Values") 
+     + " --file= " + strquote( TEMP_FILE_PATH +"/KinematicallyScaled_StaticFrames.anyset" )};
+  };
+  #endif
+  #endif
+  
+  
+    
+  
+};  // Main
+
+
